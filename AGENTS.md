@@ -74,7 +74,7 @@
 **已知未修问题**：
 - ~~`papers/portfolio.md` 里程碑注记的 docx 路径缺 `第一次组会/`~~ → **2026-10-08 已修**（留作示范：开工同步时发现的信息差必须当轮修掉）。
 - `literature/meeting2/03-链接清单.md` 有 **2 条坏链**指向 `../../scripts/check_links.mjs`（该脚本不存在，正确落点应为 `literature/scripts/`）。**属 literature 分支产物，主支按协作契约第 2 条只报告不擅改**。
-- **git 未初始化**（`auto-driving/.git` 与工作区根 `.git` 均不存在）→ `papers/portfolio.md`"版本靠 git，不靠文件名"这条契约目前**无法执行**，待用户裁决。
+- **git 已初始化**（2026-10-11）：`main` 分支（仓库 `auto-driving/`），提交 `ac6956d`（289 文件 / 约 4 MB）与 `7186b44`；工作区干净，提交者身份已**持久写入仓库 local 配置**（未动全局 git 配置）。策略与公开范围见 §7.1。
 
 > **下列常量由 `scripts/smoke/check_progress_snapshot.mjs` 自动校验**（用户 2026-10-08 要求：把"自觉执行"变成"可校验"）。**改快照必须同步改这里**，否则脚本退出码 1。
 > **开工时跑一次**：`node scripts/smoke/check_progress_snapshot.mjs`（4 项全过 exit 0；任一不符 exit 1）＋ `node scripts/smoke/check_branch_freshness.mjs`（分支登记是否过期）。两个脚本均已于 2026-10-08 实测：通过态、故意不一致、还原后复测三种情形均符合预期。
@@ -163,6 +163,18 @@
 - ~~TD3 基线引用还是复现~~ → **已裁决 2026-10-08＝先写引用值、主表分两栏，见 §3**。
 - 综合文档 §6.2 的 43 个 MCP 组件属于**待安装清单**：按我的要求**当前不安装任何包**，是否安装由我逐项决定。
 - 五篇论文的作者、单位、基金信息；各论文的实际投稿时间（蓝图给的是 0–18 月相对周期）。**时间基准已裁决：按相对周排（W1 = 用户确认后的第一个工作日），不写绝对日期。**
+
+### 7.1 版本管理（2026-10-11 落地）
+
+| 项 | 决定 | 说明 |
+|---|---|---|
+| 仓库范围 | `auto-driving/` **独立**仓库，`main` 分支 | 工作区根**不**初始化，避免把 DSH 配置与其它项目卷进同一历史 |
+| 提交者身份 | `本手 <243991048+xyx-cmd-maker@users.noreply.github.com>`，仅写**仓库 local** 配置 | 用 GitHub 官方 noreply（[文档](https://docs.github.com/en/account-and-profile/reference/email-addresses-reference)：2017-07-18 后注册为 `ID+USERNAME` 形式，**改用户名不丢归属**）；避免在提交历史里公开 QQ 邮箱与校邮 |
+| 生效前提（**待用户操作**） | 需在 GitHub 开启 **Settings → Emails → Keep my email addresses private**，并把该 noreply 地址加入账号邮箱列表 | 否则提交虽成功但**不归属账号**。漏开时若尚未推送，用 `git commit --amend --reset-author` 修正 |
+| 忽略策略 | 已发表论文 PDF 副本（`sources/*.pdf`、`audit/第二次组会/**/*.pdf`）、用户手工资料库（`自动驾驶_世界模型科研汇总/`）、提取的中间文本（`literature/fulltext/_raw/`、`meeting2/`）、`runs/` 冒烟产物、临时文件 | 合计排除约 **440 MB** 外部资料副本；**磁盘原样保留**，引用一律用「路径 + DOI」，不依赖 git 版本 |
+| 版本纪律 | 文件名不写 v2/final/日期；版本由提交表达 | 自此 `results/` 的 `config_hash` 可回指到具体提交 |
+| 私人联系信息 | 真实邮箱（QQ、校邮）**不写入受版本控制的文件** | 需要时用未跟踪文件或会话内传递；仓库文件里只出现 noreply |
+| 校邮的用途 | 仅用于 GitHub Student Pack 等**学生身份验证**与在学期内的会议注册 | 校邮毕业后失效，**不得**作为论文通讯作者的长期联系方式（投稿前须换成长期邮箱） |
 
 ## 8. 资料库（`sources/`）与附件处理
 

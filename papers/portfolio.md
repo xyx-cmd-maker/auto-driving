@@ -5,6 +5,7 @@
 > 本表事实已核验：30 篇文献 venue 逐条核验（`audit/第一次组会/05-citations.md`）；资产盘点（`audit/第一次组会/00-asset-inventory.md`）；引用库以 `sources/references-list-verified.txt` 为准。
 > 已核实的两项硬事实（影响本表多行）：**本机无可用 GPU**；**学位论文实车数据与 TD3 代码均不在本机**（导师/作者处，申请函见 `audit/第一次组会/04-data-request-and-ethics.md`）。
 > 环境事实（2026-10-08）：**Eclipse SUMO 1.27.1 已装于本机**（纯 CPU 可跑，四项实测通过），其在五篇论文中的定位**待裁决**——见 `AGENTS.md` §2/§7 与 `configs/env/local-cpu.lock.yaml` 的 `sumo:` 段。
+> 版本管理（2026-10-11）：**git 已初始化**（`main` 分支，仓库 `auto-driving/`），首个提交 `ac6956d` = 289 文件 / 约 4 MB；提交者身份为 GitHub noreply（仅仓库 local 配置）。忽略策略与公开范围见 `AGENTS.md` §7.1。
 
 | # | 代号 | 架构层 | 落地场景 | 目标 venue | 规划周期 | 当前状态 | 关键风险 |
 |---|---|---|---|---|---|---|---|
