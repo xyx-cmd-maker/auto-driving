@@ -1,0 +1,1975 @@
+SOURCE_PDF: tiv2024-safe-rl-platoon.pdf
+MD5: 52a625ae67248d5d0e1607ecc8192049
+PAGES: 13
+
+===== PAGE 1 =====
+
+1
+Enhancing System-Level Safety in
+Mixed-Autonomy Platoon via Safe Reinforcement
+Learning
+Jingyuan Zhou, Longhao Yan, and Kaidi Yang
+Abstract—Connected and automated vehicles (CAVs) have
+recently gained prominence in traffic research due to advances
+in communication technology and autonomous driving. Various
+longitudinal control strategies for CAVs have been developed
+to enhance traffic efficiency, stability, and safety in mixed-
+autonomy scenarios. Deep reinforcement learning (DRL) is one
+promising strategy for mixed-autonomy platoon control, thanks
+to its capability of managing complex scenarios in real time after
+sufficient offline training. However, there are three research gaps
+for DRL-based mixed-autonomy platoon control: (i) the lack of
+theoretical collision-free guarantees, (ii) the widely adopted but
+impractical assumption of skilled and rational drivers who will
+not collide with preceding vehicles, and (iii) the strong assumption
+of a known human driver model. To address these research
+gaps, we propose a safe DRL-based controller that can provide
+a system-level safety guarantee for mixed-autonomy platoon
+control. First, we combine control barrier function (CBF)-based
+safety constraints and DRL via a quadratic programming (QP)-
+based differentiable neural network layer to provide theoretical
+safety guarantees. Second, we incorporate system-level safety
+constraints into our proposed method to account for the safety
+of both CAVs and the following HDVs to address the potential
+collisions due to irrational human driving behavior. Third,
+we devise a learning-based system identification approach to
+estimate the unknown human car-following behavior in the
+real system. Simulation results demonstrate that our proposed
+method effectively ensures CAV safety and improves HDV safety
+in mixed platoon environments while simultaneously enhancing
+traffic capacity and string stability.
+Index Terms—Connected and automated vehicles, mixed-
+autonomy traffic, deep reinforcement learning, safety-critical
+control.
+I. INTRODUCTION
+C
+ONNECTED and automated vehicles (CAVs) have been
+widely recognized to be beneficial for traffic flow, thanks
+to their capability of exchanging real-time information and
+eliminating undesirable human driving behavior [1]–[5]. Sig-
+nificant research efforts have been placed on longitudinal
+control, i.e., the coordinated control of the speed profile of
+a platoon of CAVs, with enormous potential to enhance road
+capacity [6], traffic stability [7], [8], energy efficiency [9]–
+[11], and safety [4], [12]–[16]. Early research on longitudinal
+control tends to assume all vehicles to be CAVs [17], [18].
+The
+authors
+are
+with
+the
+Department
+of
+Civil
+and
+Environmen-
+tal Engineering, National University of Singapore, Singapore 119077.
+Email:{jingyuanzhou, longhao.yan}@u.nus.edu, kaidi.yang@nus.edu.sg.
+This research was supported by the Singapore Ministry of Education (MOE)
+under NUS Start-Up Grant (A-8000404-01-00). This article solely reflects the
+opinions and conclusions of its authors and not Singapore MOE or any other
+entity.
+However, such an assumption is not practical in the near
+future since the penetration rates of CAVs can only increase
+gradually as the technology matures and public acceptance im-
+proves. Therefore, it is crucial to investigate mixed-autonomy
+platoons, whereby CAVs and human-driven vehicles (HDVs)
+coexist.
+Several control schemes have been proposed in the context
+of mixed-autonomy platoons, whereby CAVs are controlled
+considering the behavior of HDVs around them. One typical
+scheme is connected cruise control [19], [20], whereby the
+CAV at the tail of a platoon adjusts its driving decisions
+considering multiple HDVs ahead. However, such a scheme
+only considers the preceding vehicles of the studied CAV
+without accounting for the CAV’s impact on the following
+vehicles. In contrast, the recently proposed scheme of leading
+cruise control (LCC) extends traditional cruise control by
+allowing CAVs to utilize information from both preceding
+and following HDVs [7]. With the additional information and
+flexibility compared to connected cruise control, LCC offers
+a better potential to improve the performance of the entire
+platoon.
+Various controllers have been developed to implement
+LCC, including linear feedback controllers [7], optimization-
+based controllers using model predictive control (MPC) [21],
+[22] and data-enabled predictive control (DeePC) [23]–[25],
+and learning-based controllers based on deep reinforcement
+learning (DRL) [26], [27]. Linear feedback controllers are
+easy to design but can hardly handle complex constraints
+and optimization objectives. MPC can explicitly incorporate
+complex constraints and objectives into an embedded opti-
+mization problem, which, however, relies on explicit system
+modeling and requires accurate system identification to esti-
+mate system parameters. Although DeePC can simultaneously
+perform system identification and control in a data-driven
+nonparametric manner, it may require a large amount of
+computational resources to update the decision variables in
+each decision step. Among all these controllers, DRL-based
+controllers appear promising in that they can handle complex
+scenarios with a marginal online computational burden after
+sufficient offline training.
+However, existing research on DRL-based mixed-autonomy
+platoon control suffers from three limitations. First, safety
+is only indirectly considered by incorporating safety-related
+penalties into the reward function, which can hardly provide
+safety guarantees due to the black-box nature of RL. Second,
+existing works tend to assume skilled and rational human
+arXiv:2401.11148v2 [eess.SY] 1 Mar 2024
+
+===== PAGE 2 =====
+
+2
+drivers who will not collide with their preceding vehicles,
+and consequently only consider ego-vehicle safety [28], [29],
+i.e., the safety spacing between the controlled CAV and its
+preceding vehicle. However, such an assumption is not realistic
+since human errors are common. The undesirable behavior of
+the following HDVs may place other vehicles in the platoon
+in dangerous situations and thereby undermine system-level
+safety for both HDVs and CAVs. Moreover, we recognize that
+CAVs, once detecting such undesirable behavior of HDVs,
+have the potential to adjust their acceleration to improve
+the safety performance of the entire platoon. Therefore, it
+is beneficial to consider system-level safety when controlling
+CAVs. Third, existing literature often assumes the human
+driver model to be known to CAVs, which, nevertheless, does
+not hold in real traffic systems, where driver behavior can be
+time-varying and diverse.
+To address these limitations, we propose a safe DRL-based
+controller that can provide a system-level safety guarantee
+for mixed-autonomy platoon control in a single-lane free-
+way section. Our work extends [30] that incorporated safety
+guarantees into a supervised learning-based controller via
+a quadratic programming (QP)-based safety filter, whereby
+the safety constraints are characterized by control barrier
+functions (CBF) [31]. It should be noted that the canonical
+form of [30] is not capable of addressing the aforementioned
+limitations, and hence we extend [30] from the following
+three perspectives. First, [30] leveraged supervised learning
+to imitate an optimal controller whose decisions are pre-
+calculated and used as labels, which does not fit our case where
+labels are unavailable. We address this limitation by devising
+a differentiable safety module for the DRL-based controller
+in an unsupervised manner to provide safety guarantees in
+both online training and offline testing processes. Second,
+applying CBF to protect system-level safety requires the
+use of high-order CBFs [32], which involves finding high-
+order derivatives and can be computationally expensive and
+imprecise in real systems. To address this issue, we introduce
+reduced order CBF candidates to make the relative degree for
+CBF candidates of the following vehicles remain 1 to avoid
+calculating high-order derivatives. Third, note that constructing
+CBF requires the explicit modeling of HDVs’ system dynam-
+ics, which is nevertheless unknown in the real traffic scenario.
+To address the issue, we employ a learning-based human driver
+behavior identification approach to characterize the unknown
+car-following behavior.
+Statement of contribution. The contributions of this paper
+are three-fold. First, we design a safe DRL-based control
+strategy for mixed-autonomy platoons by combining CBF and
+DRL via a QP-based differentiable neural network layer. This
+method not only enhances traffic efficiency by ensuring ro-
+bust training performance but also provides safety guarantees
+throughout the entire training and testing processes of the DRL
+algorithm. Second, unlike existing works that consider only
+ego-vehicle safety with the underlying assumption of ratio-
+nal and skilled human drivers, we incorporate system-level
+safety constraints into DRL-based mixed-autonomy platoon
+control methods to account for the safety of both CAVs and
+the following HDVs. Third, to address the issue of lacking
+explicit HDV dynamics for constructing CBFs, we implement
+a learning-based system identification approach that allows us
+to estimate the unknown human car-following behavior in the
+real-world system.
+A preliminary version of this paper [16] was presented at
+the 2023 Intelligent Transportation Systems Conference. In
+this full version, we have made the following extensions: (i)
+generalizing the proposed methods from considering solely
+CAV safety to encompass system-level safety for both CAVs
+and HDVs to handle potentially undesirable HDV behavior,
+(ii) introducing an online learning-based system identification
+approach to estimate the unknown car-following dynamics
+of surrounding HDVs, and (iii) presenting new simulation
+results, e.g., safety regions for both CAVs and HDVs, to better
+illustrate the efficacy of our proposed method in enhancing
+safety performance.
+The rest of this paper is organized as follows. Section II
+introduces preliminaries about RL and CBFs. Section III
+presents the system modeling for mixed-autonomy platoon
+control. Section IV presents our methodological framework
+for LCC that integrates safety guarantees into DRL via a
+CBF-QP-based approach and the online learning-based system
+identification formulation. Section V conducts simulations to
+evaluate our proposed method. Section VI concludes the paper.
+II. PRELIMINARIES
+In this section, we introduce Reinforcement Learning (RL)
+(Section II-A) and Control Barrier Function (CBF) (Sec-
+tion II-B) as theoretical foundations for the proposed approach.
+A. Reinforcement Learning (RL)
+RL addresses the problem of an intelligent agent learning
+to make decisions from its interactions with a dynamic envi-
+ronment. Specifically, the decision-making process is modeled
+as a Markov decision process (MDP) M = (X, U, P, r, γ),
+where X and U denote the set of states and the set of actions,
+respectively, and P : X × U →X represents the system dy-
+namics in the form of transition probabilities P(xt+1|xt, ut)
+with states xt, xt+1 ∈X and action ut ∈U. The reward
+function r : X ×U →R defines the reward collected from the
+environment by performing action ut when the state is xt, and
+γ ∈(0, 1] refers to the discount factor for future reward. The
+goal of RL is to learn a policy π : X →U in the form of a
+conditional probability π(ut|xt) with xt ∈X and ut ∈U to
+maximize the discounted reward under this policy, which can
+be written as max J(π) = Eκ∼pπ
+hPT
+t=0 γtr(xt, ut)
+i
+, where
+κ = (x0, u0, · · · , xT , uT ) represents a trajectory defined as
+the sequence of states and actions of length T, and pπ denotes
+the distribution of trajectories under policy π.
+In this paper, Proximal Policy Optimization (PPO) is uti-
+lized as the fundamental RL algorithm to train a policy for
+CAVs. It is constructed in an actor-critic structure, whereby
+an actor network πθRL produces actions based on the observed
+state, and a critic network Vϕ(xt) estimates the state-action
+value of the MDP and generates loss values during agent
+training.
+
+===== PAGE 3 =====
+
+3
+During the training process, the critic network updates its
+parameters with the aim of minimizing the error between the
+predicted value function and the actual return:
+L(ϕ) = Ext,ut∼πθRL
+
+δ2
+,
+δ = r + γVϕ (xt+1) −Vϕ(xt)
+(1)
+where L(ϕ) represents the loss function of critic network, and
+δ is the temporal-difference error to be approximated.
+The actor network then gets updated following the loss
+function evaluated by the critic network:
+Lclip(πθRL) =
+Ext,ut∼πθRL,old
+
+min
+ πθRL(ut | xt)
+πθRL,old (ut | xt)AπθRL,old (xt, ut),
+clip
+ πθRL(ut | xt)
+πθRL,old (ut | xt), 1 −ϵ, 1 + ϵ
+
+AπRL,θold (xt, ut)
+
+(2)
+The function clip(·) prevents aggressive updating by utilizing
+a trust region defined by a hyperparameter ϵ. AπθRL,old (xt, ut)
+is the advantage function that evaluates the benefit of selected
+actions.
+B. Control Barrier Functions
+We next introduce Control Barrier Functions that charac-
+terize safety conditions into the constraints of control input.
+Specifically, consider a control affine system:
+˙x = f(x) + g(x)u,
+(3)
+where x ∈D ⊂Rn, f : Rn →Rn and g : Rn →Rn×m are
+locally Lipschitz continuous, u ∈U ⊂Rm.
+Definition 1 (Control Barrier Function [31]): Let C ⊂
+D ⊂Rn, with safe set C = {x ∈D ⊂Rn : h(x) ≥0} be
+the superlevel set of a continuously differentiable function
+h : D →R, then h is a control barrier function for system
+(3) if there exists an extended class K∞functions1 αCBF such
+that:
+sup
+u∈U
+[Lfh(x) + Lgh(x)u] ≥−αCBF(h(x)), ∀x ∈D
+(4)
+where Lfh(x) and Lgh(x) are the Lie derivatives of CBF
+candidate h(x) along system dynamics f(x) and g(x), i.e.,
+Lfh(x) =
+∂h(x)
+∂x
+T
+f(x) and Lfg(x) =
+∂h(x)
+∂x
+T
+g(x),
+which describe the rate of change of a tensor field (i.e. h(x))
+along the flow generated by a vector field (i.e. f(x), g(x)).
+Eq. (4) for CBF h implies that there exists control input u
+such that ˙h =
+∂h(x)
+∂x
+˙x = Lfh(x) + Lgh(x)u ≥−αCBF(h).
+Hence, CBF h defines a forward-invariant safe set C [34],
+which ensures that if the system’s current state lies within
+the safe set C and the control input adheres to the constraints
+imposed by the CBF, then the subsequent states are guaranteed
+to remain within the safe set, thereby ensuring the system’s
+safety over time.
+1As in [33], a continuous function αCBF is said to belong to extended class
+K∞if it is strictly increasing and αCBF(0) = 0
+III. MIXED-AUTONOMY TRAFFIC ENVIRONMENT
+MODELING
+We consider a mixed-autonomy platoon in one lane of
+a freeway segment (either straight or curved). This platoon
+comprises HDVs (denoted by set ΩH) and CAVs (denoted by
+set ΩC), whereby the driving behavior of HDVs is modeled
+using car-following models (unknown to CAVs) and CAVs
+are controlled by RL-based controllers. CAV i ∈ΩC collects
+state information within the communication range from both
+preceding and following vehicles in sets ΩP,i and ΩF,i,
+respectively, and determines its control action based on the
+collected information. Moreover, we envision that the CAV
+penetration rate will remain very low at the early stage of
+CAV deployment, and hence it would be common for a CAV
+to be surrounded by multiple HDVs. Therefore, we assume
+that only one CAV is present in the platoon, i.e., |ΩC| = 1
+with | · | denotes the cardinality of a set.
+For each vehicle i ∈ΩC ∪ΩH, we consider the dynamics
+described by second-order ordinary differentiable equations
+with states including the speed of vehicle i (i.e., vi) and the
+spacing between vehicle i and vehicle i −1 (i.e., si).
+Specifically, the dynamics of CAVs can be described as:
+
+˙si(t) = vi−1(t) −vi(t),
+˙vi(t) = ui(t),
+i ∈ΩC,
+(5)
+where the acceleration rate is the control input ui(t).
+The dynamics of HDVs can be described as:
+ ˙si(t) = vi−1(t) −vi(t),
+˙vi(t) = F (si(t), vi(t), vi−1(t)) ,
+i ∈ΩH,
+(6)
+where the acceleration rate is determined by a car-following
+model F(·) as a function of the spacing si(t), the velocity of
+the preceding vehicle vi−1(t), and its own velocity vi(t). Note
+that unlike existing works [7] that assume the model F(·) to
+be public knowledge, we make a realistic assumption that both
+the formulation and parameters of F(·) remain unknown to the
+CAV, and the CAV can only learn F(·) from its observations.
+Combing the dynamics of CAVs (5) and HDVs (6), the
+longitudinal dynamics of the mixed-autonomy platoon can be
+written as:
+˙x(t) = f(x(t), v0(t)) + Bu(t),
+(7)
+where x(t) = [s1(t), v1(t), . . . , sn(t), vn(t)]⊤denotes the sys-
+tem states of all CAVs and HDVs, v0(t) denotes the velocity
+of the head vehicle, and f (·) indicates vehicle dynamics
+including the nonlinear dynamics of HDVs and the linear
+dynamics of CAVs. System matrix B for CAVs’ control input
+is summarized as B =
+
+e2i1
+2n , e2i2
+2n , . . . , e2im
+2n
+
+∈R2n×m, where
+n and m represent the number of vehicles (including CAVs
+and HDVs) and the number of CAVs, respectively, and the
+vector ei
+2n ∈R2n associated with CAV i is a vector with the
+2i-th entry being 1 and the others being 0.
+IV. SAFETY-CRITICAL LEARNING-BASED CONTROL FOR
+MIXED-AUTONOMY PLATOONS
+The overall framework of the proposed method is shown in
+Fig. 1. The method involves three modules: an RL module,
+
+===== PAGE 4 =====
+
+4
+Learning-based Human Driver Behavior Identification
+Vehicle 1
+Vehicle 3
+Vehicle n
+differentiable QP
+Differentiable Safety Layer
+CBF-QP problem formulation
+Actor
+Critic
+Gradient
+Observed
+States
+Estimated Car-
+following
+Parameters
+RL-based Controller
+Fig. 1: Overview of the proposed controller for CAVs in mixed-autonomy traffic framework, the dotted line represents
+backpropagation of the differentiable QP.
+a learning-based system identification module, and a differ-
+entiable safety module. For each CAV (e.g., the blue car in
+Fig. 1), the RL module takes its observed states as input and
+gives an output of the control decision uRL. Note that although
+the RL reward function can include safety-related components,
+there is no guarantee that uRL is safe due to the black-box
+nature of RL. The differentiable safety module aims to provide
+a safety guarantee by converting uRL into a safe action. Specif-
+ically, a residual term usafe is calculated by solving a quadratic
+programming (QP) problem with CBF-based constraints (i.e.,
+CBF-QP problem in short) to compensate uRL such that the
+final action u = uRL + usafe is a safe action. However, despite
+the CBF-QP problem being able to provide a safety guarantee,
+it cannot guide the training of RL, i.e., providing gradient
+information into the backpropagation process. To tackle this
+issue, the differentiable safety module further incorporates a
+differentiable QP layer to calculate and backpropagate the
+gradients of the obtained QP solution (i.e., usafe) with respect
+to uRL by performing local sensitivity analysis on the KKT
+conditions of the QP. With such gradients, the DRL can
+improve its performance under safety constraints and expedite
+exploration. Moreover, constructing CBF constraints requires
+the knowledge of surrounding HDVs’ car-following behavior,
+which is unfortunately unknown in real traffic scenarios. To
+address this issue, we develop a learning-based human driver
+behavior identification module that takes observed states as
+input to estimate the car-following models of surrounding
+HDVs.
+We next present the details of the three modules. Sec-
+tion IV-A presents the RL-based controller, Section IV-B pro-
+vides the details of the learning-based human driver behavior
+identification module, and Section IV-C presents the CBF-
+QP module to incorporate safety guarantees into DRL via a
+differentiable QP layer.
+A. RL-based Controller
+We formulate the control of mixed-autonomy platoons as
+an MDP M = (X, U, P, r, γ), where X includes all possible
+states x(t) defined as the spacing and velocity, U comprises
+all possible actions u(t) defined as the acceleration rate
+of the CAV, the transition function P (i.e., system dynam-
+ics) is defined in Eq. (7) that involves the system function
+f(x(t), v0(t)) and control matrix B, and the policy of the RL-
+based controller is parameterized by θRL. The reward function
+r is introduced next.
+Our control objective of each CAV in mixed-autonomy
+platoons is to stabilize traffic flow, improve traffic efficiency,
+and ensure its own safety. Therefore, the reward function of
+CAV i contains three parts:
+Ri = wstabilityrstability,i+wefficiencyrefficiency,i+wsafetyrsafety,i (8)
+where Ri represents the total reward, rstability,i, refficiency,i, and
+rsafety,i denote the string stability reward, efficiency reward,
+and safety reward for the CAV at position i, respectively.
+The weighting coefficients wstability, wefficiency, and wsafety are
+designed by the CAV manufacturer or operator to reflect their
+preferences over these control objectives. Next, these three
+types of rewards will be discussed in detail.
+For stability, we focus on string stability [15], [35], a
+desirable property of vehicle platoons such that disturbances
+of the head vehicle do not get amplified when propagating
+through the platoon. Specifically, we aim to minimize velocity
+oscillations of both the CAV and the following vehicles
+resulting from the disturbances of the preceding vehicle i−1:
+rstability,i = −(vi −vi−1)2 −
+X
+j∈ΩF
+κj(vj −vi−1)2
+(9)
+
+===== PAGE 5 =====
+
+5
+where κj ≤1 is the coefficient for the following vehicle
+velocity oscillation. In the current implementation, we have
+set each weighting coefficient to 1, following [28].
+We characterize traffic efficiency as follows [36]:
+refficiency,i =
+
+−1,
+THi ≥2.5
+0,
+otherwise
+(10)
+where THi(t) =
+si(t)
+vi(t) approximates the headway. The goal
+is to increase flow represented as the reciprocal of headway.
+The headway threshold is set to ensure high flow on the road
+section.
+For safety, we follow the common practice in existing works
+(e.g., [37]) and design a reward related to the time-to-collision
+(TTC) metric.
+rsafety,i =
+(
+log
+  TTCi
+4
+
+,
+0 ≤TTC ≤4
+0,
+otherwise
+(11)
+where TTC is defined as TTCi(t) = −
+si(t)
+vi−1(t)−vi(t). We
+set the time-to-collision threshold as 4 seconds, below which
+indicates dangerous driving and results in a negative reward.
+As demonstrated in [38], the statistical median of TTC for
+car-car leader-follower pairs is about 4 seconds.
+B. Learning-Based Human Driver Behavior Identification
+Physics-based
+computation graph
+Bias estimation
+Human Driver Behavior
+Identification
+Fig. 2: Learning-based human driver behavior identification
+module.
+Inspired by [39], we employ a learning-based human driver
+behavior identification module to derive the unknown car-
+following parameters for each HDV as in Fig. 2. The dynamics
+of the estimated car-following behavior for vehicle i, denoted
+by ˆFi(·), is expressed as:
+ˆFi(si, vi, vi−1) = α1si −α2vi + α3vi−1 + ζψ,i(si, vi, vi−1),
+(12)
+where ηξ,i(si, vi, vi−1) := α1si −α2vi + α3vi−1 represents
+a physics-based computation graph parameterized by ξ =
+[α1, α2, α3] to approximate the car-following behavior via a
+linearized model, and ζψ,i is a neural network-based bias
+estimator parameterized by ψ that quantifies the deviation
+between the actual nonlinear car-following dynamics and the
+estimations from computation graphs. The reason for divid-
+ing the car-following dynamics into a linear physics-based
+computation graph and a nonlinear bias estimator is that the
+construction of CBF requires the estimation of the partial
+derivatives of ˆFi, i.e., α1 =
+ˆFi
+∂si , α2 = −
+ˆ
+Fi
+∂vi , α3 =
+ˆFi
+∂vi−1 .
+Thereby, we separate the computation graph from the bias
+estimator to enable the explicit training of ξ = [α1, α2, α3]
+using real data since the form and parameters of ˆFi(·) are not
+known.
+It is worth noting that our system identification method is
+different from both (i) classical system identification consid-
+ering only linear components and (ii) neural network-based
+car-following models. Unlike classical system identification,
+we estimate the nonlinear bias in the car-following model to
+enhance the precision of the estimation process. Unlike neural
+network-based car-following models that leverage a single
+neural network to predict acceleration rates, we combine a
+computation graph to explicitly estimate ξ = [α1, α2, α3] to
+satisfy the requirement of CBF construction.
+Using the estimated system dynamics for each HDV ˆFi,
+we can formulate CBFs for both the following HDVs and the
+CAV.
+C. Differentiable Safety Module
+In this subsection, we introduce the differential safety
+module that comprises two main components. The first compo-
+nent utilizes the CBF-QP-based framework to integrate safety
+guarantees into the DRL-based controller by converting the
+DRL actions to a safe one. To take the following vehi-
+cles’ safety into account, this approach encompasses CBF-
+based safety constraints not only for the CAV but also for
+the following HDVs. Consequently, it goes beyond merely
+improving the safety of the ego vehicle but enhances the
+system-level safety of the platoon. The second component
+introduces a differentiable QP layer for neural networks that
+enables the backpropogation of the QP solution to parameters
+in the CBF-QP module and the DRL policy network such that
+both the safety layer and the DRL-based controller can be
+simultaneously trained. This module addresses the issue with
+[30] that the safety filter does not provide guidance on the
+training of the DRL mode.
+1) CBF-QP-Based Approach to Incorporate Safety Guar-
+antees: We first incorporate safety guarantees into DRL by
+converting the generated DRL action to a safe action by
+solving a QP, whereby the safety constraints are characterized
+via CBF defined in Eq. (4). To avoid collisions, it is essential
+for each vehicle to maintain a sufficient headway from the
+preceding vehicle. By adopting time headway as the safety
+metric, the safety conditions for all vehicles following the CAV
+can be expressed as:
+sj ≥τvj, j ∈{i, · · · , n}
+(13)
+where τ is the minimum allowed time headway. CAV is
+indexed by i and the following HDVs are indexed by i +
+1, · · · , n. With Eq. (13), we have the following CBF candidate:
+hth,j(x) = sj −τvj ≥0, j ∈{i, · · · , n}
+(14)
+
+===== PAGE 6 =====
+
+6
+We make the following remark for the CBF candidate Eq.
+(14), which can also be seen as a state constraint.
+Remark 1: Although alternative methods exist to handle Eq.
+(14), it is challenging for these methods to provide a formal
+safety guarantee in a computationally efficient manner. One
+common method is to integrate Eq. (14) into the DRL reward
+function, which, however, is only a soft constraint without
+a formal guarantee. Alternatively, Eq. (14) can be explicitly
+integrated into an optimization problem to serve as a state
+constraint, which can be inefficient to account for future states
+due to the myopic nature of the state constraint (i.e., it only
+involves a particular time step). In contrast, CBF as introduced
+in Def. 1 can provide a theoretical safety guarantee in a
+computationally efficient manner via the property of forward
+invariance, which ensures that if the current state is safe, there
+always exist control actions such that future states remain safe.
+However, for the CBF candidate hth,j(x), the relative de-
+gree2 is j −i + 1 ≥2 for the j-th following vehicle,
+which cannot be handled by the original CBF. Although such
+an issue can be handled by high-order CBFs [4], obtaining
+the high-order derivatives of states in real-world systems is
+typically computationally expensive and imprecise. Therefore,
+we introduce an alternative approach to reduce the relative
+degrees. Specifically, instead of directly using Eq. (15) as the
+CBF candidate, we utilize revised safety conditions:
+hi(x) = hth,i(x) = si −τvi,
+hj(x) = hth,j(x) −hth,i(x)
+= sj −si −τ(vj −vi), j ∈{i + 1, · · · , n}
+(15)
+where hi(x) is identical to hth,i(x) to ensure that the headway
+between CAV and its preceding vehicle is sufficient. For
+hj(x), i = i, · · · , n, we tighten the safety conditions by
+requiring the difference between the CBF of HDV j (i.e.
+hth,j(x)) and the CBF of CAV (i.e. hth,i(x)) to be nonnegative.
+Note that hj(x) ≥0, i = 0, · · · , n is a sufficient condition
+for hth,j(x) ≥0, j = i + 1, · · · , n, which ensures system-
+level safety. Moreover, we notice that the relative degree of
+hj(x) remains 1, which is convenient for the calculation and
+real-world implementation.
+Next,
+we
+compute
+the
+derivatives
+of
+hi(x)
+and
+hj(x)
+as
+∇hi(x)
+=
+[1, −τ, · · · , 0, 0]⊤
+and
+∇hj(x) = [−1, τ, 0, 0, · · · , 1, −τ, · · · ]⊤. The Lie derivatives
+of the CBF candidates in Eq. (15) are given as:
+Lfhi = ∇hi(x)T f(x) = vi−1 −vi,
+(16a)
+Lfhj = ∇hj(x)T f(x) = vi −vi−1 −vj + vj−1
+−τ ˆFj (xj, vj−1) , j ∈{i + 1, · · · , n} ,
+(16b)
+Lghi = ∇hi(x)T g(x) = −τ,
+(16c)
+Lghj = ∇hj(x)T g(x) = τ, j ∈{i + 1, · · · , n}
+(16d)
+Using the CBF definition (4) and Lie derivatives of the CBF
+candidate calculated above, the CBF constraint is given by:
+Lfhi + Lghiu + αCBF,i(hi) ≥0,
+(17a)
+2The relative degree represents the number of times we need to differentiate
+the CBF candidate along the dynamics of Eq. (7) until the control action u
+explicitly shows.
+Lfhj + Lghju + αCBF,j(hj) + σj ≥0, j ∈{i + 1, · · · , n}
+(17b)
+where the class K∞function αCBF,i(·), · · · , αCBF,n(·) are set
+to linear functions with positive coefficients ki, · · · , kn serving
+as the parameters to be trained. The choice of a linear class
+K∞function follows the insights of [32], which showed that
+using a linear class K∞function for CBFs, compared to a
+quadratic one, results in smaller, more gradual control inputs
+that can respect CAV actuation limits and enhance passenger
+comfort. σi+1 · · · σn are the slack variables for HDV safety
+constraints to avoid conflict with CAV safety constraints. To
+better tailor the derived CBF constraint to the DRL settings,
+we rewrite Eq. (17) as follows:
+Lfhi + Lghi(usafe + uRL) + kihi ≥0,
+(18a)
+Lfhj + Lghj(usafe + uRL) + kjhj + σj ≥0, j ∈{i + 1, · · · , n}
+(18b)
+where u = uRL + usafe with uRL representing the action
+provided by the DRL algorithm. We divide the control input
+into uRL and usafe to highlight the compensation effect of the
+CBF-QP. Notice that directly optimizing u is equivalent to
+optimizing usafe, as uRL is treated as given in the QP problem.
+Moreover, due to the actuator limitations, we have the
+acceleration constraint as follows:
+amin ≤uRL + usafe ≤amax,
+(19)
+where amax and amin denote the maximum and minimum
+acceleration rates for CAVs, respectively. However, the ac-
+celeration constraint may conflict with the CAV safety con-
+straint Eq. (18a) and make the QP problem infeasible, which is
+because the CAV safety constraint is a hard constraint without
+a relaxation term. To guarantee the feasibility of the QP
+problem, we integrate a feasibility constraint as in [40], [41].
+By utilizing this approach, we enforce a sufficient condition
+for the feasibility via another CBF in the mixed-autonomy
+platoon. The feasibility constraint is formulated as follows:
+usafe + uRL ≤ˆFi−1 + kf(vi−1 −vi −τamin),
+(20)
+with a positive trainable parameter kf and estimated accelera-
+tion of the preceding vehicle ˆFi−1. The feasibility constraint
+provides a conflict-free guarantee of the QP problem corre-
+sponding to the next time interval, the details of which can be
+found in [41].
+Next, we design the CBF-QP controller for the CAV. The
+objective is to minimize the control input deviation usafe
+and relaxation term σi+1, · · · σn under the above-mentioned
+constraints. To this end, we form the QP optimization problem
+yielding
+min
+usafe,σi+1,··· ,σn
+||usafe||2 +
+n
+X
+j=i+1
+bjσ2
+j ,
+s.t.
+Lfhi + Lghi(usafe + uRL) + kihi ≥0,
+LˆFjhj + Lghj(usafe + uRL) + kjhj + σj ≥0,
+j ∈{i + 1, · · · , n}
+usafe + uRL ≤ˆFi−1 + kf(vi−1 −vi −τamin),
+amin ≤usafe + uRL ≤amax,
+(21)
+
+===== PAGE 7 =====
+
+7
+where bj > 0, j = i + 1, · · · , n is the penalty coefficient for
+the slack variable σj. Here, bj > 0, j = i + 1, · · · , n are all
+set to 1 for simplicity. Parameters θCBF =
+
+{kj}n
+j=i, kf
+
+can
+be trained simultaneously with the RL policy network via a
+differentiable QP layer, which allows the CBF constraints to
+better adapt to the specific environment, as presented next.
+2) Differentiable QP for Neural Networks:
+Then, we
+present a differentiable QP to enable the backpropagation
+of the QP solution derived in Section IV-C to facilitate the
+training of RL.
+Let us denote the loss function by ℓ, and the optimal
+solution of the CBF-QP is w⋆= (usafe, σ1, · · · , σn). Let
+θ = {θRL, θCBF} represent the trainable parameters in the
+DRL actor network and the CBF-QP controller. To train these
+parameters, we are interested in calculating the following
+partial derivatives, which are obtained based on the chain rule:
+∂ℓ
+∂θRL
+= ∂ℓ
+∂u
+∂u
+∂θRL
+= ∂ℓ
+∂u
+∂uRL
+∂θRL
++ ∂usafe
+∂θRL
+
+= ∂ℓ
+∂u
+∂uRL
+∂θRL
++ ∂usafe
+∂uRL
+∂uRL
+∂θRL
++ ∂usafe
+∂θCBF
+∂θCBF
+∂θRL
+
+= ∂ℓ
+∂u
+∂uRL
+∂θRL
++ ∂usafe
+∂uRL
+∂uRL
+∂θRL
+
+,
+(22)
+∂ℓ
+∂θCBF
+= ∂ℓ
+∂u
+∂u
+∂θCBF
+= ∂ℓ
+∂u
+ ∂uRL
+∂θCBF
++ ∂usafe
+∂θCBF
+
+= ∂ℓ
+∂u
+∂usafe
+∂θCBF
+(23)
+where the first equality condition in both Eq. (22) and Eq. (23)
+results from the chain rule, and the second equality condition
+in both equations results from the relation u = uRL + usafe.
+The third equality condition in Eq. (22) is because by Eq. (21),
+usafe can be seen as a function with respect to uRL and θCBF.
+The last equality condition of Eq. (22) is due to the relation
+∂θCBF
+∂θRL = 0 because the CBF-QP parameters θCBF do not depend
+on the actor network. The last equality condition of Eq. (23)
+is due to the relation
+∂uRL
+∂θCBF = 0 because the actor network
+does not depend on the parameters θCBF. Note that ∂ℓ
+∂u can be
+easily obtained from the loss function, and ∂uRL
+∂θ
+is defined by
+the architecture of the actor network. Therefore, we only need
+to calculate ∂usafe
+∂uRL and ∂usafe
+∂θCBF , which are part of ∂w⋆
+∂uRL and
+∂w⋆
+∂θCBF
+as presented next.
+Let us rewrite the aforementioned CBF-QP in Eq. (21)
+in a more general form with decision variable w
+=
+(usafe, σ1, · · · , σn):
+min
+w
+1
+2wT Qw
+subject to
+Gw ≤q(uRL, θCBF)
+(24)
+where Q, G, q are the corresponding parameters of the QP
+problem. Note that only q is a function of uRL and θCBF. As
+in [30], the calculation of
+∂w⋆
+∂uRL and
+∂w⋆
+∂θCBF can be performed
+by differentiating the KKT conditions with equality, i.e.,
+Qw⋆+ GT λ⋆= 0,
+D (λ⋆) (Gw⋆−q(uRL, θCBF)) = 0,
+(25)
+where w⋆and λ⋆represent the optimal primal and dual
+variables, and D(λ⋆) is a diagonal matrix constructed from
+vector λ⋆.
+0
+100
+200
+300
+400
+500
+Episode
+−3.5
+−3.0
+−2.5
+−2.0
+−1.5
+−1.0
+−0.5
+0.0
+1e4
+safe-RL with SI
+PPO without safety guarantee
+Fig. 3: Training rewards per episode.
+Since the calculation of ∂usafe
+∂uRL and ∂usafe
+∂θCBF is similar, we next
+only illustrate the calculation of ∂usafe
+∂uRL . For the calcluation of
+∂w⋆
+∂θCBF , we only need to replace uRL with θCBF in Eq.(26). Then
+we take the derivative of Eq.(25) with respect to the RL action
+uRL and write in the matrix form as:
+
+
+∂w⋆
+∂uRL
+∂λ⋆
+∂uRL
+
+=K−1
+
+
+O
+D (λ⋆) ∂q(uRL, θCBF)
+∂uRL
+
+,
+(26)
+with K =
+
+Q
+GT
+D (λ⋆) G
+D (Gw⋆−q(uRL, θCBF))
+
+.
+Utilizing the partial derivative of the QP layer, the parame-
+ters of both DRL and CBF constraints can be simultaneously
+updated, allowing for adaptive adjustments to the training
+environment.
+V. SIMULATION RESULTS
+In this section, we evaluate the proposed method in sim-
+ulations of a typical mixed-autonomy platoon. We consider
+a typical platooning scenario as depicted in Fig. 1, which
+features a platoon of five vehicles traveling on a single lane,
+with the third vehicle being a CAV and the others HDVs.
+For benchmarks, we compare four types of models: pure
+car following, PPO without the safety layer (PPO without
+safety guarantee), PPO with the safety layer but without
+learning-based human driver behavior identification (i.e., safe-
+RL without SI), and PPO with the safety layer and learning-
+based human driver behavior identification (i.e., safe-RL with
+SI).
+A. Training Settings and Results
+In the training scenario, we utilize a random velocity distur-
+bance setup, wherein the head vehicle’s velocity disturbance
+is sampled from a Gaussian distribution with zero mean and
+a standard deviation of 2 m/s independently at each time step
+within an episode. This chosen velocity disturbance is then
+multiplied by the time step (0.1 s) and added to the head
+vehicle’s original velocity.
+Without loss of generality, we choose the optimal velocity
+model (OVM) [42] as the car-following model F, following the
+setting of LCC [7]. Note that the OVM can be replaced by
+
+===== PAGE 8 =====
+
+8
+any car-following model without influencing the applicability
+of the proposed method. The OVM reads as follows:
+F(·) = α (V (si(t)) −vi(t)) + β(vi−1(t) −vi(t)),
+(27)
+where constants α, β > 0 represent car-following gains. V (s)
+denotes the spacing-dependent desired velocity of HDVs with
+the form given in Eq. (28), where sst and sgo represent the
+spacing thresholds for stopped and free-flow states, respec-
+tively, and vmax denotes the free-flow velocity.
+V (s) =
+
+
+
+
+
+
+
+
+
+0,
+s ≤sst
+vmax
+2
+
+1 −cos
+
+π s −sst
+sgo −sst
+
+,
+sst < s < sgo
+vmax,
+s ≥sgo
+(28)
+The parameters of OVM is set as α = 0.6, β = 0.9, sst =
+5, sgo = 35. The equilibrium spacing and velocity are 20 m
+and 15 m/s.
+The training hyperparameters are as follows. The learning
+rates for the actor and critic networks are both set at 0.0003
+and we employ a linear decay schedule for the learning rate to
+facilitate training. As such, the performance of the algorithms
+is not sensitive to the initial learning rate and we choose the
+ones that can make the training process converge rapidly. The
+batch size is 2048, the decay factor of the advantage function
+is 0.95, the PPO clip parameter is set to 0.2, and the number
+of experience utilizing is set to 10. The training episodes are
+500. For the CBF parameters, the minimum time headway τ
+is set to 0.3s and the initial values for the trainable parameters
+{k0, k1, k2, kf} are {1, 1, 1, 10}.
+Under the specified training scenarios and parameter set-
+tings, the training rewards per episode for PPO without safety
+guarantee (i.e., without safety layer) and safe-RL with SI (i.e.,
+with safety layer) are depicted in Fig. 3. Both algorithms
+converge after a sufficient number of training episodes, indi-
+cating that the designed reward function is suitable for mixed-
+autonomy platoon environments. Notably, the algorithms with
+a safety layer converge faster. This is expected as the safety
+layer reduces the range of feasible parameters and thus can ac-
+celerate training, especially in scenarios with large parameter
+space.
+For the learning-based driver behavior identification module
+as in Eq. (12), we train the parameters ηξ,i for the computation
+graph and ζψ,i for the neural network-based bias estimator. The
+learning rate is set to 0.0001. To illustrate the benefits of our
+proposed learning-based driver behavior identification method,
+we conduct a comparison with recursive least squares (RLS)
+in terms of the estimation accuracy of vehicle 4. The mean
+square error is 0.0019 for the proposed method and 0.0024
+for RLS. The comparison results are given in Fig. 4, which
+shows that our proposed method yields better accuracy for
+acceleration rate prediction compared with RLS.
+B. Testing Results
+In the testing phase, two safety-critical scenarios that could
+cause safety-critical failures for the LCC model are simulated.
+Scenario 1 considers the scenario where the preceding HDV
+0
+25
+50
+75
+100 125 150 175 200
+Time step
+−0.6
+−0.4
+−0.2
+0.0
+0.2
+0.4
+0.6
+0.8
+Acceleration (m/s
+2)
+Ground Truth
+Proposed Method
+RLS
+Fig. 4: Comparison between online learning-based system
+identification and RLS.
+may brake urgently to avoid collisions with some unexpected
+cutting-in vehicle or crossing pedestrians, which may cause
+the distance to the CAV behind to be less than the safety
+distance. Scenario 2 describes a situation where the HDVs
+following the CAV in the platoon may suddenly accelerate
+due to human mistakes caused by driving fatigue. Such an in-
+stantaneous acceleration could endanger the vehicles ahead of
+it. Note that both scenarios are significantly different from the
+training scenarios with random disturbances. Such a treatment
+is to demonstrate the performance of the safety layer under
+adversarial conditions and the generalizability of our model
+to unseen scenarios. For each of these two scenarios, we per-
+form (i) a safety-guaranteed region analysis to quantitatively
+analyze the system-level safety improvement resulting from
+our proposed method, considering various acceleration rates
+and acceleration durations, and (ii) a case study to analyze
+the safety performance under a specific acceleration rate and
+acceleration duration for the two safety-critical scenarios.
+1) Safety-Guaranteed Region Analysis: To demonstrate the
+safety improvement of the platoon due to the incorporation
+of the safety layer, we show the resulting safety region with
+and without the safety layer in both safety-critical scenarios.
+In Fig. 5 (a), the HDV indexed in 1 decelerates for a range of
+duration times and deceleration rates. It can be seen that the
+safety region is expanded by almost 60% using the proposed
+safe RL controller. Moreover, in Fig. 5 (b), the HDV with
+index 3 accelerates within a range of duration times and ac-
+celeration rates. Utilizing the proposed method, the following
+HDV’s safety duration time increases by an average of 0.8s. In
+summary, our method effectively improves the safety regions
+in both scenarios.
+2) Case Study for Scenario 1: We simulate an emergency
+that occurs at 0 s, such that a preceding HDV (with index 0 or
+1) decelerates with −4m/s2 for 2.5s, maintains a low velocity
+for another 2.5s, and then accelerates to equilibrium speed.
+Note that since the perturbation only occurs on preceding
+vehicles that cannot be influenced by the CAV, this scenario
+does not require considering HDV safety, and hence the online
+human driver behavior identification module does not exert any
+influence on the outcomes. Consequently, we only compare
+three models: (i) pure car following, (ii) PPO without safety
+
+===== PAGE 9 =====
+
+9
+−6
+−5
+−4
+−3
+−2
+−1
+0
+Acceleration (m/s
+2)
+0
+1
+2
+3
+4
+5
+6
+7
+8
+Time (s)
+(a)
+−6
+−5
+−4
+−3
+−2
+−1
+0
+Acceleration (m/s
+2)
+0
+1
+2
+3
+4
+5
+6
+7
+8
+Time (s)
+(b)
+Fig. 5: Safety-guaranteed regions associated with two specific
+scenarios: (a) the deceleration disturbance of the preceding
+vehicle and (b) the acceleration disturbance of the following
+vehicle. The horizontal axis denotes the magnitude of the
+disturbance signal (acceleration/deceleration), and the vertical
+axis is the duration of the disturbance signal. The dark
+blue regions denote the safety region of the LCC with PPO
+controller without the safety layer, and the light blue regions
+illustrate the expanded safety region achieved by implementing
+the safe RL controller for LCC (i.e., with safety layer), while
+the white regions indicate the unsafe region.
+0
+5
+10
+15
+20
+25
+30
+35
+40
+Time step
+−60
+−40
+−20
+0
+20
+hth, 2(x)
+safe-RL with SI
+PPO w/o safety guarantee
+pure car following
+Fig. 6: Value of the CBF candidate for CAV when the
+preceding vehicle emergency decelerates.
+guarantee, and (iii) safe-RL with SI. Fig. 6 shows the value
+of the CBF candidate, and Fig. 7 shows the spacing, velocity,
+and acceleration at each time step in the test simulation. For
+pure car following and safe-RL with SI, the resulting spacing
+between the CAV and the preceding HDV and the value of the
+CBF candidate are both greater than 0, which indicates that
+the collision does not occur. However, safety is not guaranteed
+for PPO without safety guarantee, since the CAV under the
+algorithm collides with the preceding HDV. Furthermore, as
+illustrated in Fig. 7 (c), the resulting control input from safe-
+RL with SI remains within the actuator limitation bound
+(depicted by the red dotted line), which is ensured by the
+adherence to feasibility constraint in Eq. (20).
+3) Case Study for Scenario 2: We add disturbances to the
+3-rd or 4-th HDV in the platoon, which is behind the CAV.
+At time 0 s, the following HDV accelerates with 1m/s2 for
+4s, maintains high velocity for 4s, and then decelerates to an
+equilibrium state. The results are presented in Fig. 8 – Fig.
+11.
+In Fig. 10, both pure car following and PPO without safety
+guarantee fail to prevent a collision when vehicle 3 acceler-
+ates to approach the preceding vehicle. However, collisions
+are successfully avoided by safe-RL with SI and safe-RL
+without SI. In this case, the safety impact of disturbances
+resulting from inaccurate dynamics is minimal. Given that
+the safety constraints for the following HDVs are treated as
+soft constraints with relaxation coefficients in the optimization
+formulation (21), it should be noted that the assurance for the
+value of the CBF candidate for the following HDVs within
+the safe set is not guaranteed but rather enhanced, as shown
+in Fig. 8.
+In Fig. 11, if vehicle 4 accelerates, collisions occur when
+applying pure car following, PPO without safety guarantee, or
+safe-RL without SI. In contrast, safe-RL with SI can ensure
+safety, showcasing the importance of a more accurate esti-
+mation of the system dynamics to improve safety. Similarly,
+the value of the CBF candidate for the following vehicles is
+enhanced by safe-RL with SI, as shown in Fig. 9.
+VI. CONCLUSION AND FUTURE WORK
+In this paper, we propose a safe RL-based controller for
+the mixed-autonomy platoon by integrating the DRL method
+with a differentiable CBF layer to achieve system-level driving
+safety. A learning-based human driver behavior identification
+is utilized to derive the unknown dynamics of surrounding
+HDVs in mixed traffic scenarios. Traffic efficiency and string
+stability are taken into consideration by constructing compre-
+hensive reward functions. The simulation results show that
+our proposed method effectively enhances traffic efficiency
+and stability while providing system-level safety guarantees
+in a mixed platoon. Furthermore, the safety layer contributes
+to expediting training by confining the range of exploration,
+which can be beneficial to the development and deployment
+of reinforcement learning algorithms.
+This research opens several promising directions for future
+work. First, we would like to apply a decision transformer
+to adapt to dynamic traffic scenarios where the number of
+surrounding vehicles of the CAV is time-varying. Second, it
+would be interesting to leverage multi-agent RL to extend the
+proposed framework to scenarios where multiple CAVs collab-
+orate within a mixed-autonomy platoon to improve traffic flow,
+string stability, and system-level safety. Third, we would like
+to employ meta-RL to improve the generalizability of the pro-
+posed safe-RL algorithm to various unseen environments (e.g.,
+road conditions, weather conditions, preferences over multiple
+control objectives, etc.). Fourth, the proposed methodology
+has the potential to be extended to consider other types of
+roads, such as (i) complex scenarios like merges, diverges,
+and weaving sections that require accounting for lane changes
+and (ii) urban roads that require coordination between platoon
+control and signal control.
+
+===== PAGE 10 =====
+
+10
+0 50 100150200250300350400
+Time Step
+0
+10
+20
+30
+40
+50
+60
+Spacing (m)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(a) Spacing
+0 50 100150200250300350400
+Time Step
+5.0
+7.5
+10.0
+12.5
+15.0
+17.5
+20.0
+22.5
+Velocity (m/s)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(b) Velocity
+0 50 100150200250300350400
+Time Step
+−4
+−2
+0
+2
+4
+Acceleration (m/s
+2)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(c) Acceleration
+0 50 100150200250300350400
+Time Step
+−60
+−40
+−20
+0
+20
+40
+60
+Spacing (m)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(d) Spacing
+0 50 100150200250300350400
+Time Step
+5.0
+7.5
+10.0
+12.5
+15.0
+17.5
+20.0
+22.5
+25.0
+Velocity (m/s)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(e) Velocity
+0 50 100150200250300350400
+Time Step
+−4
+−2
+0
+2
+4
+Acceleration (m/s
+2)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(f) Acceleration
+0 50 100150200250300350400
+Time Step
+0
+10
+20
+30
+40
+50
+60
+Spacing (m)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(g) Spacing
+0 50 100150200250300350400
+Time Step
+5.0
+7.5
+10.0
+12.5
+15.0
+17.5
+20.0
+22.5
+Velocity (m/s)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(h) Velocity
+0 50 100150200250300350400
+Time Step
+−4
+−2
+0
+2
+4
+Acceleration (m/s
+2)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(i) Acceleration
+Fig. 7: Spacing, velocity and acceleration for vehicles in scenario 1. (a), (b), (c) are the results for safe-RL with SI. (d), (e),
+(f) correspond to the results for PPO without safety guarantee. The results for the pure car-following scenario are presented
+in (g), (h), (i).
+0
+5
+10
+15
+20
+25
+30
+35
+40
+Time step
+−10
+−5
+0
+5
+10
+15
+hth, 3(x)
+safe-RL with SI
+safe-RL w/o SI
+PPO w/o safety guarantee
+pure car following
+Fig. 8: Value of the CBF candidate for vehicle 3 when it
+accelerates emergently.
+REFERENCES
+[1] Z. Deng, K. Yang, W. Shen, and Y. Shi, “Cooperative platoon formation
+of connected and autonomous vehicles: Toward efficient merging coor-
+0
+5
+10
+15
+20
+25
+30
+35
+40
+Time step
+−10
+−5
+0
+5
+10
+15
+hth, 4(x)
+safe-RL with SI
+safe-RL w/o SI
+PPO w/o safety guarantee
+pure car following
+Fig. 9: Value of the CBF candidate for vehicle 4 when it
+accelerates emergently.
+dination at unsignalized intersections,” IEEE Transactions on Intelligent
+Transportation Systems, 2023.
+[2] S. E. Li, Y. Zheng, K. Li, Y. Wu, J. K. Hedrick, F. Gao, and
+H. Zhang, “Dynamical modeling and distributed control of connected
+and automated vehicles: Challenges and opportunities,” IEEE Intelligent
+
+===== PAGE 11 =====
+
+11
+0 50 100150200250300350400
+Time Step
+0
+5
+10
+15
+20
+Spacing (m)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(a) Spacing
+0 50 100150200250300350400
+Time Step
+12
+14
+16
+18
+Velocity (m/s)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(b) Velocity
+0 50 100150200250300350400
+Time Step
+−4
+−2
+0
+2
+4
+Acceleration (m/s
+2)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(c) Acceleration
+0 50 100150200250300350400
+Time Step
+0
+5
+10
+15
+20
+Spacing (m)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(d) Spacing
+0 50 100150200250300350400
+Time Step
+12
+14
+16
+18
+Velocity (m/s)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(e) Velocity
+0 50 100150200250300350400
+Time Step
+−4
+−2
+0
+2
+4
+Acceleration (m/s
+2)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(f) Acceleration
+0 50 100150200250300350400
+Time Step
+0
+5
+10
+15
+20
+Spacing (m)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(g) Spacing
+0 50 100150200250300350400
+Time Step
+10
+12
+14
+16
+18
+Velocity (m/s)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(h) Velocity
+0 50 100150200250300350400
+Time Step
+−4
+−2
+0
+2
+4
+Acceleration (m/s
+2)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(i) Acceleration
+0 50 100150200250300350400
+Time Step
+−5
+0
+5
+10
+15
+20
+Spacing (m)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(j) Spacing
+0 50 100150200250300350400
+Time Step
+10
+12
+14
+16
+18
+Velocity (m/s)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(k) Velocity
+0 50 100150200250300350400
+Time Step
+−4
+−2
+0
+2
+4
+Acceleration (m/s
+2)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(l) Acceleration
+Fig. 10: Spacing, velocity and acceleration for vehicles in scenario 2 when vehicle 4 accelerates. (a), (b), (c) are the results for
+safe-RL with SI. (d), (e), (f) show the results for safe-RL without SI. (g), (h), (i) correspond to the results for PPO without
+safety guarantee. The results for the pure car-following scenario are presented in (j), (k), (l).
+Transportation Systems Magazine, vol. 9, no. 3, pp. 46–58, 2017.
+[3] G. Tilg, K. Yang, and M. Menendez, “Evaluating the effects of auto-
+mated vehicle technology on the capacity of freeway weaving sections,”
+Transportation Research Part C: Emerging Technologies, vol. 96, pp.
+3–21, 2018.
+[4] J. Zhou and H. Yu, “Safety critical control of mixed-autonomy traffic
+via a single autonomous vehicle,” in 2022 IEEE 25th International
+Conference on Intelligent Transportation Systems (ITSC).
+IEEE, 2022,
+pp. 3089–3094.
+[5] J. Liang, Y. Lu, J. Feng, G. Yin, W. Zhuang, J. Wu, L. Xu, and
+F. Wang, “Robust shared control system for aggressive driving based
+on cooperative modes identification,” IEEE Transactions on Systems,
+Man, and Cybernetics: Systems, 2023.
+[6] M. Sala and F. Soriguera, “Capacity of a freeway lane with platoons
+of autonomous vehicles mixed with regular traffic,” Transportation
+research part B: methodological, vol. 147, pp. 116–131, 2021.
+[7] J. Wang, Y. Zheng, C. Chen, Q. Xu, and K. Li, “Leading cruise control in
+mixed traffic flow: System modeling, controllability, and string stability,”
+IEEE Transactions on Intelligent Transportation Systems, vol. 23, no. 8,
+pp. 12 861–12 876, 2021.
+[8] Q. Chen, Y. Zhou, S. Ahn, J. Xia, S. Li, and S. Li, “Robustly string
+stable longitudinal control for vehicle platoons under communication
+failures: A generalized extended state observer-based control approach,”
+IEEE Transactions on Intelligent Vehicles, vol. 8, no. 1, pp. 159–171,
+2022.
+[9] S. Tsugawa, S. Jeschke, and S. E. Shladover, “A review of truck
+platooning projects for energy savings,” IEEE Transactions on Intelligent
+Vehicles, vol. 1, no. 1, pp. 68–77, 2016.
+[10] M. Li, Z. Cao, and Z. Li, “A reinforcement learning-based vehicle
+platoon control strategy for reducing energy consumption in traffic
+
+===== PAGE 12 =====
+
+12
+0 50 100150200250300350400
+Time Step
+0.0
+2.5
+5.0
+7.5
+10.0
+12.5
+15.0
+17.5
+20.0
+Spacing (m)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(a) Spacing
+0 50 100150200250300350400
+Time Step
+10
+12
+14
+16
+18
+Velocity (m/s)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(b) Velocity
+0 50 100150200250300350400
+Time Step
+−4
+−2
+0
+2
+4
+Acceleration (m/s
+2)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(c) Acceleration
+0 50 100150200250300350400
+Time Step
+0
+5
+10
+15
+20
+Spacing (m)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(d) Spacing
+0 50 100150200250300350400
+Time Step
+10
+12
+14
+16
+18
+Velocity (m/s)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(e) Velocity
+0 50 100150200250300350400
+Time Step
+−4
+−2
+0
+2
+4
+Acceleration (m/s
+2)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(f) Acceleration
+0 50 100150200250300350400
+Time Step
+−5
+0
+5
+10
+15
+20
+Spacing (m)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(g) Spacing
+0 50 100150200250300350400
+Time Step
+10
+12
+14
+16
+18
+Velocity (m/s)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(h) Velocity
+0 50 100150200250300350400
+Time Step
+−4
+−2
+0
+2
+4
+Acceleration (m/s
+2)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(i) Acceleration
+0 50 100150200250300350400
+Time Step
+−5
+0
+5
+10
+15
+20
+Spacing (m)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(j) Spacing
+0 50 100150200250300350400
+Time Step
+10
+12
+14
+16
+18
+Velocity (m/s)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(k) Velocity
+0 50 100150200250300350400
+Time Step
+−4
+−2
+0
+2
+4
+Acceleration (m/s
+2)
+Vehicle 0
+Vehicle 1
+Vehicle 2
+Vehicle 3
+Vehicle 4
+(l) Acceleration
+Fig. 11: Spacing, velocity and acceleration for vehicles in scenario 2 when vehicle 5 accelerates. (a), (b), (c) are the results for
+safe-RL with SI. (d), (e), (f) show the results for safe-RL without SI. (g), (h), (i) correspond to the results for PPO without
+safety guarantee. The results for the pure car-following scenario are presented in (j), (k), (l).
+oscillations,” IEEE Transactions on Neural Networks and Learning
+Systems, vol. 32, no. 12, pp. 5309–5322, 2021.
+[11] J. Yang, D. Zhao, J. Lan, S. Xue, W. Zhao, D. Tian, Q. Zhou, and
+K. Song, “Eco-driving of general mixed platoons with cavs and hdvs,”
+IEEE Transactions on Intelligent Vehicles, vol. 8, no. 2, pp. 1190–1203,
+2022.
+[12] W. Xiao and C. G. Cassandras, “Decentralized optimal merging control
+for connected and automated vehicles with safety constraint guarantees,”
+Automatica, vol. 123, p. 109333, 2021.
+[13] C. Zhao, H. Yu, and T. G. Molnar, “Safety-critical traffic control
+by connected automated vehicles,” Transportation research part C:
+emerging technologies, vol. 154, p. 104230, 2023.
+[14] D. Liu, B. Besselink, S. Baldi, W. Yu, and H. L. Trentelman, “A
+reachability approach to disturbance and safety propagation in mixed
+platoons,” IEEE Transactions on Automatic Control, 2023.
+[15] D. Liu, B. Besselink, S. Baldi, W. Yu, and H. L. Trentelman, “On
+structural and safety properties of head-to-tail string stability in mixed
+platoons,” IEEE Transactions on Intelligent Transportation Systems,
+2022.
+[16] J. Zhou, L. Yan, and K. Yang, “Safe reinforcement learning for mixed-
+autonomy platoon control,” in 2023 IEEE 26th International Conference
+on Intelligent Transportation Systems (ITSC), 2023, pp. 5744–5749.
+[17] K. C. Dey, L. Yan, X. Wang, Y. Wang, H. Shen, M. Chowdhury,
+L. Yu, C. Qiu, and V. Soundararaj, “A review of communication, driver
+characteristics, and controls aspects of cooperative adaptive cruise con-
+trol (cacc),” IEEE Transactions on Intelligent Transportation Systems,
+vol. 17, no. 2, pp. 491–509, 2015.
+[18] V. Milanés, S. E. Shladover, J. Spring, C. Nowakowski, H. Kawazoe,
+and M. Nakamura, “Cooperative adaptive cruise control in real traffic
+situations,” IEEE Transactions on intelligent transportation systems,
+
+===== PAGE 13 =====
+
+13
+vol. 15, no. 1, pp. 296–305, 2013.
+[19] G. Orosz, “Connected cruise control: modelling, delay effects, and
+nonlinear behaviour,” Vehicle System Dynamics, vol. 54, no. 8, pp. 1147–
+1176, 2016.
+[20] M. Shen, C. R. He, T. G. Molnar, A. H. Bell, and G. Orosz, “Energy-
+efficient connected cruise control with lean penetration of connected
+vehicles,” IEEE Transactions on Intelligent Transportation Systems,
+vol. 24, no. 4, pp. 4320–4332, 2023.
+[21] S. Feng, Z. Song, Z. Li, Y. Zhang, and L. Li, “Robust platoon control
+in mixed traffic flow based on tube model predictive control,” IEEE
+Transactions on Intelligent Vehicles, vol. 6, no. 4, pp. 711–722, 2021.
+[22] J. Zhan, Z. Ma, and L. Zhang, “Data-driven modeling and distributed
+predictive control of mixed vehicle platoons,” IEEE Transactions on
+Intelligent Vehicles, vol. 8, no. 1, pp. 572–582, 2022.
+[23] C. Chen, J. Wang, Q. Xu, J. Wang, and K. Li, “Mixed platoon control
+of automated and human-driven vehicles at a signalized intersection:
+dynamical analysis and optimal control,” Transportation research part
+C: emerging technologies, vol. 127, p. 103138, 2021.
+[24] J. Wang, Y. Zheng, Q. Xu, and K. Li, “Data-driven predictive control for
+connected and autonomous vehicles in mixed traffic,” in 2022 American
+Control Conference (ACC).
+IEEE, 2022, pp. 4739–4745.
+[25] J. Zhou and K. Yang, “A parameter privacy-preserving strategy for
+mixed-autonomy platoon control,” arXiv preprint arXiv:2401.15561,
+2024.
+[26] H. Shi, Y. Zhou, K. Wu, X. Wang, Y. Lin, and B. Ran, “Connected au-
+tomated vehicle cooperative control with a deep reinforcement learning
+approach in a mixed traffic environment,” Transportation Research Part
+C: Emerging Technologies, vol. 133, p. 103421, 2021.
+[27] H. Shi, D. Chen, N. Zheng, X. Wang, Y. Zhou, and B. Ran, “A deep
+reinforcement learning based distributed control strategy for connected
+automated vehicles in mixed traffic platoon,” Transportation Research
+Part C: Emerging Technologies, vol. 148, p. 104019, 2023.
+[28] J. Wang, Y. Zheng, K. Li, and Q. Xu, “Deep-lcc: Data-enabled predictive
+leading cruise control in mixed traffic flow,” IEEE Transactions on
+Control Systems Technology, 2023.
+[29] J. Wang, Y. Lian, Y. Jiang, Q. Xu, K. Li, and C. N. Jones, “Distributed
+deep-lcc for cooperatively smoothing large-scale mixed traffic flow via
+connected and automated vehicles,” arXiv preprint arXiv:2210.13171,
+2022.
+[30] W. Xiao, T.-H. Wang, R. Hasani, M. Chahine, A. Amini, X. Li, and
+D. Rus, “Barriernet: Differentiable control barrier functions for learning
+of safe robot control,” IEEE Transactions on Robotics, 2023.
+[31] A. D. Ames, J. W. Grizzle, and P. Tabuada, “Control barrier function
+based quadratic programs with application to adaptive cruise control,”
+in 53rd IEEE Conference on Decision and Control.
+IEEE, 2014, pp.
+6271–6278.
+[32] W. Xiao and C. Belta, “High-order control barrier functions,” IEEE
+Transactions on Automatic Control, vol. 67, no. 7, pp. 3655–3662, 2021.
+[33] W. J. Rugh, Nonlinear system theory.
+Johns Hopkins University Press
+Baltimore, 1981.
+[34] J.-P. Aubin, A. M. Bayen, and P. Saint-Pierre, Viability theory: new
+directions.
+Springer Science & Business Media, 2011.
+[35] S. Feng, Y. Zhang, S. E. Li, Z. Cao, H. X. Liu, and L. Li, “String stability
+for vehicular platoon control: Definitions and analysis methods,” Annual
+Reviews in Control, vol. 47, pp. 81–97, 2019.
+[36] K. Vogel, “A comparison of headway and time to collision as safety
+indicators,” Accident analysis & prevention, vol. 35, no. 3, pp. 427–
+433, 2003.
+[37] Q. Wang, H. Dong, F. Ju, W. Zhuang, C. Lv, L. Wang, and Z. Song,
+“Adaptive leading cruise control in mixed traffic considering human
+behavioral diversity,” arXiv preprint arXiv:2210.02147, 2022.
+[38] S. Das and A. K. Maurya, “Defining time-to-collision thresholds by
+the type of lead vehicle in non-lane-based traffic environments,” IEEE
+Transactions on Intelligent Transportation Systems, vol. 21, no. 12, pp.
+4972–4982, 2019.
+[39] Z. Mo, R. Shi, and X. Di, “A physics-informed deep learning paradigm
+for car-following models,” Transportation research part C: emerging
+technologies, vol. 130, p. 103240, 2021.
+[40] W. Xiao, C. A. Belta, and C. G. Cassandras, “Sufficient conditions for
+feasibility of optimal control problems using control barrier functions,”
+Automatica, vol. 135, p. 109960, 2022.
+[41] K. Xu, W. Xiao, and C. G. Cassandras, “Feasibility guaranteed traffic
+merging control using control barrier functions,” in 2022 American
+Control Conference (ACC).
+IEEE, 2022, pp. 2309–2314.
+[42] M. Bando, K. Hasebe, K. Nakanishi, and A. Nakayama, “Analysis of
+optimal velocity model with explicit delay,” Physical Review E, vol. 58,
+no. 5, p. 5429, 1998.
+Jingyuan Zhou receives the B.Eng. degree in Elec-
+tronic Information Science and Technology from
+Sun Yat-sen University, Guangzhou, China, in 2022.
+He is currently working towards a Ph.D. degree with
+the National University of Singapore. His research
+interests include safety-critical control and privacy
+computing of mixed-autonomy traffic.
+Longhao Yan receives the B.Eng. degree and
+M.Eng. degree in School of Electronics and Con-
+trol Engineering from Chang’an University, Xi’an,
+China, in 2019 and 2022 respectively. He is currently
+working towards a Ph.D. degree with the National
+University of Singapore. His research interests in-
+clude lateral control and trajectory prediction of
+intelligent transportation systems.
+Kaidi Yang is an Assistant Professor in the Depart-
+ment of Civil and Environmental Engineering at the
+National University of Singapore. Prior to this, he
+was a postdoctoral researcher with the Autonomous
+Systems Lab at Stanford University. He obtained
+a PhD degree from ETH Zurich and M.Sc. and
+B.Eng. degrees from Tsinghua University. His main
+research interest is the operation of future mobility
+systems enabled by connected and automated vehi-
+cles (CAVs) and shared mobility.

@@ -1,0 +1,35 @@
+# 种子集 s1（≥5 个，AGENTS.md §4）
+# 用途：仿真交通流随机性 + 神经网络初始化 + 训练过程的独立重复
+set_id: s1
+n_seeds: 5
+seeds: [0, 1, 2, 3, 4]
+scope:
+  - carla_traffic_flow      # 交通流与初始条件
+  - nn_init                 # 网络初始化
+  - data_split              # 数据划分（时序按时间切分；同一实体不跨折）
+rules:
+  - 同一 seedset 内的种子不得在实验之间复用为"不同实验"的证据。
+  - 报 mean ± std 或 95% CI；禁用"只报最优运行"。
+  - 长尾/成功率类小样本用 Wilson 或 Clopper-Pearson，不得用正态近似。
+
+independence:
+  # ⚠ 种子数量够 ≠ 独立。若 5 个种子共用同一份训练/测试划分，等价于 n=1。
+  # 该字段必须与每条结果 JSON 的 notes.seed_independence 一致，由自检脚本校验。
+  split_policy: by-time        # by-time | by-entity | by-seed-holdout
+  entity_group: drive-run      # 不可跨折的实体粒度：vehicle | drive-run | scene
+  holdout_fraction: 0.2
+  leakage_checks:
+    - 同一 drive-run 的样本不得同时出现在训练与测试折
+    - 特征不得包含未来信息（OTF 为滑动窗内已发生事件，需明确窗右端点相对预测时刻的位置）
+    - 预处理与特征选择须在划分之后进行
+  verified: false              # 待 scripts/smoke/check_seed_independence.py 跑通后置 true
+  partial_scope: [CHECK-1, CHECK-2, CHECK-3, CHECK-4]   # 当前全部未跑；非空时 verified 必须为 false
+  # Jaccard 阈值由随机划分零分布按 (N, k) 算出，不用固定值（规格 §4.2）
+  null_distribution:
+    method: exact              # exact（N ≤ 2000）| monte-carlo
+    null_seed: 20260101        # 走 monte-carlo 时的固定随机种子，保证阈值可复现
+    monte_carlo_draws: 10000
+  check_script: scripts/smoke/check_seed_independence.py
+  spec: scripts/smoke/check_seed_independence.SPEC.md   # 判定逻辑（四项检查、零分布阈值、退出码、措辞对应表）
+notes:
+  - 真实算例与冒烟共用种子清单，但冒烟产物（mode: smoke）不得引用。

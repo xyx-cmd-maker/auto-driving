@@ -1,0 +1,22 @@
+# 自检/调试产物，不得进入任何对外文本（AGENTS.md §2）
+runs/
+__pycache__/
+*.pyc
+.venv/
+
+# ---- 大型二进制资料（2026-10-08 首次 git init 时定策）----
+# 理由：这些是「已发表论文的 PDF 副本」与「用户手工资料库」，体积合计约 440 MB，
+#       属外部资料的本地副本，不是本项目的产出；git 不该为它们背上永久历史。
+#       磁盘上原样保留，只要按路径取用即可（引用一律用路径 + DOI，不依赖 git 版本）。
+audit/第二次组会/**/*.pdf
+literature/fulltext/_raw/
+literature/fulltext/meeting2/
+自动驾驶_世界模型科研汇总/
+sources/*.pdf
+sources/*.docx
+
+# 临时/预览产物
+*.tmp
+*.bak
+~$*
+.git-commit-msg.txt

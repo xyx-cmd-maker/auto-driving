@@ -1,0 +1,160 @@
+{
+ "run_at_utc": "2026-10-06T03:42:36.454Z",
+ "out": [
+  {
+   "doi": "10.1109/tce.2025.3612821",
+   "status": 200,
+   "message": {
+    "DOI": "10.1109/tce.2025.3612821",
+    "title": [
+     "Towards Emergency Scenarios: An Integrated Decision-Making Framework of Multi-Lane Platoon Reorganization"
+    ],
+    "container-title": [
+     "IEEE Transactions on Consumer Electronics"
+    ],
+    "type": "journal-article",
+    "issued": {
+     "date-parts": [
+      [
+       2025,
+       11
+      ]
+     ]
+    },
+    "published": {
+     "date-parts": [
+      [
+       2025,
+       11
+      ]
+     ]
+    },
+    "created": {
+     "date-parts": [
+      [
+       2025,
+       9,
+       22
+      ]
+     ],
+     "date-time": "2025-09-22T17:44:24Z",
+     "timestamp": 1758563064000
+    },
+    "deposited": {
+     "date-parts": [
+      [
+       2025,
+       12,
+       22
+      ]
+     ],
+     "date-time": "2025-12-22T18:43:04Z",
+     "timestamp": 1766428984000
+    },
+    "page": "11719-11733",
+    "volume": "71",
+    "issue": "4",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "author": [
+     "Aijing Kong",
+     "Chengkai Xu",
+     "Xian Wu",
+     "Xinbo Chen",
+     "Peng Hang"
+    ],
+    "abstract_len": 0,
+    "update-to": null,
+    "updated-by": null,
+    "relation": {},
+    "reference_count": 45,
+    "is_referenced_by_count": 1,
+    "license": [
+     "https://ieeexplore.ieee.org/Xplorehelp/downloads/license-information/IEEE.html",
+     "https://doi.org/10.15223/policy-029",
+     "https://doi.org/10.15223/policy-037"
+    ]
+   },
+   "raw_len": 8521
+  },
+  {
+   "doi": "10.1007/978-3-032-31441-3_28",
+   "status": 200,
+   "message": {
+    "DOI": "10.1007/978-3-032-31441-3_28",
+    "title": [
+     "When Smaller Wins: Dual-Stage Distillation and Pareto-Guided Compression of Liquid Neural Networks for Edge Battery Prognostics"
+    ],
+    "container-title": [
+     "Lecture Notes in Computer Science",
+     "Pattern Recognition"
+    ],
+    "type": "book-chapter",
+    "issued": {
+     "date-parts": [
+      [
+       2026,
+       7,
+       25
+      ]
+     ]
+    },
+    "published": {
+     "date-parts": [
+      [
+       2026,
+       7,
+       25
+      ]
+     ]
+    },
+    "created": {
+     "date-parts": [
+      [
+       2026,
+       7,
+       24
+      ]
+     ],
+     "date-time": "2026-07-24T13:21:45Z",
+     "timestamp": 1784899305000
+    },
+    "deposited": {
+     "date-parts": [
+      [
+       2026,
+       7,
+       24
+      ]
+     ],
+     "date-time": "2026-07-24T13:21:47Z",
+     "timestamp": 1784899307000
+    },
+    "page": "414-429",
+    "ISBN": [
+     "9783032314406",
+     "9783032314413"
+    ],
+    "publisher": "Springer Nature Switzerland",
+    "author": [
+     "Dhivya Dharshini Kannan",
+     "Wei Li",
+     "Wei Zhang",
+     "Jianbiao Wang",
+     "Zhi Wei Seh",
+     "Man-Fai Ng"
+    ],
+    "abstract_len": 0,
+    "update-to": null,
+    "updated-by": null,
+    "relation": {},
+    "reference_count": 8,
+    "is_referenced_by_count": 0,
+    "license": [
+     "https://www.springernature.com/gp/researchers/text-and-data-mining",
+     "https://www.springernature.com/gp/researchers/text-and-data-mining"
+    ]
+   },
+   "raw_len": 7395
+  }
+ ]
+}

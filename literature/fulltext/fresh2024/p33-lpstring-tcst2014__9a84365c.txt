@@ -1,0 +1,1352 @@
+SOURCE_PDF: p33-lpstring-tcst2014.pdf
+MD5: 9a84365c6c02150ed1b89f1ae1900acd
+PAGES: 10
+
+===== PAGE 1 =====
+
+Lp string stability of cascaded systems : application to vehicle
+platooning
+Citation for published version (APA):
+Ploeg, J., Wouw, van de, N., & Nijmeijer, H. (2014). Lp string stability of cascaded systems : application to
+vehicle platooning. IEEE Transactions on Control Systems Technology, 22(2), 786-793.
+https://doi.org/10.1109/TCST.2013.2258346
+DOI:
+10.1109/TCST.2013.2258346
+Document status and date:
+Published: 01/01/2014
+Document Version:
+Accepted manuscript including changes made at the peer-review stage
+Please check the document version of this publication:
+• A submitted manuscript is the version of the article upon submission and before peer-review. There can be
+important differences between the submitted version and the official published version of record. People
+interested in the research are advised to contact the author for the final version of the publication, or visit the
+DOI to the publisher's website.
+• The final author version and the galley proof are versions of the publication after peer review.
+• The final published version features the final layout of the paper including the volume, issue and page
+numbers.
+Link to publication
+General rights
+Copyright and moral rights for the publications made accessible in the public portal are retained by the authors and/or other copyright owners
+and it is a condition of accessing publications that users recognise and abide by the legal requirements associated with these rights.
+• Users may download and print one copy of any publication from the public portal for the purpose of private study or research.
+• You may not further distribute the material or use it for any profit-making activity or commercial gain
+• You may freely distribute the URL identifying the publication in the public portal.
+If the publication is distributed under the terms of Article 25fa of the Dutch Copyright Act, indicated by the “Taverne” license above, please
+follow below link for the End User Agreement:
+www.tue.nl/taverne
+Take down policy
+If you believe that this document breaches copyright please contact us at:
+openaccess@tue.nl
+providing details and we will investigate your claim.
+Download date: 02. Oct. 2026
+
+===== PAGE 2 =====
+
+IEEE TRANSACTIONS ON CONTROL SYSTEMS TECHNOLOGY
+1
+Lp String Stability of Cascaded Systems:
+Application to Vehicle Platooning
+Jeroen Ploeg, Nathan van de Wouw, and Henk Nijmeijer, Fellow, IEEE
+Abstract—Nowadays, throughput has become a limiting factor
+in road transport. An effective means to increase the road
+throughput is to employ a small intervehicle time gap using
+automatic vehicle-following control systems. String stability, i.e.,
+the disturbance attenuation along the vehicle string, is considered
+an essential requirement for the design of those systems. However,
+the formal notion of string stability is not unambiguous in
+literature, since both stability and performance interpretations
+exist. Therefore, a novel deﬁnition for string stability of nonlinear
+cascaded systems is proposed, using input–output properties.
+This deﬁnition is shown to result in well-known string stability
+conditions for linear cascaded systems. The theoretical results
+are experimentally validated using a platoon of six passenger
+vehicles equipped with cooperative adaptive cruise control.
+Index Terms—Cascaded systems, cooperative adaptive cruise
+control (CACC), input–output stability, string stability, vehicle
+platoons.
+I. INTRODUCTION
+L
+IMITED highway capacity causes trafﬁc jams, which
+tend to increase over the years with respect to both the
+number of trafﬁc jams and their length. An effective means to
+increase road capacity is to decrease the intervehicle distance.
+As this would be unsafe in case of human drivers, longitudinal
+automation will be required. To this end, cooperative adaptive
+cruise control (CACC) can be employed as an automatic
+vehicle-following system based on intervehicle data exchange
+through wireless communications, in addition to the data
+obtained by radar or lidar [1], [2]. CACC is known to allow
+for time gaps signiﬁcantly less than 1 s, being the standardized
+minimum value for currently available adaptive cruise control
+(ACC) systems [3]. Thus, an increase in trafﬁc throughput is
+expected [4], [5]. In addition, the aerodynamic drag is reduced,
+especially for heavy-duty vehicles, thereby decreasing fuel
+consumption [2], [6].
+A leading objective in the design of CACC systems is to
+prevent disturbance ampliﬁcation in upstream direction, for
+Manuscript received March 27, 2012; revised March 6, 2013; accepted April
+9, 2013. Manuscript received in ﬁnal form April 12, 2013. Date of publication
+May 16, 2013; date of current version February 14, 2014. This work was
+supported in part by the Dutch Ministry of Economic Affairs through the High
+Tech Automotive Systems program under grant HTASD08002. Recommended
+by associate Editor S. M. Savaresi.
+J. Ploeg is with TNO, Integrated Vehicle Safety Department, 5700 AT
+Helmond, The Netherlands (e-mail: jeroen.ploeg@tno.nl)
+N. van de Wouw and H. Nijmeijer are with Eindhoven University of
+Technology, Mechanical Engineering Department, 5600 MB Eindhoven, The
+Netherlands (e-mail: n.v.d.wouw@tue.nl; h.nijmeijer@tue.nl)
+Color versions of one or more of the ﬁgures in this paper are available
+online at http://ieeexplore.ieee.org.
+Digital Object Identiﬁer 10.1109/TCST.2013.2258346
+instance induced by velocity variations of the lead vehicle,
+which would compromise throughput and safety. The distur-
+bance propagation along interconnected systems, such as a
+vehicle platoon, is covered by the notion of string stability
+of which a vast amount of literature is available. In [7]–[16],
+for instance, several types of string stability deﬁnitions are
+given, focusing on various aspects of cascaded systems. In
+addition, publications that focus on controller design tend to
+interpret string stability as a performance criterion, rather than
+a stability property [17]–[25]. As a result, the notion of string
+stability has become rather ambiguous over the years. This
+brief, therefore, ﬁrst aims to formally deﬁne string stability,
+providing a rigourous basis for often-used string stability
+criteria for linear systems, thus including and generalizing
+existing results. Second, using a test set-up of six vehicles, it
+is shown that, using these criteria, controller design for string
+stability is not only theoretically, but also practically feasible.
+This brief is organized as follows. Section II summarizes
+existing string stability concepts. Section III derives a platoon
+model that forms the basis for the deﬁnition of string stability
+in Section IV and the analysis thereof for vehicle platoons
+in Section V. Section VI presents experimental results of
+a vehicle platoon speciﬁcally developed for this purpose.
+Section VII summarizes the main conclusions.
+II. STRING STABILITY REVIEW
+As opposed to conventional stability notions for dynamical
+systems, that are basically concerned with the evolution of
+system states over time, string stability focuses on the propa-
+gation of system responses along a cascade of systems. Several
+approaches exist regarding string stability, as reviewed below.
+Probably the most formal approach is based on Lyapunov
+stability, of which [7] provides an early description, compre-
+hensively formalized in [8]. In this approach, the notion of
+Lyapunov stability is employed, focusing on initial condition
+perturbations. Consequently, string stability is interpreted as
+asymptotic stability of interconnected systems [9]. Recently,
+new results appeared in [10], regarding a one-vehicle look-
+ahead topology in a homogeneous vehicle platoon. In [10],
+the response to an initial condition perturbation of a single
+vehicle in the platoon is considered, thereby conserving the
+disturbance-propagation idea behind string stability. The draw-
+back of this approach, however, is that only this special case is
+regarded, ignoring the effect of initial condition perturbations
+of other vehicles in the platoon, as well as the effect of external
+disturbances to the interconnected system. Consequently, the
+1063–6536 c⃝2013 IEEE – personal version
+
+===== PAGE 3 =====
+
+2
+IEEE TRANSACTIONS ON CONTROL SYSTEMS TECHNOLOGY
+practical relevance of this approach is limited, since external
+disturbances, such as velocity variations of the ﬁrst vehicle in
+a platoon, are of utmost importance in practice.
+The perspective of inﬁnite-length strings of interconnected
+systems [16] also gave rise to a notion of string stability,
+described in [11] in the context of a centralized control scheme
+and in [12] for a decentralized controller. Various applications
+regarding interconnected systems are reported in [13] and
+[14], whereas [15] and [16] provide extensive analyzes of
+the system properties. In this approach, the system model is
+formulated in the state space and subsequently transformed
+using the bilateral Z-transform. The Z-transform is executed
+over the vehicle index instead of over (discrete) time, resulting
+in a model formulated in the “discrete spatial frequency”
+domain [15], related to the subsystem index, as well as in the
+continuous-time domain. String stability can then be assessed
+by inspecting the eigenvalues of the resulting state matrix as
+a function of the spatial frequency. Unfortunately, the stability
+properties of ﬁnite-length strings, being practically relevant,
+might not converge to those of inﬁnite-length strings as length
+increases. This can be understood intuitively by recognizing
+that in a ﬁnite-length platoon, there will always be a ﬁrst and
+a last vehicle, whose dynamics may signiﬁcantly differ from
+those of the other vehicles in the platoon, depending on the
+controller topology. Consequently, the inﬁnite-length platoon
+model does not always serve as a useful paradigm for a ﬁnite-
+length platoon as it becomes increasingly long [16].
+Finally, a performance-oriented approach for string stability
+is frequently adopted, since this appears to directly offer
+tools for controller design for linear cascaded systems. This
+approach is employed for the control of a vehicle platoon
+with and without lead vehicle information in [17], whereas
+[18] and [19] apply inter-vehicle communication to obtain
+information of the preceding vehicle. In [20], a decentralized
+optimal controller is designed by decoupling the intercon-
+nected systems using the so-called inclusion principle, and
+in [21], optimal decentralized control is pursued by means
+of nonidentical controllers. Furthermore, [22] extensively in-
+vestigates the limitations on performance, whereas in [23], a
+controller design methodology is presented. Finally, in [24]
+the performance-oriented approach is adopted to investigate a
+warning system for preventing head-tail collisions in mixed
+trafﬁc. In the performance-oriented approach, string stability
+is characterized by the ampliﬁcation in upstream direction
+of either distance error, velocity, or acceleration, the speciﬁc
+choice depending on the design requirements at hand. Let the
+signal of interest be denoted by yi for vehicle i, and let Γi(jω)
+denote the frequency response function describing the relation
+between the scalar output yi−1 of a preceding vehicle i −1
+and the scalar output yi of the follower vehicle i. Then the
+interconnected system is considered string stable if
+sup
+ω |Γi(jω)| ≤1,
+2 ≤i ≤m
+(1)
+where m is the string length; the supremum of |Γi(jω)| equals
+the scalar version of the H∞norm. Since the H∞norm
+is induced by the L2 norms of the respective signals, this
+approach requires the L2 norm ∥yi(t)∥L2 to be nonincreasing
+di
+di–1
+di+1
+vi+1
+i+1
+vi
+vi–1
+wireless
+communication
+radar
+i–1
+i
+Fig. 1. CACC-equipped vehicle platoon.
+for increasing index i. Because of its convenient mathematical
+properties, the L2 gain is mostly adopted; nevertheless, ap-
+proaches that employ the induced L∞norm are also reported
+[25]. Regardless of the speciﬁc norm that is employed, the
+major limitation of the performance-oriented approach is that
+only linear systems are considered, usually without consider-
+ing the effect of nonzero initial conditions.
+Summarizing, string stability appears to be deﬁned in var-
+ious ways, focusing on speciﬁc properties. Building on these
+earlier results, a new generic deﬁnition of string stability is
+proposed. To this end, the next section will ﬁrst introduce a
+model of a homogeneous vehicle platoon, which motivates the
+formal deﬁnition of string stability as proposed in Section IV.
+III. PLATOON DYNAMICS
+Consider a platoon of m vehicles, schematically depicted
+in Fig. 1, with di being the distance between vehicle i and
+its preceding vehicle i −1, and vi its velocity. The objective
+of each vehicle is to follow the preceding vehicle at a desired
+distance dr,i according to
+dr,i(t) = ri + hvi(t),
+i ∈Sm
+(2)
+where h is referred to as the time headway, and ri is the
+standstill distance. Sm = {i ∈N | 1 ≤i ≤m} is the set of
+all vehicles in a platoon of length m ∈N. The spacing policy
+(2) is known to improve string stability [18], [19] and safety
+[26]. A homogeneous platoon is assumed, so h is the same
+for all i. The spacing error ei(t) is then deﬁned as
+ei(t) = di(t) −dr,i(t)
+= (qi−1(t) −qi(t) −Li) −(ri + hvi(t))
+(3)
+with qi being the rear-bumper position of vehicle i and
+Li its length. The control problem now encompasses two
+requirements: the vehicle-following objective limt→∞ei(t) =
+0 ∀i ∈Sm, and the string stability requirement.
+As a basis for controller design, the following vehicle model
+is adopted [27], omitting the time argument t for readability:
+
+
+˙di
+˙vi
+˙ai
+
+=
+
+
+vi−1 −vi
+ai
+−1
+τ ai + 1
+τ ui
+
+,
+i ∈Sm
+(4)
+where ai is the acceleration of vehicle i, ui the external
+input (desired acceleration), and τ a time constant representing
+driveline dynamics, the latter being vehicle-independent be-
+cause of the homogeneity assumption. With different types of
+vehicles, as suggested by Fig. 1, homogeneity may be obtained
+
+===== PAGE 4 =====
+
+PLOEG et al.: Lp STRING STABILITY OF CASCADED SYSTEMS
+3
+by low-level acceleration controllers so as to arrive at identical
+vehicle behavior according to (4).
+Next, the controller as described in [27] is adopted. This
+controller deﬁnes a new input ξi such that
+h ˙ui = −ui + ξi
+(5)
+upon which the control law for ξi is chosen as
+ξi = K
+
+
+ei
+˙ei
+¨ei
+
++ ui−1,
+i ∈Sm
+(6)
+with K = (kp kd kdd). The feedforward term ui−1 is obtained
+through wireless communication with the preceding vehicle.
+Since string stability is commonly evaluated by analyzing
+the ampliﬁcation in upstream direction of either distance error,
+velocity, and/or acceleration, a platoon model is formulated in
+terms of these state variables. Using (3)–(6), the following
+homogeneous platoon model is thus obtained:
+
+
+
+
+˙ei
+˙vi
+˙ai
+˙ui
+
+
+
+=
+
+
+
+
+0
+−1
+−h
+0
+0
+0
+1
+0
+0
+0
+−1
+τ
+1
+τ
+kp
+h
+−kd
+h
+−kd −kdd(τ−h)
+hτ
+−kddh+τ
+hτ
+
+
+
+
+
+
+
+
+ei
+vi
+ai
+ui
+
+
+
+
++
+
+
+
+
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+kd
+h
+kdd
+h
+1
+h
+
+
+
+
+
+
+
+
+ei−1
+vi−1
+ai−1
+ui−1
+
+
+
+
+(7)
+or, in short,
+˙xi = A0xi + A1xi−1,
+i ∈Sm
+(8)
+with state vector xi =
+ ei vi ai ui
+T, and the matrices A0
+and A1 deﬁned accordingly.
+The ﬁrst vehicle in the platoon, not having a preceding ve-
+hicle, will follow a so-called virtual reference vehicle (i = 0),
+allowing the lead vehicle to employ the same controller as the
+other platoon vehicles. Using the above state deﬁnition, the
+virtual reference vehicle model may be formulated as
+
+
+
+
+˙e0
+˙v0
+˙a0
+˙u0
+
+
+
+=
+
+
+
+
+0 0
+0
+0
+0 0
+1
+0
+0 0 −1
+τ
+1
+τ
+0 0
+0
+−1
+h
+
+
+
+
+
+
+
+
+e0
+v0
+a0
+u0
+
+
+
++
+
+
+
+
+0
+0
+0
+1
+h
+
+
+
+ξ0
+(9)
+or, in short,
+˙x0 = Arx0 + Brur
+(10)
+with state vector x0 =
+ e0 v0 a0 u0
+T, external platoon
+input ur = ξ0, and the matrices Ar and Br deﬁned accord-
+ingly. Consequently, (9) represents a nonminimal realization,
+in which e0(t) = e0(0) is a dummy state, having no further
+inﬂuence since the ﬁrst column of both Ar and A1 equals
+zero. In the remainder of this brief, e0(0) = 0 is chosen.
+The equilibrium state of (9) equals ¯x0 =
+ 0 ¯v0 0 0T
+for ur = 0, where ¯v0 is a constant velocity. This equilibrium
+is only marginally stable since the virtual reference vehicle
+is in fact an uncontrolled vehicle model. Returning to the
+homogeneous platoon model (7), it can be easily established
+that xi = ¯x0, with i = 1, 2, . . . , m, is an equilibrium of the
+vehicle platoon for x0 = ¯x0 and ur = 0; in other words, the
+platoon equilibrium is characterized by a constant velocity ¯v0
+of all vehicles. Applying the Routh-Hurwitz stability criterion,
+it follows that this equilibrium is asymptotically stable for any
+time headway h > 0, and with any choice for kp, kd > 0,
+kdd > −1, such that (1 + kdd)kd > kpτ, thereby fulﬁlling
+the vehicle-following control objective. The second objective,
+being string stability, will be addressed in the next section.
+IV. STRING STABILITY
+In this section, the platoon model is generalized to a non-
+linear cascaded state-space system, upon which a new string
+stability deﬁnition is proposed. This deﬁnition appears to serve
+as a rigourous basis for L2 and L∞string stability conditions
+commonly used in the performance-oriented approach, and the
+relation to the other string stability notions is brieﬂy discussed.
+A. Lp String Stability
+The homogeneous platoon model (8), (10) is a special, linear
+case of the following cascaded state-space system:
+˙x0 = fr(x0, ur)
+(11a)
+˙xi = fi(xi, xi−1),
+i ∈Sm
+(11b)
+yi = h(xi),
+i ∈Sm
+(11c)
+representing a general, possibly nonlinear, heterogeneous in-
+terconnected system with the same interconnection structure
+as (8), (10). Here, ur ∈Rq is the external input, xi ∈Rn,
+i ∈{0, Sm}, is the state vector, and yi ∈Rℓ, i ∈Sm, is the
+output. Moreover, fr : Rn × Rq 7→Rn, fi : Rn × Rn 7→Rn,
+i ∈Sm, and h : Rn 7→Rℓ. In the scope of vehicle platooning,
+the state is typically deﬁned as xi =
+ ei vi ai . . .T, i ∈
+{0, Sm}, indicating a possible extension with additional states,
+for instance due to controller dynamics, as in Section III.
+Note that heterogenous strings may arise due to nonidentical
+(decentralized) controllers [21]. Using the model (11), the
+following string stability deﬁnition is now proposed.
+Deﬁnition 1 (Lp string stability). Consider the interconnected
+system (11). Let x =
+ xT
+0 xT
+1 . . . xT
+m
+T be the lumped state
+vector and let ¯x =
+ ¯xT
+0
+¯xT
+0 . . . ¯xT
+0
+T denote the constant
+equilibrium solution of (11) for ur = 0. The system (11) is
+Lp string stable if there exist class K functions1 α and β such
+that, for any initial state x(0) ∈R(m+1)n and any ur ∈Lq
+p,
+∥yi(t) −h(¯x0)∥Lp ≤α(∥ur(t)∥Lp) + β(∥x(0) −¯x∥),
+∀i ∈Sm and ∀m ∈N.
+If, in addition, with x(0) = ¯x it also holds that
+∥yi(t) −h(¯x0)∥Lp ≤∥yi−1(t) −h(¯x0)∥Lp,
+∀i ∈Sm\{1} and ∀m ∈N\{1}
+the system (11) is strictly Lp string stable with respect to its
+input ur(t).
+1A continuous function α : [0, a) 7→[0, ∞) is said to belong to class K
+if it is strictly increasing and α(0) = 0.
+
+===== PAGE 5 =====
+
+4
+IEEE TRANSACTIONS ON CONTROL SYSTEMS TECHNOLOGY
+Remark 1. Without principal consequences for Deﬁnition 1,
+(11) could be further generalized with respect to the intercon-
+nection structure (or “topology”), so as to include multiple-
+vehicle look-ahead or bidirectional interconnections.
+Clearly, Deﬁnition 1 takes the external disturbance ur into
+account, imposed by the virtual reference vehicle, through the
+class K function α(∥ur(t)∥Lp), as well as initial condition
+perturbations, through the class K function β(∥x(0) −¯x∥),
+where ∥· ∥Lp denotes the signal p-norm [28] and ∥· ∥
+denotes any vector norm. It should be mentioned that only
+initial condition perturbations are considered for which the
+norm ∥x(0) −¯x∥exists, which limits the allowable class
+of perturbations in view of the fact that x will be inﬁnite-
+dimensional for m →∞. Furthermore, Deﬁnition 1 obviously
+applies to both linear and nonlinear systems, and homogeneous
+as well as heterogeneous strings are included, providing, for
+instance, a rigourous basis for the string stability analysis of
+heterogeneous strings pursued in [29].
+It is important to note that Deﬁnition 1 closely resembles
+the common input–output or Lp stability deﬁnition as far as
+(nonstrict) Lp string stability is concerned, except for the fact
+that the norm requirements must hold for all string lengths
+m ≥1. This is essential to string stability, indicating that a
+string-stable system is scalable [9].
+The notion of strict Lp string stability, for which not only the
+ﬁrst but also the second inequality in Deﬁnition 1 must hold,
+has been introduced to accommodate the common requirement
+of upstream disturbance attenuation. Note that i = 1 has been
+excluded in the requirement for strict string stability since
+the virtual reference system (11a) does not have an output
+associated with it, which would be practically irrelevant.
+B. String Stability Conditions for Linear Systems
+In order to derive string stability conditions for linear
+systems, the linear, homogeneous version of (11) is considered,
+which, in lumped form, can be denoted by
+
+
+
+
+
+˙x0
+˙x1
+...
+˙xm
+
+
+
+
+=
+
+
+
+
+
+Ar
+O
+A1 A0
+...
+...
+O
+A1 A0
+
+
+
+
+
+
+
+
+
+
+x0
+x1
+...
+xm
+
+
+
+
++
+
+
+
+
+
+Br
+0
+...
+0
+
+
+
+
+ur
+(12)
+or, in short,
+˙x = Ax + Bur
+(13)
+with x =
+ xT
+0 xT
+1 . . . xT
+m
+T, and the matrices A and B
+deﬁned accordingly. The matrices A0, A1, Ar, and Br can,
+e.g., be chosen identical to those used in (8) and (10). In
+addition, consider linear output functions according to
+yi = Cix,
+i ∈Sm
+(14)
+with output matrices Ci. The model (13), (14) can then be
+formulated in the Laplace domain as follows:
+ˆyi(s) = Pi(s)ˆur(s) + Oi(s)x(0),
+i ∈Sm
+(15)
+with outputs yi(t) ∈Rℓand exogenous input ur(t) ∈Rℓ,
+whose Laplace transforms are denoted by ˆyi(s) and ˆur(s),
+with s ∈C, respectively. x(0) ∈R(m+1)n denotes the initial
+condition, whereas Pi(s) = Ci(sI −A)−1B and Oi(s) =
+Ci(sI −A)−1. In view of the upcoming analysis, Pi(s) is
+thus assumed to be square, having ℓinputs and ℓoutputs.
+Also, without loss of generality, the equilibrium state ¯x =
+ ¯xT
+0
+¯xT
+0 . . . ¯xT
+0
+T = 0 is chosen, hence h(¯x0) = Ci¯x = 0.
+Since (12) describes a controlled system, the matrix A0
+is typically Hurwitz. However, this may not be the case for
+the matrix Ar, related to the virtual reference vehicle in case
+of vehicle following. As indicated by (9), for instance, Ar
+has a marginally stable mode associated with v0 (besides the
+mode associated with the dummy state e0). Hence, the system
+matrix A in (13) is not Hurwitz. In the remainder of this
+section, however, it is assumed that the pair (Ci, A) is such that
+unstable (including marginally stable) modes are unobservable
+by a speciﬁc choice of Ci. Consequently, it sufﬁces to only
+analyze the output response to the external input in view of
+string stability (or, equivalently, to assume x(0) = ¯x = 0), in
+accordance with the following remark.
+Remark 2. Consider the system (11a), (11b), but with a single
+output vector yk = h(xk), 1 ≤k ≤m. Then this system is
+Lp stable if
+∥yk(t) −h(¯x0)∥Lp ≤αk(∥ur(t)∥Lp) + βk(∥x(0) −¯x∥)
+with class K functions αk and βk. When (11a) and (11b)
+represent a linear system, the existence of αk implies that βk
+exists, provided that unstable and marginally stable modes are
+unobservable [30]. Since this statement holds for any k ∈Sm,
+it also applies to α and β in Deﬁnition 1.
+Adopting the L2 signal norm for string stability, it follows
+from (15), that, with x(0) = 0,
+∥yi(t)∥L2 ≤∥Pi(jω)∥H∞∥ur(t)∥L2
+≤max
+i∈Sm ∥Pi(jω)∥H∞∥ur(t)∥L2,
+∀i ∈Sm
+(16)
+using the fact that the H∞norm (or L2 gain) ∥Pi(jω)∥H∞is
+induced by the L2 norm on inputs and outputs. It is important
+to note that (16) is not conservative, in the sense that there
+is always a subsystem i ∈Sm and a speciﬁc signal ur(t) for
+which the equality holds [28]. According to Deﬁnition 1, L2
+string stability of the interconnected system (13), (14) thus
+requires maxi∈Sm ∥Pi(jω)∥H∞to exist for all m ∈N, being
+a necessary and sufﬁcient condition.
+For further analysis, a speciﬁc type of interconnection topol-
+ogy will be adopted, as mentioned in the following remark.
+Remark 3. In the case of a look-ahead topology, such as
+described by (12), the interconnection is unidirectional, from
+which it directly follows that if the inﬁnite-length string has
+a bounded output response to a bounded input, then all ﬁnite-
+length strings as a subset thereof have a bounded response as
+well. Therefore, it sufﬁces to only regard m →∞for string
+stability assessment, implying that the sets i ∈Sm, m ∈N,
+can be reduced to a single set i ∈N.
+As a result, the interconnected system (13), (14) is L2 string
+stable if and only if supi∈N ∥Pi(jω)∥H∞exists. The class K
+function α in Deﬁnition 1 can then be chosen as
+α(∥ur(t)∥L2) =
+
+sup
+i∈N
+∥Pi(jω)∥H∞
+
+∥ur(t)∥L2.
+(17)
+
+===== PAGE 6 =====
+
+PLOEG et al.: Lp STRING STABILITY OF CASCADED SYSTEMS
+5
+Because of the linear form of α in (17), this type of string
+stability may be referred to as ﬁnite-gain L2 string stability,
+similar to the notion of ﬁnite-gain L2 stability.
+The existence of the supremum of the L2 gain can be further
+analyzed by factorization, leading to the theorem below. As a
+preliminary to this theorem, the string stability complementary
+sensitivity is introduced ﬁrst. From (15), it directly follows that
+(with x(0) = 0)
+ˆyi(s) = Γi(s)ˆyi−1(s)
+(18)
+with the string stability complementary sensitivity
+Γi(s) = Pi(s)P −1
+i−1(s)
+(19)
+assuming functional controllability of (15), i.e., P −1
+i−1(s) exists.
+The following theorem can now be stated.
+Theorem 1. Let (13), (14) represent a linear unidirectionally
+interconnected system for which the input–output behavior is
+described by (15). Assume that the pair (Ci, A) is such that
+unstable and marginally stable modes are unobservable and
+that Pi(s) is square and nonsingular, for all i ∈N. Then the
+system (13), (14) is L2 string stable if
+1) ∥P1(jω)∥H∞exists;
+2) ∥Γi(jω)∥H∞≤1,
+∀i ∈N\{1};
+with Γi(s) as in (19). Moreover, the system is strictly L2 string
+stable if and only if conditions 1 and 2 hold.
+Proof: Using (15), (18), and (19), the input–output rela-
+tion for a speciﬁc subsystem i ≥2 can be formulated as
+ˆyi(s) = Pi(s)ˆur(s) =
+
+iY
+k=2
+Γk(s)
+!
+P1(s)ˆur(s).
+(20)
+Having factorized Pi(s) in this way, the submultiplicative
+property dictates that
+∥Pi(jω)∥H∞≤
+
+iY
+k=2
+∥Γk(jω)∥H∞
+!
+∥P1(jω)∥H∞.
+(21)
+Consequently, under the conditions 1 and 2 in Theorem 1,
+supi∈N ∥Pi(jω)∥H∞exists. Because it is also assumed that
+unstable and marginally stable modes are unobservable for all
+i ∈N, the linear system is L2 string stable, according to
+Deﬁnition 1 and Remark 2, while using (17). Moreover, from
+(18) and condition 2, it follows that
+∥yi(t)∥L2 ≤∥yi−1(t)∥L2,
+∀i ∈N\{1}
+(22)
+which yields the interconnected system strictly L2 string
+stable. The necessity of the conditions 1 and 2 for strict L2
+string stability is immediate.
+It is noted that condition 2 closely resembles the well-known
+string stability criterion (1). As such, Deﬁnition 1 together with
+Theorem 1 provide a rigorous basis for this criterion. The fact
+that Theorem 1 only yields sufﬁcient conditions for L2 string
+stability is basically due to the submultiplicative property. In
+speciﬁc cases, however, the conditions become also necessary,
+as shown below.
+Remark 4. When ur ∈R and yi ∈R, i ∈N\{1}, and Γ(s) =
+Pi(s)P −1
+i−1(s), i ∈N\{1}, is independent of i, then
+∥Pi(jω)∥H∞= sup
+ω
+
+|Γ(jω)|i−1|P1(jω)|
+
+(23)
+due to (20). Consequently, ∥Pi(jω)∥H∞exists for all i ∈
+N\{1}, if and only if |P1(jω)| < ∞and |Γ(jω)| ≤1 for
+all ω, rendering the interconnected system strictly L2 string
+stable. Note that the necessity of these conditions only holds
+in the absence of poles of P1(s) on the imaginary axis, being
+canceled by zeros of Γ(s) since, in that case, supω |P1(jω)|
+is unbounded whereas supω |Γ(jω)i−1P1(jω)| may not be.
+It thus follows that for linear unidirectionally coupled ho-
+mogeneous systems with scalar input and output, L2 string
+stability and strict L2 string stability are equivalent.
+Until now, only L2 string stability has been considered.
+Physically, this can be motivated by the requirement of energy
+dissipation along the string. Obviously, the induced L∞norm
+can be used instead. In the scope of vehicle following, the
+motivation for using this norm would be trafﬁc safety, since
+the L∞norm is directly related to maximum overshoot. The
+conditions for L∞string stability can be derived as follows.
+Let pi(t) denote the impulse response matrix, corresponding
+to the transfer function Pi(s). Then, from linear system theory
+∥pi(t)∥L1 = max
+ur̸=0
+∥yi(t)∥L∞
+∥ur(t)∥L∞
+.
+(24)
+Consequently, the interconnected system is L∞string stable
+if and only if supi∈N ∥pi(t)∥L1 exists. The class K function
+α in Deﬁnition 1 can then be chosen as
+α(∥ur(t)∥L∞) =
+
+sup
+i∈N
+∥pi(t)∥L1
+
+∥ur(t)∥L∞.
+(25)
+This leads to the following theorem.
+Theorem 2. Let (13), (14) represent a linear unidirectionally
+interconnected system for which the input–output behavior is
+described by (15). Assume that the pair (Ci, A) is such that
+unstable and marginally stable modes are unobservable and
+that Pi(s) is square and nonsingular, for all i ∈N. Then the
+system (13), (14) is L∞string stable if
+1) ∥p1(t)∥L1 exists;
+2) ∥γi(t)∥L1 ≤1,
+∀i ∈N\{1};
+where p1(t) and γi(t) are the impulse responses corresponding
+to P1(s) and Γi(s), respectively, with Γi(s) according to (19).
+Moreover, the system is strictly L∞string stable if and only
+if conditions 1 and 2 hold.
+Proof: Applying Young’s inequality for convolutions, the
+proof is similar to that of Theorem 1.
+Again, Theorem 2 only provides sufﬁcient conditions for
+L∞string stability. Note that, using a Lyapunov-stability ap-
+proach for linear systems, [31] discusses the relation between
+L∞and L2 string stability, the main results of which can
+be extended to the new framework by deﬁning the output
+yi to contain all states xi (subject to the remark in the next
+subsection), while focussing on initial condition perturbations.
+
+===== PAGE 7 =====
+
+6
+IEEE TRANSACTIONS ON CONTROL SYSTEMS TECHNOLOGY
+C. Discussion
+From the previous section, it is clear that the performance-
+oriented approach to string stability [17]–[25] is captured
+by Deﬁnition 1 as a special case for linear, unidirectionally
+interconnected systems. In addition, the Lyapunov-stability
+approach [7]–[10] is captured as well by the inclusion of
+initial condition perturbations in the deﬁnition. An apparent
+difference, however, is that the Lyapunov-stability approach
+focusses on the system states, whereas Deﬁnition 1 regards
+the outputs. Nevertheless, there is no essential limitation in
+choosing the output so as to include all states, albeit that
+the string stability complementary sensitivity can no longer
+be computed using (19). In the framework of inﬁnite-length
+interconnected systems [11]–[16], string stability requires the
+states to (exponentially) decay both over time and system
+index as a result of initial condition perturbations. As such,
+it can be argued that such behavior corresponds to strict string
+stability as in Deﬁnition 1. Summarizing, while the existing
+deﬁnitions are adequate, Deﬁnition 1 encompasses those.
+V. STRING STABILITY OF VEHICLE PLATOONS
+In order to analyze L2 string stability of the platoon model
+(7), (9), P1(jω) and Γi(jω) need to be determined. To this end,
+the frequency-domain model of a controlled platoon vehicle
+is formulated ﬁrst by introducing the vehicle transfer function
+G(s) = ˆqi(s)/ˆui(s), according to:
+G(s) =
+1
+s2(τs + 1)
+(26)
+which follows from ...q i = −1
+τ ¨qi + 1
+τ ui, see (4), the spacing
+policy transfer function H(s) = ˆξi(s)/ˆui(s) derived from (5):
+H(s) = hs + 1
+(27)
+and the feedback law K(s) with input ˆei(s), deﬁned in (6):
+K(s) = kp + kds + kdds2.
+(28)
+A controlled vehicle i is then represented by the block scheme
+as shown in Fig. 2. The occurrence of H(s) in the feedback
+loop can be readily explained by considering ˜qi as depicted in
+the block scheme, which equals, using (27),
+˜qi(t) = Li + ri + qi(t) + hvi(t).
+(29)
+Consequently, ˜qi can be interpreted as the “virtual control
+point” of vehicle i, that must converge to the actual position
+qi−1 of the preceding vehicle i −1. Furthermore, since the
+frequency-domain approach allows for the inclusion of a
+latency θ induced by the wireless communication network,
+the block scheme also includes a time delay D(s) = e−θs.
+The virtual reference vehicle (9) is now described by the
+series connection of H−1(s) and G(s), indicated in Fig. 2
+by “vehicle 0,” with ur(t) = ξ0(t) as external input. Conse-
+quently, the vehicle platoon has a scalar input ur, upon which a
+scalar output needs to be selected according to Theorem 1. To
+this end, yi(t) = ai(t) is chosen since the acceleration is phys-
+ically relevant on the one hand, and guarantees the existence of
+∥P1(jω)∥H∞on the other, as will be shown later. Moreover,
+with this output, the marginally stable mode associated with
+qi−1
+qi
+−
+ui−1
+ui
+ξi
+ei
+Li + ri
+ui
+D
+K
+H
+G
+˜qi
+vehicle 0
+H−1
+Fig. 2. Block scheme of a controlled platoon vehicle i ≥1 and of the virtual
+reference vehicle, indicated by the index 0.
+the reference vehicle appears to be unobservable. Using the
+block scheme in Fig. 2, the string stability complementary
+sensitivity Γi(s) = Γ(s) (independent of i) now satisﬁes
+Γ(s) = ˆai(s)/ˆai−1(s) =
+1
+H(s)
+K(s)G(s) + D(s)
+1 + K(s)G(s)
+.
+(30)
+Because of the speciﬁc choice for the virtual reference
+vehicle model, Γ(s) also equals the transfer function from
+ˆa0(s) to ˆa1(s). It therefore follows that, using (9),
+ˆa1(s) = Γ(s)ˆa0(s) = Γ(s)
+H(s)
+1
+τs + 1 ˆur(s)
+:= P1(s)ˆur(s)
+(31)
+from which it directly follows that ∥P1(jω)∥H∞exists when
+∥Γ(jω)∥H∞exists, due to the submultiplicative property of
+the H∞norm and the fact that H−1(s)(τs + 1)−1 is a
+stable transfer function (provided that h ≥0). It follows
+from (30) that without delay (D(s) = 1), ∥Γ(jω)∥H∞exists,
+since ∥Γ(jω)∥H∞= supω |H−1(jω)| = 1. According to
+Theorem 1, the system without delay is thus strictly L2 string
+stable for any choice of controller gains and time headway.
+Note that, if ur = 0 and the virtual reference vehicle
+has a constant velocity ¯v0, the states of all vehicles in
+the platoon will asymptotically converge to the equilibrium
+state ¯x0 =
+ 0 ¯v0 0 0T; see Section III. In other words,
+limω→0 (ˆvi(jω) −ˆvi−1(jω)) = 0. Hence,
+lim
+ω→0 |Γ(jω)| = 1 ⇒∥Γ(jω)∥H∞≥1
+(32)
+which is why the strict Lp string stability inequality in Deﬁni-
+tion 1 includes the equality. As a consequence, however, string
+stability robustness with respect to, e.g., model uncertainties,
+may be poor in case these uncertainties cause |Γ(jω)| to
+increase in the lower frequency region.
+As already mentioned, wireless communications exhibit
+latency, which in general increases with increasing commu-
+nication load. This time delay compromises string stability
+[32], as illustrated in Fig. 3(a), showing the gain |Γ(jω)| for
+various values of the time delay θ. Here, τ = 0.1 s, kp = 0.2,
+kd = 0.7, kdd = 0, and h = 0.5 s, yielding asymptotic stability
+of the platoon; see also Section VI.
+Fig. 3(b) illustrates the inﬂuence of the time headway on
+string stability in the presence of a communication delay,
+showing the maximum communication delay θmax that yields
+
+===== PAGE 8 =====
+
+PLOEG et al.: Lp STRING STABILITY OF CASCADED SYSTEMS
+7
+-5
+-4
+-3
+-2
+-1
+0
+1
+0.1
+1
+10
+ω [rad/s]
+2
+|Γ| [dB]
+(a)
+θmax [s]
+h [s]
+0
+0.5
+1
+1.5
+0.5
+0
+0.1
+0.2
+0.3
+0.4
+(b)
+Fig. 3.
+L2 string stability properties: (a) string stability complementary
+sensitivity magnitude |Γ(jω)| for communication delay (solid black) θ = 0 s,
+(dashed black) θ = 0.15 s, (grey) θ = 0.3 s, and (b) maximum delay θmax
+as a function of headway h.
+0
+0.5
+1
+1.5
+2
+0
+1
+2
+3
+4
+5
+t [s]
+(a)
+θmax [s]
+h [s]
+0
+0.5
+1
+1.5
+0.5
+0
+0.1
+0.2
+0.3
+0.4
+(b)
+γ [m/s ]
+2
+Fig. 4.
+L∞string stability properties: (a) impulse response γ(t) for
+communication delay (solid black) θ = 0 s, (dashed black) θ = 0.15 s,
+(grey) θ = 0.3 s, and (b) maximum delay θmax as a function of headway h.
+|Γ(jω)| ≤1, as a function of time headway h. This result is
+calculated by taking a ﬁxed value for θ and then searching for
+the smallest value of h such that ∥Γ(jω)∥H∞= 1. The given
+system falls into the category as mentioned in Remark 4, since,
+ﬁrst, yi, ur ∈R ∀i ∈N, second, Γ(jω) does not depend
+on the vehicle index i, and, third, it follows from (31) that
+P1(s) does not have poles on the imaginary axis that might
+be canceled by zeros in the product Γ(s)P1(s). Consequently,
+∥P1(jω)∥H∞< ∞and |Γ(jω)| ≤1 together form necessary
+and sufﬁcient conditions for (strict) L2 string stability.
+Regarding L∞string stability, applying the inverse Laplace
+transform to (31) to obtain the impulse response, and subse-
+quently using Young’s inequality for convolutions, it can be
+shown that ∥p1(t)∥L1 exists when ∥γ(t)∥L1 exists, similar to
+the result obtained for the existence of ∥P1(jω)∥H∞. Since
+Γ(s) = H−1(s) without communication delay, the impulse
+response equals γ(t) = h−1e−t/h. Hence ∥γ(t)∥L1 = 1,
+rendering the system strictly L∞string stable for all time
+headways and controller parameters according to Theorem 2.
+Again, communication delay compromises L∞string stabil-
+ity. Using the same parameter values as before, Fig. 4(a) shows
+the impulse response γ(t) for various values of the delay θ,
+calculated using the inverse Fourier transform of Γ(jω) from
+(30). It appears that ∥γ(t)∥L1 is an increasing function of θ,
+the effect of which is illustrated in Fig. 4(b), showing the max-
+imum communication delay θmax that yields ∥γ(t)∥L1 ≤1, as
+a function of the time headway h. Apparently, ∥γ(t)∥L1 ≤1
+is a more stringent criterion than ∥Γ(jω)∥H∞≤1, requiring
+a signiﬁcantly larger time headway. This could be expected
+0.1
+0.1
+1
+-5
+-4
+-3
+-2
+-1
+0
+1
+2
+3
+ω [rad/s]
+|Γ| [dB]
+Fig. 5. String stability complementary sensitivity magnitude |Γ(jω)|: (solid
+black) CACC measured, (solid grey) CACC theoretical, (dashed black) ACC
+measured, (dashed grey) ACC theoretical.
+since, from linear system theory, ∥Γ(jω)∥H∞≤∥γ(t)∥L1.
+VI. EXPERIMENTAL VALIDATION
+To validate the theoretical results and to demonstrate its
+technical feasibility, CACC has been implemented in six
+passenger vehicles [27], equipped with IEEE 802.11p-based
+wireless communication, allowing for communication of the
+desired vehicle acceleration at an update rate of 10 Hz.
+The test vehicle model has been identiﬁed as [27]:
+G(s) =
+1
+s2(τs + 1)e−φs
+(33)
+with τ
+= 0.1 s and φ = 0.2 s, the latter leading to an
+adaptation of (26) so as to include this time delay. Considering
+stability of the dynamics (7), speed of response, and comfort,
+suitable controller gains were found to be kp = 0.2 and
+kd = 0.7, with kdd = 0 to avoid feedback of the jerk, which
+is in practice unfeasible. The communication delay appeared
+to be θ ≈0.15 s. Using the analysis presented in Section V,
+h = 0.7 s is chosen, just achieving strict L2 string stability.
+Focussing on L2 string stability, a test is carried out using
+a prescribed acceleration proﬁle a0(t), as described in [27],
+based on which the input ur(t) has been calculated through
+differentiation, employing the dynamic inverse of (9). The
+measured response has subsequently been used to determine
+|Γ(jω)|, employing Welch’s averaged periodogram method
+[33]. The result is depicted in Fig. 5 for two cases: with
+the communicated desired acceleration ui−1 of the preceding
+vehicle and without (i.e., ui−1 = 0), referred to as CACC and
+ACC, respectively. Also the theoretical gain (30) is shown.
+The beneﬁt of CACC in view of L2 string stability is clearly
+illustrated, validating the theoretical analysis in Section IV.
+Another important observation is that string stability may not
+always be easy to assess in practice, since |Γ(jω)| will be close
+to 1 for low frequencies, see (32), as a result of which esti-
+mation inaccuracy may compromise the second string stability
+criterion from Theorem 1. In this experiment, estimation errors
+also cause the impulse response function, computed using the
+inverse Fourier transformation, to be inaccurate. Therefore,
+L∞string stability is not further investigated here.
+In addition to the time responses shown in [27], Fig. 6 shows
+the velocity response to a constant acceleration of the lead
+vehicle for both ACC and CACC, which clearly illustrates
+
+===== PAGE 9 =====
+
+8
+IEEE TRANSACTIONS ON CONTROL SYSTEMS TECHNOLOGY
+vi [m/s]
+vi [m/s]
+(a)
+0
+10 20 30 40 50 60 70
+0
+5
+10
+15
+20
+25
+t [s]
+(b)
+0
+5
+10
+15
+20
+25
+0
+10 20 30 40 50 60 70
+70
+t [s]
+Fig. 6. Measured velocity response at startup (black–light grey: vehicle 1–6):
+(a) ACC and (b) CACC.
+string stability in case of CACC and the lack thereof for ACC.
+Noteworthy is the observation that with ACC, the last vehicle
+starts to accelerate after 15.5 s, whereas with CACC, this is
+already after 8.5 s, showing that CACC may also be effective
+at trafﬁc lights.
+VII. CONCLUSION
+A novel string stability deﬁnition was proposed, on the basis
+of the notion of Lp stability, which applies to both linear
+and nonlinear systems, while accommodating initial condition
+perturbations as well as external disturbances, independent
+of the interconnection topology. The deﬁnition appeared to
+provide a rigorous basis for well-known L2 and L∞string
+stability conditions for linear, unidirectionally interconnected
+systems.
+Next, the string stability properties of CACC for vehicle
+platoons were analyzed, showing that time gaps well below
+1 s were admissible. To assess string stability in practice and
+to demonstrate the technical feasibility of CACC, experiments
+were conducted using a test ﬂeet of six passenger vehicles.
+As a result, a time headway of 0.7 s appeared to yield strict
+L2 string-stable behavior, in accordance with the theoretical
+analysis, which also indicated that time gaps down to 0.3 s
+are feasible when minimizing the latency of the wireless link.
+Such small time headways, however, will require insight into
+the string stability margins in the presence of uncertainties or
+unknown disturbances, which will be the subject of further
+research.
+REFERENCES
+[1] A. Vahidi and A. Eskandarian, “Research advances in intelligent colli-
+sion avoidance and adaptive cruise control,” IEEE Trans. Intell. Transp.
+Syst., vol. 4, no. 3, pp. 143–153, Sep. 2003.
+[2] S. E. Shladover, “Automated vehicles for highway operation (automated
+highway systems),” Proc. Inst. Mech. Eng., Part I, J. Syst. Control Eng.,
+vol. 219, no. 1, pp. 53–75, Feb. 2005.
+[3] Adaptive Cruise Control Systems – Performance Requirements and Test
+Procedures, Std. ISO 15 622, Oct. 2002.
+[4] K. Santhanakrishnan and R. Rajamani, “On spacing policies for highway
+vehicle automation,” IEEE Trans. Intell. Transp. Syst., vol. 4, no. 4, pp.
+198–204, Dec. 2003.
+[5] B. van Arem, C. J. G. van Driel, and R. Visser, “The impact of cooper-
+ative adaptive cruise control on trafﬁc-ﬂow characteristics,” IEEE Trans.
+Intell. Transp. Syst., vol. 7, no. 4, pp. 429–436, Dec. 2006.
+[6] A. Al Alam, A. Gattami, and K. H. Johansson, “An experimental study
+on the fuel reduction potential of heavy duty vehicle platooning,” in
+Proc. 13th Int. IEEE Conf. Intell. Transp. Syst., Sep. 2010, pp. 306–
+311.
+[7] S. Sheikholeslam and C. A. Desoer, “Control of interconnected nonlinear
+dynamical systems: The platoon problem,” IEEE Trans. Autom. Control,
+vol. 37, pp. 806–810, Jun. 1992.
+[8] D. Swaroop and J. K. Hedrick, “String stability of interconnected
+systems,” IEEE Trans. Autom. Control, vol. 41, no. 3, pp. 349–357,
+Mar. 1996.
+[9] S. K. Yadlapalli, S. Darbha, and K. R. Rajagopal, “Information ﬂow and
+its relation to stability of the motion of vehicles in a rigid formation,”
+IEEE Trans. Autom. Control, vol. 51, no. 8, pp. 1315–1319, Aug. 2006.
+[10] S. Klinge and R. H. Middleton, “String stability analysis of homo-
+geneous linear unidirectionally connected systems with nonzero initial
+conditions,” in Proc. IET Irish Signals Syst. Conf., Jun. 2009, pp. 1–17.
+[11] S. M. Melzer and B. C. Kuo, “Optimal regulation of systems described
+by a countably inﬁnite number of objects,” Automatica, vol. 7, no. 3,
+pp. 359–366, May 1971.
+[12] K.-C. Chu, “Optimal decentralized regulation for a string of coupled
+systems,” IEEE Trans. Autom. Control, vol. 19, no. 3, pp. 243–246,
+Jun. 1974.
+[13] E. Barbieri, “Stability analysis of a class of interconnected systems,”
+ASME J. Dynamic Syst., Meas., Control, vol. 115, no. 3, pp. 546–551,
+Sep. 1993.
+[14] C. H. Liang and H. Peng, “Optimal adaptive cruise control with
+guaranteed string stability,” Veh. Syst. Dynamics, vol. 32, no. 4 & 5,
+pp. 313–330, Nov. 1999.
+[15] B. Bamieh, F. Paganini, and M. A. Dahleh, “Distributed control of
+spatially invariant systems,” IEEE Trans. Autom. Control, vol. 47, no. 7,
+pp. 1091–1107, Jul. 2002.
+[16] R. F. Curtain, O. V. Iftime, and H. J. Zwart, “System theoretic properties
+of a class of spatially invariant systems,” Automatica, vol. 45, no. 7, pp.
+1619–1627, Jul. 2009.
+[17] S. Sheikholeslam and C. A. Desoer, “Longitudinal control of a platoon of
+vehicles with no communication of lead vehicle information: A system
+level study,” IEEE Trans. Veh. Technol., vol. 42, no. 4, pp. 546–554,
+Nov. 1993.
+[18] R. Rajamani and C. Zhu, “Semi-autonomous adaptive cruise control
+systems,” IEEE Trans. Veh. Technol., vol. 51, no. 5, pp. 1186–1192,
+Sep. 2002.
+[19] G. J. L. Naus, R. P. A. Vugts, J. Ploeg, M. J. G. van de Molengraft, and
+M. Steinbuch, “String-stable CACC design and experimental validation:
+A frequency-domain approach,” IEEE Trans. Veh. Technol., vol. 59,
+no. 9, pp. 4268–4279, Nov. 2010.
+[20] S. S. Stankovi´c, M. J. Stanojevi´c, and D. D. Šiljak, “Decentralized
+overlapping control of a platoon of vehicles,” IEEE Trans. Control Syst.
+Technol., vol. 8, no. 5, pp. 816–832, Sep. 2000.
+[21] M. E. Khatir and E. J. Davison, “Decentralized control of a large platoon
+of vehicles using non-identical controllers,” in Proc. Amer. Control
+Conf., vol. 3, Jul. 2004, pp. 2769–2776.
+[22] R. H. Middleton and J. H. Braslavsky, “String instability in classes
+of linear time invariant formation control with limited communication
+range,” IEEE Trans. Autom. Control, vol. 55, no. 7, pp. 1519–1530, Jul.
+2010.
+[23] A. González-Villaseñor, A. C. Renfrew, and P. J. Brunn, “A controller
+design methodology for close headway spacing strategies for automated
+vehicles,” Int. J. Control, vol. 80, no. 2, pp. 179–189, Feb. 2007.
+[24] A. Chakravarthy, K. Song, and E. Feron, “Preventing automotive pileup
+crashes in mixed-communication environments,” IEEE Trans. Intell.
+Transp. Syst., vol. 10, no. 2, pp. 211–225, Jun. 2009.
+[25] J. Eyre, D. Yanakiev, and I. Kanellakopoulos, “A simpliﬁed framework
+for string stability analysis of automated vehicles,” Veh. Syst. Dynamics,
+vol. 30, no. 5, pp. 375–405, Nov. 1998.
+[26] P. A. Ioannou and C. C. Chien, “Autonomous intelligent cruise control,”
+IEEE Trans. Veh. Technol., vol. 42, no. 4, pp. 657–672, Nov. 1993.
+[27] J. Ploeg, B. T. M. Scheepers, E. van Nunen, N. van de Wouw, and
+H. Nijmeijer, “Design and experimental evaluation of cooperative adap-
+tive cruise control,” in Proc. 14th Int. IEEE Conf. Intell. Transp. Syst.,
+Oct. 5–7 2011, pp. 260–265.
+[28] C. A. Desoer and M. Vidyasagar, Feedback Systems: Input–Output
+Properties, R. E. O’Malley, Ed.
+Philadelphia, PA, USA: SIAM, 2009.
+[29] E. Shaw and J. K. Hedrick, “String stability analysis for heterogeneous
+vehicle strings,” in Proc. Amer. Control Conf., Jul. 2007, pp. 3118–3125.
+[30] J. P. Hespanha, Linear Systems Theory.
+Princeton, NJ, USA: Princeton
+Univ. Press, Sep. 2009.
+[31] D. Swaroop, “A note about the stability of a string of LTI systems,”
+ASME J. Dynamic Syst., Meas., Control, vol. 124, no. 3, pp. 472–475,
+Jul. 2002.
+
+===== PAGE 10 =====
+
+PLOEG et al.: Lp STRING STABILITY OF CASCADED SYSTEMS
+9
+[32] S. Öncü, N. van de Wouw, and H. Nijmeijer, “Cooperative adaptive
+cruise control: Tradeoffs between control and network speciﬁcations,”
+in Proc. 14th Int. IEEE Conf. Intell. Transp. Syst., Oct. 2011, pp. 2051–
+2056.
+[33] P. Stoica and R. L. Moses, Introduction to Spectral Analysis.
+Upper
+Sadle River, NJ, USA: Prentice-Hall, 1997.

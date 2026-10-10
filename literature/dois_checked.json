@@ -1,0 +1,1713 @@
+[
+  {
+    "n": 1,
+    "key": "cfc-nmi2022",
+    "doi": "10.1038/s42256-022-00556-7",
+    "claim": {
+      "title": "Closed-form continuous-time neural networks",
+      "year": 2022,
+      "venue": "Nature Machine Intelligence"
+    },
+    "check": {
+      "exists": true,
+      "title": "Closed-form continuous-time neural networks",
+      "year": 2022,
+      "venue": "Nature Machine Intelligence",
+      "short_venue": "Nat Mach Intell",
+      "volume": "4",
+      "issue": "11",
+      "page": "992-1003",
+      "type": "journal-article",
+      "publisher": "Springer Science and Business Media LLC",
+      "authors": [
+        "Ramin Hasani",
+        "Mathias Lechner",
+        "Alexander Amini",
+        "Lucas Liebenwein",
+        "Aaron Ray",
+        "Max Tschaikowski",
+        "Gerald Teschl",
+        "Daniela Rus"
+      ],
+      "crossref_cited_by": 225,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 2,
+    "key": "lnn-scirob2023",
+    "doi": "10.1126/scirobotics.adc8892",
+    "claim": {
+      "title": "Robust flight navigation out of distribution with liquid neural networks",
+      "year": 2023,
+      "venue": "Science Robotics"
+    },
+    "check": {
+      "exists": true,
+      "title": "Robust flight navigation out of distribution with liquid neural networks",
+      "year": 2023,
+      "venue": "Science Robotics",
+      "short_venue": "Sci. Robot.",
+      "volume": "8",
+      "issue": "77",
+      "page": null,
+      "type": "journal-article",
+      "publisher": "American Association for the Advancement of Science (AAAS)",
+      "authors": [
+        "Makram Chahine",
+        "Ramin Hasani",
+        "Patrick Kao",
+        "Aaron Ray",
+        "Ryan Shubert",
+        "Mathias Lechner",
+        "Alexander Amini",
+        "Daniela Rus"
+      ],
+      "crossref_cited_by": 103,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 3,
+    "key": "ncp-ral2022",
+    "doi": "10.1109/LRA.2022.3146555",
+    "claim": {
+      "title": "Interpretable Autonomous Flight Via Compact Visualizable Neural Circuit Policies",
+      "year": 2022,
+      "venue": "IEEE Robotics and Automation Letters"
+    },
+    "check": {
+      "exists": true,
+      "title": "Interpretable Autonomous Flight Via Compact Visualizable Neural Circuit Policies",
+      "year": 2022,
+      "venue": "IEEE Robotics and Automation Letters",
+      "short_venue": "IEEE Robot. Autom. Lett.",
+      "volume": "7",
+      "issue": "2",
+      "page": "3265-3272",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Paul Tylkin",
+        "Tsun-Hsuan Wang",
+        "Kyle Palko",
+        "Ross Allen",
+        "Ho Chit Siu",
+        "Daniel Wrafter",
+        "Tim Seyde",
+        "Alexander Amini",
+        "Daniela Rus"
+      ],
+      "crossref_cited_by": 16,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 4,
+    "key": "online-verif-nmi2020",
+    "doi": "10.1038/s42256-020-0225-y",
+    "claim": {
+      "title": "Using online verification to prevent autonomous vehicles from causing accidents",
+      "year": 2020,
+      "venue": "Nature Machine Intelligence"
+    },
+    "check": {
+      "exists": true,
+      "title": "Using online verification to prevent autonomous vehicles from causing accidents",
+      "year": 2020,
+      "venue": "Nature Machine Intelligence",
+      "short_venue": "Nat Mach Intell",
+      "volume": "2",
+      "issue": "9",
+      "page": "518-528",
+      "type": "journal-article",
+      "publisher": "Springer Science and Business Media LLC",
+      "authors": [
+        "Christian Pek",
+        "Stefanie Manzinger",
+        "Markus Koschi",
+        "Matthias Althoff"
+      ],
+      "crossref_cited_by": 146,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 5,
+    "key": "snntraining-nmi2023",
+    "doi": "10.1038/s42256-023-00650-4",
+    "claim": {
+      "title": "Accurate online training of dynamical spiking neural networks through Forward Propagation Through Time",
+      "year": 2023,
+      "venue": "Nature Machine Intelligence"
+    },
+    "check": {
+      "exists": true,
+      "title": "Accurate online training of dynamical spiking neural networks through Forward Propagation Through Time",
+      "year": 2023,
+      "venue": "Nature Machine Intelligence",
+      "short_venue": "Nat Mach Intell",
+      "volume": "5",
+      "issue": "5",
+      "page": "518-527",
+      "type": "journal-article",
+      "publisher": "Springer Science and Business Media LLC",
+      "authors": [
+        "Bojian Yin",
+        "Federico Corradi",
+        "Sander M. Bohté"
+      ],
+      "crossref_cited_by": 70,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 6,
+    "key": "deeponet-nmi2021",
+    "doi": "10.1038/s42256-021-00302-5",
+    "claim": {
+      "title": "Learning nonlinear operators via DeepONet based on the universal approximation theorem of operators",
+      "year": 2021,
+      "venue": "Nature Machine Intelligence"
+    },
+    "check": {
+      "exists": true,
+      "title": "Learning nonlinear operators via DeepONet based on the universal approximation theorem of operators",
+      "year": 2021,
+      "venue": "Nature Machine Intelligence",
+      "short_venue": "Nat Mach Intell",
+      "volume": "3",
+      "issue": "3",
+      "page": "218-229",
+      "type": "journal-article",
+      "publisher": "Springer Science and Business Media LLC",
+      "authors": [
+        "Lu Lu",
+        "Pengzhan Jin",
+        "Guofei Pang",
+        "Zhongqiang Zhang",
+        "George Em Karniadakis"
+      ],
+      "crossref_cited_by": 3371,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 7,
+    "key": "pinn-ctrl-neucom2024",
+    "doi": "10.1016/j.neucom.2024.127419",
+    "claim": {
+      "title": "Physics-informed neural nets for control of dynamical systems",
+      "year": 2024,
+      "venue": "Neurocomputing"
+    },
+    "check": {
+      "exists": true,
+      "title": "Physics-informed neural nets for control of dynamical systems",
+      "year": 2024,
+      "venue": "Neurocomputing",
+      "short_venue": "Neurocomputing",
+      "volume": "579",
+      "issue": null,
+      "page": "127419",
+      "type": "journal-article",
+      "publisher": "Elsevier BV",
+      "authors": [
+        "Eric Aislan Antonelo",
+        "Eduardo Camponogara",
+        "Laio Oriel Seman",
+        "Jean Panaioti Jordanou",
+        "Eduardo Rehbein de Souza",
+        "Jomi Fred Hübner"
+      ],
+      "crossref_cited_by": 149,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 8,
+    "key": "deepsysid-auto2024",
+    "doi": "10.1016/j.automatica.2024.111907",
+    "claim": {
+      "title": "Deep networks for system identification: A survey",
+      "year": 2024,
+      "venue": "Automatica"
+    },
+    "check": {
+      "exists": true,
+      "title": "Deep networks for system identification: A survey",
+      "year": 2025,
+      "venue": "Automatica",
+      "short_venue": "Automatica",
+      "volume": "171",
+      "issue": null,
+      "page": "111907",
+      "type": "journal-article",
+      "publisher": "Elsevier BV",
+      "authors": [
+        "Gianluigi Pillonetto",
+        "Aleksandr Aravkin",
+        "Daniel Gedon",
+        "Lennart Ljung",
+        "Antônio H. Ribeiro",
+        "Thomas B. Schön"
+      ],
+      "crossref_cited_by": 94,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 9,
+    "key": "drl-survey-tits2021",
+    "doi": "10.1109/TITS.2021.3054625",
+    "claim": {
+      "title": "Deep Reinforcement Learning for Autonomous Driving: A Survey",
+      "year": 2021,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems"
+    },
+    "check": {
+      "exists": true,
+      "title": "Deep Reinforcement Learning for Autonomous Driving: A Survey",
+      "year": 2022,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems",
+      "short_venue": "IEEE Trans. Intell. Transport. Syst.",
+      "volume": "23",
+      "issue": "6",
+      "page": "4909-4926",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "B Ravi Kiran",
+        "Ibrahim Sobh",
+        "Victor Talpaert",
+        "Patrick Mannion",
+        "Ahmad A. Al Sallab",
+        "Senthil Yogamani",
+        "Patrick Perez"
+      ],
+      "crossref_cited_by": 1997,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 10,
+    "key": "drl-motion-tits2020",
+    "doi": "10.1109/TITS.2020.3024655",
+    "claim": {
+      "title": "Survey of Deep Reinforcement Learning for Motion Planning of Autonomous Vehicles",
+      "year": 2020,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems"
+    },
+    "check": {
+      "exists": true,
+      "title": "Survey of Deep Reinforcement Learning for Motion Planning of Autonomous Vehicles",
+      "year": 2022,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems",
+      "short_venue": "IEEE Trans. Intell. Transport. Syst.",
+      "volume": "23",
+      "issue": "2",
+      "page": "740-759",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Szilard Aradi"
+      ],
+      "crossref_cited_by": 585,
+      "jaccard_vs_claim": 1,
+      "year_ok": false,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 11,
+    "key": "motion-plan-hw-tits2019",
+    "doi": "10.1109/TITS.2019.2913998",
+    "claim": {
+      "title": "A Review of Motion Planning for Highway Autonomous Driving",
+      "year": 2019,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems"
+    },
+    "check": {
+      "exists": true,
+      "title": "A Review of Motion Planning for Highway Autonomous Driving",
+      "year": 2020,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems",
+      "short_venue": "IEEE Trans. Intell. Transport. Syst.",
+      "volume": "21",
+      "issue": "5",
+      "page": "1826-1848",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Laurene Claussmann",
+        "Marc Revilloud",
+        "Dominique Gruyer",
+        "Sebastien Glaser"
+      ],
+      "crossref_cited_by": 647,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 12,
+    "key": "td3-icml2018",
+    "doi": "10.48550/arXiv.1802.09477",
+    "claim": {
+      "title": "Addressing Function Approximation Error in Actor-Critic Methods",
+      "year": 2018,
+      "venue": "arXiv"
+    },
+    "note": "check DOI form",
+    "check": {
+      "exists": false,
+      "reason": "DOI not registered in Crossref"
+    }
+  },
+  {
+    "n": 13,
+    "key": "sac-icml2018",
+    "doi": "10.48550/arXiv.1801.01290",
+    "claim": {
+      "title": "Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor",
+      "year": 2018,
+      "venue": "arXiv"
+    },
+    "note": "check DOI form",
+    "check": {
+      "exists": false,
+      "reason": "DOI not registered in Crossref"
+    }
+  },
+  {
+    "n": 14,
+    "key": "marl2020",
+    "doi": "10.1109/TITS.2020.3032227",
+    "claim": {
+      "title": "Deep Learning for Safe Autonomous Driving: Current Challenges and Future Directions",
+      "year": 2020,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems"
+    },
+    "check": {
+      "exists": true,
+      "title": "Deep Learning for Safe Autonomous Driving: Current Challenges and Future Directions",
+      "year": 2021,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems",
+      "short_venue": "IEEE Trans. Intell. Transport. Syst.",
+      "volume": "22",
+      "issue": "7",
+      "page": "4316-4336",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Khan Muhammad",
+        "Amin Ullah",
+        "Jaime Lloret",
+        "Javier Del Ser",
+        "Victor Hugo C. de Albuquerque"
+      ],
+      "crossref_cited_by": 651,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 15,
+    "key": "humanlike-cf-trc2018",
+    "doi": "10.1016/j.trc.2018.10.024",
+    "claim": {
+      "title": "Human-like autonomous car-following model with deep reinforcement learning",
+      "year": 2018,
+      "venue": "Transportation Research Part C"
+    },
+    "check": {
+      "exists": true,
+      "title": "Human-like autonomous car-following model with deep reinforcement learning",
+      "year": 2018,
+      "venue": "Transportation Research Part C: Emerging Technologies",
+      "short_venue": "Transportation Research Part C: Emerging Technologies",
+      "volume": "97",
+      "issue": null,
+      "page": "348-368",
+      "type": "journal-article",
+      "publisher": "Elsevier BV",
+      "authors": [
+        "Meixin Zhu",
+        "Xuesong Wang",
+        "Yinhai Wang"
+      ],
+      "crossref_cited_by": 504,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 16,
+    "key": "safe-vel-trc2020",
+    "doi": "10.1016/j.trc.2020.102662",
+    "claim": {
+      "title": "Safe, efficient, and comfortable velocity control based on reinforcement learning for autonomous driving",
+      "year": 2020,
+      "venue": "Transportation Research Part C"
+    },
+    "check": {
+      "exists": true,
+      "title": "Safe, efficient, and comfortable velocity control based on reinforcement learning for autonomous driving",
+      "year": 2020,
+      "venue": "Transportation Research Part C: Emerging Technologies",
+      "short_venue": "Transportation Research Part C: Emerging Technologies",
+      "volume": "117",
+      "issue": null,
+      "page": "102662",
+      "type": "journal-article",
+      "publisher": "Elsevier BV",
+      "authors": [
+        "Meixin Zhu",
+        "Yinhai Wang",
+        "Ziyuan Pu",
+        "Jingyun Hu",
+        "Xuesong Wang",
+        "Ruimin Ke"
+      ],
+      "crossref_cited_by": 439,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 17,
+    "key": "lanechange-rl-trc2021",
+    "doi": "10.1016/j.trc.2021.103452",
+    "claim": {
+      "title": "Decision making of autonomous vehicles in lane change scenarios: Deep reinforcement learning approaches with risk awareness",
+      "year": 2021,
+      "venue": "Transportation Research Part C"
+    },
+    "check": {
+      "exists": true,
+      "title": "Decision making of autonomous vehicles in lane change scenarios: Deep reinforcement learning approaches with risk awareness",
+      "year": 2022,
+      "venue": "Transportation Research Part C: Emerging Technologies",
+      "short_venue": "Transportation Research Part C: Emerging Technologies",
+      "volume": "134",
+      "issue": null,
+      "page": "103452",
+      "type": "journal-article",
+      "publisher": "Elsevier BV",
+      "authors": [
+        "Guofa Li",
+        "Yifan Yang",
+        "Shen Li",
+        "Xingda Qu",
+        "Nengchao Lyu",
+        "Shengbo Eben Li"
+      ],
+      "crossref_cited_by": 292,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 18,
+    "key": "racing-scirob2023",
+    "doi": "10.1126/scirobotics.adg1462",
+    "claim": {
+      "title": "Reaching the limit in autonomous racing: Optimal control versus reinforcement learning",
+      "year": 2023,
+      "venue": "Science Robotics"
+    },
+    "check": {
+      "exists": true,
+      "title": "Reaching the limit in autonomous racing: Optimal control versus reinforcement learning",
+      "year": 2023,
+      "venue": "Science Robotics",
+      "short_venue": "Sci. Robot.",
+      "volume": "8",
+      "issue": "82",
+      "page": null,
+      "type": "journal-article",
+      "publisher": "American Association for the Advancement of Science (AAAS)",
+      "authors": [
+        "Yunlong Song",
+        "Angel Romero",
+        "Matthias Müller",
+        "Vladlen Koltun",
+        "Davide Scaramuzza"
+      ],
+      "crossref_cited_by": 229,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 19,
+    "key": "safecont-gp-tcst2019",
+    "doi": "10.1109/TCST.2019.2949757",
+    "claim": {
+      "title": "Cautious Model Predictive Control Using Gaussian Process Regression",
+      "year": 2019,
+      "venue": "IEEE Transactions on Control Systems Technology"
+    },
+    "check": {
+      "exists": true,
+      "title": "Cautious Model Predictive Control Using Gaussian Process Regression",
+      "year": 2020,
+      "venue": "IEEE Transactions on Control Systems Technology",
+      "short_venue": "IEEE Trans. Contr. Syst. Technol.",
+      "volume": "28",
+      "issue": "6",
+      "page": "2736-2743",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Lukas Hewing",
+        "Juraj Kabzan",
+        "Melanie N. Zeilinger"
+      ],
+      "crossref_cited_by": 589,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 20,
+    "key": "hocbf-tac2021",
+    "doi": "10.1109/TAC.2021.3105491",
+    "claim": {
+      "title": "High-Order Control Barrier Functions",
+      "year": 2021,
+      "venue": "IEEE Transactions on Automatic Control"
+    },
+    "check": {
+      "exists": true,
+      "title": "High-Order Control Barrier Functions",
+      "year": 2022,
+      "venue": "IEEE Transactions on Automatic Control",
+      "short_venue": "IEEE Trans. Automat. Contr.",
+      "volume": "67",
+      "issue": "7",
+      "page": "3655-3662",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Wei Xiao",
+        "Calin Belta"
+      ],
+      "crossref_cited_by": 459,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 21,
+    "key": "acbf-tac2021",
+    "doi": "10.1109/TAC.2021.3074895",
+    "claim": {
+      "title": "Adaptive Control Barrier Functions",
+      "year": 2021,
+      "venue": "IEEE Transactions on Automatic Control"
+    },
+    "check": {
+      "exists": true,
+      "title": "Adaptive Control Barrier Functions",
+      "year": 2022,
+      "venue": "IEEE Transactions on Automatic Control",
+      "short_venue": "IEEE Trans. Automat. Contr.",
+      "volume": "67",
+      "issue": "5",
+      "page": "2267-2281",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Wei Xiao",
+        "Calin Belta",
+        "Christos G. Cassandras"
+      ],
+      "crossref_cited_by": 169,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 22,
+    "key": "rcbf-auto2018",
+    "doi": "10.1016/j.automatica.2018.07.004",
+    "claim": {
+      "title": "Robust control barrier functions for constrained stabilization of nonlinear systems",
+      "year": 2018,
+      "venue": "Automatica"
+    },
+    "check": {
+      "exists": true,
+      "title": "Robust control barrier functions for constrained stabilization of nonlinear systems",
+      "year": 2018,
+      "venue": "Automatica",
+      "short_venue": "Automatica",
+      "volume": "96",
+      "issue": null,
+      "page": "359-367",
+      "type": "journal-article",
+      "publisher": "Elsevier BV",
+      "authors": [
+        "Mrdjan Jankovic"
+      ],
+      "crossref_cited_by": 392,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 23,
+    "key": "cbfqp-tac2016",
+    "doi": "10.1109/TAC.2016.2638961",
+    "claim": {
+      "title": "Control Barrier Function Based Quadratic Programs for Safety Critical Systems",
+      "year": 2016,
+      "venue": "IEEE Transactions on Automatic Control"
+    },
+    "check": {
+      "exists": true,
+      "title": "Control Barrier Function Based Quadratic Programs for Safety Critical Systems",
+      "year": 2017,
+      "venue": "IEEE Transactions on Automatic Control",
+      "short_venue": "IEEE Trans. Automat. Contr.",
+      "volume": "62",
+      "issue": "8",
+      "page": "3861-3876",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Aaron D. Ames",
+        "Xiangru Xu",
+        "Jessy W. Grizzle",
+        "Paulo Tabuada"
+      ],
+      "crossref_cited_by": 2549,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 24,
+    "key": "safetyfilter-auto2021",
+    "doi": "10.1016/j.automatica.2021.109597",
+    "claim": {
+      "title": "A predictive safety filter for learning-based control of constrained nonlinear dynamical systems",
+      "year": 2021,
+      "venue": "Automatica"
+    },
+    "check": {
+      "exists": true,
+      "title": "A predictive safety filter for learning-based control of constrained nonlinear dynamical systems",
+      "year": 2021,
+      "venue": "Automatica",
+      "short_venue": "Automatica",
+      "volume": "129",
+      "issue": null,
+      "page": "109597",
+      "type": "journal-article",
+      "publisher": "Elsevier BV",
+      "authors": [
+        "Kim Peter Wabersich",
+        "Melanie N. Zeilinger"
+      ],
+      "crossref_cited_by": 238,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 25,
+    "key": "safelearn-arc2022",
+    "doi": "10.1146/annurev-control-042920-020211",
+    "claim": {
+      "title": "Safe Learning in Robotics: From Learning-Based Control to Safe Reinforcement Learning",
+      "year": 2022,
+      "venue": "Annual Review of Control, Robotics, and Autonomous Systems"
+    },
+    "check": {
+      "exists": true,
+      "title": "Safe Learning in Robotics: From Learning-Based Control to Safe Reinforcement Learning",
+      "year": 2022,
+      "venue": "Annual Review of Control, Robotics, and Autonomous Systems",
+      "short_venue": "Annu. Rev. Control Robot. Auton. Syst.",
+      "volume": "5",
+      "issue": "1",
+      "page": "411-444",
+      "type": "journal-article",
+      "publisher": "Annual Reviews",
+      "authors": [
+        "Lukas Brunke",
+        "Melissa Greeff",
+        "Adam W. Hall",
+        "Zhaocong Yuan",
+        "Siqi Zhou",
+        "Jacopo Panerati",
+        "Angela P. Schoellig"
+      ],
+      "crossref_cited_by": 735,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 26,
+    "key": "safetyframework-tac2018",
+    "doi": "10.1109/TAC.2018.2876389",
+    "claim": {
+      "title": "A General Safety Framework for Learning-Based Control in Uncertain Robotic Systems",
+      "year": 2018,
+      "venue": "IEEE Transactions on Automatic Control"
+    },
+    "check": {
+      "exists": true,
+      "title": "A General Safety Framework for Learning-Based Control in Uncertain Robotic Systems",
+      "year": 2019,
+      "venue": "IEEE Transactions on Automatic Control",
+      "short_venue": "IEEE Trans. Automat. Contr.",
+      "volume": "64",
+      "issue": "7",
+      "page": "2737-2752",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Jaime F. Fisac",
+        "Anayo K. Akametalu",
+        "Melanie N. Zeilinger",
+        "Shahab Kaynama",
+        "Jeremy Gillula",
+        "Claire J. Tomlin"
+      ],
+      "crossref_cited_by": 337,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 27,
+    "key": "reach-arc2020",
+    "doi": "10.1146/annurev-control-071420-081941",
+    "claim": {
+      "title": "Set Propagation Techniques for Reachability Analysis",
+      "year": 2020,
+      "venue": "Annual Review of Control, Robotics, and Autonomous Systems"
+    },
+    "check": {
+      "exists": true,
+      "title": "Set Propagation Techniques for Reachability Analysis",
+      "year": 2021,
+      "venue": "Annual Review of Control, Robotics, and Autonomous Systems",
+      "short_venue": "Annu. Rev. Control Robot. Auton. Syst.",
+      "volume": "4",
+      "issue": "1",
+      "page": "369-395",
+      "type": "journal-article",
+      "publisher": "Annual Reviews",
+      "authors": [
+        "Matthias Althoff",
+        "Goran Frehse",
+        "Antoine Girard"
+      ],
+      "crossref_cited_by": 255,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 28,
+    "key": "planning-arc2018",
+    "doi": "10.1146/annurev-control-060117-105157",
+    "claim": {
+      "title": "Planning and Decision-Making for Autonomous Vehicles",
+      "year": 2018,
+      "venue": "Annual Review of Control, Robotics, and Autonomous Systems"
+    },
+    "check": {
+      "exists": true,
+      "title": "Planning and Decision-Making for Autonomous Vehicles",
+      "year": 2018,
+      "venue": "Annual Review of Control, Robotics, and Autonomous Systems",
+      "short_venue": "Annu. Rev. Control Robot. Auton. Syst.",
+      "volume": "1",
+      "issue": "1",
+      "page": "187-210",
+      "type": "journal-article",
+      "publisher": "Annual Reviews",
+      "authors": [
+        "Wilko Schwarting",
+        "Javier Alonso-Mora",
+        "Daniela Rus"
+      ],
+      "crossref_cited_by": 891,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 29,
+    "key": "cacc-tits2013",
+    "doi": "10.1109/TITS.2013.2278494",
+    "claim": {
+      "title": "Cooperative Adaptive Cruise Control in Real Traffic Situations",
+      "year": 2013,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems"
+    },
+    "check": {
+      "exists": true,
+      "title": "Cooperative Adaptive Cruise Control in Real Traffic Situations",
+      "year": 2014,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems",
+      "short_venue": "IEEE Trans. Intell. Transport. Syst.",
+      "volume": "15",
+      "issue": "1",
+      "page": "296-305",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Vicente Milanés",
+        "Steven E. Shladover",
+        "John Spring",
+        "Christopher Nowakowski",
+        "Hiroshi Kawazoe",
+        "Masahide Nakamura"
+      ],
+      "crossref_cited_by": 1042,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 30,
+    "key": "cacc-net-tits2014",
+    "doi": "10.1109/TITS.2014.2302816",
+    "claim": {
+      "title": "Cooperative Adaptive Cruise Control: Network-Aware Analysis of String Stability",
+      "year": 2014,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems"
+    },
+    "check": {
+      "exists": true,
+      "title": "Cooperative Adaptive Cruise Control: Network-Aware Analysis of String Stability",
+      "year": 2014,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems",
+      "short_venue": "IEEE Trans. Intell. Transport. Syst.",
+      "volume": "15",
+      "issue": "4",
+      "page": "1527-1537",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Sinan Oncu",
+        "Jeroen Ploeg",
+        "Nathan van de Wouw",
+        "Henk Nijmeijer"
+      ],
+      "crossref_cited_by": 403,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 31,
+    "key": "cacc-review-tits2015",
+    "doi": "10.1109/TITS.2015.2483063",
+    "claim": {
+      "title": "A Review of Communication, Driver Characteristics, and Controls Aspects of Cooperative Adaptive Cruise Control (CACC)",
+      "year": 2015,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems"
+    },
+    "check": {
+      "exists": true,
+      "title": "A Review of Communication, Driver Characteristics, and Controls Aspects of Cooperative Adaptive Cruise Control (CACC)",
+      "year": 2016,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems",
+      "short_venue": "IEEE Trans. Intell. Transport. Syst.",
+      "volume": "17",
+      "issue": "2",
+      "page": "491-509",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Kakan C. Dey",
+        "Li Yan",
+        "Xujie Wang",
+        "Yue Wang",
+        "Haiying Shen",
+        "Mashrur Chowdhury",
+        "Lei Yu",
+        "Chenxi Qiu",
+        "Vivekgautham Soundararaj"
+      ],
+      "crossref_cited_by": 516,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 32,
+    "key": "topology-tits2015",
+    "doi": "10.1109/TITS.2015.2402153",
+    "claim": {
+      "title": "Stability and Scalability of Homogeneous Vehicular Platoon: Study on the Influence of Information Flow Topologies",
+      "year": 2015,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems"
+    },
+    "check": {
+      "exists": true,
+      "title": "Stability and Scalability of Homogeneous Vehicular Platoon: Study on the Influence of Information Flow Topologies",
+      "year": 2016,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems",
+      "short_venue": "IEEE Trans. Intell. Transport. Syst.",
+      "volume": "17",
+      "issue": "1",
+      "page": "14-26",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Yang Zheng",
+        "Shengbo Eben Li",
+        "Jianqiang Wang",
+        "Dongpu Cao",
+        "Keqiang Li"
+      ],
+      "crossref_cited_by": 732,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 33,
+    "key": "l2string-tcst2014",
+    "doi": "10.1109/TCST.2013.2258346",
+    "claim": {
+      "title": "Lp String Stability of Cascaded Systems: Application to Vehicle Platooning",
+      "year": 2014,
+      "venue": "IEEE Transactions on Control Systems Technology"
+    },
+    "check": {
+      "exists": true,
+      "title": "Lp String Stability of Cascaded Systems: Application to Vehicle Platooning",
+      "year": 2014,
+      "venue": "IEEE Transactions on Control Systems Technology",
+      "short_venue": "IEEE Trans. Contr. Syst. Technol.",
+      "volume": "22",
+      "issue": "2",
+      "page": "786-793",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Jeroen Ploeg",
+        "Nathan van de Wouw",
+        "Henk Nijmeijer"
+      ],
+      "crossref_cited_by": 656,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 34,
+    "key": "controllersynth-tits2014",
+    "doi": "10.1109/TITS.2013.2291493",
+    "claim": {
+      "title": "Controller Synthesis for String Stability of Vehicle Platoons",
+      "year": 2014,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems"
+    },
+    "check": {
+      "exists": true,
+      "title": "Controller Synthesis for String Stability of Vehicle Platoons",
+      "year": 2014,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems",
+      "short_venue": "IEEE Trans. Intell. Transport. Syst.",
+      "volume": "15",
+      "issue": "2",
+      "page": "854-865",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Jeroen Ploeg",
+        "Dipan P. Shukla",
+        "Nathan van de Wouw",
+        "Henk Nijmeijer"
+      ],
+      "crossref_cited_by": 450,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 35,
+    "key": "delaystring-tac2017",
+    "doi": "10.1109/TAC.2017.2682421",
+    "claim": {
+      "title": "String Stability and a Delay-Based Spacing Policy for Vehicle Platoons Subject to Disturbances",
+      "year": 2017,
+      "venue": "IEEE Transactions on Automatic Control"
+    },
+    "check": {
+      "exists": true,
+      "title": "String Stability and a Delay-Based Spacing Policy for Vehicle Platoons Subject to Disturbances",
+      "year": 2017,
+      "venue": "IEEE Transactions on Automatic Control",
+      "short_venue": "IEEE Trans. Automat. Contr.",
+      "volume": "62",
+      "issue": "9",
+      "page": "4376-4391",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Bart Besselink",
+        "Karl H. Johansson"
+      ],
+      "crossref_cited_by": 371,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 36,
+    "key": "lookahead-tcst2016",
+    "doi": "10.1109/TCST.2016.2542044",
+    "claim": {
+      "title": "Cooperative Look-Ahead Control for Fuel-Efficient and Safe Heavy-Duty Vehicle Platooning",
+      "year": 2016,
+      "venue": "IEEE Transactions on Control Systems Technology"
+    },
+    "check": {
+      "exists": true,
+      "title": "Cooperative Look-Ahead Control for Fuel-Efficient and Safe Heavy-Duty Vehicle Platooning",
+      "year": 2017,
+      "venue": "IEEE Transactions on Control Systems Technology",
+      "short_venue": "IEEE Trans. Contr. Syst. Technol.",
+      "volume": "25",
+      "issue": "1",
+      "page": "12-28",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Valerio Turri",
+        "Bart Besselink",
+        "Karl H. Johansson"
+      ],
+      "crossref_cited_by": 388,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 37,
+    "key": "delayplatoon-tcst2015",
+    "doi": "10.1109/TCST.2015.2437336",
+    "claim": {
+      "title": "Design, Analysis, and Experimental Validation of a Distributed Protocol for Platooning in the Presence of Time-Varying Heterogeneous Delays",
+      "year": 2015,
+      "venue": "IEEE Transactions on Control Systems Technology"
+    },
+    "check": {
+      "exists": true,
+      "title": "Design, Analysis, and Experimental Validation of a Distributed Protocol for Platooning in the Presence of Time-Varying Heterogeneous Delays",
+      "year": 2015,
+      "venue": "IEEE Transactions on Control Systems Technology",
+      "short_venue": "IEEE Trans. Contr. Syst. Technol.",
+      "volume": null,
+      "issue": null,
+      "page": "1-1",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Mario di Bernardo",
+        "Paolo Falcone",
+        "Alessandro Salvi",
+        "Stefania Santini"
+      ],
+      "crossref_cited_by": 94,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 38,
+    "key": "lookaheadlat-tcst2019",
+    "doi": "10.1109/TCST.2019.2893830",
+    "claim": {
+      "title": "Combined Longitudinal and Lateral Control of Car-Like Vehicle Platooning With Extended Look-Ahead",
+      "year": 2019,
+      "venue": "IEEE Transactions on Control Systems Technology"
+    },
+    "check": {
+      "exists": true,
+      "title": "Combined Longitudinal and Lateral Control of Car-Like Vehicle Platooning With Extended Look-Ahead",
+      "year": 2020,
+      "venue": "IEEE Transactions on Control Systems Technology",
+      "short_venue": "IEEE Trans. Contr. Syst. Technol.",
+      "volume": "28",
+      "issue": "3",
+      "page": "790-803",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Anggera Bayuwindra",
+        "Jeroen Ploeg",
+        "Erjen Lefeber",
+        "Henk Nijmeijer"
+      ],
+      "crossref_cited_by": 87,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 39,
+    "key": "mpcstab-tcst2012",
+    "doi": "10.1109/TCST.2012.2200826",
+    "claim": {
+      "title": "Model Predictive Control for Vehicle Stabilization at the Limits of Handling",
+      "year": 2012,
+      "venue": "IEEE Transactions on Control Systems Technology"
+    },
+    "check": {
+      "exists": true,
+      "title": "Model Predictive Control for Vehicle Stabilization at the Limits of Handling",
+      "year": 2013,
+      "venue": "IEEE Transactions on Control Systems Technology",
+      "short_venue": "IEEE Trans. Contr. Syst. Technol.",
+      "volume": "21",
+      "issue": "4",
+      "page": "1258-1269",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Craig Earl Beal",
+        "J. Christian Gerdes"
+      ],
+      "crossref_cited_by": 435,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 40,
+    "key": "hflc-trc2014",
+    "doi": "10.1016/j.trc.2014.09.001",
+    "claim": {
+      "title": "Modeling cooperative and autonomous adaptive cruise control dynamic responses using experimental data",
+      "year": 2014,
+      "venue": "Transportation Research Part C"
+    },
+    "check": {
+      "exists": true,
+      "title": "Modeling cooperative and autonomous adaptive cruise control dynamic responses using experimental data",
+      "year": 2014,
+      "venue": "Transportation Research Part C: Emerging Technologies",
+      "short_venue": "Transportation Research Part C: Emerging Technologies",
+      "volume": "48",
+      "issue": null,
+      "page": "285-300",
+      "type": "journal-article",
+      "publisher": "Elsevier BV",
+      "authors": [
+        "Vicente Milanés",
+        "Steven E. Shladover"
+      ],
+      "crossref_cited_by": 1069,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 41,
+    "key": "humanfactors-trc2014",
+    "doi": "10.1016/j.trc.2014.09.008",
+    "claim": {
+      "title": "Incorporating human-factors in car-following models: A review of recent developments and research needs",
+      "year": 2014,
+      "venue": "Transportation Research Part C"
+    },
+    "check": {
+      "exists": true,
+      "title": "Incorporating human-factors in car-following models: A review of recent developments and research needs",
+      "year": 2014,
+      "venue": "Transportation Research Part C: Emerging Technologies",
+      "short_venue": "Transportation Research Part C: Emerging Technologies",
+      "volume": "48",
+      "issue": null,
+      "page": "379-403",
+      "type": "journal-article",
+      "publisher": "Elsevier BV",
+      "authors": [
+        "Mohammad Saifuzzaman",
+        "Zuduo Zheng"
+      ],
+      "crossref_cited_by": 458,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 42,
+    "key": "mixedstab-trc2016",
+    "doi": "10.1016/j.trc.2016.07.007",
+    "claim": {
+      "title": "Influence of connected and autonomous vehicles on traffic flow stability and throughput",
+      "year": 2016,
+      "venue": "Transportation Research Part C"
+    },
+    "check": {
+      "exists": true,
+      "title": "Influence of connected and autonomous vehicles on traffic flow stability and throughput",
+      "year": 2016,
+      "venue": "Transportation Research Part C: Emerging Technologies",
+      "short_venue": "Transportation Research Part C: Emerging Technologies",
+      "volume": "71",
+      "issue": null,
+      "page": "143-163",
+      "type": "journal-article",
+      "publisher": "Elsevier BV",
+      "authors": [
+        "Alireza Talebpour",
+        "Hani S. Mahmassani"
+      ],
+      "crossref_cited_by": 1331,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 43,
+    "key": "dissipation-trc2018",
+    "doi": "10.1016/j.trc.2018.02.005",
+    "claim": {
+      "title": "Dissipation of stop-and-go waves via control of autonomous vehicles: Field experiments",
+      "year": 2018,
+      "venue": "Transportation Research Part C"
+    },
+    "check": {
+      "exists": true,
+      "title": "Dissipation of stop-and-go waves via control of autonomous vehicles: Field experiments",
+      "year": 2018,
+      "venue": "Transportation Research Part C: Emerging Technologies",
+      "short_venue": "Transportation Research Part C: Emerging Technologies",
+      "volume": "89",
+      "issue": null,
+      "page": "205-221",
+      "type": "journal-article",
+      "publisher": "Elsevier BV",
+      "authors": [
+        "Raphael E. Stern",
+        "Shumo Cui",
+        "Maria Laura Delle Monache",
+        "Rahul Bhadani",
+        "Matt Bunting",
+        "Miles Churchill",
+        "Nathaniel Hamilton",
+        "R’mani Haulcy",
+        "Hannah Pohlmann",
+        "Fangyu Wu",
+        "Benedetto Piccoli",
+        "Benjamin Seibold",
+        "Jonathan Sprinkle",
+        "Daniel B. Work"
+      ],
+      "crossref_cited_by": 746,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 44,
+    "key": "platoonmixed-tac2020",
+    "doi": "10.1109/TAC.2020.3034871",
+    "claim": {
+      "title": "Analysis and Design of Vehicle Platooning Operations on Mixed-Traffic Highways",
+      "year": 2020,
+      "venue": "IEEE Transactions on Automatic Control"
+    },
+    "check": {
+      "exists": true,
+      "title": "Analysis and Design of Vehicle Platooning Operations on Mixed-Traffic Highways",
+      "year": 2021,
+      "venue": "IEEE Transactions on Automatic Control",
+      "short_venue": "IEEE Trans. Automat. Contr.",
+      "volume": "66",
+      "issue": "10",
+      "page": "4715-4730",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Li Jin",
+        "Mladen Cicic",
+        "Karl H. Johansson",
+        "Saurabh Amin"
+      ],
+      "crossref_cited_by": 49,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 45,
+    "key": "deep-lcc-tcst2023",
+    "doi": "10.1109/TCST.2023.3288636",
+    "claim": {
+      "title": "DeeP-LCC: Data-EnablEd Predictive Leading Cruise Control in Mixed Traffic Flow",
+      "year": 2023,
+      "venue": "IEEE Transactions on Control Systems Technology"
+    },
+    "check": {
+      "exists": true,
+      "title": "DeeP-LCC: Data-EnablEd Predictive Leading Cruise Control in Mixed Traffic Flow",
+      "year": 2023,
+      "venue": "IEEE Transactions on Control Systems Technology",
+      "short_venue": "IEEE Trans. Contr. Syst. Technol.",
+      "volume": "31",
+      "issue": "6",
+      "page": "2760-2776",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Jiawei Wang",
+        "Yang Zheng",
+        "Keqiang Li",
+        "Qing Xu"
+      ],
+      "crossref_cited_by": 88,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 46,
+    "key": "trajpred-tiv2022",
+    "doi": "10.1109/TIV.2022.3167103",
+    "claim": {
+      "title": "A Survey on Trajectory-Prediction Methods for Autonomous Driving",
+      "year": 2022,
+      "venue": "IEEE Transactions on Intelligent Vehicles"
+    },
+    "check": {
+      "exists": true,
+      "title": "A Survey on Trajectory-Prediction Methods for Autonomous Driving",
+      "year": 2022,
+      "venue": "IEEE Transactions on Intelligent Vehicles",
+      "short_venue": "IEEE Trans. Intell. Veh.",
+      "volume": "7",
+      "issue": "3",
+      "page": "652-674",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Yanjun Huang",
+        "Jiatong Du",
+        "Ziru Yang",
+        "Zewei Zhou",
+        "Lin Zhang",
+        "Hong Chen"
+      ],
+      "crossref_cited_by": 692,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 47,
+    "key": "motionplan-tiv2023",
+    "doi": "10.1109/TIV.2023.3274536",
+    "claim": {
+      "title": "Motion Planning for Autonomous Driving: The State of the Art and Future Perspectives",
+      "year": 2023,
+      "venue": "IEEE Transactions on Intelligent Vehicles"
+    },
+    "check": {
+      "exists": true,
+      "title": "Motion Planning for Autonomous Driving: The State of the Art and Future Perspectives",
+      "year": 2023,
+      "venue": "IEEE Transactions on Intelligent Vehicles",
+      "short_venue": "IEEE Trans. Intell. Veh.",
+      "volume": "8",
+      "issue": "6",
+      "page": "3692-3711",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Siyu Teng",
+        "Xuemin Hu",
+        "Peng Deng",
+        "Bai Li",
+        "Yuchen Li",
+        "Yunfeng Ai",
+        "Dongsheng Yang",
+        "Lingxi Li",
+        "Zhe Xuanyuan",
+        "Fenghua Zhu",
+        "Long Chen"
+      ],
+      "crossref_cited_by": 585,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 48,
+    "key": "milestones-tiv2022",
+    "doi": "10.1109/TIV.2022.3223131",
+    "claim": {
+      "title": "Milestones in Autonomous Driving and Intelligent Vehicles: Survey of Surveys",
+      "year": 2022,
+      "venue": "IEEE Transactions on Intelligent Vehicles"
+    },
+    "check": {
+      "exists": true,
+      "title": "Milestones in Autonomous Driving and Intelligent Vehicles: Survey of Surveys",
+      "year": 2023,
+      "venue": "IEEE Transactions on Intelligent Vehicles",
+      "short_venue": "IEEE Trans. Intell. Veh.",
+      "volume": "8",
+      "issue": "2",
+      "page": "1046-1056",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Long Chen",
+        "Yuchen Li",
+        "Chao Huang",
+        "Bai Li",
+        "Yang Xing",
+        "Daxin Tian",
+        "Li Li",
+        "Zhongxu Hu",
+        "Xiaoxiang Na",
+        "Zixuan Li",
+        "Siyu Teng",
+        "Chen Lv",
+        "Jinjun Wang",
+        "Dongpu Cao",
+        "Nanning Zheng",
+        "Fei-Yue Wang"
+      ],
+      "crossref_cited_by": 509,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 49,
+    "key": "worldmodels-tiv2024",
+    "doi": "10.1109/TIV.2024.3398357",
+    "claim": {
+      "title": "World Models for Autonomous Driving: An Initial Survey",
+      "year": 2024,
+      "venue": "IEEE Transactions on Intelligent Vehicles"
+    },
+    "check": {
+      "exists": true,
+      "title": "World Models for Autonomous Driving: An Initial Survey",
+      "year": 2025,
+      "venue": "IEEE Transactions on Intelligent Vehicles",
+      "short_venue": "IEEE Trans. Intell. Veh.",
+      "volume": null,
+      "issue": null,
+      "page": "1-17",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Yanchen Guan",
+        "Haicheng Liao",
+        "Zhenning Li",
+        "Jia Hu",
+        "Runze Yuan",
+        "Guohui Zhang",
+        "Chengzhong Xu"
+      ],
+      "crossref_cited_by": 68,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 50,
+    "key": "e2e-tits2020",
+    "doi": "10.1109/TITS.2020.3013234",
+    "claim": {
+      "title": "Multimodal End-to-End Autonomous Driving",
+      "year": 2020,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems"
+    },
+    "check": {
+      "exists": true,
+      "title": "Multimodal End-to-End Autonomous Driving",
+      "year": 2022,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems",
+      "short_venue": "IEEE Trans. Intell. Transport. Syst.",
+      "volume": "23",
+      "issue": "1",
+      "page": "537-547",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Yi Xiao",
+        "Felipe Codevilla",
+        "Akhil Gurram",
+        "Onay Urfalioglu",
+        "Antonio M. Lopez"
+      ],
+      "crossref_cited_by": 263,
+      "jaccard_vs_claim": 1,
+      "year_ok": false,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 51,
+    "key": "koopman-arc2021",
+    "doi": "10.1146/annurev-control-071020-010108",
+    "claim": {
+      "title": "Koopman Operators for Estimation and Control of Dynamical Systems",
+      "year": 2021,
+      "venue": "Annual Review of Control, Robotics, and Autonomous Systems"
+    },
+    "check": {
+      "exists": true,
+      "title": "Koopman Operators for Estimation and Control of Dynamical Systems",
+      "year": 2021,
+      "venue": "Annual Review of Control, Robotics, and Autonomous Systems",
+      "short_venue": "Annu. Rev. Control Robot. Auton. Syst.",
+      "volume": "4",
+      "issue": "1",
+      "page": "59-87",
+      "type": "journal-article",
+      "publisher": "Annual Reviews",
+      "authors": [
+        "Samuel E. Otto",
+        "Clarence W. Rowley"
+      ],
+      "crossref_cited_by": 177,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 52,
+    "key": "colonoscopy-nmi2020",
+    "doi": "10.1038/s42256-020-00231-9",
+    "claim": {
+      "title": "Enabling the future of colonoscopy with intelligent and autonomous magnetic manipulation",
+      "year": 2020,
+      "venue": "Nature Machine Intelligence"
+    },
+    "check": {
+      "exists": true,
+      "title": "Enabling the future of colonoscopy with intelligent and autonomous magnetic manipulation",
+      "year": 2020,
+      "venue": "Nature Machine Intelligence",
+      "short_venue": "Nat Mach Intell",
+      "volume": "2",
+      "issue": "10",
+      "page": "595-606",
+      "type": "journal-article",
+      "publisher": "Springer Science and Business Media LLC",
+      "authors": [
+        "James W. Martin",
+        "Bruno Scaglioni",
+        "Joseph C. Norton",
+        "Venkataraman Subramanian",
+        "Alberto Arezzo",
+        "Keith L. Obstein",
+        "Pietro Valdastri"
+      ],
+      "crossref_cited_by": 217,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 53,
+    "key": "largenetwork-nmi2024",
+    "doi": "10.1038/s42256-024-00879-7",
+    "claim": {
+      "title": "Efficient and scalable reinforcement learning for large-scale network control",
+      "year": 2024,
+      "venue": "Nature Machine Intelligence"
+    },
+    "check": {
+      "exists": true,
+      "title": "Efficient and scalable reinforcement learning for large-scale network control",
+      "year": 2024,
+      "venue": "Nature Machine Intelligence",
+      "short_venue": "Nat Mach Intell",
+      "volume": null,
+      "issue": null,
+      "page": null,
+      "type": "journal-article",
+      "publisher": "Springer Science and Business Media LLC",
+      "authors": [
+        "Chengdong Ma",
+        "Aming Li",
+        "Yali Du",
+        "Hao Dong",
+        "Yaodong Yang"
+      ],
+      "crossref_cited_by": 66,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  }
+]

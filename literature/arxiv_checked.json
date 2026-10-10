@@ -1,0 +1,290 @@
+[
+  {
+    "requested": "1806.07366",
+    "id": "1806.07366v5",
+    "title": "Neural Ordinary Differential Equations",
+    "published": "2018-06-19",
+    "updated": "2019-12-14",
+    "journal_ref": null,
+    "comment": null
+  },
+  {
+    "requested": "1907.03907",
+    "id": "1907.03907v1",
+    "title": "Latent ODEs for Irregularly-Sampled Time Series",
+    "published": "2019-07-08",
+    "updated": "2019-07-08",
+    "journal_ref": null,
+    "comment": null
+  },
+  {
+    "requested": "1708.06374",
+    "id": "1708.06374v6",
+    "title": "On a Formal Model of Safe and Scalable Self-driving Cars",
+    "published": "2017-08-21",
+    "updated": "2018-10-27",
+    "journal_ref": null,
+    "comment": null
+  },
+  {
+    "requested": "1711.03938",
+    "id": "1711.03938v1",
+    "title": "CARLA: An Open Urban Driving Simulator",
+    "published": "2017-11-10",
+    "updated": "2017-11-10",
+    "journal_ref": null,
+    "comment": "Published at the 1st Conference on Robot Learning (CoRL)"
+  },
+  {
+    "requested": "1906.01563",
+    "id": "1906.01563v3",
+    "title": "Hamiltonian Neural Networks",
+    "published": "2019-06-04",
+    "updated": "2019-09-05",
+    "journal_ref": null,
+    "comment": "Conference paper at NeurIPS 2019. Main paper has 8 pages and 5 figures"
+  },
+  {
+    "requested": "2205.15997",
+    "id": "2205.15997v1",
+    "title": "TransFuser: Imitation with Transformer-Based Sensor Fusion for Autonomous Driving",
+    "published": "2022-05-31",
+    "updated": "2022-05-31",
+    "journal_ref": null,
+    "comment": "arXiv admin note: text overlap with arXiv:2104.09224"
+  },
+  {
+    "requested": "2306.16927",
+    "id": "2306.16927v3",
+    "title": "End-to-end Autonomous Driving: Challenges and Frontiers",
+    "published": "2023-06-29",
+    "updated": "2024-08-15",
+    "journal_ref": null,
+    "comment": "Accepted by IEEE TPAMI"
+  },
+  {
+    "requested": "2212.10156",
+    "id": "2212.10156v2",
+    "title": "Planning-oriented Autonomous Driving",
+    "published": "2022-12-20",
+    "updated": "2023-03-23",
+    "journal_ref": null,
+    "comment": "CVPR 2023 award candidate. Project page: https://opendrivelab.github.io/UniAD/"
+  },
+  {
+    "requested": "1802.09477",
+    "id": "1802.09477v3",
+    "title": "Addressing Function Approximation Error in Actor-Critic Methods",
+    "published": "2018-02-26",
+    "updated": "2018-10-22",
+    "journal_ref": null,
+    "comment": "Accepted at ICML 2018"
+  },
+  {
+    "requested": "2106.13898",
+    "id": "2106.13898v2",
+    "title": "Closed-form Continuous-time Neural Models",
+    "published": "2021-06-25",
+    "updated": "2022-03-02",
+    "journal_ref": "Nature Machine Intelligence 4, 992--1003 (2022)",
+    "comment": "40 pages"
+  },
+  {
+    "requested": "2309.17080",
+    "id": "2309.17080v1",
+    "title": "GAIA-1: A Generative World Model for Autonomous Driving",
+    "published": "2023-09-29",
+    "updated": "2023-09-29",
+    "journal_ref": null,
+    "comment": "Technical Report"
+  },
+  {
+    "requested": "2007.10319",
+    "id": "2007.10319v2",
+    "title": "MCUNet: Tiny Deep Learning on IoT Devices",
+    "published": "2020-07-20",
+    "updated": "2020-11-19",
+    "journal_ref": null,
+    "comment": "NeurIPS 2020 (spotlight)"
+  },
+  {
+    "requested": "1801.06601",
+    "id": "1801.06601v1",
+    "title": "CMSIS-NN: Efficient Neural Network Kernels for Arm Cortex-M CPUs",
+    "published": "2018-01-19",
+    "updated": "2018-01-19",
+    "journal_ref": null,
+    "comment": null
+  },
+  {
+    "requested": "2103.13630",
+    "id": "2103.13630v3",
+    "title": "A Survey of Quantization Methods for Efficient Neural Network Inference",
+    "published": "2021-03-25",
+    "updated": "2021-06-21",
+    "journal_ref": null,
+    "comment": "Book Chapter: Low-Power Computer Vision: Improving the Efficiency of Artificial Intelligence"
+  },
+  {
+    "requested": "1510.00149",
+    "id": "1510.00149v5",
+    "title": "Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding",
+    "published": "2015-10-01",
+    "updated": "2016-02-15",
+    "journal_ref": null,
+    "comment": "Published as a conference paper at ICLR 2016 (oral)"
+  },
+  {
+    "requested": "2006.05525",
+    "id": "2006.05525v7",
+    "title": "Knowledge Distillation: A Survey",
+    "published": "2020-06-09",
+    "updated": "2021-05-20",
+    "journal_ref": null,
+    "comment": "It has been accepted for publication in International Journal of Computer Vision (2021)"
+  },
+  {
+    "requested": "1912.12294",
+    "id": "1912.12294v1",
+    "title": "Learning by Cheating",
+    "published": "2019-12-27",
+    "updated": "2019-12-27",
+    "journal_ref": null,
+    "comment": "Paper published in CoRL2019"
+  },
+  {
+    "requested": "2109.04456",
+    "id": "2109.04456v1",
+    "title": "NEAT: Neural Attention Fields for End-to-End Autonomous Driving",
+    "published": "2021-09-09",
+    "updated": "2021-09-09",
+    "journal_ref": null,
+    "comment": "ICCV 2021"
+  },
+  {
+    "requested": "2206.08129",
+    "id": "2206.08129v2",
+    "title": "Trajectory-guided Control Prediction for End-to-end Autonomous Driving: A Simple yet Strong Baseline",
+    "published": "2022-06-16",
+    "updated": "2022-10-15",
+    "journal_ref": null,
+    "comment": "Accepted at NeurIPS 2022"
+  },
+  {
+    "requested": "2106.08417",
+    "id": "2106.08417v3",
+    "title": "Scene Transformer: A unified architecture for predicting multiple agent trajectories",
+    "published": "2021-06-15",
+    "updated": "2022-03-04",
+    "journal_ref": null,
+    "comment": "ICLR 2022"
+  },
+  {
+    "requested": "2207.05844",
+    "id": "2207.05844v1",
+    "title": "Wayformer: Motion Forecasting via Simple &amp; Efficient Attention Networks",
+    "published": "2022-07-12",
+    "updated": "2022-07-12",
+    "journal_ref": null,
+    "comment": null
+  },
+  {
+    "requested": "2209.13508",
+    "id": "2209.13508v2",
+    "title": "Motion Transformer with Global Intention Localization and Local Movement Refinement",
+    "published": "2022-09-27",
+    "updated": "2023-03-18",
+    "journal_ref": null,
+    "comment": "Accepted by NeurIPS 2022 as Oral Presentation"
+  },
+  {
+    "requested": "1810.05642",
+    "id": "1810.05642v1",
+    "title": "The highD Dataset: A Drone Dataset of Naturalistic Vehicle Trajectories on German Highways for Validation of Highly Automated Driving Systems",
+    "published": "2018-10-11",
+    "updated": "2018-10-11",
+    "journal_ref": null,
+    "comment": "IEEE International Conference on Intelligent Transportation Systems (ITSC) 2018"
+  },
+  {
+    "requested": "1910.03088",
+    "id": "1910.03088v1",
+    "title": "INTERACTION Dataset: An INTERnational, Adversarial and Cooperative moTION Dataset in Interactive Driving Scenarios with Semantic Maps",
+    "published": "2019-09-30",
+    "updated": "2019-09-30",
+    "journal_ref": null,
+    "comment": null
+  },
+  {
+    "requested": "2009.13303",
+    "id": "2009.13303v2",
+    "title": "Sim-to-Real Transfer in Deep Reinforcement Learning for Robotics: a Survey",
+    "published": "2020-09-24",
+    "updated": "2021-07-08",
+    "journal_ref": "2020 IEEE Symposium Series on Computational Intelligence (SSCI), 2020, pp. 737-744",
+    "comment": "Accepted to the 2020 IEEE Symposium Series on Computational Intelligence"
+  },
+  {
+    "requested": "1807.00412",
+    "id": "1807.00412v2",
+    "title": "Learning to Drive in a Day",
+    "published": "2018-07-01",
+    "updated": "2018-09-11",
+    "journal_ref": null,
+    "comment": "Further results and demo videos can be viewed at: https://wayve.ai/blog/l2diad"
+  },
+  {
+    "requested": "1610.03295",
+    "id": "1610.03295v1",
+    "title": "Safe, Multi-Agent, Reinforcement Learning for Autonomous Driving",
+    "published": "2016-10-11",
+    "updated": "2016-10-11",
+    "journal_ref": null,
+    "comment": null
+  },
+  {
+    "requested": "2002.00444",
+    "id": "2002.00444v2",
+    "title": "Deep Reinforcement Learning for Autonomous Driving: A Survey",
+    "published": "2020-02-02",
+    "updated": "2021-01-23",
+    "journal_ref": null,
+    "comment": "Accepted for publication at IEEE Transactions on Intelligent Transportation Systems"
+  },
+  {
+    "requested": "2001.08499",
+    "id": "2001.08499v3",
+    "title": "A Large Scale Event-based Detection Dataset for Automotive",
+    "published": "2020-01-23",
+    "updated": "2020-01-31",
+    "journal_ref": null,
+    "comment": "8 pages, 29 images"
+  },
+  {
+    "requested": "1707.06347",
+    "id": "1707.06347v2",
+    "title": "Proximal Policy Optimization Algorithms",
+    "published": "2017-07-20",
+    "updated": "2017-08-28",
+    "journal_ref": null,
+    "comment": null
+  },
+  {
+    "requested": "1801.01290",
+    "id": "1801.01290v2",
+    "title": "Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor",
+    "published": "2018-01-04",
+    "updated": "2018-08-08",
+    "journal_ref": null,
+    "comment": "ICML 2018 Videos: sites.google.com/view/soft-actor-critic Code: github.com/haarnoja/sac"
+  },
+  {
+    "requested": "1509.02971",
+    "id": "1509.02971v6",
+    "title": "Continuous control with deep reinforcement learning",
+    "published": "2015-09-09",
+    "updated": "2019-07-05",
+    "journal_ref": null,
+    "comment": "10 pages + supplementary"
+  }
+]

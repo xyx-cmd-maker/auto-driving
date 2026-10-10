@@ -1,0 +1,29 @@
+{
+  "generator": "netgenerate (grid, 2 nodes, single straight segment)",
+  "n_lanes_one_way": 3,
+  "design_edge_length_m": 3000.0,
+  "speed_limit_mps": 30.0,
+  "step_length_s": 0.5,
+  "east_edge": {
+    "id": "A0B0",
+    "length_m": 2980.8,
+    "lanes": 3
+  },
+  "west_edge": {
+    "id": "A0A1",
+    "length_m": 2980.8,
+    "lanes": 3
+  },
+  "all_edges": [
+    "A0A1",
+    "A0B0",
+    "A1A0",
+    "A1B1",
+    "B0A0",
+    "B0B1",
+    "B1A1",
+    "B1B0"
+  ],
+  "odd_note": "高速公路主线 / 多车道 / 混行；晴天；不含匝道与交叉口（AGENTS.md §5）",
+  "source_script": "src/envs/sumo_highway_scenario.py"
+}

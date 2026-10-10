@@ -1,0 +1,1256 @@
+SOURCE_PDF: tcst2024-physaug-deeplcc.pdf
+MD5: 20c1e0c66a6baabbbbc2b537fdf7bdce
+PAGES: 8
+
+===== PAGE 1 =====
+
+IEEE TRANSACTIONS ON CONTROL SYSTEMS TECHNOLOGY
+1
+Physics-Augmented Data-EnablEd Predictive
+Control for Eco-driving of Mixed Traffic
+Considering Diverse Human Behaviors
+Dongjun Li, Kaixiang Zhang, Haoxuan Dong, Qun Wang, Zhaojian Li, and Ziyou Song
+Abstract—Data-driven cooperative control of connected and
+automated vehicles (CAVs) has gained extensive research interest
+as it can utilize collected data to generate control actions without
+relying on parametric system models that are generally challeng-
+ing to obtain. Existing methods mainly focused on improving
+traffic safety and stability, while less emphasis has been placed on
+energy efficiency in the presence of uncertainties and diversities
+of human-driven vehicles (HDVs). In this paper, we employ
+a data-enabled predictive control (DeePC) scheme to address
+the eco-driving of mixed traffic flows with diverse behaviors of
+human drivers. Specifically, by incorporating first-order physics,
+we propose the Physics-Augmented DeePC approach to handle
+substantial system variations and uncertainties. Then, a novel
+optimization framework, avoiding conventional reference trajec-
+tories during the receding optimization process, is proposed to
+further reduce the holistic energy consumption of mixed traffic
+flows. Simulation results demonstrate the effectiveness of our
+approach in accurately capturing random human driver behav-
+iors and reducing holistic energy consumption, while ensuring
+driving safety and traffic efficiency. Furthermore, the proposed
+optimization framework achieves substantial reductions in energy
+consumption, i.e., average reductions of 4.14%, 4.97% and 9.29%
+when compared to the benchmark algorithms.
+Index Terms—Connected and automated vehicles, data-driven
+control, eco-driving, diverse driving behaviors.
+I. INTRODUCTION
+T
+HE emergence of connected and automated vehicles
+(CAVs) has paved the way towards next-gen vehicular
+systems with enhanced energy efficiency, reduced emissions,
+and improved mobility [1]–[4]. Eco-driving, as a key advance
+in promised CAV technology, aims to improve the safety and
+mobility of traffic systems while simultaneously minimizing
+the overall energy consumption [5]. The eco-driving can be
+achieved by incorporating information from surrounding traffic
+and road conditions into real-time control and optimization
+schemes to effectively adjust the speed and acceleration of
+Manuscript received 24 April 2024; accepted 30 Jan 2023. Recommended
+by xxx. (Corresponding author: Ziyou Song.)
+D. Li, H. Dong, and Z. Song are with the Department of Mechanical
+Engineering, National University of Singapore, 117575 Singapore, Singapore
+(e-mail: dongjun.li@u.nus.edu; donghaox@foxmail.com; ziyou@nus.edu.sg).
+K. Zhang and Z. Li are with the Department of Mechanical Engineer-
+ing, Michigan State University, East Lansing, MI 48824, USA. (e-mail:
+zhangk64@msu.edu; lizhaoj1@msu.edu).
+Q. Wang is with the Department of Mechanical Engineering, National Uni-
+versity of Singapore, 117575 Singapore, Singapore, and also with the School
+of Mechanical Engineering, Nanjing University of Science and Technology,
+Nanjing 210094, China (e-mail:wangqun0516@gmail.com).
+Color versions of one or more figures in this article are available at
+https://xxxx
+Digital Object Identifier xxx
+controllable vehicles. As CAVs and human-driven vehicles
+(HDVs) are anticipated to coexist on roads in the near future,
+it is necessary to design eco-driving control of CAVs in a
+mixed traffic flow. This is challenging as HDVs often exhibit
+intricate, nonlinear behaviors that are difficult to characterize
+and cooperate with [6], [7]. In addition, it has been demon-
+strated both theoretically and experimentally that incorporating
+diverse driving behaviors of HDVs into CAV controller design
+can enhance mixed traffic performance [8]–[10]. Therefore, the
+development of CAV controllers needs to carefully address
+the uncertainties caused by HDVs such that the whole traffic
+system can operate in a safe and efficient manner.
+The mixed traffic flow is a highly complex human-in-the-
+loop system. Although various approaches have been proposed
+to characterize the behavior of human drivers, such as the
+intelligent driver model (IDM) [11], the optimal velocity
+model (OVM) [12], and their variants [13], [14], accurately
+identifying the diverse and non-linear driving behaviors exhib-
+ited by human drivers remains a significant challenge, which
+cannot be easily tackled by model-based methods [15]. As
+such, researchers have investigated novel approaches that can
+bypass the identification of human driver behaviors, by utiliz-
+ing model-free or data-driven methods such as reinforcement
+learning (RL) [3], [16] and adaptive dynamic programming
+[17] to develop CAV control strategies that can optimize
+vehicle operations and enhance mobility. By considering the
+complex interactions between CAVs and HDVs, these strate-
+gies have demonstrated promising energy-saving performance
+for both CAVs and HDVs. For instance, Zhu et al. [3] proposed
+a model predictive control (MPC) method for CAVs in mixed
+traffic flows, which incorporates an integrated data-driven car-
+following model to predict behaviors of HDVs. Simulation
+results demonstrated the effectiveness in improving energy
+efficiency while maintaining driving safety and control robust-
+ness. Wang et al. [16] employed the RL method to optimize
+the control actions of a CAV and learned the behavior of the
+following HDV, thereby reducing the total energy consumption
+in a holistic framework. However, these methods generally
+have a heavy computational burden and may struggle to handle
+constraints critical to vehicle safety.
+Data-EnablEd Predictive Control (DeePC) recently emerged
+as a promising model-free optimal control paradigm that
+directly uses input-output data to achieve safe and optimal
+control of unknown systems [18]. Instead of relying on a
+parametric system model, DeePC is a non-parametric approach
+that leverages Willems’ fundamental lemma [19] to directly
+arXiv:2306.01387v2 [eess.SY] 2 Feb 2024
+
+===== PAGE 2 =====
+
+IEEE TRANSACTIONS ON CONTROL SYSTEMS TECHNOLOGY
+2
+predict future system trajectories [20]. This approach is ef-
+fective for handling real-time uncertainty and disturbances
+[21]. Furthermore, DeePC allows for the incorporation of
+input/output constraints to meet safety requirements [22]. No-
+tably, DeePC is equivalent to sequential system identification
+and MPC for deterministic linear time-invariant (LTI) systems
+and has demonstrated promising control performance and
+lower computation cost for nonlinear and non-deterministic
+systems [22]–[24]. For instance, Wang et al. [24] proposed a
+Data-EnablEd Predictive Leading Cruise Control algorithm for
+CAVs to smooth mixed traffic, which has been expanded to
+address large-scale problems [25]. However, their research did
+not consider the diverse driving behaviors of human drivers or
+the optimization of energy consumption, which are vital as-
+pects of CAV operation. In real-world traffic scenarios, human
+drivers may exhibit vastly different driving styles [16], ranging
+from aggressive to mild, potentially leading to the failure of
+DeePC due to the lack of a pre-known driving environment
+with random surrounding HDVs. Furthermore, current eco-
+driving strategies rely on the tracking of pre-defined reference
+trajectories (set points tracking), yet their optimality is hard
+to ensure in uncertain environments. Essentially, adherence
+to a reference trajectory limits the optimization search space,
+potentially missing more efficient routes that arise in dynamic
+real-time conditions. [26], [27]. Hence, the consideration of
+diverse driving behaviors and the incorporation of energy
+consumption optimization in DeePC are still missing but worth
+careful investigation.
+In this paper, we develop an eco-driving control strategy to
+achieve safe and energy-efficient control of the mixed traffic
+flow, considering diverse human driver behaviors. The main
+contributions are highlighted as follows:
+• First, we proposes a Physics-Augmented Data-EnablEd
+Predictive Control (PA-DeePC) strategy to handle sub-
+stantial system variations or uncertainties. By incorpo-
+rating partial system physics, the prediction accuracy of
+system dynamics is significantly improved.
+• Second, we study the eco-driving problem of mixed
+traffic flows considering diverse human driver behaviors.
+Particularly, a novel eco-driving framework is proposed
+to address the restricted energy optimization problems
+of adopting pre-defined speed and spacing references
+when facing diverse HDVs’ behaviors. Our method could
+further reduce the holistic energy consumption, while
+respecting all safety-related constraints.
+• Last but not least, comprehensive simulation results are
+provided to demonstrate the effectiveness and robustness
+of the developed approaches under extensive real-world
+traffic conditions involving random HDVs.
+II. PRELIMINARIES
+This section outlines a non-parametric representation to
+capture the behavior of linear systems and the formulation
+of DeePC. The subscript k is employed to indicate discrete
+representation, while t signifies continuous representation.
+A. Non-Parametric Representation of System Behavior
+Consider a discrete LTI system, the state-space equation is
+the most commonly used description in system identification,
+where A ∈Rn×n, B ∈Rn×m, C ∈Rp×n, D ∈Rp×m,
+xk ∈Rn, uk ∈Rm and yk ∈Rp represent the state, input
+vector and output vector, respectively.
+(
+xk+1 = Axk + Buk,
+yk = Cxk + Duk.
+(1)
+The dynamic behavior of this LTI system can be repre-
+sented by a sufficiently rich collection of its input/output data
+revealed by Willems’ fundamental lemma [19] . Specifically,
+this lemma begins by collecting a length T ∈N sequence of
+input/output trajectory data ud
+[1,T ] = col(ud
+1, · · · , ud
+T ) ∈RmT ,
+and yd
+[1,T ] = col(yd
+1, · · · , yd
+T ) ∈RpT with a sampling interval
+of ∆t ∈R. Then the Hankel matrix of depth L for the inputs
+ud
+[1,T ] can be defined as
+HL(ud
+[1,T ]) =
+
+
+ud
+1
+ud
+2
+· · ·
+ud
+T −L+1
+ud
+2
+ud
+3
+· · ·
+ud
+T −L+2
+...
+...
+...
+...
+ud
+L
+ud
+L+1
+· · ·
+ud
+T
+
+.
+(2)
+Similarly, the Hankel matrix for the outputs can be defined as
+HL(yd
+[1,T ]). Let Tini, N ∈Z, and L = Tini + N. The Hankel
+matrices HL(ud
+[1,T ]) and HL(yd
+[1,T ]) are divided into two parts,
+as follows:
+Up
+Uf
+
+= HL(ud
+[1,T ]),
+Yp
+Yf
+
+= HL(yd
+[1,T ]),
+(3)
+where Up and Uf contain the past and future input data,
+respectively. Similarly, Yp and Yf represent the past and future
+output data, respectively.
+System behavior representation. Motivated by Willems’
+fundamental lemma [19] and the DeePC formulation [18],
+we have the following result: Let k > 0 be the current time
+step. Then, we define the past control input sequence of length
+Tini as uini = col(uk−Tini, uk−Tini+1, · · · , uk−1) ∈Rm, and
+the predicted control input sequence within a time horizon of
+length N, denoted as u = col(uk, uk+1, · · · , uk+N−1) ∈Rn.
+Similarly, the past and predicted output sequences yini and y
+can also be defined.
+Definition 1. (Persistently Exciting, in brief PE condition). A
+signal sequence ud
+[1,T ] is persistently exciting of order L(L ≤
+T) if the Hankel matrix HL(ud
+[1,T ]) is of full row rank.
+Proposition 1. Willems’ fundamental lemma states that if
+the pre-collected input sequence ud
+[1,T ] is persistently exciting
+of order Tini + N + n with n being the dimension of the
+system states (n can be chosen as an upper bound of state
+dimension), then at each time step, the patched trajectory
+col(uini, yini, u, y) of the past Tini steps is generated from
+the system when it is spanned by (Up, Yp, Uf, Yf), that is,
+there exists a vector g ∈RT −Tini−N+1 such that [24]:
+
+
+Up
+Yp
+Uf
+Yf
+
+g =
+
+
+uini
+yini
+u
+y
+
+.
+(4)
+
+===== PAGE 3 =====
+
+IEEE TRANSACTIONS ON CONTROL SYSTEMS TECHNOLOGY
+3
+If Tini ≥lag of system, y is uniquely determined from (4),
+∀(uini, yini, u). Therefore, the control input u and the system
+output y over the N-step prediction horizon can be obtained.
+Definition 2. (Minimal Length of T). In order for ud
+[1,T ] to
+be PE of order L, it must have T ≥(m + 1)L + n −1, that
+is, the input signal sequence ud
+[1,T ] should be sufficiently rich
+and long as to excite the system yielding an output sequence
+that is representative for the system behavior [18].
+B. Data-EnablEd Predictive Control
+However, Eq. (4) is only valid for deterministic LTI systems.
+For nonlinear or non-deterministic systems [18], we introduce
+a slack variable σy ∈R(n+m)Tini for the system past output
+to ensure the feasibility of the equality constraint [18], [20],
+[28], yielding the following optimization problem
+min
+g,u,y,σy
+N−1
+X
+k=0
+(∥yk∥2
+Q + ∥uk∥2
+R) + λg∥g∥2
+2 + λy∥σy∥2
+2,
+(5a)
+s.t.
+
+
+Up
+Yp
+Uf
+Yf
+
+g =
+
+
+uini
+yini
+u
+y
+
++
+
+
+0
+σy
+0
+0
+
+,
+(5b)
+uk ∈Uk, ∀k ∈{0, · · · , N −1},
+(5c)
+yk ∈Yk, ∀k ∈{0, · · · , N −1},
+(5d)
+where Uk and Yk represent the input and output constraints
+at time step k, respectively. In Eq. (5), the slack variable σy
+is penalized with a weighted two-norm penalty function, and
+the weight coefficient λy > 0 can be chosen sufficiently large
+such that σy̸ = 0 only if the equality constraint is infeasible.
+In addition, a two-norm penalty on g with a weight coefficient
+λg > 0 is also incorporated to avoid over-fitting when noise-
+corrupted data samples are present.
+C. Physics-Augmented DeePC
+Considering a LTI system with some first order physics or
+prior knowledge (e.g., velocity and acceleration), the physics
+can be generally represented as
+(
+´xk+1 = ´a´xk + ´b´uk,
+´yk = ´c´xk + ´d´uk,
+(6)
+where all variables (´xk, ´yk, ´xk, ´a,´b, ´c, ´d) are scalars, and gen-
+erally ´d = 0. Hence, we can obtain the following relationship:
+´yk+1 = ´c(´a´xk + ´b´uk
+|
+{z
+}
+´xk+1
+) + ´d´uk+1
+| {z }
+0
+= ´a´yk + ´c´b´uk.
+(7)
+Eq. (7) indicates partial physics between inputs and outputs.
+By incorporating this physics, we proposed the Physics-
+Augmented DeePC. When accounting for the presence of
+inaccurate physics, we define the physics residual as
+ϵk = ´yk+1 −´a´yk −´c´b´uk.
+(8)
+Eq. (8) can be incorporated into DeePC (5) through two
+methods. Eq. (8) can be treated as an equality constraint
+(ϵk = 0) when accurate physics are present, and as an
+inequality constraint (ϵk ∈E(k)) when inaccurate physics
+are present. Alternatively, it can be added as a penalized cost
+term ∥ϵ(k)∥2
+M, where the parameter’s magnitude is contingent
+on the physical accuracy. By incorporating such suitable and
+accurate physics into DeePC, the non-parametric model can
+produce more accurate results, as the exploration among data
+sequences can be simplified by the physics.
+III. SYSTEM MODELING
+In this section, we begin by providing a concise overview
+of the linearized model used to describe the system dynamics
+of mixed traffic flows. Subsequently, we introduce a precise
+and computationally efficient energy consumption model that
+serves as the basis for optimizing energy consumption. Lastly,
+we discuss the techniques employed for modeling human
+driver diversity.
+The focus of this study is a single-lane mixed traffic flow
+of n + 1 individual vehicles, as illustrated in Fig. 1. The
+preceding vehicle (PV) is indexed as 0. The system under
+consideration comprises m CAVs and n −m HDVs, with the
+set of CAV indices denoted as S = {1, 2, . . . , m}, the set
+of all vehicle indices as Ω= {1, 2, . . . , n}, and the set of
+HDV indices as Ω\ S. The index i is used to represent every
+vehicle in the mixed traffic flows. In this study, we assume
+that HDV velocities and spacing are observable using V2X
+communications technology. Note that measuring each HDV’s
+equilibrium spacing in mixed traffic flow is non-trivial due to
+diverse driving behaviors, which can result in HDV’s spacing
+being unknown.
+A. Linearized Mixed Traffic Model
+The nonlinear system of the mixed traffic can be linearized
+according to the study by Jin et al. [29]. A class of continuous-
+time car-following models (e.g., OVM, and IDM) can be
+written in the following form to describe the car-following
+behavior of vehicle i.
+(
+˙si(t) = vi−1(t) −vi(t),
+˙vi(t) = F(si(t), ˙si(t), vi(t)),
+(9)
+where si(t) represents the relative spacing between vehicle i
+and its preceding vehicle i−1; ˙si(t) = vi−1(t)−vi(t) denotes
+the relative velocity between vehicle i and its preceding
+vehicle i −1; and vi(t) stands for the velocity of vehicle i.
+Remark that F(·) can represent either OVM or IDM.
+The linearization of the mixed traffic system is carried out
+around the equilibrium point. Assuming that each HDVs try to
+maintain the uniform traffic flow equilibrium velocity vi(t) ≡
+v∗and the corresponding equilibrium spacing si(t) ≡s∗, we
+can define the spacing and velocity perturbations, i.e., error
+states for velocity and spacing,
+esi(t) = si(t) −s∗,
+evi(t) = vi(t) −v∗,
+(10)
+where the estimated equilibrium velocity v∗and the corre-
+sponding equilibrium spacing s∗can be calculated as [24]
+v∗=
+1
+Tini
+k−1
+X
+i=k−Tini
+v0(i),
+s∗= sgap + Tgapv∗
+q
+1 −( v∗
+vd )4 ,
+(11)
+
+===== PAGE 4 =====
+
+IEEE TRANSACTIONS ON CONTROL SYSTEMS TECHNOLOGY
+4
+Fig. 1. Schematic of the mixed traffic flows. The preceding vehicle is indexed as 0. The subsequent n vehicles comprise m CAVs and n −m HDVs with
+indeterminate driving dynamics.
+where sgap is the minimum gap, Tgap is the (bumper to
+bumper) time headway to the preceding vehicle, and vd
+is the desired velocity. Then Eq. (9) is linearized and the
+longitudinal dynamics model for each HDV is obtained and
+can be represented by
+(˙esi(t) = evi−1(t) −evi(t),
+˙evi(t) = α1esi(t) −α2evi(t) + α3evi−1(t),
+i ∈Ω\ S, (12)
+where α1 =
+∂F
+∂s , α2 =
+∂F
+∂˙s −∂F
+∂v , and α3 =
+∂F
+∂˙s . More lin-
+earization details can refer to [29]. Similarly, the acceleration
+is used as the control input, then the longitudinal dynamics of
+each CAV can be denoted as
+(˙esi(t) = evi−1(t) −evi(t),
+˙evi(t) = ui(t),
+i ∈S.
+(13)
+Finally, the state-space equation for mixed traffic flows can
+be obtained based on Eqs. (12) and (13). Please refer to [6]
+for more details. Then, by collecting the accelerations of all
+CAVs as system inputs ud
+[1,T ], and the velocity and spacing
+perturbations of all following vehicles as system outputs yd
+[1,T ],
+we construct the input Hankel matrix HL(ud
+[1,T ]) and the
+output Hankel matrix HL(yd
+[1,T ]), respectively.
+B. Energy Consumption Model
+To reduce computational complexity, an approximate and
+differentiable energy consumption model in the form of a
+polynomial expression is developed using experimental data
+in [16] to denote vehicle traction power, as provided by
+Ptot(t) =
+3
+X
+i=0
+2
+X
+j=0
+pijvi(t)aj(t),
+(14)
+where pij are constant parameters [16], v(t) is the vehicle
+velocity, and a(t) is the acceleration. Here, we mix up the
+notation a little bit and simply use i, j to represent power
+values.
+Considering the maximum order in Eq. (14) exceeds 2,
+instead of a convex function. For the convenience of opti-
+mization problem solving, an order-reduction simplification is
+made through the incorporation of past speed into the higher-
+order term (e.g., v(t)3 ≈¯vv(t)2) to obtain an estimated power.
+In this way, the estimated total power can be expressed as a
+convex function, as shown below.
+ePtot(t) = (p30¯v + p20)v(t)2 + (p12¯v + p02)a(t)2 + (p21¯v
++ p11)v(t)a(t) + p10v(t) + p01a(t) + p00.
+(15)
+Also, the accuracy loss caused by this simplification is
+quantified in Fig. 2, where the maximum power error is 0.42
+kW, and the relative errors are almost all 0% except when real
+power Ptot is near 0 kW, indicating that the estimation error
+can be omitted in general scenarios.
+(a) Absolute error Ptot −ePtol
+(b) Relative error Ptot−e
+Ptol
+Ptot
+Fig. 2.
+Absolute and relative error of the estimated power under different
+acceleration (i.e., time-varying speed) while ¯v = 12m/s.
+C. Characterization of Human Driver Behaviors
+In order to represent human driver behavior under the
+car-following scenario, the intelligent driver model (IDM) is
+adopted as follows:
+˙v = a(1 −( v
+vd
+)δ −(
+sgap + vTgap + v∆v
+2
+√
+ab
+s
+)2),
+(16)
+where ∆v is the velocity difference to its preceding vehicle;
+s is the spacing (bumper to bumper) to the preceding vehicle;
+definitions of other parameters are given in Table I.
+TABLE I
+IDM PARAMETERS
+Parameter
+Value
+Maximum acceleration a
+4m/s2
+Acceleration exponent δ
+4
+Minimum gap sgap
+2m
+Maximum deceleration b
+5m/s2
+Desired velocity vd
+25m/s
+Time headway Tgap
+(0 −5)s
+To capture the variety of human drivers, the field-test vehicle
+trajectory data from the NGSIM project is utilized [30]. By
+adopting the methods outlined in [16], IDM is calibrated based
+on the car-following information of different human drivers in
+this NGSIM dataset. To balance optimization performance and
+computational efficiency, five parameters (amax, δ, sgap, b, vd)
+of IDM are set as constants, as listed in Table I. Time headway
+
+===== PAGE 5 =====
+
+IEEE TRANSACTIONS ON CONTROL SYSTEMS TECHNOLOGY
+5
+Tgap is selected as the main parameter to represent driver
+diversity, as shown in Fig. 3.
+0
+1
+2
+3
+4
+5
+0
+50
+100
+150
+Fig. 3. Distribution of desired time headway Tgap.
+IV. PA-DEEPC FOR ECO-DRIVING OF MIXED TRAFFIC
+This section introduces the standard non-parametric sys-
+tem representation that characterizes mixed traffic dynamics.
+Subsequently, we combine PA-DeePC with Hankel matrices
+update, specifically designed to tackle the challenges posed
+by diverse, uncertain human drivers. Finally, we formulate
+the PA-DeePC with a novel eco-driving framework bypassing
+reference trajectories, and then outline its rationality and
+justification.
+A. Non-parametric Representation of mixed traffic system
+As introduced in Section II, the mixed traffic system will
+be characterized by using collected input-output trajectories.
+More specifically, we collect the control input sequence of
+CAVs, i.e., ud
+[1,T ], where ud = [ud
+1, ud
+2, . . . , ud
+m], and output
+sequence of the following vehicles yd
+[1,T ], whose element is
+yd = [yd
+v, yd
+s] = [evd
+1, evd
+2, . . . , evd
+n, esd
+1, esd
+2, . . . , esd
+n] consists of
+error states of velocities and spacing of CAVs and HDVs.
+With those collected trajectories, the input and output Hankel
+matrices for non-parametric representation of mixed traffic
+dynamics can be constructed, as shown in Eqs. (2), with
+partitioned blocks corresponding to ”past” data of length Tini
+and ”future” data of length N.
+During the online implementation, at each time step k,
+a consecutive input and output trajectory of the past Tini
+steps is buffered and used to form uini = u[k−Tini,k−1] and
+yini = y[k−Tini,k−1]. Then we define u = u[k,k+N−1] and
+y = y[k,k+N−1] to represent the future input and output
+trajectories of length N, which can be calculated according
+to the regularized non-parametric model in Eqs. (5a) and (5b).
+B. Techniques for Handling Diverse HDVs
+Considering the Hankel matrices may differ a lot when
+facing various driving behaviors, and this may lead the DeePC
+fail to operate during the update process. Hence, we combined
+the Hankel matrix update and the proposed PA-DeePC method
+to improve the accuracy and adaptability.
+Initially, a consecutive trajectory with the inclusion of
+different and representative driving behaviors is collected to
+construct Hankel matrices for the unknown mixed traffic
+system behaviors, mainly from HDVs. This can be viewed
+as a more generalized Hankel matrices containing information
+on different driving styles. At the online adaptation stage, the
+PA-DeePC with this generalized Hankel matrices can handle
+more unknown human driving behaviors since such Hankel
+matrices have some similar and short trajectories of the real-
+time HDVs. Then, to enhance the adaptability to specific and
+unknown human drivers, we update the Hankel matrices online
+by including trajectories of the current trajectory.
+For mixed traffic system, we can find the following
+physics: (1) The relationship between velocity and acceleration
+(vi,k+1 −vi,k = ai,k∆t) of one CAV; (2) The relationship
+between the spacing of following vehicles and their veloci-
+ties and accelerations (si,k+1 −si,k = (vi−1,k −vi,k)∆t +
+1
+2(ai−1,k −ai,k)(∆t)2). When the system is near equilibrium
+state (ai−1,k −ai,k ≈0) or the sampling time step ∆t is small
+enough, 1
+2(ai−1,k −ai,k)(∆t)2 ≈0. Hence, this physics can
+be rewritten as follows to construct the proposed PA-DeePC
+ϵ1,k = esi,k+1 −esi,k −(evi−1,k −evi,k)∆t,
+i ∈Ω\ S1,
+ϵ2,k = evi,k+1 −evi,k −ai,k∆t,
+i ∈S, (17)
+where S1 denotes the first CAV in set S.
+Assuming that we have already established the cost function
+and the corresponding constraints for mixed traffic, the fol-
+lowing procedures is used to learn and predict diverse human
+driver behaviors.
+Algorithm 1 Adaptive PA-DeePC algorithm
+1: Initialize generalized Up, Uf, Yp, Yf
+2: procedure ONLINE ADAPTATION(New Behavior)
+3:
+for i ←1, n do
+4:
+run PA-DeePC and collect (uk, yk)
+5:
+Get U
+′
+p, U
+′
+f, Y
+′
+p, Y
+′
+p with (uk, yk)
+6:
+if rank(U
+′) == rank(U) then
+7:
+Up, Uf, Yp, Yf ←U
+′
+p, U
+′
+f, Y
+′
+p, Y
+′
+f
+8:
+end
+9: procedure ONLINE IMPLEMENTATION(Test Cycle)
+10:
+Initialize particular Up, Uf, Yp, Yf
+11:
+for i ←1, n do
+12:
+run PA-DeePC
+13:
+end
+C. Formulation of PA-DeePC for Eco-driving
+In this study, the objective is to control CAVs to operate
+within a suitable spacing that is neither too small, leading
+to collisions, nor too large, reducing traffic efficiency, while
+minimizing energy consumption when HDVs have diverse
+driving behaviors.
+The conventional logic to achieve this objective is, using
+a pre-defined reference (v∗, s∗) to regulate the trajectory,
+adding a power term into the cost function to optimize energy
+consumption, and then tuning weighting parameters to balance
+the trade-off between the above two cost terms. However,
+pre-defined speed and spacing reference trajectories may be
+helpful when system dynamics are deterministic [27]. Yet, they
+can limit optimization performance in situations where system
+dynamics vary due to diverse human drivers. Particularly, it is
+unlikely that following specific velocity and spacing references
+
+===== PAGE 6 =====
+
+IEEE TRANSACTIONS ON CONTROL SYSTEMS TECHNOLOGY
+6
+can achieve optimal eco-driving performance, especially in
+dynamic traffic environments. Furthermore, controlling a CAV
+at a significant distance from the PV and following the velocity
+(v∗) of the PV is deemed unreasonable, particularly when sud-
+den and significant changes occur. In consequence, we propose
+a novel eco-driving framework of mixed traffic that bypasses
+specific trajectory references to give larger optimization space,
+as shown below.
+min
+g,u,y,σy
+N−1
+X
+k=0
+(∥ePk∥S + ∥uk∥2
+R + ∥ϵk∥2
+M) + λg∥g∥2
+2 + λy∥σy∥2
+2,
+s.t.
+(5b),
+uk ∈[amin, amax],
+∀k ∈{0, · · · , N −1},
+ys,k ∈[esmin, esmax],
+∀k ∈{0, · · · , N −2},
+ys,k ∈[essafe, eseffi],
+k = N −1,
+i ∈S,
+(18)
+where ePk represents the estimated total power; M is the
+penalty matrix for residual of considered physics; amin/max
+represents the lower and upper bounds of control inputs; while
+esmin/max and essafe/effi are loose and tight bounds for CAVs,
+respectively, which can be represented by the constant time
+headway (CTH) th, a safety metric [31], and the time gap
+(TG), a traffic efficiency metric [16], as follows
+(
+esmin/safe + s∗= vfth + sgap,
+esmax/effi + s∗= vfTG,
+(19)
+where the velocity of the preceding vehicle vi−1 is utilized as
+vf for vehicle i. Compared with Eq. (5a), without the balance
+of the trajectory term (∥yk∥2
+Q), the power term (∥Pk∥2
+S) could
+cause CAVs slow down as much as possible for reduced energy
+consumption in the short term; however, traffic efficiency
+can be dramatically impaired. This is caused by the limited
+prediction horizon in almost all predictive control algorithms,
+thus the long-term benefit and optimality cannot be fully
+considered. To address this issue, we combine loose and tight
+constraints on spacing, where the loose constraints (a smaller
+th, and a larger TG) for the short term give larger optimization
+space, and the tight ones (a larger th, and a smaller TG) for the
+long term avoid the excessive slowdown effect of the power
+term by providing a smaller spacing range.
+V. SIMULATION RESULTS
+This section presents the implementation and evaluation of
+the proposed PA-DeePC approach for eco-driving of mixed
+traffic flows considering diverse human behaviors.
+A. Experimental Setup
+In this study, a 5-vehicle platoon (S = {1, 3}) system
+model is created in MATLAB to accurately capture traffic
+information. Based on this model, a generalized consecutive
+trajectory (T = 1000) is collected with the sampling interval
+of ∆t = 0.1s. To incorporate diverse human driver behaviors,
+the time headways of two HDVs are gradually and randomly
+changed based on the distribution shown in Fig. 3 every 50
+steps. Subsequently, we construct generalized Hankel matrices
+using the data collected offline.
+The parameters used in this study are described as follows.
+The time horizons for the future and past trajectories are set to
+N = 40, and Tini = 20, respectively. Constraints are imposed
+on acceleration and its values specified in Table I. Then, th =
+1/1.3s and TG = 3.5/2.1s are used to calculate smin/safe
+and smax/effi, respectively. At last, weighting parameters in
+the cost function (18) are given as follows S = 0.1, R = 1,
+M = 500, λg = 20, and λy = 1000 [18].
+The test speed profile for the PV spans six minutes with a
+sampling rate of 0.1s, using the NGSIM data set as to repre-
+sent real-world driving scenarios. A stochastic test including
+random HDVs is selected to verify the adaptability of our
+approach in predicting different human driver behaviors. To
+ensure a thorough and representative test of human driving
+diversity, we select a range of time headways from the time
+headway distribution shown in Fig. 3. The primary focus is
+on time headways in the range of Tgap ∈[0.5, 2.9]s [16],
+divided into 12 equally spaced groups with a 0.2s interval.
+Then, we randomly select two distinct human drivers (i.e.,
+two random IDM headway parameters) from each group to
+create a test set that accurately reflects the majority of human
+driving behaviors. To represent almost all possible human
+driving behaviors, we consider all combinations of the test
+set, resulting in 576 scenarios. Then, we apply the overall
+simulation stage pipeline outlined in Algorithm 1 to each
+combination.
+To provide a fair comparison, we establish two baselines,
+one implementing the PA-DeePC with a conventional op-
+timization framework, where the weighting parameters for
+reference (∥yk −r∥2
+Q) are the same as those in [24] (Qv =
+1, Qs = 0.5); another one implementing the OVM-based
+adaptive cruising control (ACC) algorithm with two identical
+parameter sets. Specifically, we set α = 0.8, β = 0.5 as an
+aggressive human driver, and α = 0.5, β = 0.8 as a mild
+human driver [8]. The simulations are executed in MATLAB
+R2022b on a Windows 11 PC with a 3.8GHz processor and
+32GB of RAM.
+B. Performance of PA-DeePC
+The simulation study aims to evaluate the effectiveness
+and adaptability of the proposed PA-DeePC and the eco-
+driving optimization framework. The system characterization
+and prediction performance comparison between the original
+DeePC and the PA-DeePC is firstly given to demonstrate the
+improvement of adding physics. Then, the energy savings per-
+formance of the proposed optimization framework is assessed
+based on the benchmark results. At last, safety and traffic
+efficiency in vehicular traffic are briefly introduced.
+System Characterization and Prediction: To evaluate the
+performance of incorporating physics and updating Hankel
+matrices, we can use the predicted velocities and spacing of
+CAVs and following vehicles except CAV1 as metrics. Fig. 4
+shows the prediction errors for the k+1 step. Particularly, Fig.
+4a depicts the prediction errors of following vehicles of PA-
+DeePC can converge to zero with real-time updates of Hankel
+matrices, while the velocity errors of CAVs can always main-
+tain in small range due to those incorporated physics. Further,
+
+===== PAGE 7 =====
+
+IEEE TRANSACTIONS ON CONTROL SYSTEMS TECHNOLOGY
+7
+to directly demonstrate the difference of adding physics into
+the original DeePC, we depict the comparison results in one
+case in Fig. 4b. In this comparison, both the original DeePC
+and the PA-DeePC operate using the updated Hankel matrices.
+According to the simulation results, even though the original
+DeePC demonstrates the ability to effectively capture system
+dynamics with relatively high accuracy (≤0.06), the PA-
+DeePC shows superior performance in predicting the system
+dynamics (≤0.01). With that being said, adding physics can
+significantly improve the ability of DeePC in capturing system
+dynamics.
+0
+200
+400
+600
+800
+1000
+1200
+Calculation step
+-0.1
+0
+0.1
+Velocity (m/s)
+CAV1
+HDV1
+CAV2
+HDV2
+0
+200
+400
+600
+800
+1000
+1200
+Calculation step
+-0.2
+0
+0.2
+Spacing (m)
+CAV1
+HDV1
+CAV2
+HDV2
+(a) Prediction spacing and velocity error during online update
+0
+1000
+2000
+3000
+Calculation step
+-0.1
+-0.05
+0
+0.05
+0.1
+Velocity (m/s)
+Original DeePC
+PA-DeePC-Cost
+PA-DeePC-Constraint
+0
+1000
+2000
+3000
+Calculation step
+-0.1
+-0.05
+0
+0.05
+0.1
+Spacing (m)
+Original DeePC
+PA-DeePC-Cost
+PA-DeePC-Constraint
+(b) Prediction error comparison among the original DeePC and PA-DeePC
+Fig. 4.
+Prediction error during of update and online implementation. The
+errors are computed via ev = eyv −ev, and es = eys −es, respectively.
+Eco-driving Performance: The eco-driving performance is
+evaluated by examining the energy consumption of all vehicles
+across 576 simulation cases. Furthermore, when accounting for
+potential measurement inaccuracies in real-world applications,
+we introduce a Gaussian noise term (w ∈[−0.1, 0.1]) into
+both the real-time spacing and velocities. Next, we present a
+comparison between the novel optimization framework and the
+conventional optimization framework, as depicted in Figure
+5. The results demonstrate a notable reduction in energy
+consumption (4.07%) when compared to this baseline, under-
+scoring the superior optimization achieved by the novel frame-
+work. Additionally, the energy consumption remains relatively
+stable, indicating that the proposed approach can effectively
+handle diverse human driver characteristics and deliver stable
+results. Then, Table II provides a detailed comparison for each
+vehicle compared with two baselines. Specifically, when com-
+pared to the aggressive OVM, the average energy reduction
+achieved by the proposed approach is 9.29%. For the mild
+OVM, the average energy consumption reduction attained by
+PA-DeePC is 4.97%. These findings highlight the potential of
+the proposed approach to enhance energy efficiency in mixed
+traffic.
+Safety and Traffic Efficiency: With such great energy
+saving performance, the safety and traffic efficiency of the
+proposed optimization framework are investigated by analyz-
+ing traffic information, as shown in Fig. 6. Two commonly
+employed metrics: time-to-collision (TTC) and time gap, are
+chosen for examination. TTC metric quantifies the time left
+until a potential collision occurs and is considered a more
+intuitive metric for identifying potential danger compared
+6900
+7000
+7100
+7200
+7300
+7400
+Energy Consumption (kJ)
+0
+20
+40
+60
+80
+Counts
+Novel optimization framework
+Conventional optimization framework
+Fig. 5.
+Comparison of the energy consumption distribution between two
+different optimization frameworks under the influence of measurement noise.
+to the CTH metric. In this study, we set the criteria of
+0 ≤TTC ≤4s and TG ≥3s, as shown in Fig. 6, to
+identify unsafe and inefficient conditions, respectively. The
+details of setting both metrics can be found in [16], [32], [33].
+The simulation results demonstrate the proposed PA-DeePC
+can effectively avoid dangerous driving under such aggressive
+driving scenarios, as evidenced by the fact that the most critical
+point of CAV1 still have TTC > 7.47s. In addition, simulation
+results suggest that the time gaps for both CAVs are regulated
+within a range of 1.5−2.6s, ensuring optimal traffic efficiency
+with enough safety margin.
+0
+10
+20
+30
+40
+50
+Spacing (m)
+CAV1
+HDV1
+CAV2
+HDV2
+0
+1000
+2000
+3000
+Calculation step
+6
+8
+10
+12
+14
+Velocity (m/s)
+PV
+CAV1
+HDV1
+CAV2
+HDV2
+0
+5
+10
+15
+20
+25
+TTC (s)
+CAV1
+HDV1
+CAV2
+HDV2
+0
+1000
+2000
+3000
+Calculation step
+1
+2
+3
+4
+Time Gap (s)
+CAV1
+HDV1
+CAV2
+HDV2
+Fig. 6. Traffic information of s, v, TTC = −
+si
+∆vi−1,i , TG = si
+vi .
+VI. CONCLUSION
+In
+this
+paper,
+we
+introduce
+an
+innovative
+Physics-
+Augmented Data-EnablEd Predictive Control method and a
+novel optimization framework for eco-driving of mixed traffic
+flows with diverse human driver behaviors. By incorporating
+partial system physics into the original DeePC, the ability
+to characterize system dynamics is significantly improved.
+Specifically, the proposed framework can accurately character-
+ize human driver behaviors, and the novel optimization frame-
+work can decently reduce the holistic energy consumption of
+both CAVs and HDVs by 4.14% on average while ensuring
+driving safety and traffic efficiency. In addition, simulation
+results under a variety of random traffic environments show
+that the proposed optimization method can reduce the energy
+consumption of mixed traffic flows by 4.97% and 9.29% on
+average when compared to benchmark results obtained by
+implementing the OVM-based cruising control algorithm with
+two sets of parameters, respectively.
+
+===== PAGE 8 =====
+
+IEEE TRANSACTIONS ON CONTROL SYSTEMS TECHNOLOGY
+8
+TABLE II
+PLATOON ENERGY CONSUMPTION UNDER DIVERSE DRIVING CHARACTERISTICS
+Energy consumption (Average) (kJ)
+PA-DeePC
+Original DeePC
+Improvement
+OVM(α = 0.8, β = 0.5)
+Improvement
+OVM(α = 0.5, β = 0.8)
+Improvement
+CAV1
+1788.97
+1998.23
+10.47%
+1919.95
+6.82%
+1886.48
+5.17%
+HDV1
+1751.59
+1807.26
+3.08%
+1895.27
+7.58%
+1824.67
+4.01%
+CAV2
+1728.48
+1742.90
+0.83%
+1918.97
+9.93%
+1814.87
+4.82%
+HDV2
+1706.86
+1728.71
+1.26%
+1956.10
+12.74%
+1814.89
+5.95%
+TOTAL
+6975.90
+7277.09
+4.14%
+7690.29
+9.29%
+7340.91
+4.97%
+REFERENCES
+[1] J. Contreras-Castillo, S. Zeadally, and J. A. Guerrero-Iba˜nez, “Internet
+of vehicles: architecture, protocols, and security,” IEEE internet of things
+Journal, vol. 5, no. 5, pp. 3701–3709, 2017.
+[2] K. Abboud, H. A. Omar, and W. Zhuang, “Interworking of dsrc and
+cellular network technologies for v2x communications: A survey,” IEEE
+transactions on vehicular technology, vol. 65, no. 12, pp. 9457–9470,
+2016.
+[3] H. Zhu, Z. Song, W. Zhuang, H. Hofmann, and S. Feng, “Multi-objective
+optimization for connected and automated vehicles using machine
+learning and model predictive control,” SAE International Journal of
+Electrified Vehicles, vol. 11, no. 14-11-02-0014, 2021.
+[4] H. Dong, Q. Wang, W. Zhuang, G. Yin, K. Gao, Z. Li, and Z. Song,
+“Flexible eco-cruising strategy for connected and automated vehicles
+with efficient driving lane planning and speed optimization,” IEEE
+Transactions on Transportation Electrification, 2023.
+[5] M. Wegener, L. Koch, M. Eisenbarth, and J. Andert, “Automated eco-
+driving in urban scenarios using deep reinforcement learning,” Trans-
+portation research part C: emerging technologies, vol. 126, p. 102967,
+2021.
+[6] J. Wang, Y. Zheng, C. Chen, Q. Xu, and K. Li, “Leading cruise control in
+mixed traffic flow: System modeling, controllability, and string stability,”
+IEEE Transactions on Intelligent Transportation Systems, vol. 23, no. 8,
+pp. 12 861–12 876, 2021.
+[7] Q. Li, Z. Wang, W. Wang, C. Zeng, C. Wu, G. Li, J.-S. Heh, and
+B. Cheng, “A human-centered comprehensive measure of take-over
+performance based on multiple objective metrics,” IEEE Transactions
+on Intelligent Transportation Systems, vol. 24, no. 4, pp. 4235–4250,
+2023.
+[8] Y. Zheng, J. Wang, and K. Li, “Smoothing traffic flow via control of
+autonomous vehicles,” IEEE Internet of Things Journal, vol. 7, no. 5,
+pp. 3882–3896, 2020.
+[9] R. E. Stern, S. Cui, M. L. Delle Monache, R. Bhadani, M. Bunting,
+M. Churchill, N. Hamilton, H. Pohlmann, F. Wu, B. Piccoli et al., “Dis-
+sipation of stop-and-go waves via control of autonomous vehicles: Field
+experiments,” Transportation Research Part C: Emerging Technologies,
+vol. 89, pp. 205–221, 2018.
+[10] G. Orosz, “Connected cruise control: modelling, delay effects, and
+nonlinear behaviour,” Vehicle System Dynamics, vol. 54, no. 8, pp. 1147–
+1176, 2016.
+[11] M. Treiber, A. Hennecke, and D. Helbing, “Congested traffic states in
+empirical observations and microscopic simulations,” Physical review E,
+vol. 62, no. 2, p. 1805, 2000.
+[12] M. Bando, K. Hasebe, A. Nakayama, A. Shibata, and Y. Sugiyama,
+“Dynamical model of traffic congestion and numerical simulation,”
+Physical review E, vol. 51, no. 2, p. 1035, 1995.
+[13] R. Herman, E. W. Montroll, R. B. Potts, and R. W. Rothery, “Traffic
+dynamics: analysis of stability in car following,” Operations research,
+vol. 7, no. 1, pp. 86–106, 1959.
+[14] D. C. Gazis, R. Herman, and R. W. Rothery, “Nonlinear follow-the-
+leader models of traffic flow,” Operations research, vol. 9, no. 4, pp.
+545–567, 1961.
+[15] X. Hu, L. Xie, L. Xie, S. Lu, W. Xu, and H. Su, “Distributed model
+predictive control for vehicle platoon with mixed disturbances and model
+uncertainties,” IEEE Transactions on Intelligent Transportation Systems,
+vol. 23, no. 10, pp. 17 354–17 365, 2022.
+[16] Q. Wang, H. Dong, F. Ju, W. Zhuang, C. Lv, L. Wang, and Z. Song,
+“Adaptive leading cruise control in mixed traffic considering human
+behavioral diversity,” IEEE Transactions on Intelligent Transportation
+Systems, 2023.
+[17] M. Huang, Z.-P. Jiang, and K. Ozbay, “Learning-based adaptive optimal
+control for connected vehicles in mixed traffic: robustness to driver
+reaction time,” IEEE transactions on cybernetics, vol. 52, no. 6, pp.
+5267–5277, 2020.
+[18] J. Coulson, J. Lygeros, and F. D¨orfler, “Data-enabled predictive control:
+In the shallows of the deepc,” in 2019 18th European Control Conference
+(ECC).
+IEEE, 2019, pp. 307–312.
+[19] J. C. Willems, P. Rapisarda, I. Markovsky, and B. L. De Moor, “A note
+on persistency of excitation,” Systems & Control Letters, vol. 54, no. 4,
+pp. 325–329, 2005.
+[20] J. Coulson, J. Lygeros, and F. D¨orfler, “Regularized and distributionally
+robust data-enabled predictive control,” in 2019 IEEE 58th Conference
+on Decision and Control (CDC).
+IEEE, 2019, pp. 2696–2701.
+[21] F. Dorfler, J. Coulson, and I. Markovsky, “Bridging direct & indirect
+data-driven control formulations via regularizations and relaxations,”
+IEEE Transactions on Automatic Control, 2022.
+[22] K. Zhang, K. Chen, X. Lin, Y. Zheng, X. Yin, X. Hu, Z. Song, and
+Z. Li, “Data-enabled predictive control for fast charging of lithium-ion
+batteries with constraint handling,” arXiv preprint arXiv:2209.12862,
+2022.
+[23] J. Coulson, “Data-enabled predictive control: Theory and practice,”
+Ph.D. dissertation, ETH Zurich, 2022.
+[24] J. Wang, Y. Zheng, K. Li, and Q. Xu, “Deep-lcc: Data-enabled predictive
+leading cruise control in mixed traffic flow,” IEEE Transactions on
+Control Systems Technology, 2023.
+[25] J. Wang, Y. Lian, Y. Jiang, Q. Xu, K. Li, and C. N. Jones, “Distributed
+data-driven predictive control for cooperatively smoothing mixed traffic
+flow,” Transportation Research Part C: Emerging Technologies, vol. 155,
+p. 104274, 2023.
+[26] Y. Hu, P. Yang, M. Zhao, D. Li, L. Zhang, S. Hu, W. Hua, W. Ji, Y. Wang,
+and J. Guo, “A generic approach to eco-driving of connected automated
+vehicles in mixed urban traffic and heterogeneous power conditions,”
+IEEE Transactions on Intelligent Transportation Systems, 2023.
+[27] A. S. Yamashita, P. M. Alexandre, A. C. Zanin, and D. Odloak, “Refer-
+ence trajectory tuning of model predictive control,” Control Engineering
+Practice, vol. 50, pp. 1–11, 2016.
+[28] J. Coulson, J. Lygeros, and F. D¨orfler, “Distributionally robust chance
+constrained data-enabled predictive control,” IEEE Transactions on
+Automatic Control, vol. 67, no. 7, pp. 3289–3304, 2021.
+[29] I. G. Jin and G. Orosz, “Optimal control of connected vehicle systems
+with communication delay and driver reaction time,” IEEE Transactions
+on Intelligent Transportation Systems, vol. 18, no. 8, pp. 2056–2070,
+2016.
+[30] V. Alexiadis, J. Colyar, J. Halkias, R. Hranac, and G. McHale, “The next
+generation simulation program,” Institute of Transportation Engineers.
+ITE Journal, vol. 74, no. 8, p. 22, 2004.
+[31] J. Chen, Y. Zhou, and H. Liang, “Effects of acc and cacc vehicles
+on traffic flow based on an improved variable time headway spacing
+strategy,” IET Intelligent Transport Systems, vol. 13, no. 9, pp. 1365–
+1373, 2019.
+[32] K. Vogel, “A comparison of headway and time to collision as safety
+indicators,” Accident analysis & prevention, vol. 35, no. 3, pp. 427–
+433, 2003.
+[33] M. Zhu, Y. Wang, Z. Pu, J. Hu, X. Wang, and R. Ke, “Safe, efficient,
+and comfortable velocity control based on reinforcement learning for
+autonomous driving,” Transportation Research Part C: Emerging Tech-
+nologies, vol. 117, p. 102662, 2020.

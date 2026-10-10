@@ -1,0 +1,162 @@
+SOURCE_URL: https://www.nature.com/articles/s42256-021-00302-5 (VoR landing page)
+FETCH_DATE: 2026-10-04
+NOTE: VoR full text is NOT open access (Crossref license = Springer Nature TDM only; Europe PMC hitCount=0; OpenAlex oa_status=green points to the arXiv v3 preprint). This file contains ONLY the publicly served landing-page content: official abstract, figure captions, section headings, reference list and metadata.
+
+== METADATA ==
+title: Learning nonlinear operators via DeepONet based on the universal approximation theorem of operators
+journal: Nature Machine Intelligence 3(3):218-229 (2021/03)
+doi: 10.1038/s42256-021-00302-5
+article_type: Article
+online_date: 2021/03/18
+n_authors: 5
+  author: Lu, Lu
+  author: Jin, Pengzhan
+  author: Pang, Guofei
+  author: Zhang, Zhongqiang
+  author: Karniadakis, George Em
+n_references_citation_meta: 55
+
+== OFFICIAL ABSTRACT (VoR) ==
+It is widely known that neural networks (NNs) are universal approximators of continuous functions. However, a less known but powerful result is that a NN with a single hidden layer can accurately approximate any nonlinear continuous operator. This universal approximation theorem of operators is suggestive of the structure and potential of deep neural networks (DNNs) in learning continuous operators or complex systems from streams of scattered data. Here, we thus extend this theorem to DNNs. We design a new network with small generalization error, the deep operator network (DeepONet), which consists of a DNN for encoding the discrete input function space (branch net) and another DNN for encoding the domain of the output functions (trunk net). We demonstrate that DeepONet can learn various explicit operators, such as integrals and fractional Laplacians, as well as implicit operators that represent deterministic and stochastic differential equations. We study different formulations of the input function space and its effect on the generalization error for 16 different diverse applications.
+
+== SECTION HEADINGS ==
+- Abstract
+- Access options
+- Data availability
+- Code availability
+- References
+- Acknowledgements
+- Author information
+- Ethics declarations
+- Additional information
+- Supplementary information
+- Rights and permissions
+- About this article
+
+== FIGURE CAPTIONS (6) ==
+[] Fig. 1: Illustrations of the problem set-up and new architectures of DeepONets that lead to good generalization.
+[] Fig. 2: Learning explicit operators using different V spaces and different network architectures.
+[] Fig. 3: Fast learning of implicit operators in a nonlinear pendulum ( k = 1 and T = 3).
+[] Fig. 4: Fast learning of implicit operators in a diffusion-reaction system.
+[] Fig. 5: DeepONet prediction for a stochastic ODE.
+[] Fig. 6: DeepONet prediction for a stochastic elliptic equation.
+
+== REFERENCES (citation_reference meta, first 60) ==
+1. citation_journal_title=Chem. Eng. Commun.; citation_title=Discrete- vs. continuous-time nonlinear signal processing of Cu electrodissolution data; citation_author=R Rico-Martinez, K Krischer, IG Kevrekidis, MC Kube, JL Hudson; citation_volume=118; citation_publication_date=1992; citation_pages=25-48
+2. Rico-Martinez, R., Anderson, J. S. & Kevrekidis, I. G. Continuous-time nonlinear signal processing: a neural network based approach for gray box identification. In Proc. IEEE Workshop on Neural Networks for Signal Processing 596–605 (IEEE, 1994).
+3. citation_journal_title=Comput. Chem. Eng.; citation_title=Identification of distributed parameter systems: a neural net based approach; citation_author=R González-García, R Rico-Martínez, IG Kevrekidis; citation_volume=22; citation_publication_date=1998; citation_pages=S965-S968; citation_doi=10.101
+4. citation_journal_title=AIChE J.; citation_title=A hybrid neural network-first principles approach to process modeling; citation_author=DC Psichogios, LH Ungar; citation_volume=38; citation_publication_date=1992; citation_pages=1499-1511; citation_doi=10.1002/aic.690381003; citation_id=CR4
+5. citation_journal_title=Commun. Math. Sci.; citation_title=Equation-free, coarse-grained multiscale computation: enabling mocroscopic simulators to perform system-level analysis; citation_author=IG Kevrekidis; citation_volume=1; citation_publication_date=2003; citation_pages=715-762; citation_doi=10.
+6. Weinan, E. Principles of Multiscale Modeling (Cambridge Univ. Press, 2011).
+7. Ferrandis, J., Triantafyllou, M., Chryssostomidis, C. & Karniadakis, G. Learning functionals via LSTM neural networks for predicting vessel dynamics in extreme sea states. Preprint at 
+                  https://arxiv.org/pdf/1912.13382.pdf
+                  
+                 (2019).
+8. Qin, T., Chen, Z., Jakeman, J. & Xiu, D. Deep learning of parameterized equations with applications to uncertainty quantification. Preprint at 
+                  https://arxiv.org/pdf/1910.07096.pdf
+                  
+                 (2020).
+9. Chen, T. Q., Rubanova, Y., Bettencourt, J. & Duvenaud, D. K. Neural ordinary differential equations. In Advances in Neural Information Processing Systems 6571–6583 (NIPS, 2018).
+10. Jia, J. & Benson, A. R. Neural jump stochastic differential equations. Preprint at 
+                  https://arxiv.org/pdf/1905.10403.pdf
+                  
+                 (2019).
+11. Greydanus, S., Dzamba, M. & Yosinski, J. Hamiltonian neural networks. In Advances in Neural Information Processing Systems 15379–15389 (NIPS, 2019).
+12. Toth, P. et al. Hamiltonian generative networks. Preprint at 
+                  https://arxiv.org/pdf/1909.13789.pdf
+                  
+                 (2019).
+13. Zhong, Y. D., Dey, B. & Chakraborty, A. Symplectic ODE-Net: learning Hamiltonian dynamics with control. Preprint at 
+                  https://arxiv.org/pdf/1909.12077.pdf
+                  
+                 (2019).
+14. Chen, Z., Zhang, J., Arjovsky, M. & Bottou, L. Symplectic recurrent neural networks. Preprint at 
+                  https://arxiv.org/pdf/1909.13334.pdf
+                  
+                 (2019).
+15. citation_journal_title=J. Comput. Phys.; citation_title=ConvPDE-UQ: convolutional neural networks with quantified uncertainty for heterogeneous elliptic partial differential equations on varied domains; citation_author=N Winovich, K Ramani, G Lin; citation_volume=394; citation_publication_date=2019;
+16. citation_journal_title=J. Comput. Phys.; citation_title=Physics-constrained deep learning for high-dimensional surrogate modeling and uncertainty quantification without labeled data; citation_author=Y Zhu, N Zabaras, P-S Koutsourelakis, P Perdikaris; citation_volume=394; citation_publication_date=20
+17. Trask, N., Patel, R. G., Gross, B. J. & Atzberger, P. J. GMLS-Nets: a framework for learning from unstructured data. Preprint at 
+                  https://arxiv.org/pdf/1909.05371.pdf
+                  
+                 (2019).
+18. Li, Z. et al. Neural operator: graph kernel network for partial differential equations. Preprint at 
+                  https://arxiv.org/pdf/2003.03485.pdf
+                  
+                 (2020).
+19. citation_journal_title=Sci. Adv.; citation_title=Data-driven discovery of partial differential equations; citation_author=SH Rudy, SL Brunton, JL Proctor, JN Kutz; citation_volume=3; citation_publication_date=2017; citation_pages=e1602614; citation_doi=10.1126/sciadv.1602614; citation_id=CR19
+20. citation_journal_title=J. Comput. Phys.; citation_title=Quantifying total uncertainty in physics-informed neural networks for solving forward and inverse stochastic problems; citation_author=D Zhang, L Lu, L Guo, GE Karniadakis; citation_volume=397; citation_publication_date=2019; citation_pages=108
+21. citation_journal_title=SIAM J. Sci. Comput.; citation_title=fPINNs: fractional physics-informed neural networks; citation_author=G Pang, L Lu, GE Karniadakis; citation_volume=41; citation_publication_date=2019; citation_pages=A2603-A2626; citation_doi=10.1137/18M1229845; citation_id=CR21
+22. citation_journal_title=SIAM Rev.; citation_title=DeepXDE: a deep learning library for solving differential equations; citation_author=L Lu, X Meng, Z Mao, GE Karniadakis; citation_volume=63; citation_publication_date=2021; citation_pages=208-228; citation_doi=10.1137/19M1274067; citation_id=CR22
+23. citation_journal_title=PLoS Comput. Biol.; citation_title=Systems biology informed deep learning for inferring parameters and hidden dynamics; citation_author=A Yazdani, L Lu, M Raissi, GE Karniadakis; citation_volume=16; citation_publication_date=2020; citation_pages=e1007575; citation_doi=10.1371/
+24. citation_journal_title=Opt. Express; citation_title=Physics-informed neural networks for inverse problems in nano-optics and metamaterials; citation_author=Y Chen, L Lu, GE Karniadakis, LD Negro; citation_volume=28; citation_publication_date=2020; citation_pages=11618-11633; citation_doi=10.1364/OE.
+25. Holl, P., Koltun, V. & Thuerey, N. Learning to control PDEs with differentiable physics. Preprint at 
+                  https://arxiv.org/pdf/2001.07457.pdf
+                  
+                 (2020).
+26. Lample, G. & Charton, F. Deep learning for symbolic mathematics. Preprint at 
+                  https://arxiv.org/pdf/1912.01412.pdf
+                  
+                 (2019).
+27. Charton, F., Hayat, A. & Lample, G. Deep differential system stability—learning advanced computations from examples. Preprint at 
+                  https://arxiv.org/pdf/2006.06462.pdf
+                  
+                 (2020).
+28. citation_journal_title=Math. Control Signals Syst.; citation_title=Approximation by superpositions of a sigmoidal function; citation_author=G Cybenko; citation_volume=2; citation_publication_date=1989; citation_pages=303-314; citation_doi=10.1007/BF02551274; citation_id=CR28
+29. citation_journal_title=Neural Networks; citation_title=Multilayer feedforward networks are universal approximators; citation_author=K Hornik, M Stinchcombe, H White; citation_volume=2; citation_publication_date=1989; citation_pages=359-366; citation_doi=10.1016/0893-6080(89)90020-8; citation_id=CR29
+30. citation_journal_title=IEEE Trans. Neural Networks; citation_title=Universal approximation to nonlinear operators by neural networks with arbitrary activation functions and its application to dynamical systems; citation_author=T Chen, H Chen; citation_volume=6; citation_publication_date=1995; citati
+31. citation_journal_title=IEEE Trans. Neural Networks; citation_title=Approximations of continuous functionals by neural networks with application to dynamic systems; citation_author=T Chen, H Chen; citation_volume=4; citation_publication_date=1993; citation_pages=910-918; citation_doi=10.1109/72.28688
+32. citation_journal_title=Neural Comput.; citation_title=Neural networks for functional approximation and system identification; citation_author=HN Mhaskar, N Hahm; citation_volume=9; citation_publication_date=1997; citation_pages=143-159; citation_doi=10.1162/neco.1997.9.1.143; citation_id=CR32
+33. citation_journal_title=Neural Networks; citation_title=Functional multi-layer perceptron: a non-linear tool for functional data analysis; citation_author=F Rossi, B Conan-Guez; citation_volume=18; citation_publication_date=2005; citation_pages=45-60; citation_doi=10.1016/j.neunet.2004.07.001; citati
+34. citation_journal_title=IEEE Trans. Neural Networks; citation_title=Approximation capability to functions of several variables, nonlinear functionals, and operators by radial basis function neural networks; citation_author=T Chen, H Chen; citation_volume=6; citation_publication_date=1995; citation_pa
+35. Brown, T. B. et al. Language models are few-shot learners. Preprint at 
+                  https://arxiv.org/pdf/2005.14165.pdf
+                  
+                 (2020).
+36. Lu, L., Su, Y. & Karniadakis, G. E. Collapse of deep and narrow neural nets. Preprint at 
+                  https://arxiv.org/pdf/1808.04947.pdf
+                  
+                 (2018).
+37. citation_journal_title=Neural Networks; citation_title=Quantifying the generalization error in deep learning in terms of data distribution and neural network smoothness; citation_author=P Jin, L Lu, Y Tang, GE Karniadakis; citation_volume=130; citation_publication_date=2020; citation_pages=85-99; ci
+38. citation_journal_title=Commun. Comput. Phys.; citation_title=Dying ReLU and initialization: theory and numerical examples; citation_author=L Lu, Y Shin, Y Su, GE Karniadakis; citation_volume=28; citation_publication_date=2020; citation_pages=1671-1706; citation_doi=10.4208/cicp.OA-2020-0165; citatio
+39. He, K., Zhang, X., Ren, S. & Sun, J. Deep residual learning for image recognition. In Proc. 2016 IEEE Conference on Computer Vision and Pattern Recognition 770–778 (IEEE, 2016).
+40. Vaswani, A. et al. Attention is all you need. In Advances in Neural Information Processing Systems 5998–6008 (NIPS, 2017).
+41. Dumoulin, V. et al. Feature-wise transformations. Distill 
+                  https://distill.pub/2018/feature-wise-transformations
+                  
+                 (2018).
+42. Sutskever, I., Vinyals, O. & Le, Q. V. Sequence to sequence learning with neural networks. In Advances in Neural Information Processing Systems 3104–3112 (NIPS, 2014).
+43. Bahdanau, D., Cho, K. & Bengio. Y. Neural machine translation by jointly learning to align and translate. Preprint at 
+                  https://arxiv.org/pdf/1409.0473.pdf
+                  
+                 (2014).
+44. Britz, D., Goldie, A., Luong, M. & Le, Q. Massive exploration of neural machine translation architectures. Preprint at 
+                  https://arxiv.org/pdf/1703.03906.pdf
+                  
+                 (2017).
+45. citation_journal_title=Math. Nachrichten; citation_title=On a formula for the l2 Wasserstein metric between measures on Euclidean and Hilbert spaces; citation_author=M Gelbrich; citation_volume=147; citation_publication_date=1990; citation_pages=185-203; citation_doi=10.1002/mana.19901470121; citati
+46. Podlubny, I. Fractional Differential Equations: An Introduction to Fractional Derivatives, Fractional Differential Equations, to Methods of their Solution and Some of their Applications (Elsevier, 1998).
+47. citation_journal_title=J. Comput. Phys.; citation_title=Fractional Sturm–Liouville Eigen-problems: theory and numerical approximation; citation_author=M Zayernouri, GE Karniadakis; citation_volume=252; citation_publication_date=2013; citation_pages=495-517; citation_doi=10.1016/j.jcp.2013.06.031; ci
+48. citation_journal_title=J. Comput. Phys.; citation_title=What is the fractional Laplacian? A comparative review with new results; citation_author=A Lischke; citation_volume=404; citation_publication_date=2020; citation_pages=109009; citation_doi=10.1016/j.jcp.2019.109009; citation_id=CR48
+49. Born, M. & Wolf, E. Principles of Optics: Electromagnetic Theory of Propagation, Interference and Diffraction of Light (Elsevier, 2013).
+50. Mitzenmacher, M. & Upfal, E. Probability and Computing: Randomization and Probabilistic Techniques in Algorithms and Data Analysis (Cambridge Univ. Press, 2017).
+51. Shwartz-Ziv, R. & Tishby, N. Opening the black box of deep neural networks via information. Preprint at 
+                  https://arxiv.org/pdf/1703.00810.pdf
+                  
+                 (2017).
+52. Cai, S., Wang, Z., Lu, L., Zaki, T. A. & Karniadakis, G. E. DeepM&Mnet: inferring the electroconvection multiphysics fields based on operator approximation by neural networks. Preprint at 
+                  https://arxiv.org/pdf/2009.12935.pdf
+                  
+                 (2020).
+53. Tai, K. S., Bailis, P. & Valiant, G. Equivariant transformer networks. Preprint at 
+                  https://arxiv.org/pdf/1901.11399.pdf
+                  
+                 (2019).
+54. Hanin, B. Universal function approximation by deep neural nets with bounded width and ReLU activations. Preprint at 
+                  https://arxiv.org/pdf/1708.02691.pdf
+                  
+                 (2017).
+55. Lu, L. DeepONet 
+                  https://doi.org/10.5281/zenodo.4319385
+                  
+                 (13 December 2020).

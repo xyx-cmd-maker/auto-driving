@@ -1,0 +1,259 @@
+[
+  {
+    "name": "OTF 2026（Huang/Li 课题组）",
+    "doi": "10.1007/978-3-032-20963-4_21",
+    "is_oa": false,
+    "status": "closed",
+    "journal": "Smart innovation, systems and technologies",
+    "best": null,
+    "locs": []
+  },
+  {
+    "name": "ISA Trans 2026 CfC+KF 车辆状态估计",
+    "doi": "10.1016/j.isatra.2026.06.027",
+    "is_oa": false,
+    "status": "closed",
+    "journal": "ISA Transactions",
+    "best": null,
+    "locs": []
+  },
+  {
+    "name": "Robotics 2024 CfC 滑模控制",
+    "doi": "10.3390/robotics13090126",
+    "is_oa": true,
+    "status": "gold",
+    "journal": "Robotics",
+    "best": {
+      "version": "publishedVersion",
+      "host": "publisher",
+      "license": "cc-by",
+      "url": "https://www.mdpi.com/2218-6581/13/9/126/pdf?version=1724411538"
+    },
+    "locs": [
+      "publishedVersion|publisher|cc-by|https://www.mdpi.com/2218-6581/13/9/126/pdf?version=1724411538"
+    ]
+  },
+  {
+    "name": "Nat Commun 2025 混行编队知识引导自学习",
+    "doi": "10.1038/s41467-025-62597-x",
+    "is_oa": true,
+    "status": "gold",
+    "journal": "Nature Communications",
+    "best": {
+      "version": "publishedVersion",
+      "host": "publisher",
+      "license": "cc-by-nc-nd",
+      "url": "https://www.nature.com/articles/s41467-025-62597-x.pdf"
+    },
+    "locs": [
+      "publishedVersion|publisher|cc-by-nc-nd|https://www.nature.com/articles/s41467-025-62597-x.pdf",
+      "submittedVersion|repository|cc-by-nc-nd|https://www.ncbi.nlm.nih.gov/pmc/articles/12365019",
+      "submittedVersion|repository|cc-by-sa|https://doaj.org/article/31cac835827141f491c79234bc5a74ab"
+    ]
+  },
+  {
+    "name": "T-ITS 2024 超车可行性预测（混行）",
+    "doi": "10.1109/tits.2024.3398602",
+    "is_oa": true,
+    "status": "green",
+    "journal": "IEEE Transactions on Intelligent Transportation Systems",
+    "best": {
+      "version": "submittedVersion",
+      "host": "repository",
+      "license": "other-oa",
+      "url": "https://napier-repository.worktribe.com/file/3636737/1/Overtaking%20Feasibility%20Prediction%20For%20Mixed%20Connected%20And%20Connectionless%20Vehicles%20%28accepted%20version%29"
+    },
+    "locs": [
+      "submittedVersion|repository|other-oa|https://napier-repository.worktribe.com/file/3636737/1/Overtaking%20Feasibility%20Prediction%20For%20Mixed%20Connected%20And%20Connectionless%20Vehicles%20%28accepted%20version%29"
+    ]
+  },
+  {
+    "name": "TCST 2024 Physics-augmented DeeP-LCC",
+    "doi": "10.1109/tcst.2024.3361393",
+    "is_oa": true,
+    "status": "green",
+    "journal": "IEEE Transactions on Control Systems Technology",
+    "best": {
+      "version": "submittedVersion",
+      "host": "repository",
+      "license": null,
+      "url": "https://arxiv.org/pdf/2306.01387"
+    },
+    "locs": [
+      "submittedVersion|repository|-|https://arxiv.org/pdf/2306.01387",
+      "submittedVersion|repository|cc-by|https://scholarbank.nus.edu.sg/handle/10635/309977",
+      "null|repository|-|https://doi.org/10.48550/arxiv.2306.01387"
+    ]
+  },
+  {
+    "name": "T-IV 2024 混行编队安全 RL",
+    "doi": "10.1109/tiv.2024.3373512",
+    "is_oa": true,
+    "status": "green",
+    "journal": "IEEE Transactions on Intelligent Vehicles",
+    "best": {
+      "version": "submittedVersion",
+      "host": "repository",
+      "license": null,
+      "url": "https://arxiv.org/pdf/2401.11148"
+    },
+    "locs": [
+      "submittedVersion|repository|-|https://arxiv.org/pdf/2401.11148",
+      "null|repository|-|https://doi.org/10.48550/arxiv.2401.11148"
+    ]
+  },
+  {
+    "name": "TCST 2025 异步采样弦稳定",
+    "doi": "10.1109/tcst.2024.3505036",
+    "is_oa": true,
+    "status": "green",
+    "journal": "IEEE Transactions on Control Systems Technology",
+    "best": {
+      "version": "submittedVersion",
+      "host": "repository",
+      "license": null,
+      "url": "https://centralesupelec.hal.science/hal-04794550v1/file/TCST24%20-%20Asynchronous%20sampled-data%20String%20Stability%20%20for%20a%20platoon%20of%20heterogeneous%20vehicles%20%20via%20a%20mesoscopic%20approach.pdf"
+    },
+    "locs": [
+      "submittedVersion|repository|-|https://centralesupelec.hal.science/hal-04794550v1/file/TCST24%20-%20Asynchronous%20sampled-data%20String%20Stability%20%20for%20a%20platoon%20of%20heterogeneous%20vehicles%20%20via%20a%20mesoscopic%20approach.pdf",
+      "submittedVersion|repository|other-oa|https://hdl.handle.net/11573/1729657"
+    ]
+  },
+  {
+    "name": "TAC 2024 抗社会驾驶员 cut-in",
+    "doi": "10.1109/tac.2024.3401082",
+    "is_oa": false,
+    "status": "closed",
+    "journal": "IEEE Transactions on Automatic Control",
+    "best": null,
+    "locs": []
+  },
+  {
+    "name": "TR-C 2024 鲁棒跟驰 DRL",
+    "doi": "10.1016/j.trc.2024.104486",
+    "is_oa": true,
+    "status": "hybrid",
+    "journal": "Transportation Research Part C Emerging Technologies",
+    "best": {
+      "version": "publishedVersion",
+      "host": "publisher",
+      "license": "cc-by",
+      "url": "https://doi.org/10.1016/j.trc.2024.104486"
+    },
+    "locs": [
+      "publishedVersion|publisher|cc-by|https://doi.org/10.1016/j.trc.2024.104486"
+    ]
+  },
+  {
+    "name": "TR-C 2026 混行交织区 V2I（李世武组）",
+    "doi": "10.1016/j.trc.2026.106020",
+    "is_oa": false,
+    "status": "closed",
+    "journal": "Transportation Research Part C Emerging Technologies",
+    "best": null,
+    "locs": []
+  },
+  {
+    "name": "TR-F 2025 超车卡车编队",
+    "doi": "10.1016/j.trf.2025.01.026",
+    "is_oa": true,
+    "status": "green",
+    "journal": "Transportation Research Part F Traffic Psychology and Behaviour",
+    "best": {
+      "version": "submittedVersion",
+      "host": "repository",
+      "license": null,
+      "url": "https://eprints.whiterose.ac.uk/222778/2/2025.1-Revised%20manuscript-ZL.pdf"
+    },
+    "locs": [
+      "submittedVersion|repository|-|https://eprints.whiterose.ac.uk/222778/2/2025.1-Revised%20manuscript-ZL.pdf"
+    ]
+  },
+  {
+    "name": "TR-C 2024 停走波与学习型跟驰",
+    "doi": "10.1016/j.trc.2024.104578",
+    "is_oa": true,
+    "status": "bronze",
+    "journal": "Transportation Research Part C Emerging Technologies",
+    "best": {
+      "version": "acceptedVersion",
+      "host": "publisher",
+      "license": null,
+      "url": "https://www.sciencedirect.com/science/article/am/pii/S0968090X24000998"
+    },
+    "locs": [
+      "acceptedVersion|publisher|-|https://www.sciencedirect.com/science/article/am/pii/S0968090X24000998",
+      "submittedVersion|repository|-|https://www.osti.gov/servlets/purl/2438666",
+      "submittedVersion|repository|-|https://www.osti.gov/servlets/purl/2438994"
+    ]
+  },
+  {
+    "name": "Inf Fusion 2026 知识-数据融合编队建模",
+    "doi": "10.1016/j.inffus.2025.103622",
+    "is_oa": true,
+    "status": "green",
+    "journal": "Information Fusion",
+    "best": {
+      "version": "submittedVersion",
+      "host": "repository",
+      "license": null,
+      "url": "https://arxiv.org/pdf/2502.08658"
+    },
+    "locs": [
+      "submittedVersion|repository|-|https://arxiv.org/pdf/2502.08658",
+      "null|repository|-|https://doi.org/10.48550/arxiv.2502.08658"
+    ]
+  },
+  {
+    "name": "Sensors 2025 TinyML 综述",
+    "doi": "10.3390/s25103191",
+    "is_oa": true,
+    "status": "gold",
+    "journal": "Sensors",
+    "best": {
+      "version": "publishedVersion",
+      "host": "publisher",
+      "license": "cc-by",
+      "url": "https://www.mdpi.com/1424-8220/25/10/3191/pdf?version=1747650727"
+    },
+    "locs": [
+      "publishedVersion|publisher|cc-by|https://www.mdpi.com/1424-8220/25/10/3191/pdf?version=1747650727",
+      "submittedVersion|repository|cc-by|https://www.ncbi.nlm.nih.gov/pmc/articles/12115890",
+      "submittedVersion|repository|cc-by-sa|https://doaj.org/article/a8a92f78b9d04ca08daffa2cef92e59e"
+    ]
+  },
+  {
+    "name": "Electronics 2026 超车分层 RL",
+    "doi": "10.3390/electronics15081711",
+    "is_oa": true,
+    "status": "gold",
+    "journal": "Electronics",
+    "best": {
+      "version": "publishedVersion",
+      "host": "publisher",
+      "license": "cc-by",
+      "url": "https://www.mdpi.com/2079-9292/15/8/1711/pdf?version=1776432859"
+    },
+    "locs": [
+      "publishedVersion|publisher|cc-by|https://www.mdpi.com/2079-9292/15/8/1711/pdf?version=1776432859"
+    ]
+  },
+  {
+    "name": "ICSSAS 2025 LTC 自动驾驶控制",
+    "doi": "10.1109/icssas66150.2025.11081318",
+    "is_oa": false,
+    "status": "closed",
+    "journal": "International Conference on Self Sustainable Artificial Intelligence Systems (ICSSAS)",
+    "best": null,
+    "locs": []
+  },
+  {
+    "name": "Chaos Solitons Fractals 2025 跟驰 PD 抑制超车",
+    "doi": "10.1016/j.chaos.2025.117116",
+    "is_oa": false,
+    "status": "closed",
+    "journal": "Chaos Solitons & Fractals",
+    "best": null,
+    "locs": []
+  }
+]

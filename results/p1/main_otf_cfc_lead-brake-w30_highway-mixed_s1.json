@@ -1,0 +1,174 @@
+{
+  "paper": "p1",
+  "experiment": "main_otf_cfc_lead-brake-w30",
+  "scenario": "highway-mixed",
+  "seedset": "s1",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "seed_semantics": "each seed = an independent SUMO run; all seeds reported, none selected",
+  "config_path": "configs/p1/sumo_highway.net.xml",
+  "config_hash": "7474fc76d509c9e3",
+  "mode": "real",
+  "platform": {
+    "kind": "simulator",
+    "detail": "Eclipse SUMO 1.27.1; synthetic highway mainline, 3 lanes, 2981 m; NOT CARLA, NOT real-vehicle",
+    "compiler": null
+  },
+  "provenance": "ours-reproduced",
+  "metrics": {
+    "per_scenario": {
+      "highway-mixed": {
+        "following_rmse_m": null,
+        "accel_sq_integral": null,
+        "jerk_peak_mps3": null,
+        "lane_center_dev_m": null,
+        "steer_angle_var": null,
+        "e2e_latency_ms": null,
+        "mcu_mem_kb": null
+      }
+    },
+    "otf": {
+      "window_s": 30,
+      "bin_width": 0.2,
+      "definition": "per-window (N_ot - N_otn) for each probe vehicle; report the DISTRIBUTION (fractions per bin, as in thesis Tables 3.3-3.7); never sum across windows (trip-wide sum is identically 0)",
+      "distribution_fractions": {
+        "-2.0": 0.0003,
+        "-1.0": 0.0019,
+        "0.0": 0.8899,
+        "1.0": 0.0084,
+        "2.0": 0.0103,
+        "3.0": 0.0259,
+        "4.0": 0.0215,
+        "5.0": 0.0276,
+        "6.0": 0.0141,
+        "7.0": 0.0001
+      },
+      "n_values_pooled": 7995,
+      "sign": "positive",
+      "probe_speed_mps": 23.0,
+      "per_seed": {
+        "0": {
+          "n_values": 1599,
+          "mean": 0.404,
+          "std": 1.2856,
+          "min": -2,
+          "max": 7
+        },
+        "1": {
+          "n_values": 1599,
+          "mean": 0.4078,
+          "std": 1.2878,
+          "min": -2,
+          "max": 6
+        },
+        "2": {
+          "n_values": 1599,
+          "mean": 0.4259,
+          "std": 1.3144,
+          "min": -1,
+          "max": 6
+        },
+        "3": {
+          "n_values": 1599,
+          "mean": 0.4159,
+          "std": 1.2835,
+          "min": -1,
+          "max": 6
+        },
+        "4": {
+          "n_values": 1599,
+          "mean": 0.4171,
+          "std": 1.2801,
+          "min": -1,
+          "max": 6
+        }
+      },
+      "per_seed_run_meta": {
+        "0": {
+          "n_frames": 2400,
+          "n_probe_vehicles": 40,
+          "N_ot": 791,
+          "N_otn": 145,
+          "n_injections": 19,
+          "events_consistent_two_pass": true
+        },
+        "1": {
+          "n_frames": 2400,
+          "n_probe_vehicles": 40,
+          "N_ot": 797,
+          "N_otn": 145,
+          "n_injections": 22,
+          "events_consistent_two_pass": true
+        },
+        "2": {
+          "n_frames": 2400,
+          "n_probe_vehicles": 40,
+          "N_ot": 827,
+          "N_otn": 146,
+          "n_injections": 19,
+          "events_consistent_two_pass": true
+        },
+        "3": {
+          "n_frames": 2400,
+          "n_probe_vehicles": 40,
+          "N_ot": 826,
+          "N_otn": 161,
+          "n_injections": 19,
+          "events_consistent_two_pass": true
+        },
+        "4": {
+          "n_frames": 2400,
+          "n_probe_vehicles": 40,
+          "N_ot": 817,
+          "N_otn": 150,
+          "n_injections": 23,
+          "events_consistent_two_pass": true
+        }
+      },
+      "n_injections_total": 102,
+      "events_consistent_two_pass_all_seeds": true
+    }
+  },
+  "aggregates": {
+    "method": "mean-std",
+    "values": {
+      "otf_per_window_mean": {
+        "mean": 0.4141,
+        "std": 0.0086,
+        "n_seeds": 5
+      }
+    },
+    "n_seeds": 5
+  },
+  "fairness": {
+    "no_privileged_inputs": true,
+    "equal_tuning_budget": true,
+    "same_map_and_seeds": true
+  },
+  "failure_modes": [],
+  "notes": {
+    "abandoned_settings": [
+      "未做动态时间窗函数：需先有固定档逐窗口分布作基线",
+      "早期版本跨窗口求和 OTF → 恒等式（单辆自车行程内 N_ot≡N_otn），已改为逐窗口分布",
+      "早期版本把每个种子写成独立文件（seeds 只有 1 个）→ 违反契约，已改为单文件含全部种子"
+    ],
+    "known_biases": [
+      "合成交通流，非实车数据；证据等级 C",
+      "工况注入由 TraCI 强制（换道/减速），非人因驱动，激烈程度可能被低估",
+      "3 km 单段直路，不含匝道/交叉口；跨 ODD（城市/交叉口）结论无效",
+      "5 s 分箱下多数样本落在 0 与 ±0.2，桶宽敏感；与论文的对拍只比形状与趋势，不比绝对值"
+    ],
+    "seed_independence": {
+      "verified": true,
+      "split_policy": "by-entity",
+      "entity_group": "probe-vehicle",
+      "check_script": "src/stats/check_seed_independence.py",
+      "partial_scope": []
+    }
+  }
+}

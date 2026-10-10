@@ -1,0 +1,1445 @@
+SOURCE_PDF: electronics2026-overtaking-hrl.pdf
+MD5: 5350859915a33c82c9764e0cfd05bcff
+PAGES: 22
+
+===== PAGE 1 =====
+
+Academic Editor: Bai Li
+Received: 8 March 2026
+Revised: 14 April 2026
+Accepted: 14 April 2026
+Published: 17 April 2026
+Copyright: © 2026 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license.
+Article
+Large Autonomous Driving Overtaking Decision and Control
+System Based on Hierarchical Reinforcement Learning
+Chen-Ning Wang and Xiuhui Tang *
+School of Electrical and Information Engineering, Wuhan Institute of Technology, No. 206 Guanggu 1st Road,
+Donghu New Technology Development Zone, Wuhan 430205, China; 2303180206@stu.wit.edu.cn
+* Correspondence: xiuhuitang@wit.edu.cn
+Abstract
+To address the bottlenecks of low sample efficiency and poor control accuracy in tradi-
+tional single-layer reinforcement learning during autonomous driving overtaking, this
+paper proposes an overtaking decision and control system based on hierarchical rein-
+forcement learning to decouple complex tasks in spatial and temporal dimensions. A
+heterogeneous two-layer architecture is constructed, where the upper layer adopts the
+Proximal Policy Optimization algorithm to generate macroscopic discrete decisions, while
+the lower layer employs Twin Delayed Deep Deterministic Policy Gradient combined
+with Long Short-Term Memory to achieve smooth continuous control of steering and
+acceleration by perceiving temporal features of dynamic obstacles. A composite reward
+mechanism, integrating hard safety constraints and soft efficiency incentives, is designed
+to balance safety, efficiency, and comfort. Experimental results in complex scenarios with
+multiple interfering vehicles and random lane-changing behaviors demonstrate that the
+proposed system improves the training convergence speed by approximately 30% within
+500,000 steps compared to single-layer algorithms. In tests across varying traffic densities,
+the system achieves a 98.3% success rate in medium-density scenarios with a collision rate
+of only 0.6%. In high-density challenges, the success rate remains above 95%, with the
+collision rate reduced by about 80% compared to baseline models. Furthermore, the lateral
+control deviation is strictly limited to within 0.2 m, and the longitudinal safety distance
+remains stable above 5 m. This system provides a robust, high-efficiency paradigm for
+autonomous overtaking.
+Keywords: autonomous driving; overtaking decision; hierarchical reinforcement learning;
+PPO; TD3; multi-objective optimization
+1. Introduction
+Overtaking decision-making in autonomous driving technology is a highly challenging
+advanced behavior, requiring vehicles to achieve efficient manipulation in highly dynamic
+traffic flows while ensuring absolute safety. Traditional rule-based methods struggle to
+cope with complex and volatile long-tail traffic environments, while end-to-end deep
+learning methods suffer from poor interpretability, vague safety boundaries, and low
+training efficiency [1–3]. Specifically in overtaking scenarios, the system faces three core
+challenges. First, is the extremely high safety requirement; high-speed lane changing and
+acceleration sharply increase blind spots and collision risks [4]. Second, is the complexity of
+the decision-making time scale; there is a huge difference between the long-term strategic
+decision of “when to overtake” and the high-frequency tactical control of “how to steer”.
+Electronics 2026, 15, 1711
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 2 =====
+
+Electronics 2026, 15, 1711
+2 of 22
+Finally, dynamic trade-offs among multiple objectives are difficult; the system must find
+the optimal dynamic balance among safety, efficiency, and comfort.
+In recent years, reinforcement learning (RL) has provided powerful data-driven so-
+lutions for vehicle decision-making and control [5,6], but different algorithms have their
+pros and cons in autonomous driving applications. Value-based Deep Q-Network (DQN)
+requires discretization of the action space in continuous control tasks, leading to a decrease
+in control precision. Policy gradient and Actor-Critic methods can directly optimize policy
+networks, performing excellently in continuous control and have become mainstream [7,8].
+The maximum entropy-based Soft Actor-Critic (SAC) algorithm combined with imitation
+learning significantly improves sample efficiency and robustness. Nevertheless, tradi-
+tional single-layer RL methods still face bottlenecks such as low sample efficiency and
+training instability when dealing with complex overtaking decisions [9]. To address this,
+Hierarchical Reinforcement Learning (HRL) decomposes complex tasks into multi-level
+subtasks through temporal and state abstraction. From theoretical frameworks like Options
+and Hierarchical Abstract Machines (HAM) to deep learning methods like Hierarchical
+Reinforcement Learning with Off-policy correction (HIRO) and Feudal Networks (FuN),
+HRL has shown enormous potential in reducing problem complexity and improving
+learning efficiency [10–12].
+To address the aforementioned challenges, this paper proposes a novel autonomous
+driving overtaking decision-making and control system based on HRL. Distinguishing
+itself from existing conventional decision-driven HRL methods, the core innovations and
+contributions of this framework are as follows:
+First, aiming at the “curse of dimensionality” caused by the severe coupling of decision-
+making and control in existing HRL, a heterogeneous frequency HRL architecture based
+on temporal decoupling is proposed [13–15]. This framework breaks the limitations of
+traditional synchronous frequency frameworks by decoupling the overtaking task into
+high-level macro strategic decision-making at 1 Hz and low-level micro trajectory control
+at 10 Hz [16]. This not only effectively mitigates the conflict between decision planning
+latency and low-level execution real-time performance on a temporal scale, but also sig-
+nificantly reduces the Markov Decision Process (MDP) spatial dimensionality in complex
+long-sequence tasks [17,18].
+Second, regarding the network structure and algorithmic mechanism, this paper
+moves beyond the simple splicing of common algorithms like Proximal Policy Optimization
+(PPO) and Twin Delayed Deep Deterministic Policy Gradient (TD3) in traditional HRL by
+proposing an intention-driven spatio-temporal feature representation mechanism [19,20].
+The discrete intentions output by the high-level PPO network [21] serve not only as control
+commands but also as dynamic prior inputs to the low-level TD3-Long Short-Term Memory
+(LSTM) network [22,23]. By utilizing the LSTM module for deep memory and feature
+extraction of temporal states, this framework addresses the deficiency of existing HRL
+methods in extracting historical interaction information when facing complex and multi-
+variable traffic flows, thereby ensuring that the low-level network outputs high-precision
+continuous control commands under the constraints of high-level intentions [24,25].
+Finally, addressing the issues of poor safety and “policy collapse” prone to occur
+during the exploration phase of existing HRL, the system introduces a strongly coupled
+multi-safety boundary constraint and dynamic multi-objective reward mechanism [26,27].
+This mechanism no longer relies on static rewards; instead, it adaptively adjusts reward
+weights according to different stages of overtaking, while ensuring the flexibility of high-
+level decision-making, it constructs a rigorous safety envelope for the low-level control,
+achieving safe, efficient, and comfortable autonomous overtaking behavior and significantly
+enhancing the reliability of the system under real-world complex operating conditions.
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 3 =====
+
+Electronics 2026, 15, 1711
+3 of 22
+2. Core Technical Framework and Implementation
+2.1. Heterogeneous-Frequency Overall System Architecture
+The traditional MDP is highly prone to the curse of dimensionality in overtaking
+scenarios. Therefore, the innovation of this paper lies in decomposing the global MDP into
+a high-level Semi-Markov Decision Process (Semi-MDP) and a low-level standard MDP,
+assigning them different operating clock frequencies. Among them, the high-level strategic
+decision-maker, acting as the “brain” of the system, operates at a frequency of 1 Hz and
+employs the PPO algorithm [28]. It takes the macroscopic environmental state as input
+and outputs five discrete strategic actions: lane keeping, preparing to overtake, executing
+overtaking, returning to the lane, and emergency braking. This 1 Hz low-frequency operat-
+ing mechanism enables the high level to focus on long-term intention planning, effectively
+avoiding “policy oscillation” caused by frequent decision changes.
+Meanwhile, the low-level trajectory executor, acting as the “cerebellum” of the system,
+operates at a frequency of 10 Hz. It receives the strategic action intention issued by the high
+level as conditional input, combined with the ego vehicle’s microscopic kinematic state
+and historical time-series information. To process temporal dependencies and improve
+the stability of continuous control, the low level adopts an architecture combining the
+TD3 algorithm with LSTM [29,30]. It utilizes the double Q-networks of TD3 to effectively
+alleviate the overestimation problem, ultimately outputting specific continuous control
+commands at a high frequency of 10 Hz.
+In Figure 1, it is observed that the Low-Level Trajectory Executor operates as a stan-
+dard MDP at a higher frequency of 10 Hz, employing a modified TD3 algorithm integrated
+with an LSTM network. To effectively handle partially observable or dynamic traffic sce-
+narios, an LSTM Temporal Encoder processes historical time-series data to extract temporal
+features from the micro kinematic state and history. Furthermore, the selected high-level
+strategic intent acts as a crucial conditional input to the Trajectory Actor, ensuring that
+the generated continuous control command strictly aligns with the high-level overtaking
+strategy. The architecture also explicitly illustrates the use of twin Trajectory Critics within
+the TD3 framework to mitigate Q-value overestimation during the training process.
+Control &
+Data Flow
+Training &
+Updates
+Highway
+Simulation Environment
+Strategic Critic
+PPO Algorithm
+1 .
+Lane Keep (LK)
+2 .
+Prepare to Overtake (PT)
+3 .
+Overtake (OT)
+4 .
+Return to Lane (RL)
+5 .
+Emergency Brake (EB)
+Historical
+time-series data
+Temporal
+LSTM
+Encoad
+Trajectory
+Actor
+Trajectory Critic
+Temporal Features
+s
+Macro Environmental
+State
+macro
+Micro Kinematic
+State & History
+smicro_hist
+Selected high-level strategic action intent
+astrat_t
+Condition
+astrat_t
+Motion
+Control &
+Actuation
+acont_t
+Global
+Experience
+Buffer
+(s, a, r, s′)
+High-Level Strategic Decision Maker
+Strategic Actor
+Low-Level Trajectory Executor
+TD3
+Trajectory Critic
+Figure 1. Hierarchical Reinforcement Learning: High-Level Strategic Planning and Low-Level
+Overtaking Control.
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 4 =====
+
+Electronics 2026, 15, 1711
+4 of 22
+2.2. Focusing on Key Interacting Vehicles
+To further improve the efficiency of network feature extraction and avoid dimensional
+redundancy caused by blindly inputting global environmental information in overtaking
+scenarios, this paper innovatively adopts an “attention-guided region division method” in
+the design of the state space. The system abandons global perception and only extracts
+the “Key Interacting Vehicles” (KIVs) that pose the greatest threat to the current overtaking
+decision: namely, the preceding vehicle in the same lane, the preceding vehicle in the left
+target lane, and the following vehicle in the left target lane. For each key interacting vehicle
+i in the set KIVs, the state vector encoding not only includes its relative longitudinal and
+lateral distances and relative velocities with respect to the ego vehicle, but also innova-
+tively introduces the reciprocal of the Time-to-Collision (TTC) as the core representation
+of safety risk [31–33]. Considering that the traditional TTC is prone to singular values
+when the relative velocity approaches zero, this paper uses the reciprocal of TTC, TTC−1
+i
+,
+to continuously quantify the urgency of a collision:
+TTC−1
+i
+= max(0, vego −vx,i)
+∆xi
+(1)
+where vego represents the current absolute longitudinal velocity of the ego vehicle; vx,i repre-
+sents the absolute longitudinal velocity of the interacting vehicle i; the max(0, vego −vx,i) in
+the numerator ensures that the approach degree is calculated only when the ego vehicle’s
+speed is greater than the preceding vehicle’s speed; ∆xi is the longitudinal relative distance
+between the ego vehicle and vehicle i.
+Ultimately, the system constructs a comprehensive state vector St containing the ego
+vehicle state sego and interactive features:
+St =
+"
+sego,
+[
+i∈KIVs
+{∆xi, ∆yi, ∆vx,i, ∆vy,i, TTC−1
+i
+}
+#
+(2)
+where St denotes the comprehensive state vector input to the neural network at time t;
+sego represents the microscopic kinematic state of the ego vehicle itself; the symbol S
+i∈KIVs
+indicates the concatenation operation performed on the feature vectors of all target vehicles
+i within the set of Key Interacting Vehicles (KIVs), thereby fusing the states of different ve-
+hicles into a unified input matrix. Within the feature vector {∆xi, ∆yi, ∆vx,i, ∆vy,i, TTC−1
+i
+},
+∆xi and ∆yi represent the longitudinal and lateral relative distances between the ego vehicle
+and target vehicle i, respectively, while ∆vx,i and ∆vy,i represent their longitudinal and
+lateral relative velocities. Finally, TTC−1
+i
+is the inverse of the Time-to-Collision, which is
+adopted to prevent the value from approaching infinity when there is no collision risk
+between the two vehicles, thus ensuring the stability of the neural network training.
+In this paper, TTC−1
+i
+is employed as a critical safety feature, providing an effective,
+dimensionality-reduced representation of complex traffic risks. Extensive research has been
+conducted in the fields of risk-aware vehicle control and surrogate safety measures (SSMs).
+To overcome the limitations of traditional SSMs, which primarily focus on one-dimensional
+longitudinal interactions, recent studies have begun exploring multi-dimensional risk rep-
+resentations. For instance, Xu et al. [34] proposed a two-dimensional SSM based on the
+fuzzy logic and inverse time-to-collision (FL-iTTC) model. This model innovatively inte-
+grates the inverse time-to-collision with the lateral kinematics and uncertainties of adjacent
+vehicles, thereby significantly enhancing the identification and quantification of collision
+risks in complex two-dimensional interaction scenarios, such as cut-ins and sideswipes.
+Furthermore, the perceived risk field model (PRFM) proposed by Yichang et al. [35] con-
+structs a continuous safety potential field to finely characterize global collision risks by
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 5 =====
+
+Electronics 2026, 15, 1711
+5 of 22
+comprehensively considering multi-dimensional physical states, including vehicle distance,
+velocity, relative velocity, and acceleration. Based on this framework, dynamic control
+strategies adaptable to varying accident risk levels were designed to improve traffic flow
+efficiency without compromising safety.
+Diverging from approaches that address lateral motion uncertainties via refined
+two-dimensional fuzzy logic models, or those that conduct macroscopic, fine-grained
+risk modeling of global traffic flow using continuous potential fields, the method proposed
+in this paper essentially represents a minimalist extraction of a “local risk potential” tailored
+to specific game-theoretic objectives. Considering the transient nature of microscopic inter-
+actions in overtaking scenarios and the sensitivity of reinforcement learning algorithms
+to state-space dimensionality, the proposed system intentionally bypasses complex lateral
+uncertainty reasoning and global field computations. This dimensionality-reduced and
+focused encoding scheme not only assimilates the core philosophy of cutting-edge risk
+modeling—which heavily prioritizes collision potential—but also substantially curtails
+the exploration space required for the reinforcement learning agent. By endowing the
+neural network with high-dimensional foresight regarding potential hazards, the dual-
+layer architecture establishes much clearer safety boundaries when navigating highly
+dynamic interactions.
+2.3. Dynamic Multi-Objective Reward Function Design
+The core of reinforcement learning lies in the design of the reward function. Aiming
+at the dynamic trade-off dilemma among multiple objectives including safety, efficiency,
+and comfort in overtaking scenarios, this paper designs an innovative stage-adaptive
+composite reward function.
+The total reward Rtotal of the system at any time step is constituted by the weighted
+sum of various sub-rewards, and its specific mathematical expression is as follows:
+Rtotal = w1Rsa f ety + w2Re f f iciency + w3Rcom f ort + Rtask_completion
+(3)
+where
+Rtotal represents the overall reward value obtained by the system at the current time step;
+Rsa f ety represents the absolute safety penalty term, used to constrain collision risks;
+Re f f iciency represents the relative efficiency incentive term, used to encourage fast passage;
+Rcom f ort represents the comfort smoothness constraint term, used to smooth the vehicle’s
+kinematic trajectory;
+Rtask_completion is the sparse reward at the task level;
+w1, w2, w3 are the weight coefficients of the corresponding continuous sub-reward terms,
+respectively, used to dynamically adjust the relative importance of each optimization
+objective according to different stages of the overtaking task.
+Specifically, the design logic and physical significance of each continuous sub-reward
+are as follows:
+(1)
+Absolute Safety Penalty
+This term aims to establish a physical safety bottom line during the overtaking process.
+Once the relative distance between the ego vehicle and surrounding interacting vehicles is
+less than the set dynamic safety boundary, the system will trigger a massive negative reward.
+This mechanism is closely integrated with the multiple safety constraints mentioned above;
+the closer the distance and the higher the collision urgency, the non-linearly greater the
+penalty value, forcing the agent to prioritize learning collision avoidance strategies.
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 6 =====
+
+Electronics 2026, 15, 1711
+6 of 22
+(2)
+Relative Efficiency Incentive
+This term is primarily used to improve the vehicle’s traffic efficiency in the traffic flow.
+Under the premise that the system confirms the hard safety constraints are met, if the ego
+vehicle’s speed is higher than the speed of the preceding vehicle being overtaken, the system
+will provide a positive efficiency reward. This setting aims to overcome the “conservative
+strategy” potentially caused by pure collision avoidance, prompting the vehicle to complete
+the overtaking action quickly and decisively, thereby minimizing the game time during
+which the ego vehicle and the adjacent vehicle run parallel in the target lane.
+(3)
+Comfort Smoothness Constraint
+To ensure that the generated overtaking trajectory conforms to the physical sensation
+and physiological acceptance of human passengers, this term focuses on constraining the
+vehicle’s extreme kinematic control variables. The system imposes penalties on excessively
+large longitudinal jerk (rate of change in acceleration) and sudden lateral acceleration
+caused by sharp steering. By smoothing these microscopic control variables, the continuity,
+stability, and ride comfort of the overall overtaking trajectory are ensured.
+2.4. Tuning of Reward Function Weight Parameters
+This study proposes a dynamic multi-objective reward function composed of safety
+(Rsa f ety), efficiency (Re f f iciency), and comfort (Rcom f ort). However, reinforcement learning
+algorithms are extremely sensitive to reward shaping, and the selection of the weight
+parameters (w1, w2, w3) for each sub-reward directly determines the agent’s behavioral
+tendencies in complex overtaking games. To ensure the effectiveness and robustness of the
+proposed strategy, this section details the dynamic adjustment mechanism of the weights,
+the parameter optimization process, and the robustness verification method.
+2.4.1. Dynamic Weight Adjustment Mechanism Based on Overtaking Stages
+Traditional static weights struggle to adapt to the dynamic requirements of the entire
+overtaking process. Therefore, aiming at the three typical stages of the overtaking task
+(lane change preparation and cut-out, parallel passing, and lane change cut-in), this paper
+designs a stage-adaptive weight scheduling strategy:
+•
+Stage 1: Lane Change Out. During this stage, the vehicle needs to cut from the
+original lane into the target lane, leading to a sharp increase in collision risk. There-
+fore, the safety weight is given the highest priority, while the efficiency weight is
+kept relatively low to prevent the vehicle from blindly accelerating into the lane
+change. The optimal weights for this stage in this study are set as: w1 = 0.6 (High),
+w2 = 0.1 (Low), w3 = 0.3 (Medium).
+•
+Stage 2: Parallel Passing. When the ego vehicle is parallel to the leading and trailing
+vehicles in the target lane, the longer the dwell time, the greater the potential risk (i.e.,
+the “side-by-side game” time). At this point, the system increases the efficiency weight
+w2 to force the agent to adopt a decisive acceleration strategy to complete the passing
+quickly. The optimal weights for this stage in this study are set as: w1 = 0.5 (High),
+w2 = 0.4 (Very High), w3 = 0.1 (Low, appropriately relaxing comfort in exchange for
+rapidly leaving the danger zone).
+•
+Stage 3: Lane Change In and Stabilization. After the passing is completed, the vehicle
+cuts back into the original lane. The collision risk decreases at this time, and the
+focus shifts to restoring the vehicle’s driving smoothness, avoiding sharp steering or
+hard braking. Thus, the comfort weight w3 is significantly increased. The optimal
+weights for this stage in this study are set as: w1 = 0.4 (Medium), w2 = 0.1 (Low),
+w3 = 0.5 (High).
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 7 =====
+
+Electronics 2026, 15, 1711
+7 of 22
+2.4.2. Tuning Method for Weight Parameters
+To determine the optimal baseline weight values for each of the above stages, this paper
+avoids pure manual tuning and instead adopts a combination of Bayesian Optimization
+and Curriculum Learning for parameter optimization:
+•
+Sub-reward Normalization: Before the weighted summation, dynamic clipping and
+normalization (restricted to the [−1, 1] interval) are applied to Rsa f ety, Re f f iciency,
+and Rcom f ort. This eliminates the interference of different dimensions and orders
+of magnitude on the weights, ensuring that the numerical magnitude of wi truly
+reflects its physical importance.
+•
+Bayesian Optimization: The “success rate” and “average collision rate” of the overtak-
+ing task are treated as black-box optimization objectives. The Bayesian Optimization
+algorithm is utilized to search for the optimal baseline weight combination for each
+stage within the preset parameter space.
+•
+Curriculum Learning Fine-tuning: In the early stage of training, an extremely high
+safety weight (w1 →1.0) is adopted to let the agent prioritize learning “no collision.”
+As the training episodes increase, the safety weight is gradually decayed, and the
+efficiency and comfort weights are released. This effectively solves the “conservative
+strategy” trap where multi-objective reinforcement learning easily falls into local
+optima in the early stages.
+2.4.3. Sensitivity Analysis of Weight Parameters
+While the aforementioned tuning methods identify optimal weight baselines, it is cru-
+cial to understand the sensitivity of the final trained policy to variations in these parameters
+(w1, w2, w3). Further analysis reveals that the system exhibits distinct, non-linear sensitivity
+profiles for each sub-reward:
+•
+High Sensitivity to Safety (w1): The policy demonstrates extreme sensitivity to de-
+creases in w1. A marginal reduction below the optimized threshold triggers an expo-
+nential increase in collision rates, particularly during Stage 1 and Stage 2. This confirms
+that w1 acts as a strict lower-bound constraint rather than a flexible preference.
+•
+Moderate, Bidirectional Sensitivity to Efficiency (w2): The system shows a direct,
+linear sensitivity to w2 regarding maneuver completion time. However, if w2 is
+overly inflated, the agent develops overly aggressive behaviors, frequently violating
+minimum safe distance margins to minimize time. Conversely, a depressed w2 leads
+to hesitant, parallel driving, increasing the duration of risk exposure.
+•
+Kinematic Sensitivity to Comfort (w3): The overall task success rate is relatively insen-
+sitive to w3; however, the kinematic outputs are highly sensitive. Setting w3 too low
+results in “bang-bang” style steering oscillations, whereas setting it excessively high
+over-constrains the action space, occasionally preventing necessary evasive maneuvers.
+In conclusion, the policy’s highly asymmetrical and varying sensitivity to these weights
+robustly justifies the necessity of the proposed stage-adaptive dynamic mechanism. A static
+parameter configuration would be too brittle to maintain optimal performance across the
+fluctuating sensitivity landscapes of the complex overtaking process.
+3. Experimental Settings and Simulation Platform
+To comprehensively verify the effectiveness and robustness of the proposed
+heterogeneous-frequency HRL-PPO-TD3 overtaking decision-making system, we con-
+ducted rigorous training and comparative experiments in a high-fidelity autonomous
+driving simulation environment.
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 8 =====
+
+Electronics 2026, 15, 1711
+8 of 22
+3.1. Simulation Platform and Vehicle Dynamics Model
+This study conducts secondary development based on highway-env, an open-source
+traffic flow simulation platform widely utilized in autonomous driving decision-making
+research. In the simulation environment, the ego-vehicle adopts a four-wheel vehicle
+dynamics model that more closely approximates real-world physics. This model compre-
+hensively accounts for the independent forces acting on each of the four tires, side-slip
+characteristics, and the non-linear dynamic response of the chassis. Such a configuration
+ensures that the continuous control outputs from the underlying network strictly adhere to
+complex and realistic physical limit constraints.
+In Figure 2, it is observed that the autonomous overtaking scenario involves multiple
+dynamic agents within a structured highway environment. The red vehicle, designated as
+the ego vehicle, calculates its trajectory based on a reference distance (e.g., v × 1 s) and a
+predefined target point. As presented in Figure 2, the state space includes critical spatial
+relationships such as the headway distance dh and relative positions X, Y to surrounding
+vehicles. This detailed schematic illustrates how the simulation environment translates
+physical dynamics into a tactical decision-making task for the autonomous agent.
+RV
+vr
+HV1
+vh
+X
+FV
+vv
+HV3
+×Target Point
+Reference 40m
+v × 1s
+v × 1s
+dh
+dr
+Y
+Figure 2. Schematic of the autonomous overtaking scenario in the simulation environment.
+3.2. Network Architecture and Training Hyperparameter Settings
+To ensure that the proposed HRL-PPO-TD3 heterogeneous frequency hierarchical
+reinforcement learning model exhibits good convergence and stability, while guaranteeing
+complete reproducibility of the experiments, this section details the network architecture
+design and training hyperparameter configurations of the bi-level algorithm.
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 9 =====
+
+Electronics 2026, 15, 1711
+9 of 22
+The bi-level architecture in this study adopts fully connected Multi-Layer Perceptrons
+(MLP) as the base network, implemented using PyTorch (Foundation for AI Infrastructure,
+San Francisco, CA, USA).All Actor and Critic networks in both the upper and lower levels are
+uniformly configured with two hidden layers containing 256 neurons each ([256, 256]) and
+utilize the Rectified Linear Unit (ReLU) activation function. At the macro-decision level,
+the upper-level PPO algorithm consists of independent Actor and Critic networks, where
+the Actor output layer uses the Softmax function to output the probability distribution
+of discrete actions. At the micro-control level, the lower-level TD3 algorithm contains
+one Actor and two independent Critic networks (to alleviate value overestimation). Its
+Actor output layer employs the Tanh activation function to normalize continuous actions,
+facilitating subsequent mapping to actual vehicle dynamic control boundaries with strict
+physical constraints.
+To balance exploration and exploitation during the training process, this study designs
+differentiated exploration strategies and experience storage mechanisms for the upper and
+lower-level algorithms. In the upper-level PPO algorithm, a policy entropy regularization
+term with a coefficient of 0.01 is introduced to encourage diverse overtaking decisions
+in the early stages, preventing the model from falling into local optima. Based on its
+on-policy characteristics, fixed-length data trajectories are used for online updates. In the
+lower-level TD3 algorithm, exploration is performed by adding additive Gaussian noise
+to the continuous action outputs of the Actor. Target policy smoothing regularization is
+introduced when the Critic calculates the target Q-value to enhance the robustness of the
+value evaluation. Meanwhile, an experience replay buffer is utilized to break the temporal
+correlation of sequential data and improve sample utilization.
+Regarding the core training hyperparameters, specific configurations such as batch size
+and learning rate are detailed in Table 1. All models are uniformly trained on an NVIDIA
+RTX 4090 Graphics Processing Unit (GPU) (NVIDIA Corporation, Santa Clara, CA, USA)
+hardware platform based on the PyTorch framework (version 2.1, PyTorch Foundation,
+San Francisco, CA, USA).
+Table 1. Core network architecture and training hyperparameter settings of HRL-PPO-TD3.
+Parameter Name
+Value
+Upper-level PPO Actor/Critic hidden layer dimension
+[256, 256]
+Lower-level TD3 Actor/Critic hidden layer dimension
+[256, 256]
+Hidden layer activation function
+ReLU
+TD3 Actor output layer activation function
+Tanh
+Batch Size
+256
+Replay Buffer Size (TD3)
+1 × 106
+PPO Actor/Critic Learning Rate
+3 × 10−4
+TD3 Actor Learning Rate
+1 × 10−4
+TD3 Critic Learning Rate
+3 × 10−4
+Discount Factor (γ)
+0.99
+Soft Update Rate (τ)
+0.005
+PPO Entropy Coefficient
+0.01
+TD3 Exploration Noise
+N (0, 0.1)
+3.3. Overtaking Scenario Design and Parameter Configuration
+As shown in Figure 3, this topology diagram illustrates a typical highway overtaking
+simulation scenario where different traffic participants are distinguished by color: the red
+block represents the ego vehicle currently located in the middle lane; the dark blue block
+denotes the NPC front vehicle in the same lane; the light purple and light blue blocks
+represent the NPC left-rear and NPC left-front vehicles in the adjacent lane, respectively.
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 10 =====
+
+Electronics 2026, 15, 1711
+10 of 22
+This structure constructs a dynamic environment with multiple interacting vehicles at
+a medium-high traffic density of 15–20 vehicles/km, designed to evaluate the decision-
+making and path planning capabilities of the ego vehicle within complex traffic flows.
+0
+10
+20
+30
+40
+50
+−4
+−2
+0
+2
+4
+6
+8
+10
+12
+Relative Longitudinal Position (m)
+Lateral Position (m)
+NPC (Left-Rear)
+Ego Vehicle
+NPC (Left-Front)
+NPC (Front)
+Figure 3. Topology Diagram of Highway Overtaking Simulation Scenario and Key Interacting Vehicles.
+3.3.1. Basic Scenario and Behavior Models
+To simulate the “long-tail effect” of real-world traffic flow, NPC vehicles in the en-
+vironment are randomly assigned different driving styles (ranging from conservative to
+aggressive). Their longitudinal motion follows the Intelligent Driver Model (IDM), and their
+lateral motion follows the Minimizing Overall Braking Induced by Lane Change (MOBIL)
+model. The initial speed of the ego vehicle is set to 20 m/s, and the speed limit of the target
+lane is 30 m/s.
+3.3.2. Adverse Weather and Perception Noise Modeling
+To further verify the robustness and generalization ability of the HRL-PPO-TD3
+algorithm in extreme environments, and in accordance with the reviewers’ comments, we
+introduced physical characteristic disturbances and observation errors based on the basic
+scenario. Specifically, we simulated the low-adhesion road surfaces typical of rainy and
+snowy weather by reducing the longitudinal friction coefficient µ between the tires and
+the road surface in the vehicle dynamics module from 1.0 to 0.4–0.6. This was utilized to
+test the safety of the algorithm when braking performance is degraded. Simultaneously,
+Gaussian observation noise N (0, σ2) targeting relative distance and speed was injected
+into the state space of the ego vehicle to simulate the degradation of sensor accuracy in
+low-visibility environments, such as foggy conditions.
+3.3.3. Road Anomalies and Sudden Condition Design
+In addition to conventional traffic flows, the experiment also incorporated two typical
+anomalous conditions: sudden abnormal braking (ghost braking) and static road obsta-
+cles, to evaluate the emergency response capabilities of the HRL architecture in high-level
+decision-making. Specifically, the rear-end collision risk was simulated by setting an
+NPC vehicle ahead in the target lane to randomly trigger emergency braking at 5 m/s2.
+Furthermore, construction roadblocks or broken-down vehicles were generated at key
+nodes of the overtaking path to force the agent to execute immediate obstacle avoidance
+or strategy termination. Through the combination of the diverse scenarios described
+above, this experiment constructed a comprehensive, multi-dimensional test set encom-
+passing “standard–adverse–anomalous” conditions, aiming to thoroughly evaluate the per-
+formance of the HRL algorithm on safety boundaries relative to single-layer reinforcement
+learning algorithms.
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 11 =====
+
+Electronics 2026, 15, 1711
+11 of 22
+3.4. Comparative Baseline Algorithms
+To highlight the dual advantages of the HRL architecture proposed in this pa-
+per in complex decision-making and continuous control, we selected the following
+three mainstream algorithms as baselines for comparison:
+To highlight the dual advantages of the proposed HRL architecture in complex
+decision-making and continuous control, we selected three mainstream algorithms as
+benchmarks for comparative analysis: (1) Rule-based (IDM + MOBIL), a traditional traf-
+fic flow model that performs lane-changing decisions based on preset TTC thresholds;
+(2) Single-layer PPO (Flat-PPO), an end-to-end architecture that directly maps environmen-
+tal perception states to continuous control signals for steering, acceleration, and braking;
+and (3) Single-layer TD3 (Flat-TD3), a prominent baseline for handling continuous action
+spaces in reinforcement learning.
+As presented in Figure 4, it is observed that the proposed HRL architecture significantly
+outperforms the three representative baselines. The HRL-PPO-TD3 method not only
+converges faster but also reaches a substantially higher average episode reward, effectively
+demonstrating its dual advantages in complex decision-making and continuous control.
+0.0M
+0.2M
+0.5M
+0.8M
+1.0M
+1.2M
+1.5M
+1.8M
+2.0M
+0
+20
+40
+60
+80
+100
+Training Steps
+Average Episode Reward
+Rule-based (IDM+MOBIL)
+Single-layer TD3 (Flat-TD3)
+Single-layer PPO (Flat-PPO)
+Ours (HRL-PPO-TD3)
+Figure 4. Comparison of Average Episode Cumulative Reward Convergence Curves During Training
+Across Different Algorithms.
+4. Experimental Results and Comparative Analysis
+4.1. Training Convergence and Sample Efficiency Analysis
+During the training phase, to verify the statistical significance and stability of each
+algorithm, we conducted independent training using 5 different random seeds and recorded
+the average episodic cumulative rewards and Standard Deviations (SD) across runs for
+each reinforcement learning algorithm. Experimental results show that the single-layer
+Flat-PPO and Flat-TD3 algorithms suffered from a severe “curse of dimensionality” in the
+early stages due to the vast hybrid action space, only beginning to rise slowly and with
+intense oscillations after approximately 1.2 × 106 steps. The introduction of the modern
+state-of-the-art continuous control baseline, the Single-layer SAC (Flat-SAC) algorithm,
+benefited from the maximum entropy reinforcement learning mechanism, resulting in
+improved exploration efficiency and achieving convergence at approximately 9 × 105 steps;
+however, its final reward upper bound remained constrained by the difficulties of long-
+horizon decision-making.
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 12 =====
+
+Electronics 2026, 15, 1711
+12 of 22
+In contrast, the hierarchical architecture significantly improved the agent’s exploration
+efficiency. The classic synchronous hierarchical baseline, HRL-PPO-PPO, achieved con-
+vergence at approximately 7.5 × 105 steps. The HRL architecture proposed in this paper,
+due to the effective decoupling of decision-making and control in the temporal domain,
+quickly reached a stable convergence state at approximately 6 × 105 steps. The final cumu-
+lative reward was approximately 15% higher than that of Flat-SAC and approximately 8%
+higher than the conventional HRL-PPO-PPO. More importantly, the method proposed in
+this paper exhibited the smallest reward variance across multiple independent runs, fully
+demonstrating that the improvements of this architecture are not accidental but possess
+high stability and advantages in sample efficiency.
+4.2. Quantitative Evaluation of Core Performance Metrics
+4.2.1. Statistical Analysis of Monte Carlo Test Results and Performance
+After completing the training, we conducted 1000 Monte Carlo tests in randomly
+generated traffic flows (incorporating model validation across 5 different random seeds).
+We calculated the mean and SD of the core performance metrics, and the quantitative results
+are presented in Table 2 and Figure 5. Introducing the SD across runs aims to rigorously
+verify the robustness of each method’s performance.
+Table 2. Performance test comparison of different algorithms in 1000 random overtaking scenarios.
+Algorithm Model
+Overtaking Success Rate (%)
+Collision Rate (%)
+Timeout Failure Rate (%)
+Rule-based
+68.5 ± 0.0
+0.0 ± 0.0
+31.5 ± 0.0
+Flat-PPO
+81.3 ± 3.2
+8.4 ± 1.5
+10.3 ± 2.1
+Flat-TD3
+77.2 ± 4.1
+11.5 ± 1.8
+11.3 ± 2.6
+Flat-SAC
+88.4 ± 1.9
+4.5 ± 0.8
+7.1 ± 1.2
+HRL-PPO-PPO
+92.1 ± 1.5
+3.2 ± 0.6
+4.7 ± 0.9
+Ours (HRL)
+96.5 ± 0.6
+1.2 ± 0.3
+2.3 ± 0.4
+Rule-based
+Flat-PPO
+Flat-TD3
+Flat-SAC HRL-PPO-PPOOurs (HRL)
+0
+20
+40
+60
+80
+100
+Percentage (%)
+Success Rate (%)
+Collision Rate (%)
+Timeout Rate (%)
+Figure 5. Performance Comparison of Different Algorithm Models.
+As in Table 2 and Figure 5, although the rule-based method has a collision rate
+of zero, it is overly conservative, resulting in a timeout failure rate as high as 31.5%.
+The introduced modern reinforcement learning baseline, Flat-SAC, demonstrates strong
+capabilities in continuous control, with its overtaking success rate (88.4 ± 1.9%) significantly
+outperforming the basic Flat-PPO and Flat-TD3. However, limited by its flat structure, it still
+faces relatively high collision and timeout risks when dealing with complex, long-horizon
+interactions. Meanwhile, although the classical same-frequency hierarchical framework,
+HRL-PPO-PPO, improves the success rate to 92.1% through task decomposition, its control
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 13 =====
+
+Electronics 2026, 15, 1711
+13 of 22
+output variance and comfort penalty remain high due to the same-frequency coupling of
+the high and low levels and the lack of deep memory processing of temporal features.
+In contrast, the HRL method proposed in this paper achieves an overtaking success
+rate of up to 96.5 ± 0.6% while ensuring absolute safety with a very low collision rate
+(1.2 ± 0.3%). Furthermore, not only do all key indicators achieve optimal performance,
+but their extremely small standard deviations also confirm that the proposed method
+possesses strong anti-interference capabilities and stability. The lower-level TD3, combined
+with LSTM to process temporal information and operating at heterogeneous frequencies
+(1 Hz/10 Hz), effectively suppresses the output oscillation phenomenon commonly seen
+in traditional RL and standard HRL. It reduces the average comfort penalty (Jerk) to the
+lowest value of 0.82 ± 0.06, thoroughly proving the effectiveness of the “heterogeneous
+frequency + intention-driven” design proposed in this paper.
+4.2.2. Extreme Scenario Robustness Analysis
+To quantitatively evaluate the performance of the model under non-ideal working
+conditions, we selected three types of extreme scenarios: rainy conditions with low friction,
+foggy conditions with high noise, and road anomalies with sudden braking. Compar-
+ative experiments were conducted against the performance under standard conditions.
+The specific experimental data comparison is presented in Table 3.
+Table 3. Performance Comparison under Diverse Extreme Scenarios.
+Scenario
+Algorithm
+SR (%)
+CR (%)
+Comfort
+Standard
+Ours (HRL)
+96.5
+1.2
+Low
+Rainy
+Ours (HRL)
+92.1 (↓4.4)
+2.8
+Medium
+(Low Friction)
+Flat-PPO
+70.3 (↓11.0)
+15.2
+High
+Foggy
+Ours (HRL)
+90.8 (↓5.7)
+3.1
+Medium
+(High Noise)
+Flat-PPO
+65.4 (↓15.9)
+18.6
+High
+Road Anomaly
+Ours (HRL)
+88.5 (↓8.0)
+4.5
+Medium
+(Sudden Braking)
+Rule-based
+55.2 (↓13.3)
+0.5
+Very High
+As can be observed from the test data, with the increase in environmental complexity,
+the performance metrics of all tested algorithms exhibited varying degrees of degradation.
+However, the HRL method proposed in this paper successfully maintained an overtaking
+success rate of over 88% across all extreme scenarios, with the increase in collision rate
+being significantly lower than that of the baseline algorithms.
+In the low-friction rainy environment, the collision rate of the Flat-PPO algorithm
+surged to 15.2% due to its inability to adapt to the changing dynamic parameters. In con-
+trast, the HRL architecture effectively mitigated the risk of sideslip, leveraging the underly-
+ing TD3 network’s perception of and real-time correction capabilities for execution-layer
+disturbances. Under foggy conditions with limited perception, the high-level decision-
+making network demonstrated exceptional fault tolerance, validating the effectiveness of
+the hierarchical architecture in reducing the decision-making process is reliance on instan-
+taneous observation accuracy. Furthermore, when encountering sudden braking caused by
+road anomalies, the HRL method achieved a superior balance between safety and traffic
+efficiency, thereby avoiding the frequent interruption of overtaking tasks typically caused
+by the overly conservative nature of traditional rule-based methods.
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 14 =====
+
+Electronics 2026, 15, 1711
+14 of 22
+4.3. Microscopic Analysis of Typical Overtaking Trajectories
+By extracting a complex three-lane overtaking event, the microscopic trajectory of the
+ego vehicle is analyzed. The entire process clearly demonstrates how high-level strategies
+command low-level control:
+As shown in Figure 6, the vehicle demonstrated high logical coherence and execution
+smoothness throughout the observed maneuvers: during Stage 1 (0–2 s), the high-level PPO
+output the “lane-keeping” command, while the low-level network maintained a constant
+acceleration to follow the lead vehicle; in Stage 2 (2–5 s), upon detecting a safety window
+in the left lane, the high-level controller issued an “overtaking” command, to which the
+low-level TD3 responded promptly by generating smooth positive steering angles and max-
+imum acceleration to execute a rapid lane-out and pass the target vehicle; finally, in Stage 3
+(5–8 s), once the safety distance was satisfied, the high-level command transitioned to
+“return to lane,” with the low-level network outputting a reverse steering angle for a stable
+recovery. The entire trajectory was free from abrupt steering fluctuations, effectively vali-
+dating the superior coordination of the proposed HRL architecture in bridging macro-logic
+decision-making with micro-physical execution.
+0
+1
+2
+3
+4
+5
+6
+7
+8
+Time (s)
+25
+50
+75
+100
+125
+150
+175
+Target t=1.0s
+Target t=3.5s
+(Overtaking Ego t=3.5s)
+(Returning Ego t=6.5s)
+Ego Vehicle Trajectory
+Target Vehicle Trajectory
+Lateral Position (m)
+Keep Lane
+Overtake
+Return to Lane
+High-Level
+Decision (1Hz)
+Safe to follow;
+Keep current lane
+Left window detected;
+Issue Overtake cmd
+Safe distance reached;
+Issue Return cmd
+0.0
+Low-Level
+Steering (rad)
+No steering action
+Smooth positive steer;
+Quick lane change
+Negative steer;
+Smooth return, no jerk
+0.0
+Low-Level
+Accel (m/s2)
+Maintain constant accel;
+Stable following
+Max acceleration
+response
+20
+Ego Velocity
+(m/s)
+Steady cruise
+(20 m/s)
+Speeding up to
+pass target
+Minor deceleration
+adjustment
+Stabilizing
+speed
+Figure 6. Macro & micro integration of a typical 3-lane overtaking trajectory (0–8 s).
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 15 =====
+
+Electronics 2026, 15, 1711
+15 of 22
+4.4. Ablation Study
+To verify the effectiveness of the specific LSTM module and the dynamic Safety-Aware
+Continuous Reward (SACR) proposed in this paper, ablation experiments were conducted.
+As shown in Figure 7, ablation study results indicate that removing the low-level
+LSTM leads to a nearly three-fold increase in the comfort penalty (Jerk) during continuous
+control, demonstrating the indispensable role of temporal memory in maintaining control
+smoothness. Furthermore, replacing the proposed dynamic reward with a traditional static
+reward causes the collision rate to rise significantly from 1.2% to 5.8%, illustrating that the
+phase-adaptive multi-objective weight allocation effectively strengthens the “hard safety
+constraints” of the system.
+0
+100
+200
+300
+400
+0
+10
+20
+30
+40
+50
+60
+Episode
+Reward
+(a) Full Model (Ours)
+0
+100
+200
+300
+400
+0
+10
+20
+30
+40
+50
+60
+Episode
+Reward
+(b) No LSTM
+0
+100
+200
+300
+400
+0
+10
+20
+30
+40
+50
+60
+Episode
+Reward
+(c) No SACR
+0
+100
+200
+300
+400
+0
+10
+20
+30
+40
+Episode
+Jerk
+(d) Full Model (Ours)
+0
+100
+200
+300
+400
+0
+10
+20
+30
+40
+Episode
+Jerk
+(e) No LSTM
+0
+100
+200
+300
+400
+0
+10
+20
+30
+40
+Episode
+Jerk
+(f) No SACR
+Figure 7. Impact of the Stage-Adaptive Continuous Reward and LSTM Temporal Memory Module
+on safety and control smoothness.
+4.5. Algorithm Hyperparameter Sensitivity Analysis
+To further verify the robustness of the proposed HRL-PPO-TD3 heterogeneous fre-
+quency hierarchical reinforcement learning architecture, and to rule out the possibility that
+its superior performance relies solely on a coincidental parameter combination, a hyperpa-
+rameter sensitivity analysis was conducted on the core parameters that play a decisive role
+in the model. We primarily focused on two key variables: the learning rate of the high-level
+decision network (PPO) and the temporal memory length of the low-level control network
+(TD3-LSTM).
+4.5.1. Sensitivity Analysis of Learning Rate for High-Level PPO
+The high-level PPO algorithm is responsible for outputting discrete lane-changing
+or lane-keeping commands. Its learning rate (LR) directly determines the step size of the
+policy update and the stability of macroscopic decision-making, while maintaining other
+parameters constant as configured in Table 1, we selected LR = 1 × 10−4, 3 × 10−4 (our
+baseline), 5 × 10−4, and an extreme value of 1 × 10−3 for independent training.
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 16 =====
+
+Electronics 2026, 15, 1711
+16 of 22
+As depicted in Figure 8, when the PPO learning rate fluctuates within ±50% of the
+baseline value (i.e., from 1 × 10−4 to 5 × 10−4), the average cumulative reward smoothly
+converges to over 90, and the fluctuation of the final overtaking success rate does not
+exceed 3%. This indicates that the high-level policy network has exceptional tolerance
+and robustness to variations in the learning rate. However, when an extreme learning
+rate (LR = 1 × 10−3) is applied, severe oscillations in the reward curve can be observed
+during the early stages of training. The policy network struggles to converge to the optimal
+strategy, leading to a significant increase in the collision rate during the testing phase. This
+not only confirms the rationality of selecting 3 × 10−4 as the baseline high-level learning
+rate, but also aligns with the theoretical expectation in reinforcement learning that an
+excessively large step size can disrupt policy optimization.
+Figure 8. Training performance and test results of the high-level PPO module under different
+learning rates.
+4.5.2. Sensitivity Analysis of the Low-Level TD3-LSTM Sequence Length
+At the microscopic control level, the LSTM module is introduced to handle the partial
+observability of the environment and ensure smooth continuous control outputs. The his-
+torical state sequence length (T) received by the LSTM is the core parameter determining its
+temporal feature extraction capability. We tested sequence lengths of T = 1 (degenerating
+to a memoryless pure MLP), T = 3, T = 5 (our baseline), and T = 10.
+The experimental data (Figure 9) clearly demonstrate that the temporal memory
+length has a decisive impact on the smoothness of the underlying vehicle control. When
+T = 1, the low-level network lacks historical dynamic information and can only execute
+reactive steering and acceleration responses, causing the comfort penalty (Jerk) to increase
+sharply. As the sequence length increases to T = 3 and T = 5, the Jerk value significantly
+decreases and stabilizes, enabling the vehicle to exhibit highly human-like characteristics
+in continuous control. However, when the sequence length is further increased to T = 10,
+the excessively long historical information introduces redundant noise features. This does
+not further improve the overtaking success rate; instead, it increases the computational
+burden on the Critic network, resulting in an approximately 15% increase in the number of
+samples required for convergence. Therefore, T = 5 achieves the optimal balance between
+control smoothness and sample efficiency.
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 17 =====
+
+Electronics 2026, 15, 1711
+17 of 22
+1
+3
+5
+10
+0
+5
+10
+15
+20
+80
+100
+120
+140
+160
+LSTM Sequence Length (T)
+Average Jerk (m/s3)
+Convergence Steps (×103)
+Avg. Jerk (Left)
+Conv. Steps (Right)
+Figure 9. Effect of temporal memory length (T) in the low-level TD3-LSTM module on control
+smoothness and sample training efficiency.
+Based on the above experimental results, it can be concluded that the proposed HRL
+architecture exhibits high robustness with minimal performance fluctuations within a
+reasonable variation range (±50%) of the core hyperparameters. The current parameter
+configuration (Table 1) is not arbitrary, but rather the optimal solution obtained after
+thoroughly balancing the stability of macroscopic decision-making, the smoothness of
+microscopic control, and the sample training efficiency.
+4.6. Interpretability Analysis of the Hierarchical Decision-Control Logic
+Compared to traditional “black-box” single-layer reinforcement learning, our pro-
+posed HRL architecture offers clear interpretability by mimicking human driving logic.
+As illustrated in the simulation experiment (Figure 10), the system’s operation is
+transparent and decoupled. First, the upper-layer PPO algorithm acts as a tactical planner
+evaluating macroscopic traffic states (e.g., the relative distance to the leading vehicle).
+Instead of outputting unreadable numerical signals, it outputs clear semantic intentions,
+successfully switching the decision from “Lane Keeping” to “Execute Overtaking” as it
+approaches the slower vehicle. Second, only after this high-level decision is made does the
+lower-layer SAC algorithm take over to handle microscopic vehicle dynamics, generating
+smooth steering controls to execute the physical lane change maneuver. This transparent
+“State →Semantic Decision →Control Execution” workflow makes the system’s behavior
+highly predictable. It allows engineers to easily trace any suboptimal maneuver to either a
+decision error (upper layer) or a control error (lower layer), providing a robust diagnostic
+capability that is critical for real-world autonomous driving deployment.
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 18 =====
+
+Electronics 2026, 15, 1711
+18 of 22
+−10
+0
+20
+40
+60
+Macro States
+(A) Upper-layer Observations: Relative Distance & Speed
+Relative Dist. ∆d (m)
+Relative Spd. ∆v (m/s)
+Safety Threshold (20 m)
+Keep (0)
+Overtake (1)
+Trigger t1 = 3s
+PPO Decision
+(B) Upper-layer Output: Discrete Semantic Action
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+−0.6
+−0.3
+0
+0.3
+0.6
+Time t (s)
+Steering (rad)
+(C) Lower-layer Output: Continuous Vehicle Control
+Figure 10. Visualization of the hierarchical decision and control process during an overtaking maneuver.
+5. Conclusions
+Addressing the challenge of balancing decision safety and control precision for au-
+tonomous driving in complex, highly dynamic overtaking scenarios, this paper innovatively
+proposes an autonomous overtaking decision and control system based on Heterogeneous
+Frequency Hierarchical Reinforcement Learning. By decoupling the massive and complex
+overtaking task across both temporal and spatial dimensions, the proposed dual-layer
+framework features a 1 Hz high-level strategic planning (PPO) and a 10 Hz low-level
+trajectory control (TD3+LSTM). This architecture successfully breaks the bottleneck of
+traditional single-layer RL, reducing convergence steps to 60 k and training time to 3.2 h,
+thereby improving sample efficiency by up to 54.5% compared to standard algorithms.
+Furthermore, a pioneering stage-adaptive composite reward function enables the agent to
+flexibly adjust the game-theoretic weights between collision avoidance and traffic efficiency
+across different overtaking phases. This human-like adaptability reduces the average
+overtaking time to 6.4 s and increases the average vehicle speed to 15.6 m/s. Finally,
+high-fidelity simulation results demonstrate that, compared to single-layer baselines, our
+system improves the overtaking success rate in complex traffic flows to 96.5% and limits
+the collision rate to 2.0%, while simultaneously optimizing control smoothness by reducing
+the average Jerk to 1.82 m/s3 (a 44.0% reduction relative to the best-performing baseline),
+thereby effectively ensuring passenger comfort.
+Future Work Outlook:
+Although the proposed HRL-PPO-TD3 heterogeneous-
+frequency hierarchical architecture has demonstrated outstanding overtaking performance
+and safety in the high-fidelity Highway-env simulation environment, this study still pos-
+sesses certain limitations. All current validations are based purely on Software-in-the-Loop
+(SIL) simulations. However, real-world overtaking scenarios are accompanied by complex
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 19 =====
+
+Electronics 2026, 15, 1711
+19 of 22
+sensor noise, actuator delays, and unpredictable human-driver interactions. Due to the
+extremely high safety risks and regulatory restrictions associated with high-speed dynamic
+overtaking experiments on real roads, this paper has not yet conducted road test validations
+on full-scale real vehicles.
+In future work, we will conduct in-depth research and expansion in the following
+two main directions:
+First, regarding cross-domain model transfer and physical validation, the research
+team is committed to gradually bridging the “Sim-to-Real” gap. We plan to introduce
+domain randomization and sensor noise injection during training to further enhance the
+model’s robustness under real physical boundaries. Subsequently, preliminary physical
+validations will be progressively conducted through Hardware-in-the-Loop (HIL) testing
+or scaled model cars (e.g., 1/10 scale Robot Operating System (ROS) autonomous vehicles).
+Ultimately, real-world full-scale vehicle overtaking tests will be carried out in closed
+proving grounds, thereby accelerating the practical application of high-level autonomous
+driving technologies.
+Second, concerning the expansion to complex scenarios and multi-vehicle cooperation,
+although the current HRL architecture exhibits excellent single-vehicle intelligent decision-
+making and control capabilities in complex traffic flows, this study currently focuses solely
+on a single-agent perspective. In realistic future traffic scenarios, multi-vehicle cooperation
+is crucial for improving overall traffic efficiency and safety. Therefore, future research will
+be dedicated to extending the current HRL architecture to the field of Multi-Agent Rein-
+forcement Learning (MARL). Specifically, we plan to upgrade the high-level PPO network
+to a multi-agent cooperative decision-making network (e.g., Multi-Agent Proximal Policy
+Optimization (MAPPO)) that supports Vehicle-to-Vehicle (V2V) communication. This will
+enable lane-changing evasion and cooperative overtaking intent interaction among multiple
+vehicles in complex scenarios. Concurrently, the low-level control network will incorporate
+local collision avoidance constraints to achieve safe cooperative trajectory tracking for mul-
+tiple vehicles. Furthermore, we will consider introducing broader Vehicle-to-Everything
+(V2X) communication mechanisms to effectively resolve blind spot perception issues,
+such as sudden target intrusions in environments with extreme visual occlusion, thereby
+comprehensively enhancing the global safety and intelligent decision-making level of the
+autonomous driving system.
+Author Contributions: Conceptualization, methodology, investigation, resources, writing—review
+and editing, supervision, and project administration were performed by X.T. Software, validation,
+formal analysis, data curation, writing—original draft preparation, and visualization were performed
+by C.-N.W. All authors have read and agreed to the published version of the manuscript.
+Funding: This research was funded by the Department of Science and Technology of Hubei Province
+grant number 2024BAB008; the Wuhan Science and Technology Innovation Bureau and Wuhan DR
+Laser Technology Corp., Ltd. grant number 2024010702020023; the China Electric Power Research
+Institute grant number SGDK0000PDMM2502428; and the Wuhan Institute of Technology grant
+number K2023047 (23QD14).
+Institutional Review Board Statement: Not applicable.
+Informed Consent Statement: Not applicable.
+Data Availability Statement: The original contributions presented in this study are included in the
+article. Further inquiries can be directed to the corresponding author.
+Conflicts of Interest: The authors declare no conflicts of interest.
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 20 =====
+
+Electronics 2026, 15, 1711
+20 of 22
+Abbreviations
+The following abbreviations are used in this manuscript:
+RL
+Reinforcement Learning
+DQN
+Deep Q-Network
+SAC
+Soft Actor-Critic
+HRL
+Hierarchical Reinforcement Learning
+HAM
+Hierarchical Abstract Machines
+HIRO
+Hierarchical Reinforcement Learning with Off-policy correction
+FuN
+Feudal Networks
+MDP
+Markov Decision Process
+PPO
+Proximal Policy Optimization
+TD3
+Twin Delayed Deep Deterministic Policy Gradient
+LSTM
+Long Short-Term Memory
+Semi-MDP
+Semi-Markov Decision Process
+KIVs
+Key Interacting Vehicles
+TTC
+Time-to-Collision
+SSMs
+Surrogate Safety Measures
+FL-iTTC
+Fuzzy Logic and Inverse Time-To-Collision
+PRFM
+Perceived Risk Field Model
+HRL-PPO-TD3
+Hierarchical Reinforcement Learning—Proximal Policy Optimization—Twin Delayed
+Deep Deterministic Policy Gradient
+MLP
+Multi-Layer Perceptrons
+ReLU
+Rectified Linear Unit
+GPU
+Graphics Processing Unit
+NPCs
+Non-Player Characters
+IDM
+Intelligent Driver Model
+MOBIL
+Minimizing Overall Braking Induced by Lane Change
+Flat-PPO
+Single-layer PPO
+Flat-TD3
+Single-layer TD3
+MSE
+Mean Squared Error
+Flat-SAC
+Single-layer SAC
+SD
+Standard Deviation
+SACR
+Safety-Aware Continuous Reward
+LR
+Learning Rate
+SIL
+Software-in-the-Loop
+HIL
+Hardware-in-the-Loop
+ROS
+Robot Operating System
+MARL
+Multi-Agent Reinforcement Learning
+MAPPO
+Multi-Agent Proximal Policy Optimization
+V2V
+Vehicle-to-Vehicle
+V2X
+Vehicle-to-Everything
+References
+1.
+Geng, L. Autonomous Driving Driven by Artificial Intelligence: Development Status and Future Prospects. Comput. Artif. Intell.
+2025, 2, 29–36. [CrossRef]
+2.
+Yan, Y.; Zhang, P.; Du, C.; Wang, H.; Wang, H.; Pi, D.; Chen, Y.-H. Vehicle Trajectory Prediction for Autonomous Driving
+Applications: State-of-the-Art Review, Research Challenges, and Future Directions. Automot. Innov. 2026, ahead of print. [CrossRef]
+3.
+Li, T.; Ruan, J.; Zhang, K. The investigation of reinforcement learning-based end-to-end decision-making algorithms for au-
+tonomous driving on the road with consecutive sharp turns. Green Energy Intell. Transp. 2025, 4, 100288. [CrossRef]
+4.
+Alagumuthukrishnan, S.; Deepajothi, S.; Vani, R.; Velliangiri, S. Reliable and Efficient Lane Changing Behaviour for Connected
+Autonomous Vehicle through Deep Reinforcement Learning. Procedia Comput. Sci. 2023, 218, 1112–1121. [CrossRef]
+5.
+Djerbi, R.; Rouane, A.; Taleb, Z.; Saradouni, S. Design and implementation of a self-driving car using deep reinforcement learning:
+A comprehensive study. Comput. Ind. Eng. 2025, 207, 111319. [CrossRef]
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 21 =====
+
+Electronics 2026, 15, 1711
+21 of 22
+6.
+Wu, J. Application of reinforcement learning in autonomous driving scenarios: Path planning using policy gradient methods.
+World J. Eng. Res. 2025, 3, 24–30. [CrossRef]
+7.
+Wu, G.; Fang, W.; Wang, J.; Ge, P.; Cao, J.; Ping, Y.; Gou, P. Dyna-PPO reinforcement learning with Gaussian process for the
+continuous action decision-making in autonomous driving. Appl. Intell. 2022, 53, 16893–16907. [CrossRef]
+8.
+Rizehvandi, A.; Azadi, S.; Eichberger, A. Decision-Making Policy for Autonomous Vehicles on Highways Using Deep Reinforce-
+ment Learning (DRL) Method. Automation 2024, 5, 564–577. [CrossRef]
+9.
+Chu, H.; Wang, H.; Cheng, Y.; Li, A.; Tian, W.; Gao, B.; Chen, H. Decision making for autonomous vehicles: A mixed curriculum
+reinforcement learning approach and a novel safety intervention method. Transp. Res. Part C 2025, 181, 105369. [CrossRef]
+10.
+Muzahid, A.J.M.; Shi, Y.; Wang, Z.; Zhou, A.; Cook, A.; Wang, C.R.; Wang, Z. Optimizing on-ramp merging for connected and
+automated vehicles: A hierarchical approach using deep reinforcement learning and optimal control. Control Eng. Pract. 2025,
+165, 106614. [CrossRef]
+11.
+Li, L.; Tan, R.; Fang, J.; Xue, J.; Lv, C. LLM-augmented hierarchical reinforcement learning for human-like decision-making of
+autonomous driving. Expert Syst. Appl. 2025, 294, 128736. [CrossRef]
+12.
+Yang, Z.; Zhang, L.; Bian, Y.; Hu, M. Decision making for highway autonomous driving using hybrid reinforcement learning.
+J. Control Decis. 2025, 12, 1043–1051. [CrossRef]
+13.
+Da, C.; Qian, Y.; Zeng, J.; Wei, X.; Zhang, F. ST-PPO: A spatio-temporal attention enhanced proximal policy optimization algorithm
+for autonomous driving in complex traffic scenarios. Mach. Learn. 2025, 114, 245. [CrossRef]
+14.
+Xu, T.; Meng, Z.; Lu, W.; Tong, Z. End-to-End Autonomous Driving Decision Method Based on Improved TD3 Algorithm in
+Complex Scenarios. Sensors 2024, 24, 4962. [CrossRef] [PubMed]
+15.
+Zhang, M.; He, D.; Gang, L.; Wang, C. A deep reinforcement learning approach integrating LSTM-GAT spatiotemporal fusion for
+autonomous driving decision-making. Phys. A Stat. Mech. Appl. 2026, 681, 131121. [CrossRef]
+16.
+Yan, Q.; Wu, X.; Wang, J.; Fortino, G.; Pupo, F.; Yin, M. EGCARL: A PPO-based reinforcement learning method with expert guidance
+and dynamic rewards for autonomous driving. Inf. Fusion 2026, 126, 103606. [CrossRef]
+17.
+Niu, Y.; Wang, Y.; Xiao, M.; Zhu, W.; Wang, T. Reliable safety decision-making for autonomous vehicles: A safety assurance
+reinforcement learning. Transp. B Transp. Dyn. 2025, 13, 2439997. [CrossRef]
+18.
+Fan, X.; Wang, Y.; Che, X. Collision Avoidance for Autonomous Driving by Integrating Risk Evaluation into Deep Reinforcement
+Learning. Int. J. Intell. Transp. Syst. Res. 2026, ahead of print. [CrossRef]
+19.
+Choi, J.; Kim, S. Predictive Risk-Aware Reinforcement Learning for Autonomous Vehicles Using Safety Potential. Electronics 2025,
+14, 4446. [CrossRef]
+20.
+Lu, P.; Zhang, S.; Tan, F.; Zhang, F.; Feng, Y.; Hu, B. An uncertainty-aware safe-evolving reinforcement learning algorithm for
+decision-making and control in highway autonomous driving. Eng. Appl. Artif. Intell. 2025, 161, 112108. [CrossRef]
+21.
+Shao, Y.; Han, Z.; Shi, X.; Zhang, Y.; Ye, Z. Risk-informed longitudinal control in autonomous vehicles: A safety potential field
+modeling approach. Phys. A Stat. Mech. Appl. 2024, 633, 129419. [CrossRef]
+22.
+Huang, Z.; Sheng, Z.; Chen, S. PE-RLHF: Reinforcement Learning with Human Feedback and physics knowledge for safe and
+trustworthy autonomous driving. Transp. Res. Part C 2025, 179, 105262. [CrossRef]
+23.
+Huang, Z.; Sheng, Z.; Qu, Y.; You, J.; Chen, S. VLM-RL: A unified vision language models and reinforcement learning framework
+for safe autonomous driving. Transp. Res. Part C 2025, 180, 105321. [CrossRef]
+24.
+Wu, F.; Chen, H.; Qiu, T. Deep Reinforcement Learning for Trajectory Control of Connected and Automated Vehicles at a
+Mixed-Traffic Intersection. J. Transp. Eng. Part A Syst. 2026, 152, 04025152. [CrossRef]
+25.
+Tan, F.; Lu, P.; Zhang, F.; Ye, X.; Hu, B.; Shu, X. Transformer-based offline-to-online reinforcement learning for decision-making
+and control in autonomous driving. Eng. Appl. Artif. Intell. 2026, 170, 114139. [CrossRef]
+26.
+Ren, H.; Xing, Y. LLM-guided deep reinforcement learning with contrastive safety regularization for autonomous driving. Discov.
+Artif. Intell. 2026, 6, 169. [CrossRef]
+27.
+Huang, J.; Zhou, R.; Li, M.; Li, H.; Liu, Y.; Song, X. From black-box to white-box: Interpretable deep reinforcement learning with
+Kolmogorov-Arnold networks for autonomous driving. Transp. Res. Part C 2026, 182, 105386. [CrossRef]
+28.
+Ellouze, A.; Karray, M.; Ksantini, M. A Hybrid Decision-Making Framework for Autonomous Vehicles in Urban Environments Based
+on Multi-Agent Reinforcement Learning with Explainable AI. Vehicles 2026, 8, 8. [CrossRef]
+29.
+Xu, D.; Qiao, E.; Gu, T.; Fu, H.; Sun, C.; Guo, H.; Liu, Y. LEAD: LLM-enhanced deep reinforcement learning for stable decision-making
+in critical autonomous driving scenarios. Neurocomputing 2025, 657, 131619. [CrossRef]
+30.
+Huang, Z.; Sheng, Z.; Ma, C.; Chen, S. Human as AI mentor: Enhanced human-in-the-loop reinforcement learning for safe and
+efficient autonomous driving. Commun. Transp. Res. 2024, 4, 100127. [CrossRef]
+31.
+Aboyeji, E.; Ajani, O.S.; Fenyom, I.; Mallipeddi, R. NeuroAction: A neuroevolutionary approach to reinforcement learning for
+autonomous vehicles. Sci. Rep. 2026, 16, 7403. [CrossRef]
+32.
+Rauch, R.; Gazda, J. Distributed Deep Reinforcement Learning Via Split Computing For Connected Autonomous Vehicles. Acta
+Electrotech. Inform. 2025, 25, 21–29. [CrossRef]
+https://doi.org/10.3390/electronics15081711
+
+===== PAGE 22 =====
+
+Electronics 2026, 15, 1711
+22 of 22
+33.
+Lin, Y.; Yan, R.; Jiang, R.; Zheng, S.; Zhao, H. Reinforcement learning-based control algorithm for connected and automated vehicles
+on a two-lane highway section with a moving bottleneck. Urban Lifeline 2025, 3, 19. [CrossRef]
+34.
+Liu, Q.; Tang, Y.; Li, X.; Wang, K.; Yang, F.; Li, Z. Curiosity-driven reinforcement learning with graph transformers for decision-
+making in connected and autonomous vehicles. Transp. Res. Part C 2025, 177, 105183. [CrossRef]
+35.
+Xu, Y.; Ye, W.; Xie, Y.; Wang, C. A two-dimensional surrogate safety measure based on fuzzy logic model. Accid. Anal. Prev. 2024,
+199, 107529. [CrossRef] [PubMed]
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual
+author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to
+people or property resulting from any ideas, methods, instructions or products referred to in the content.
+https://doi.org/10.3390/electronics15081711

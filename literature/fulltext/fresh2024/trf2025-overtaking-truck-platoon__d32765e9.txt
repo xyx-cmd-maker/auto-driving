@@ -1,0 +1,2738 @@
+SOURCE_PDF: trf2025-overtaking-truck-platoon.pdf
+MD5: d32765e9d4e1a314259ab4d6e4ed07e1
+PAGES: 46
+
+===== PAGE 1 =====
+
+eprints@whiterose.ac.uk
+https://eprints.whiterose.ac.uk
+Universities of Leeds, Sheffield and York
+Deposited via The University of Leeds.
+White Rose Research Online URL for this paper:
+https://eprints.whiterose.ac.uk/id/eprint/222778/
+Version: Accepted Version
+Article:
+Lin, Z., Chen, F., Öztürk, İ et al. (2025) Overtaking automated truck platoons: Effects of
+platoon organisations and traffic situation on driving behaviours of nearby manual vehicle
+drivers. Transportation Research Part F: Traffic Psychology and Behaviour, 109. pp. 1208-
+1228. ISSN: 1369-8478
+https://doi.org/10.1016/j.trf.2025.01.026
+Reuse
+This article is distributed under the terms of the Creative Commons Attribution (CC BY) licence. This licence
+allows you to distribute, remix, tweak, and build upon the work, even commercially, as long as you credit the
+authors for the original work. More information and the full terms of the licence here:
+https://creativecommons.org/licenses/
+Takedown
+If you consider content in White Rose Research Online to be in breach of UK law, please notify us by
+emailing eprints@whiterose.ac.uk including the URL of the record and the reason for the withdrawal request.
+
+===== PAGE 2 =====
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+Overtaking automated truck platoons: Effects of platoon organisations and traffic situation on
+11
+driving behaviours of nearby manual vehicle drivers
+12
+Zijian Lina,b, Feng Chena,*, İbrahim Öztürkb, Natasha Meratb
+13
+
+14
+
+15
+
+16
+
+17
+
+18
+
+19
+
+20
+
+21
+
+22
+
+23
+a The Key Laboratory of Road and Traffic Engineering, Ministry of Education, Tongji University, No. 4800,
+24
+Cao’an Road, Jiading, Shanghai 201804, China
+25
+b Institute for Transport Studies, University of Leeds, Leeds, UK
+26
+E-mail addresses: 2110757@tongji.edu.cn (Z. Lin), fengchen@tongji.edu.cn (F. Chen), i.ozturk@leeds.ac.uk
+27
+(İ.Öztürk), n.merat@its.leeds.ac.uk (N. Merat)
+28
+
+===== PAGE 3 =====
+
+Abstract
+29
+
+Automated truck platooning is a promising technology that is expected to be mainstream within
+30
+the next decade. For the foreseeable future, automated truck platoons will coexist and interact with
+31
+human drivers. Resembling a train-like formation, automated truck platoons may present challenges
+32
+for drivers wishing to overtake them, and it is not currently clear how these new formations affect
+33
+driver behaviour. Therefore, this paper aims to examine driver behaviours in the overtaking process
+34
+under various platoon organisations. A high-fidelity driving simulation experiment was conducted
+35
+to investigate the influence of platoon speed (80km/h and 100km/h), size (three trucks and five
+36
+trucks), inner gap (5m and 25m) and the surrounding traffic situation, e.g., the presence of a lead
+37
+vehicle, on drivers’ overtaking behaviour. Thirty-eight participants were recruited in the experiment.
+38
+Results revealed that compared to 80km/h conditions, the 100km/h conditions prompted more
+39
+drivers to exhibit extreme behaviours—either failing to overtake or performing a risky overtaking.
+40
+Regarding platoon size, drivers tended to deviate farther from the lane center to maintain a larger
+41
+lateral distance from the platoon under five-truck conditions. With respect to the inner gap, a 25m
+42
+inner gap significantly reduced the proportion of successful overtaking maneuvers. Moreover, in
+43
+critical conditions, a 5m inner gap extended drivers’ response time but did not significantly impact
+44
+collision probability. The presence of the lead vehicle increased drivers’ mental workload and
+45
+impaired longitudinal stability. These findings may offer insights for managing automated truck
+46
+platoons. For instance, the platoon speed and inner gap can be regulated in different traffic
+47
+conditions, to optimize efficiency, while ensuring safety for all road users.
+48
+
+49
+Keywords: automated truck platooning, driving simulator, driver behaviour, overtaking
+50
+
+===== PAGE 4 =====
+
+1. Introduction
+51
+Connected and autonomous vehicle (CAV) technology has made significant progress and holds
+52
+the potential to revolutionize the transportation system. One of the most promising CAV
+53
+technologies is automated truck platooning (Ma et al., 2022). Unlike automated vehicles (AVs) that
+54
+solely rely on sensor data, Dedicated Short-Range Communication (DSRC) technology enables
+55
+multiple trucks to virtually link with each other, maintaining a constant and short inner gap within
+56
+the platoon. This inner gap can be reduced to about 5m at a speed of 80km/h (Tsugawa, 2014). This
+57
+close arrangement effectively reduces fuel consumption, emissions, and promotes traffic efficiency
+58
+(Fagnant & Kockelman, 2015; Hussein & Rakha, 2021; Tsugawa et al., 2016). Additionally, it has
+59
+been proposed that automated truck platooning can alleviate the workload of the truck drivers. Some
+60
+cutting-edge platooning technologies can even achieve unmanned operation for the following trucks
+61
+(Watanabe et al., 2021). It is proposed that less involvement of human drivers significantly reduces
+62
+the risk of human-factors-related accidents. Automated truck platooning has undergone successful
+63
+testing on public roads in various countries and is expected to be introduced to the market within
+64
+the next decade (Fagnant & Kockelman, 2015).
+65
+Despite the numerous benefits, the introduction of automated truck platoons can also give rise
+66
+to a range of issues. One major concern is the interaction between manual vehicles (MVs) and
+67
+automated truck platoons (Axelsson, 2017). Given that mixed traffic of autonomous vehicles (AVs)
+68
+and MVs is an essential step in the development of automated driving technologies, it is inevitable
+69
+that manual drivers will share the road with automated truck platoons for the foreseeable future
+70
+(Guhathakurta & Kumar, 2019). However, when several trucks create long formation exceeding 100
+71
+meters in length, they can present a perplexing scenario for other road users, which is not currently
+72
+well-known by the average road user. Consequently, other road users may respond unexpectedly to
+73
+this new system, a phenomenon termed 'behavioural adaptation' (OECD, 1990). To ensure
+74
+compatibility between automated truck platoons and the transportation system, it is imperative to
+75
+fully explore the behavioural adaptation of drivers in MVs, using the same road space as automated
+76
+truck platoons.
+77
+While previous studies have examined behavioural adaptation during manual driving to
+78
+automated truck platoons in various driving processes (Chen et al., 2022; Gouy et al., 2014; Lee et
+79
+
+===== PAGE 5 =====
+
+al., 2018; Razmi Rad et al., 2021), the overtaking process has been overlooked. Although overtaking
+80
+only lasts a few seconds, it is a complex procedure requiring accurate situation judgment and flexible
+81
+operation (Yang et al., 2018). On freeways, overtaking poses the risk of rear-end and lateral
+82
+collisions. Statistics from the Ministry of Public Safety of China show that overtaking accidents
+83
+account for about 30% of accidents on freeways (Ministry of Public Safety of China, 2021).
+84
+Compared to overtaking a car, the risk of accidents can further increase when overtaking a truck.
+85
+Existing studies have found that even a single truck can lead to changes in the driving behaviour of
+86
+surrounding drivers (Figueira & Larocca, 2020), their attention allocation (Zhang et al., 2016) and
+87
+mental workload (de Waard et al., 2009), during the overtaking process. Due to its length, an
+88
+automated truck platoon may exacerbate these impacts and result in unexpected behaviours of
+89
+surrounding drivers during overtaking.
+90
+Therefore, to ensure the safety of mixed traffic, it is crucial to understand how automated truck
+91
+platoons influence surrounding drivers’ behaviours during overtaking. This study aims to examine
+92
+the effects of platoon organisation and traffic situations on the overtaking behaviours of nearby
+93
+manual vehicle drivers. The results of this study can provide practical implications for the
+94
+operational strategies of automated truck platoons.
+95
+1.1 Impacts of trucks on other drivers’ overtaking behaviours
+96
+Accidents involving trucks contribute to approximately one-third of China’s total traffic
+97
+accidents on freeway (Ministry of Public Safety of China, 2021). In the USA, this number is
+98
+approximately 50% (National Highway Traffic Safety Administration, 2023). One of the primary
+99
+reasons behind this high ratio is the conspicuous size disparity between trucks and cars. This
+100
+discrepancy becomes especially pronounced when other vehicles attempt to overtake a truck.
+101
+Drivers not only contend with a lengthier longitudinal overtaking distance but also endure lateral
+102
+pressure from the truck, due to its size and weight. This disparity can not only escalate the mental
+103
+workload of overtaking drivers, but also possibly alter their driving behaviors, resulting in greater
+104
+speed variability and reduced minimum time headway (de Waard et al., 2009; 2008).
+105
+Extensive research has explored the impact of trucks or long combination vehicles on the
+106
+behaviour of other drivers during the overtaking process. Drivers have been found to exhibit more
+107
+
+===== PAGE 6 =====
+
+hesitation (Barton & Morrall, 1998) and frustration (Sabek et al., 2024) when preparing to
+108
+overtake a truck compared to overtaking a car. Surprisingly, however, drivers have shown an even
+109
+stronger willingness to overtake when confronted with a truck in comparison to a car (Gao et al.,
+110
+2023).
+111
+In terms of driving behaviour, overtaking a truck has been shown to significantly increase both
+112
+the time and distance required for overtaking, thereby elevating the risk of collisions with oncoming
+113
+vehicles on two-lane highways (Hanley & Forkenbrock, 2005). Figueira and Larocca (2020)
+114
+observed that a truck prompted drivers to maintain a larger following distance at the beginning of
+115
+the overtaking maneuver. Furthermore, studies have investigated the impact of overtaking a truck
+116
+on drivers’ gaze behaviour. Zhang et al. (2016b) discovered that the presence of a truck led to a
+117
+significant increase in both the duration and frequency of drivers’ general gaze during the overtaking
+118
+process.
+119
+The above studies have shed some light on how a single truck influences drivers’ overtaking
+120
+behaviour. However, when multiple trucks form a platoon, they collectively introduce a new
+121
+dynamic to other drivers on the road. The platoon’s exceptionally elongated length and
+122
+unconventional arrangement may intensify the pressure felt by drivers, thereby influencing their
+123
+decision-making and potentially leading to different driving behaviours during overtaking
+124
+maneuvers. Consequently, it is imperative to examine how other drivers respond to automated truck
+125
+platoons during the overtaking process.
+126
+1.2 Behavioural adaptations of human drivers to automated vehicle platoons
+127
+Due to its composition of multiple vehicles in close proximity, an automated vehicle platoon
+128
+stands out conspicuously on the road, setting it apart from traditionally human-driven vehicles.
+129
+Consequently, other drivers may exhibit different behaviours when interacting with automated
+130
+vehicle platoons compared to interacting with human-driven vehicles, including changes in speed
+131
+management, following strategies, and more. This shift in behaviour can be classified as
+132
+'behavioural adaptation,' denoting “unintended change in the behavior of the users with the
+133
+introduction of a new system against the system’s intended designed operation” (OECD, 1990).
+134
+Numerous studies have explored the behavioural adaptations of drivers to automated vehicle
+135
+
+===== PAGE 7 =====
+
+platoons using driving simulation. The number of trucks in a platoon as well as the inner gap of the
+136
+platoon, are considered key influencing factors in affecting surrounding drivers’ behaviour. Among
+137
+these, the car-following process has been extensively examined (e.g., Chen et al., 2022; Gouy et al.,
+138
+2014, 2013; Razmi Rad et al., 2021; Suh et al., 2017). Results show that drivers tend to mimic the
+139
+close arrangement of the platoon and adopt smaller time headways during car-following, when
+140
+compared to their usual behaviour (Gouy et al., 2013; Razmi Rad et al., 2021). This tendency
+141
+becomes more pronounced as the inner gap of the platoon decreases (i.e., trucks in the platoon
+142
+operate within a shorter distance to each other) (Chen et al., 2022; Gouy et al., 2014). Furthermore,
+143
+a smaller inner gap is seen to intensify drivers’ effort and alertness (Gouy et al., 2014). In addition
+144
+to car-following, some studies have investigated the influence of automated vehicle platoons on the
+145
+lane-changing behaviour of nearby drivers. The presence of automated vehicle platoons prompts
+146
+drivers to engage in riskier lane-changing behaviours, such as accepting smaller gaps and making
+147
+more drastic swerves (Razmi Rad et al., 2021; Trende et al., 2019). Moreover, the inner gap changes
+148
+drivers’ attention allocation during the lane change process (Guo et al., 2019). A few studies have
+149
+also focused on the merging and diverging behaviours of drivers when interacting with automated
+150
+vehicle platoons, and show that the size and inner gap of the platoon are contributing factors
+151
+influencing the merging and diverging behaviours of surrounding drivers (Aramrattana et al., 2022;
+152
+Wei et al., 2023; Yang et al., 2023). In addition, the recognizability of platoon significantly affects
+153
+driving safety during the merging and diverging process of other vehicles (Sultana and Hassan,
+154
+2024).
+155
+Studies above have offered valuable insights into how drivers adapt their behaviour when
+156
+interacting with automated vehicle platoons across various scenarios (e.g, car-following, lane-
+157
+changing, merging and diverging). However, there has been comparatively less focus on the
+158
+implications of automated vehicle platoons for the overtaking safety of other drivers. Particularly
+159
+for truck platoons, their unique characteristics, resembling long and train-like formations, pose
+160
+significant challenges for drivers attempting to overtake them. Using numerical computation, some
+161
+studies have demonstrated a significant reduction in sight distance caused by automated truck
+162
+platoons on freeways (Brewer & Fitzpatrick, 2017; Garcia & Pastor‐Serrano, 2022; Haq et al., 2022;
+163
+Thomas & Martinez-Perez, 2015). A study by Song (2024), investigating the collision risk
+164
+associated with overtaking truck platoons revealed an increased risk of collision with longer platoon
+165
+
+===== PAGE 8 =====
+
+lengths or for higher speeds. These studies suggest that the organisation of the platoon, especially
+166
+the number of trucks used and the inner gap between these, should be carefully considered to ensure
+167
+overtaking safety by the surrounding traffic.
+168
+To the best of the authors’ knowledge, only one existing study has investigated the influence of
+169
+platoon size on drivers’ acceptance of overtaking trucks (Larburu et al., 2010). However, this study
+170
+primarily focused on participants’ subjective feelings, overlooking their driving behaviours.
+171
+Additionally, the platoon model in this study consisted of a leading truck and over ten following
+172
+cars, differing significantly from prevalent automated truck platoons. Therefore, to ensure the safe
+173
+deployment of automated truck platoons, there is a strong need for research into the influence of
+174
+automated truck platoons on other drivers’ behaviours, during overtaking.
+175
+1.3 Research gap and the current study
+176
+Based on the existing literature, we can conclude that extensive studies have been conducted to
+177
+unveil the impact of the organisation of automated vehicle platoons on nearby drivers. Additionally,
+178
+the impact of a single truck on drivers’ overtaking behaviour is also well studied. However, three
+179
+main research gaps remain. Firstly, the influence of automated truck platoons on nearby drivers’
+180
+behaviours during the overtaking process is overlooked. Due to their sheer length, and an operating
+181
+process that is not yet experienced on the real road, it can be argued that automated truck platoons
+182
+may pose a big challenge for drivers who intend to overtake these formations. Therefore, the
+183
+organisation of automated truck platoons should be carefully managed for the safety of mixed traffic.
+184
+Secondly, the synergistic effect of multiple platoon-organisational factors has not been thoroughly
+185
+studied. While existing research has explored individual factors, no study has holistically examined
+186
+how these factors interact to influence drivers' behaviours. Thirdly, while it is known that the platoon
+187
+organisation may cause a difference in drivers’ alertness (Gouy et al., 2014) and visual attention
+188
+allocation (Guo et al., 2019), the extent to which these differences impact drivers’ response and
+189
+collision risk in critical situations remains unclear. Therefore, it is crucial to investigate how
+190
+different organisations of automated truck platoons affect drivers' behaviours during overtaking in
+191
+both non-critical and critical scenarios.
+192
+The main objective of this study was to investigate the influence of an automated truck
+193
+
+===== PAGE 9 =====
+
+platoon’s organisation on the road, on the overtaking behaviour of nearby drivers. Based on previous
+194
+studies, the platoon’s speed, size, and inner gap are considered as potential influencing factors. In
+195
+addition to platoon organisations, the presence of a lead vehicle (LV) in the adjacent lane to the
+196
+platoon was also considered to create a more realistic traffic situation.
+197
+The hypotheses of the study were:
+198
+H1: A higher number of trucks in the platoon, a higher platoon speed, and the presence of the
+199
+LV will result in fewer overtaking maneuvers by drivers.
+200
+H2: A shorter inner gap within the platoon will prompt drivers to imitate and adopt smaller time
+201
+headways to the LV. In conditions without an LV, this imitation will manifest as a higher average
+202
+speed.
+203
+H3: A higher number of trucks in the platoon will result in a higher mental workload for drivers
+204
+(H3a), maintaining a larger lateral distance to the platoon (H3b).
+205
+H4: Decreased inner gap will result in a higher mental workload for drivers(H4a), maintaining a
+206
+larger lateral distance to the platoon (H4b), and reacting more quickly in critical situations (H4c).
+207
+The main innovation of the current study is its exploration of how the organisation of automated
+208
+truck platoons impacts the behaviours of other drivers during one of the riskiest scenarios—the
+209
+overtaking process. The findings from this study can provide valuable insights for designing the
+210
+organisation of automated truck platoons.
+211
+2. Methodology
+212
+2.1 Participants
+213
+
+To calculate the sample size for the statistical analysis, a power analysis was conducted in
+214
+G*Power. This analysis utilized a power of 0.80, an alpha level of 0.05, and effect sizes of large
+215
+magnitude (f=0.40 for repeated measures ANOVA, and w=0.60 for a Pearson chi-square test).
+216
+According to the assumptions above, the sample size for each respective statistical analysis method
+217
+were determined as follows: 12 for repeated measures ANOVA and 22 for the Pearson chi-square
+218
+test.
+219
+A total of 38 participants were recruited for the study through Internet. However, 3 participants
+220
+
+===== PAGE 10 =====
+
+abandoned the study due to driving simulation sickness. Therefore, 35 participants (22 males and
+221
+13 females) completed the experiment. All participants had valid driving licenses and normal or
+222
+corrected-to-normal vision. The participants were aged between 21 to 52 years old (M = 28.1 years,
+223
+SD = 6.3 years), and their driving experience varied between 2 to 18 years (M = 6.9 years, SD = 3.4
+224
+years). The ethical approval was unavailable due to the absence of an Ethics Committee at Tongji
+225
+university. However, authors extensively deliberated on the experiment ’s risks beforehand and
+226
+scrutinized the experimental procedures carefully to ensure the safety and the ethical feasibility of
+227
+the experiment. Before the experiment, participants were informed that the data usage was solely
+228
+restricted to this program. Additionally, the potential risk of simulator sickness and the privacy
+229
+protection policy were disclosed to them. All participants gave consent to participate in this study.
+230
+2.2 Apparatus
+231
+
+The Tongji University driving simulator was utilized in this study, comprising both hardware
+232
+and software components (Figure 1). The hardware system incorporates an eight-degree-of-freedom
+233
+motion system operating on 20 × 5 m XY rails, an immersive 5-channel projection system offering
+234
+a front image view spanning 250° × 40° at a resolution of 1000 × 1050, refreshed at 60 Hz.
+235
+Additionally, it includes a vehicle motion control system featuring a fully equipped Megane III
+236
+vehicle, installed within the cab of the simulation platform. The motion system enables 28.6, 15.6,
+237
+and 6.95 m payload envelopes in the X, Y, and Z directions, respectively, with a maximum
+238
+acceleration of 6.5 m/s2 in all motion directions. The software utilized for rendering the road
+239
+environment is the SCANeRTM Studio 2023, which encompasses modules for scene modeling,
+240
+vehicle parameters, scenario scripting, experimental simulation, and data analysis. The simulator's
+241
+data sampling rate was set at 10 Hz.
+242
+
+===== PAGE 11 =====
+
+243
+Figure 1. Driving simulator of Tongji University
+244
+2.3 Driving environment
+245
+
+The simulated roadway comprised a typical two-lane Chinese highway with a speed limit of
+246
+120km/h. We deliberately limited the lanes to create a narrower visual setting and intensify the
+247
+feeling of confinement for our drivers, induced by the truck platoon. A dual crash barrier separated
+248
+the two carriageways, with a median divider width of 3 meters and each lane measuring 3.75 meters
+249
+in width. Moderate-density traffic flow was implemented on the opposing carriageway to enhance
+250
+realism.
+251
+
+The total length of the road model was 19.8km, as depicted in Figure 2. It comprised of four
+252
+straight segments, with each pair of adjacent straight segments being separated by a transition
+253
+segment consisting of curves and transition curves. To ensure that the road geometry did not
+254
+influence drivers’ overtaking behaviour, all overtaking maneuvers were conducted within the
+255
+straight segments. Each straight segment was 2.4 km in length, consistent with the maximum
+256
+allowable length of straight sections specified in China’s highway design code. This length was
+257
+chosen because, if drivers were unable to overtake the truck platoon within this distance, it would
+258
+be nearly impossible for them to do so in real-life scenarios. The curves all had radii exceeding
+259
+1400m, and the road slope varied between -1.5% and +1.5%, striking a balance between creating a
+260
+realistic road environment and ensuring moderate difficulty in vehicle manipulation for drivers.
+261
+Other aspects of the road model adhered to the specifications outlined in China’s highway design
+262
+code.
+263
+
+The ego-vehicle model in the simulation environment was a Renault Megane III, with
+264
+
+===== PAGE 12 =====
+
+dimensions of 4.30 meters in length, 1.80 meters in width, and 1.47 meters in height. Its engine
+265
+provided a maximum power output of 104kW. The trucks comprising the platoon were semi-trailers,
+266
+each measuring 13.0 meters in length, 2.50 meters in width, and 3.65 meters in height. Driving
+267
+scenes from the perspective of the ego vehicle are shown as Figure 3.
+268
+
+269
+
+270
+Figure 2. Description of the road
+271
+
+272
+Figure 3. Driving scene from the perspective of the ego-vehicle. The left picture shows the 5-truck
+273
+platoon with an inner gap of 25 m, and an LV; the right figure shows the 3-truck platoon with an
+274
+inner gap of 5 m.
+275
+2.4 Experimental design and study variables
+276
+A repeated measures, within-subject, design was employed in this study, incorporating two
+277
+distinct scenarios: non-critical and critical. The non-critical scenarios aimed to explore the influence
+278
+of platoon organisation and traffic situations on drivers’ overtaking behaviour in routine conditions,
+279
+while the critical scenarios sought to assess the impact of platoon organisation on drivers’ response
+280
+to emergencies.
+281
+A 2 (platoon speed: 80km/h, 100km/h) × 2 (platoon size: three trucks, five trucks) × 2 (platoon
+282
+Start Point
+End Point
+2.4km
+Warm-up segment
+1km
+2.6km
+2.4km
+2.2km
+2.4km
+2.2km
+2.4km
+2.2km
+Transition Segment
+Straight Segment
+
+===== PAGE 13 =====
+
+inner gap: 5 m., 25 m.) × 2 (the presence of the LV: present, not present) design was implemented
+283
+for the non-critical scenarios. Various platoon organisations are illustrated as Figure 4. The detailed
+284
+specifications of these factors are as follows:
+285
+Platoon speed: This factor consisted of two levels - 80km/h and 100km/h. 100km/h was set as
+286
+the upper level because it is the speed limit for trucks on freeways according to China’s road traffic
+287
+safety law.
+288
+Platoon size: Reflecting the number of trucks within the platoon, the platoon size had two
+289
+levels: three and five trucks. Past field experiments (SAIC, 2020; Watanabe et al., 2021; Yang et al.,
+290
+2021) have demonstrated variability in the number of trucks, typically ranging from three to five.
+291
+Additionally, research by Castritius et al. (2020) suggested that a maximum of five vehicles received
+292
+the highest level of public acceptance.
+293
+Platoon Inner Gap: Representing the distance between two adjacent trucks in the platoon, this
+294
+factor was set at two levels: 5 m. and 25 m. Existing field tests have shown that the minimum inner
+295
+gap achieved at high speed (exceeding 80km/h) is around 5m (Shladover, 2007; Tsugawa, 2014).
+296
+Thus, 5m was set as the lower level. However, under certain conditions where fast and precise
+297
+communication cannot be guaranteed, an increase in the inner gap may be necessary. Based on
+298
+recent projects with relatively long test distances, an inner gap of 25m was deemed robust enough
+299
+at high speeds (Castritius et al., 2021; SAIC, 2020).
+300
+Presence of the LV: Traffic situations can significantly influence drivers’ overtaking behaviour.
+301
+This factor distinguishes between scenarios with and without an LV. In scenarios with the LV, a
+302
+vehicle was positioned in front of the ego vehicle during the overtaking process. Conversely, in
+303
+scenarios without the LV, the ego vehicle was the sole vehicle alongside the truck platoon.
+304
+For critical scenarios, a 2 (platoon size: three trucks, five trucks) ×2 (platoon inner gap: 5 m.,
+305
+25 m.) design was implemented. We did not use an equal number of non-critical and critical
+306
+scenarios for two main reasons. First, to prevent participants from developing a learning effect on
+307
+the critical event. Repeated exposure could make drivers anticipate it, potentially altering their
+308
+natural responses. Second, to control the total experiment duration. A prolonged experiment leads
+309
+to driver fatigue and simulation sickness, which could affect the results. Across all critical scenarios,
+310
+the platoon maintained a speed of 100 km/h. Moreover, the LV was consistently present in all critical
+311
+scenarios. The key distinction between critical and non-critical scenarios lies in the behavior of the
+312
+
+===== PAGE 14 =====
+
+LV: in non-critical scenarios, the LV did not engage in any abrupt deceleration throughout the
+313
+overtaking process, whereas in critical scenarios, the LV executed an abrupt braking maneuver
+314
+midway through the overtaking.
+315
+In total, the experiment comprised a total of twenty scenarios, with sixteen non-critical
+316
+scenarios and four critical scenarios. The twenty scenarios were evenly distributed into five road
+317
+sections in a counterbalanced sequence. Participants encountered four scenarios in each road section.
+318
+To mitigate any learning effect, four critical scenarios were interspersed among the non-critical ones.
+319
+To prevent any carryover effect from the experimental sequence, the order of the five road sections
+320
+was randomized for each participant.
+321
+At the onset of each road section, the platoons were stationed statically in the right lane at the
+322
+start of straight segments, maintaining their predetermined size and inner gap. In scenarios with an
+323
+LV, a car was positioned statically in the left lane, trailing 200 meters behind the last truck of the
+324
+platoon. A designated triggering point initiated the motion of both the platoon and the LV, situated
+325
+500 meters behind the last truck. This distance was determined through a pre-test conducted before
+326
+the formal experiment to ensure that participants did not anticipate and adjust their speed
+327
+unexpectedly. Upon the ego vehicle reaching this point, all trucks within the platoon accelerated at
+328
+a rate of 1.5m/s² until reaching the preset speed, concurrently with the LV’s acceleration.
+329
+During the ego vehicle's approach, the LV's acceleration underwent phased changes designed
+330
+to mitigate the sense of abrupt acceleration and ensure that both the LV's speed and its distance from
+331
+the ego vehicle were well controlled. The LV's acceleration process can be divided into three phases:
+332
+1. Once the ego vehicle reached the triggering point, the LV would accelerate at 2.5
+333
+m/s² for 8 seconds, reaching a speed of 72 km/h. Then its speed would maintain
+334
+until the next acceleration phase. During this period, the distance between the LV
+335
+and the ego vehicle continuously decreased. This initial acceleration phase was
+336
+designed to bring the LV from a standstill to a relatively high speed.
+337
+2. When the distance between the ego vehicle and the LV decreased to 100 meters, the
+338
+system would record the ego vehicle's speed at that moment, setting the target speed
+339
+of the LV in this phase to be 3 m/s lower than the ego vehicle's speed. The system
+340
+would then calculate the required acceleration for the LV to reach this target speed
+341
+within 2 seconds. For example, if the ego vehicle's speed was 30 m/s when the
+342
+
+===== PAGE 15 =====
+
+distance decreased to 100 meters, the target speed of the LV would be 27 m/s.
+343
+Consequently, the LV would accelerate at 3.5 m/s² for 2 seconds. After this, the LV
+344
+would maintain the target speed until the next acceleration phase. This second
+345
+acceleration phase helped the LV’s speed gradually approach that of the ego vehicle,
+346
+ensuring a smooth transition and preventing abrupt changes in the LV’s speed in the
+347
+following phase.
+348
+3. When the distance between the LV and the ego vehicle decreased to 75 meters, the
+349
+speed of the LV would immediately match that of the ego vehicle. From that point
+350
+onward, the LV would maintain synchronized speed with the ego vehicle. This phase
+351
+ensured that the two vehicles reached the expected state of dynamic equilibrium. Pre-
+352
+test results indicated that the LV's speed adjustment was smooth and did not cause
+353
+any discomfort or unnatural perception for the participant.
+354
+The final speed of the LV after acceleration completely dependent on the speed of the ego
+355
+vehicle. Once the distance between the LV and the ego vehicle decreased to 75 meters, the LV's
+356
+speed matched that of the ego vehicle, maintaining this synchrony thereafter. This means that in all
+357
+non-critical scenarios and in critical scenarios before the critical event was triggered, the speed of
+358
+the LV would change synchronously with that of the ego vehicle without any delay. The reason for
+359
+aligning the speed of the LV with that of the ego vehicle, instead of maintaining a constant speed,
+360
+was to deter certain participants from waiting until the LV had overtaken the platoon entirely before
+361
+initiating their own overtaking maneuvers. This approach aimed to preserve the influence exerted
+362
+by the LV on overtaking behaviour.
+363
+The difference between the non-critical and critical scenarios lies in whether an urgent brake
+364
+of the LV occurs. In non-critical scenarios with the LV, the LV maintained a constant distance from
+365
+the ego vehicle throughout the overtaking process, and the platoon’s speed remained constant.
+366
+However, in critical scenarios, when the ego vehicle aligned with the middle truck in the platoon
+367
+(i.e., second truck for three-truck platoons and third truck for five-truck platoons), the LV would
+368
+decelerate at 5m/s² until reaching 70km/h. Simultaneously, the platoon decelerated at a rate of 2m/s²
+369
+until reaching 60km/h. Participants needed to implement countermeasures promptly to avert
+370
+potential collisions. Before the LV initiated the urgent brake, the participant was unable to
+371
+distinguish whether the current scenario was critical or non-critical.
+372
+
+===== PAGE 16 =====
+
+If the ego vehicle had not overtaken the first truck of the platoon in non-critical scenarios or
+373
+triggered the deceleration of the LV in critical scenarios by the time the first truck of the platoon
+374
+reached the end of the straight section, the platoon would decelerate to 60 km/h. Furthermore, if
+375
+there was an LV, it would go to the right lane and decelerate, facilitating the ego vehicle’s overtaking
+376
+maneuver. Nevertheless, this overtaking attempt would be classified as incomplete.
+377
+
+378
+Figure 4. Illustration of platoons with different organisations. IG denotes the inner gap of the
+379
+platoon
+380
+2.5 Procedure
+381
+On arrival, participants completed a demographic questionnaire and were asked to sign a
+382
+consent form. Participants were given instructions about the experiment at the beginning. These
+383
+asked them to drive on a freeway with a speed limit of 120km/h and specifically stay in the right
+384
+lane unless they tended to overtake other vehicles. To prevent drivers from adopting overly passive
+385
+driving maneuvers, participants received the following instruction:
+386
+
+[…] “Imagine that you are driving to the train station to catch a train. However, there is only
+387
+half an hour left to the departure of the train. Under the premise of ensuring safety, you need to
+388
+hurry up and try to overtake slow vehicles on the right lane rather than following them.” […]
+389
+
+Participants were told that the overtaking was not compulsory. If they deemed an overtaking
+390
+maneuver to be risky, they did not have to complete the maneuver.
+391
+Before engaging in the formal experiment, participants completed a practice session for about
+392
+10 minutes, during which they performed several overtaking maneuvers to be acquainted with the
+393
+3 trucks
+IG=5m
+49m
+3 trucks
+IG=25m
+5 trucks
+IG=5m
+5 trucks
+IG=25m
+89m
+165m
+85m
+5m
+25m
+5m
+25m
+
+===== PAGE 17 =====
+
+simulated driving environment and vehicle controls. Following this practice session, participants
+394
+proceeded to undertake the formal experiments. After each completed overtaking, the experimenter
+395
+orally assessed the participant’s NASA-TLX score using a microphone. Additionally, participants
+396
+were granted a 5-minute break between each road section to alleviate potential fatigue. Each
+397
+participant received a compensation of $15 upon the completion of the experiments.
+398
+2.6 Dependent variables
+399
+As shown in Table 1, a range of variables were selected to evaluate participants’ driving
+400
+behaviour in non-critical and critical scenarios. Drivers’ subjective mental workload were accessed
+401
+in both non-critical and critical scenarios with NASA-TLX scores.
+402
+Table 1
+403
+Definitions of dependent variables.
+404
+Scenarios
+Variables
+Abbreviations
+Non-critical
+Overtaking completion rate
+OCR
+Overtaking time
+OT
+Mean speed
+Vmean
+Standard deviation of speed
+Vstd
+Mean lateral position
+LPmean
+Standard deviation of lateral position
+SDLP
+Maximum lateral acceleration
+LAmax
+Subjective mental workload
+-
+Critical
+Response time
+RT
+Minimum time to collision
+TTCmin
+Subjective mental workload
+-
+
+405
+
+As described earlier, the truck platoon operates as a significant presence on the road, potentially
+406
+dissuading drivers from attempting overtaking maneuvers and exacerbating the challenge of such
+407
+maneuvers. Consequently, overtaking completion rate (OCR) was considered to assess whether the
+408
+truck platoon posed an obstacle to overtaking. The OCR was calculated as the ratio of the number
+409
+of participants who successfully completed overtaking and the total number of participants. In
+410
+addition, overtaking time (OT) was used to assess the efficiency of the overtaking. It was measured
+411
+from the overtaking start point to the overtaking end point, which will be elaborated upon at the end
+412
+of this section.
+413
+
+===== PAGE 18 =====
+
+The indicators for longitudinal driving performance evaluation included mean velocity (Vmean)
+414
+and standard deviation of velocity (Vstd). Vmean offered insights into the vehicle’s longitudinal
+415
+motion state during a period, while Vstd could represent the fluctuation of the vehicle’s speed (Chen
+416
+et al., 2022; Yang et al., 2023). Indicators considered for lateral driving performance were mean
+417
+lateral position (LPmean), standard deviation of lateral position (SDLP) and maximum lateral
+418
+acceleration (LAmax). LPmean represented the lateral offset to the centerline during a period, reflecting
+419
+the risk of lateral collision. SDLP represents the stability of lane keeping, which can be used to
+420
+evaluate the lateral overtaking stability (Chen et al., 2022; Gouy et al., 2014). LAmax is good
+421
+indicator of the jerkiness of the vehicle motion and can evaluate the vehicle’s lateral stability in
+422
+lane-changing process (Madigan et al., 2018).
+423
+
+For critical scenarios, the indicators included the response time (RT) and the minimum time to
+424
+collision (TTCmin). As outlined in the introduction, different platoon formations might influence
+425
+drivers’ alertness and attention, thus affecting their response capability. RT was chosen to evaluate
+426
+drivers’ response ability across various platoon organisation scenarios. It was calculated as the time
+427
+interval between the initiation of braking by the LV and the detection of a brake pedal application
+428
+exceeding 10% (note that the steering wheel maneuver was not considered as all drivers initially
+429
+applied the brakes rather than changing lanes). TTCmin is an effective metric for assessing the
+430
+severity of potential collisions, calculated by dividing the distance gap between the ego-vehicle and
+431
+the LV by their relative speed. A low value of TTCmin indicated a high potential of a rear-end
+432
+collision with the LV (Louw et al., 2017).
+433
+
+The NASA-TLX (Task Load Index) (Hart & Staveland, 1988) was implemented to evaluate
+434
+drivers’ subjective mental workload after each overtaking. NASA-TLX has six sub-scales: mental
+435
+demand, physical demand, temporal demand, performance, effort, and frustration, and participants
+436
+needed to score every sub-scale from 0 to 10. This process was conducted orally. The total NASA-
+437
+TLX was calculated as a weighted sum. The higher the NASA-TLX, the higher the mental workload
+438
+felt by the participant.
+439
+As shown in Figure 5, four points were used to represent the different stages in the overtaking
+440
+process. The overtaking start denoted the moment when the lateral position of the vehicle increased
+441
+continuously for 3 seconds, and the lane-keeping start denoted the moment when the maintained
+442
+lateral position remained constant or started to decrease for the next one second (Soni et al., 2020).
+443
+
+===== PAGE 19 =====
+
+Correspondingly, the lane-keeping end denoted the moment when the lateral position decreased
+444
+continuously for 3 seconds, and the overtaking end denoted the moment when the lateral position
+445
+was constant or started to increase for the next one second. Following extraction, these points were
+446
+manually inspected to ensure accuracy. As a result, three sections were defined by these points:
+447
+overtaking start section, overtaking straight section, and overtaking end section. Vmean and Vstd were
+448
+examined respectively for all three sections. Considering that the lane change was a dynamic process,
+449
+we only selected the overtaking straight section as the time window for LPmean and SDLP. The time
+450
+window for LAmax covered the lane-changing process, which included overtaking start section and
+451
+overtaking end section.
+452
+
+453
+
+454
+Figure 5. Illustration of different stages in the overtaking process
+455
+2.7 Data analysis
+456
+
+No crashes occurred in any of the non-critical scenarios. However, a total of five crash cases
+457
+were recorded among four participants in the critical scenarios. Due to the impact of crashes on
+458
+vehicle control metrics and participants’ psychology, these incidents were excluded from the
+459
+analysis of TTCmin and subjective mental workload.
+460
+
+The normality and the homogeneity of the variance of the data were examined to test whether
+461
+the prerequisites of ANOVA could be met. Shapiro Wilk’s tests showed that for each dependent
+462
+variable, except Vstd, most of the group-level estimates (>83%) were normally distributed, either
+463
+independently or after logarithmic transformation. Levene’s tests were conducted to test the
+464
+Overtaking start
+Lane-keeping start
+Lane-keeping end
+Overtaking end
+ection1
+ection3
+ection2
+vertaking start
+vertaking end
+vertaking straight
+
+===== PAGE 20 =====
+
+homogeneity of variance. Although variance heterogeneity was found in some dependent variables,
+465
+the ANOVA was robust enough for such heterogeneity when the group sizes were almost equal
+466
+(largest/smallest <1.5) (Pituch & Stevens, 2015). Therefore, for the non-critical scenarios, a 2
+467
+(platoon speed: 80km/h, 100km/h)×2 (platoon size: three trucks, five trucks)×2 (platoon inner gap:
+468
+5 m., 25 m.)×2 (the presence of the LV: present, not present) repeated-measures ANOVA was
+469
+conducted, for each dependent variable (apart from Vstd), with the platoon speed, the presence of
+470
+the LV, the platoon size and the inner gap as factors. For Vstd, the Wilcoxon signed rank test was
+471
+applied. For every dependent variable in the critical scenarios, a 2 (platoon size: three trucks, five
+472
+trucks) ×2 (platoon inner gap: 5 m., 25 m.) repeated-measures ANOVA was conducted, with the
+473
+platoon size and the inner gap as factors. Due to the limited number conditions, only the main and
+474
+two-way interaction effects are reported. The α-value of the statistical significance was 0.05, and
+475
+the partial-eta squared was used as the effect size statistic.
+476
+3. Results
+477
+3.1 Non-critical scenarios
+478
+3.1.1 Overtaking completion rate (OCR)
+479
+
+Figure 6 shows the OCR under different conditions. The results of Pearson chi-square tests
+480
+show that the platoon speed (χ² = 14.200, p < .001), the presence of the LV (χ² = 27.081, p < .001)
+481
+and the inner gap (χ² = 3.896, p = .048) significantly affected the OCR, while the platoon size not
+482
+(χ² = .032, p = .858). Specifically, drivers successfully completed more overtakes when the platoon's
+483
+speed was 80 km/h (OCR=97.9%) in comparison to 100 km/h (OCR=90.4%). Furthermore, drivers
+484
+completed more overtakes successfully in the absence of an LV (OCR=99.3%) in comparison to the
+485
+presence of an LV (OCR=88.9%). Finally, the OCR was significantly higher when the inner gap of
+486
+the platoon was 5 meters (OCR=96.1%) than 25 meters (OCR=92.1%). The next section outlines
+487
+drivers’ longitudinal behaviour during the study.
+488
+
+489
+
+===== PAGE 21 =====
+
+490
+Figure 6. OCR in different scenarios. NT denotes the number of trucks in the platoon, IG denotes
+491
+the inner gap, and V denotes the speed of the platoon.
+492
+3.1.2 Overtaking time (OT)
+493
+
+As shown in Figure 7, the platoon speed (F (1,18) = 208.542, p < .001, η2p= .921), the
+494
+platoon size (F (1,18) = 46.051, p < .001, η2p= .719), the inner gap (F (1,18) = 247.295, p < .001,
+495
+η2p= .932) and the presence of the LV (F (1,18) = 12.190, p = .003, η2p = .404) all showed
+496
+significant effects on OT. OT was significantly higher when the platoon’s speed was 100 km/h (M
+497
+= 41.71 s, SD = 13.92 s) than 80km/h (M = 28.96 s, SD = 9.10 s). Additionally, OT was
+498
+significantly longer with 5-truck platoons (M = 38.61 s, SD = 12.97 s) compared to 3-truck
+499
+platoons (M = 31.53 s, SD = 12.63 s). Furthermore, OT was significantly higher with an inner gap
+500
+of 25 m (M = 38.27 s, SD = 13.60 s) in comparison with an inner gap of 5 m (M = 31.99 s, SD =
+501
+12.20 s). When the LV was present, OT was significantly greater (M = 36.98 s, SD = 13.55 s)
+502
+compared to its absence (M = 33.35 s, SD = 12.80 s). A significant interaction effect was observed
+503
+between speed and inner gap (F (1,18) = 6.994, p = .016, η2p = .280), as illustrated in Figure 8(a).
+504
+Compared to 100km/h, the inner gap had a smaller impact on OT at 80km/h. Additionally, a
+505
+significant interaction effect was observed between platoon size and inner gap (F (1,18) = 8.088, p
+506
+NT=3
+NT=5
+NT=3
+NT=5
+NT=3
+NT=5
+NT=3
+NT=5
+NT=3
+NT=5
+NT=3
+NT=5
+NT=3
+NT=5
+NT=3
+NT=5
+0
+20%
+40%
+60%
+80%
+100%
+Proportion
+IG=5m
+IG=25m
+IG=5m
+IG=25m
+IG=5m
+IG=25m
+IG=5m
+IG=25m
+Without the lead vehicle
+With the lead vehicle
+V=80km/h
+V=100km/h
+V=80km/h
+V=100km/h
+Uncompleted overtaking IG=25m
+Completed overtaking IG=25m
+Uncompleted overtaking IG=5m
+Completed overtaking IG=5m
+
+===== PAGE 22 =====
+
+= .011, η2p = .310), as illustrated in Figure 8(b). Compared to a 3-truck platoon, the effect of the
+507
+inner gap on OT became more pronounced in the 5-truck platoon condition.
+508
+
+509
+Figure 7. OT as a function of platoon speed (a), platoon size (b), inner gap (c), and presence of
+510
+the LV (d). Bars represent means, error bars represent standard deviations (**p <.01, ***p
+511
+<.001).
+512
+80
+100
+0
+10
+20
+30
+40
+50
+60
+OT(s)
+a Platoon speed (km/h)
+
+3
+5
+0
+10
+20
+30
+40
+50
+60
+OT(s)
+b Platoon size
+
+5
+25
+0
+10
+20
+30
+40
+50
+60
+OT
+c Inner gap (m)
+
+Without the LV
+With the LV
+0
+10
+20
+30
+40
+50
+60
+OT
+d Presence of the LV
+
+===== PAGE 23 =====
+
+513
+Figure 8. Interaction effects of inner gap and platoon speed (a), and inner gap and platoon size
+514
+(b) on OT.
+515
+3.1.3 Mean speed (Vmean)
+516
+3.1.3.1 Overtaking start section
+517
+
+None of the independent variables showed any significant main effect on the Vmean during the
+518
+overtaking start section. However, a significant interaction effect between the platoon size and the
+519
+inner gap was seen (F (1,18) = 17.046, p = .001, η2p = .486, see Figure 9). Results indicated that
+520
+during the five trucks conditions, the Vmean was higher for the overtaking start section when the
+521
+inner gap was 25 m, compared to the 5m condition.
+522
+
+523
+
+524
+80
+100
+0
+10
+20
+30
+40
+50
+60
+5m inner gap
+25m inner gap
+OT(s)
+a Platoon speed (km/h)
+3-truck
+5-truck
+0
+10
+20
+30
+40
+50
+60
+b Platoon size
+OT(s)
+5m inner gap
+25m inner gap
+5
+25
+90
+100
+110
+120
+130
+Three trucks
+Five trucks
+Inner gap (m)
+Vmean(km/h)
+
+===== PAGE 24 =====
+
+Figure 9. Interaction effects of inner gap and platoon size on Vmean in overtaking start section.
+525
+3.1.3.2 Overtaking straight section
+526
+As shown in Figure 10, the ANOVA results indicate that both the platoon speed (F (1,18) =
+527
+28.555, p < .001, η2p= .613) and the presence of the LV (F (1,18) = 9.054, p = .008, η2p = .335) had
+528
+significant effects on Vmean in the overtaking straight section, while the platoon size (F (1,18) =
+529
+1.134, p = .301, η2p = .059) and the inner gap did not (F (1,18) = 2.568, p = .126, η2p = 0.125). Vmean
+530
+was significantly higher when the platoon’s speed was 100km/h (M = 119.67 m/s, SD = 7.22 m/s)
+531
+in comparison to 80km/h (M = 115.49 m/s, SD = 9.27 m/s). Additionally, Vmean was significantly
+532
+higher in the absence of an LV (M = 120.06 m/s, SD = 7.88 m/s) compared to the presence of an LV
+533
+(M = 114.64 m/s, SD = 8.49 m/s). A significant interaction effect was found between the platoon
+534
+size and the inner gap (F (1,18) = 4.802, p = .042, η2p = .211), as shown in Figure 11. Results
+535
+revealed that under the five trucks conditions, Vmean in overtaking straight section was higher with
+536
+an inner gap of 25m compared to 5m.
+537
+
+538
+
+539
+Figure 10. Vmean in overtaking straight section as a function of platoon speed (a) and presence of
+540
+LV (b). Bars represent means, error bars represent standard deviations (**p <.01, ***p <.001).
+541
+80
+100
+Vmean(km/h)
+Platoon speed (km/h)
+
+Without the LV
+With the LV
+Vmean(km/h)
+The presence of the LV
+
+a
+b
+100
+110
+120
+130
+140
+100
+110
+120
+130
+140
+
+===== PAGE 25 =====
+
+542
+Figure 11. Interaction effects of inner gap and platoon size on Vmean in overtaking straight section.
+543
+3.1.3.3 Overtaking end section
+544
+
+As shown in Figure 12, only the platoon speed (F (1,18) = 27.880, p < .001, η2p = .608)
+545
+showed a significant effect on Vmean in overtaking end section, while the inner gap (F (1,18)
+546
+= .194, p = .665, η2p = .011), the platoon size (F (1,18) = 3.671, p = .071, η2p = .169), and the
+547
+presence of the LV did not (F (1,18) = .996, p = .331, η2p = .052). Vmean was significantly higher
+548
+when the platoon speed was 100km/h (M = 120.92 m/s, SD = 12.00 m/s), compared to 80km/h (M
+549
+= 116.14 m/s, SD = 10.54 m/s). No significant two-way interactions were observed.
+550
+
+551
+
+552
+Figure 12. Vmean in overtaking end section as a function of platoon speed. Bars represent means,
+553
+5
+25
+90
+100
+110
+120
+130
+Inner gap (m)
+Three trucks
+Five trucks
+Vmean(km/h)
+80
+100
+Vmean(km/h)
+Platoon speed (km/h)
+
+100
+110
+120
+130
+140
+
+===== PAGE 26 =====
+
+error bars represent standard deviations (**p <.01, ***p <.001).
+554
+
+555
+3.1.4 Standard deviation of speed (Vstd)
+556
+3.1.4.1 Overtaking start section
+557
+
+The results of the Wilcoxon signed rank test showed that both the platoon speed (Z = -4.432,
+558
+p < .001) and the platoon size (Z = -2.497, p = .013) had significant effects on Vstd in the
+559
+overtaking start section, as shown in Figure 13. Specially, Vstd was significantly lower when the
+560
+platoon speed was 80km/h (M = 1.49 m/s, SD = 1.50 m/s) than 100km/h (M = 2.12 m/s, SD = 2.56
+561
+m/s). In addition, Vstd was significantly lower with 5-truck platoons (M = 1.57 m/s, SD = 1.76 m/s)
+562
+compared to 3-truck platoons (M = 2.01 m/s, SD = 2.38 m/s).
+563
+
+564
+
+565
+Figure 13. Vstd in the overtaking start section as a function of platoon speed (a) and platoon size
+566
+(b). Bars represent means, error bars represent standard deviations (*p <.05, ***p <.001).
+567
+3.1.4.2 Overtaking straight section
+568
+The results of the Wilcoxon signed rank test showed that both the platoon speed (Z = -3.728,
+569
+p < .001) and the presence of the LV (Z = -5.799, p < .001) had significant effects on Vstd in
+570
+
+80
+100
+0
+2
+4
+6
+8
+10
+Vstd(km/h)
+Platoon speed (km/h)
+Vstd(km/h)
+3-truck
+5-truck
+0
+2
+4
+6
+8
+10
+Platoon size
+a
+b
+
+===== PAGE 27 =====
+
+overtaking straight section, as shown in Figure 14. Specifically, with a platoon speed of 80 km/h
+571
+(M = 2.78 m/s, SD = 2.52 m/s), Vstd was significantly lower than that of 100km/h (M = 4.06 m/s,
+572
+SD = 3.97 m/s). Furthermore, Vstd was significantly lower in the absence of an LV (M = 2.58 m/s,
+573
+SD = 2.71 m/s) compared to the presence of an LV (M = 4.29 m/s, SD = 3.76 m/s).
+574
+
+575
+
+576
+Figure 14. Vstd in overtaking straight section as a function of platoon speed (a) and the presence of
+577
+the LV (b). Bars represent means, error bars represent standard deviations (***p <.001).
+578
+3.1.4.3 Overtaking end section
+579
+
+The results of the Wilcoxon signed rank test showed that only the presence of the LV (Z = -
+580
+2.520, p = .012) had a significant effect on Vstd in the overtaking end section, as shown in Figure
+581
+15. Vstd was significantly lower in the absence of the LV (M = 0.46 m/s, SD = 0.82 m/s) compared
+582
+to the presence of the LV (M = 0.56 m/s, SD = 0.70 m/s).
+583
+
+584
+
+80
+100
+0
+2
+4
+6
+8
+10
+Vstd(km/h)
+Platoon speed (km/h)
+Vstd(km/h)
+Without the LV
+With the LV
+0
+2
+4
+6
+8
+10
+The presence of the LV
+a
+b
+
+===== PAGE 28 =====
+
+585
+Figure 15. Vstd in overtaking end section as a function of presence of the LV. Bars represent means,
+586
+error bars represent standard deviations (*p <.05).
+587
+3.1.5 Mean lateral position (LPmean)
+588
+
+As shown in Figure 16, the ANOVA results indicate that both the platoon size (F (1,18) =
+589
+9.256, p = .007, η2p = .340) and the inner gap (F (1,18) = 17.966, p < .001, η2p = .500) had a
+590
+significant effect on LPmean, while the platoon speed (F (1,18) = 1.732, p = .205, η2p = .088) and
+591
+the presence of the LV did not (F (1,18) = .026, p = .874, η2p = .001). Compared to the conditions
+592
+with three trucks (M = -0.03 meters, SD = 0.25 meters), LPmean was significantly higher with five
+593
+trucks (M = 0.07 meters, SD = 0.23 meters). This suggests that in the scenarios with five trucks,
+594
+the ego vehicle tended to deviate towards the median divider and away from the platoon by an
+595
+average of 0.1m. For the scenarios with three trucks, the ego vehicle tended to drive in the center
+596
+of the lane. In addition, LPmean was significantly higher when the inner gap was 25m (M = 0.06
+597
+meters, SD = 0.24 meters) compared to 5m (M = -0.02 meters, SD = 0.25 meters). This indicated
+598
+that drivers tended to deviate farther from the truck platoon by an average of 0.08m under 25m
+599
+conditions compared to 5m conditions. No significant two-way interactions were observed.
+600
+
+Without the LV
+With the LV
+Vstd(km/h)
+Presence of the LV
+0
+0.5
+1.0
+1.5
+2.0
+
+===== PAGE 29 =====
+
+601
+Figure 16. LPmean as a function of platoon size (a) and Inner gap (b). The green dash line
+602
+represents the center of the overtaking lane. If a dot located above this line, it means it is closer to
+603
+the median divider. If a dot located below this line, it means it is closer to the platoon (**p <.01,
+604
+***p <.001).
+605
+3.1.6 Standard deviation of lateral position (SDLP)
+606
+
+None of the independent variables exhibited any significant main effect on SDLP, and not
+607
+interactions were observed (see Appendix).
+608
+3.1.7 Maximum lateral acceleration (LAmax)
+609
+3.1.7.1 Overtaking start section
+610
+
+The results of the ANOVA tests showed that both the presence of the LV (F (1,18) = 5.906, p
+611
+= .026, η2p= .247) and the inner gap (F (1,18) = 4.924, p = .040, η2p= .215) had significant effects
+612
+on LAmax during the overtaking start section, as shown in Figure 17. Specifically, LAmax was
+613
+significantly lower in the absence of the LV (M = 1.20 m/s2, SD = 0.62 m/s2), compared to the
+614
+condition when the LV was present (M = 1.30 m/s2, SD = 0.62 m/s2). In addition, LAmax was
+615
+significantly lower with an inner gap of 25m (M = 1.22 m/s2, SD = 0.57 m/s2) compared to 5m (M
+616
+= 1.27 m/s2, SD = 0.67 m/s2). A significant interaction effect was found between the presence of
+617
+
+3-truck
+5-truck
+-1.0
+-0.5
+0.0
+0.5
+1.0
+LPmean(m)
+LPmean(m)
+5
+25
+-1.0
+-0.5
+0.0
+0.5
+1.0
+Platoon size
+Inner gap (m)
+Center of the
+overtaking lane
+Median divider
+Platoon
+Center of the
+overtaking lane
+Median divider
+Platoon
+a
+b
+
+===== PAGE 30 =====
+
+the LV and the platoon size (F (1,18) = 6.115, p = .024, η2p= .254), as shown in Figure 18. Results
+618
+indicated that with five trucks, LAmax in overtaking start section was higher in the presence of the
+619
+LV compared to when the LV was absent.
+620
+
+621
+
+622
+Figure 17. LAmax in overtaking start section as a function of inner gap (a) and the presence of the
+623
+LV (b). Bars represent means, error bars represent standard deviations (*p <.05).
+624
+
+625
+Figure 18. Interaction effects of the presence of the LV and platoon size on LAmax in overtaking
+626
+start section.
+627
+3.1.7.2 Overtaking end section
+628
+5
+25
+LAmax(m/s2)
+Inner gap (m)
+
+Without the LV
+With the LV
+LAmax(m/s2)
+The presence of the LV
+
+a
+b
+0
+0.5
+1.0
+1.5
+2.0
+2.5
+0
+0.5
+1.0
+1.5
+2.0
+2.5
+Absence
+Presence
+0
+0.5
+1.0
+1.5
+2.0
+2.5
+Presence of the LV
+LAmax(m/s2)
+Three trucks
+Five trucks
+
+===== PAGE 31 =====
+
+Results of the ANOVA tests showed that only the inner gap (F (1,18) = 4.891, p = .040,
+629
+η2p= .214) showed a significant effect on LAmax in the overtaking end section, as shown in Figure
+630
+19. LAmax was significantly lower with an inner gap of 25m (M = 1.20 m/s2, SD = 0.67 m/s2)
+631
+compared to 5m (M = 1.30 m/s2, SD = 0.76 m/s2). No significant two-way interactions were
+632
+observed.
+633
+
+634
+
+635
+Figure 19. LAmax in overtaking end section as a function of inner gap. Bars represent means, error
+636
+bars represent standard deviations (*p <.05).
+637
+3.1.8 Subjective mental workload
+638
+
+The results of the ANOVA test on NASA-TLX scores showed that the presence of the LV (F
+639
+(1,18) =36.200, p < .001, η2p = .668), the platoon speed (F (1,18) = 31.178, p < .001, η2p = .634)
+640
+and the platoon size (F (1,18) = 10.184, p = .005, η2p = .361) had significant effects on drivers’
+641
+NASA-TLX feedback, while the inner gap did not (F (1,18) = 2.920, p = .105, η2p = .140 - see
+642
+Figure 20. NASA-TLX was found to be higher for the conditions with LV (M = 3.84, SD = 1.44),
+643
+when compared to conditions without the LV (M = 3.34, SD = 1.25). In addition, NASA-TLX was
+644
+significantly higher in the 100km/h conditions (M = 3.86, SD = 1.47), compared to the 80km/h
+645
+conditions (M = 3.33, SD = 1.22). The 5-truck platoon also resulted in higher average response to
+646
+NASA-TLX (M = 3.77, SD = 1.41), compared to conditions with a 3-truck platoon (M = 3.39, SD
+647
+= 1.30), The interaction effect of the platoon speed and the platoon size almost approached
+648
+5
+25
+LAmax(m/s2)
+Inner gap (m)
+
+0
+0.5
+1.0
+1.5
+2.0
+2.5
+
+===== PAGE 32 =====
+
+significance (F (1,18) =3.893, p= .064, η2p = .178), as shown in Figure 21. This indicated that with
+649
+a platoon speed of 100km/h, the gap of NASA-TLX between five-truck conditions and three-truck
+650
+conditions increased.
+651
+
+652
+
+653
+Figure 20. NASA-TLX as a function of the platoon speed (a), presence of the LV (b) and the
+654
+platoon size (c). The error bars represent the standard deviation. Bars represent means, error bars
+655
+represent standard deviations (**p <.01, ***p <.001).
+656
+
+80
+100
+0
+2
+4
+6
+NASA-TLX
+Platoon speed (km/h)
+Without the LV
+With the LV
+0
+2
+4
+6
+Presence of the LV
+
+3-truck
+5-truck
+0
+2
+4
+6
+Platoon size
+NASA-TLX
+NASA-TLX
+a
+b
+c
+
+===== PAGE 33 =====
+
+657
+Figure 21. Interaction effects of platoon speed and platoon size on NASA-TLX.
+658
+3.2 Critical scenarios
+659
+3.2.1 Response time (RT)
+660
+
+As shown in Figure 22, the results of the ANOVA test indicate that the inner gap had a
+661
+significant effect on RT (F (1,18) =5.873, p = .026, η2p = .246), while the platoon size did not (F
+662
+(1,18) = 2.091, p = .165, η2p = .104). With an inner gap of 25m (M = 1.75, SD =0.79), RT was
+663
+significantly smaller than that with an inner gap of 5m (M = 2.25, SD = 0.98). A significant
+664
+interaction effect was found between the inner gap and the platoon size (F (1,18) = 4.604, p
+665
+= .046, η2p = .204), as shown in Figure 23.This indicates that for the five-truck conditions, RT with
+666
+an inner gap of 5m was higher compared to that at 25m.
+667
+
+668
+80
+100
+1
+2
+3
+4
+5
+6
+Platoon speed (km/h)
+Subjective mental workload
+Three trucks
+Five trucks
+
+===== PAGE 34 =====
+
+669
+Figure 22. Response time as a function of inner gap. Bars represent means, error bars represent
+670
+standard deviations (*p <.05).
+671
+
+672
+Figure 23. Interaction effects of inner gap and platoon size on RT.
+673
+3.2.2 Minimum time to collision (TTCmin)
+674
+Neither the platoon size nor the inner gap showed any significant effect on TTCmin (see
+675
+Appendix). In addition, no significant interaction was observed.
+676
+3.2.3 Subjective mental workload
+677
+
+Neither the platoon size nor the inner gap showed any significant effect on NASA-TLX
+678
+
+5
+25
+0
+1
+2
+3
+4
+5
+Response time (s)
+Inner gap (m)
+5
+25
+0
+1
+2
+3
+4
+5
+Three trucks
+Five trucks
+Response time (s)
+Inner gap (m)
+
+===== PAGE 35 =====
+
+scores in critical scenarios (see Appendix). In addition, no significant interaction was observed.
+679
+4. Discussion
+680
+
+This driving simulation study was used to investigate the effects of speed, size, and inner gap
+681
+of an automated truck platoon, and the presence of the LV on the overtaking behaviour of drivers.
+682
+In the following sections, the results are discussed based on each dependent variable.
+683
+4.1 Effect of platoon speed on overtaking behaviours
+684
+
+The increase in platoon speed resulted in a substantial decrease in OCR, consistent with H1.
+685
+A previous study in this context found that the speed of the impeding vehicle is a primary factor
+686
+affecting drivers’ motivation to overtake (Kinnear et al., 2015). In this study, higher platoon
+687
+speeds not only dampened drivers’ willingness to overtake, but also increased the difficulty of
+688
+overtaking maneuvers, thus resulting in a lower OCR.
+689
+In addition, an escalation in platoon speed significantly increased Vmean in the overtaking
+690
+straight section and the overtaking end section. Vstd was also higher in the overtaking start section
+691
+and the overtaking straight section when the platoon speed increased, as was the subjective
+692
+workload, based on the NASA-TLX. This corroborates the findings of Chen et al. (2022), who
+693
+highlighted that a higher platoon speed would prompt drivers to adopt riskier longitudinal driving
+694
+behaviour, and impose a greater mental workload. It is important to note that, for the 80 km/h
+695
+platoons, an average travelling speed above the speed limit of 120km/h was only seen for about
+696
+30% of the total cases, while this increased to around 44% for the 100km/h conditions. This
+697
+implies that the increase in platoon speed may heighten drivers’ concern that they cannot complete
+698
+overtaking within straight sections, leading a higher proportion of them to exceed the speed limit.
+699
+It is important to note that we have adopted the maximum allowable length of straight section in
+700
+this study to facilitate overtaking. In reality, such lengthy straight segments are uncommon.
+701
+Consequently, drivers might adopt higher speeds than those observed in this study to overtake a
+702
+truck platoon, thereby further increasing the risk of accidents.
+703
+Although the platoon speed was the most significant influencing factor on Vmean, it is worth
+704
+
+===== PAGE 36 =====
+
+noting that overtaking start section was the only section in which Vmean was not significantly
+705
+affected by the platoon speed. This indicates that during the initial stage of overtaking, it was hard
+706
+for drivers to perceive the platoon speed accurately in this driving simulator study, and they did
+707
+not increase their speed promptly or appropriately to match the higher platoon speed. This delayed
+708
+response to the platoon speed potentially causes drivers to adopt more radical driving maneuvers
+709
+to compensate, increasing the risk of accidents.
+710
+Overall, the results indicated that a higher platoon speed induced extreme driving
+711
+behaviours—which either included failed overtaking attempts, or risky overtaking maneuvers,
+712
+thereby compromising traffic efficiency and elevating the likelihood of accidents. Therefore, it is
+713
+imperative to consider the speed limit for automated truck platoons, advocating for a limit below
+714
+the current 100km/h standard for trucks in China, to facilitate safer overtaking opportunities for
+715
+other drivers.
+716
+4.2 Effect of platoon size on overtaking behaviours
+717
+A significant interaction effect was found between platoon size and inner gap, for the Vmean,
+718
+during the overtaking start section and the overtaking straight section. Under the three-truck
+719
+conditions, Vmean remained relatively consistent across the various inner gaps. However, in the
+720
+five-truck conditions, Vmean was notably higher with a 25m inner gap, when compared to a 5m
+721
+inner gap. One possible interpretation is that the inner gap’s contribution to the platoon’s total
+722
+length increased as the platoon size increased. With a 5m inner gap, transitioning from three to
+723
+five trucks only added 40m to the platoon's length. While with a 25m inner gap, this transition
+724
+added 80m to the platoon's length. Faced with a more substantial increase in platoon length,
+725
+drivers were more likely to be concerned about completing their overtaking maneuvers, leading
+726
+them to increase their speed. Thus, the stability of the traffic flow was compromised for these
+727
+conditions. This finding is consistent with a previous simulation-based study (Zhou and Zhu,
+728
+2021), which found that the increase of platoon length led to decreased traffic stability.
+729
+It is not surprising that an increase in the inner gap significantly added to OT. However, it is
+730
+noteworthy that the inner gap demonstrated a significant interaction effect with platoon size on
+731
+OT. Specifically, compared to 3-truck platoons, an inner gap of 25 m resulted in a greater increase
+732
+
+===== PAGE 37 =====
+
+in OT with 5-truck platoons. While we previously discussed how the combination of a large
+733
+platoon size and a high inner gap extended the total length of the platoon, prompting drivers to
+734
+increase their speed to facilitate overtaking, it appears that even with the risk of speeding, the
+735
+negative impact of the increased length on traffic efficiency could not be offset. The combination
+736
+of a large platoon size and a high inner gap not only compromised the safety of mixed traffic but
+737
+also degraded overall traffic efficiency (Faber et al., 2020). Therefore, careful consideration of the
+738
+total length of the platoon is essential to mitigate the risk of speeding among other drivers and to
+739
+enhance the efficiency of mixed traffic.
+740
+
+When overtaking the three-truck platoons, the vehicle's lateral position deviated
+741
+approximately 10 cm further towards the median divider and away from the platoon, when
+742
+compared to the five-truck platoon conditions. This result is in line with H3. Previous studies have
+743
+indicated that increasing the size of the platoon makes other drivers to be less willing to drive
+744
+alongside them (Castritius et al., 2020; Larburu et al., 2010), prompting them to keep a larger
+745
+lateral distance to the platoon to achieve risk compensation (Rudin-Brown and Jamson, 2013).
+746
+This phenomenon reflected the lateral behavioural adaptation of manual drivers to automated
+747
+truck platoons. Although a lateral deviation of 10cm might appear negligible, it's important to note
+748
+that this deviation could vary depending on factors such as road geometry or surface
+749
+conditions(Chen et al., 2018). For example, in curved sections, the deviation may increase as the
+750
+curve radius decreases. In these conditions, behavioural adaptation may heighten the risk of side-
+751
+swipes, necessitating increased attention.
+752
+4.3 Effects of inner gap on overtaking behaviours
+753
+
+754
+
+Compared with an inner gap of 25 m, an inner gap of 5 m led to higher LAmax in both
+755
+overtaking start section and overtaking end section. This finding mirrors the results of a previous
+756
+study, which indicated that drivers tend to adopt more radical steering maneuvers when changing
+757
+lane to a lane occupied by a platoon, compared with changing lane into a lane without a platoon
+758
+(Lee & Oh, 2017). This phenomenon can be attributed to the behavioural adaptation to truck
+759
+platoons. When encountering platoons with a small inner gap, drivers may perceive the gap for
+760
+
+===== PAGE 38 =====
+
+lane change in the target lane as also small, prompting them to conduct the steering maneuver
+761
+hastily, consequently resulting in higher LAmax.
+762
+
+In critical scenarios, RT under 25m conditions was smaller than that under 5m conditions,
+763
+contradicting our hypothesis H4c. Additionally, RT was not significantly correlated with NASA-
+764
+TLX scores, suggesting that high mental workload did not account for the prolonged response
+765
+time. One possible explanation for the extended response time is that an 5m inter-vehicle gap is
+766
+exceptionally rare in most driving conditions, while a 25m gap is relatively common (Chen et al.,
+767
+2022). The distinctiveness of the small inter-vehicle gap likely compelled drivers to allocate extra
+768
+attention to it, thereby slowing their response. As shown in Figure 23, the interaction effect
+769
+between the inner gap and platoon size on RT could support this explanation. With an increase in
+770
+platoon size, the exposure time is prolonged, exacerbating behavioural adaptation (Razmi Rad et
+771
+al., 2021). Consequently, compared to three-truck conditions, drivers faced greater distraction
+772
+from the smaller inner gap in five-truck conditions. Therefore, the impact of the inner gap on RT
+773
+was more significant in five-truck conditions. However, the inner gap showed no significant effect
+774
+on TTCmin. Furthermore, collision cases were distributed almost evenly across conditions with
+775
+different inner gaps—two in 5m conditions and three in 25m conditions. This suggests that
+776
+although drivers' responses were slowed down by the smaller inner gap, they were still able to
+777
+implement effective countermeasures to compensate for it.
+778
+Compared to the negative impact of a 5m inner gap on RT and LAmax, a 25m gap seemed to
+779
+impose adverse effects substantially on drivers’ overtaking behaviour. The 25m inner gap
+780
+decreased the OCR and caused drivers to deviate farther from the center of the lane. This result
+781
+appeared to contradict existing literature, which suggested that a bigger inner gap is more
+782
+beneficial for other drivers’ performance (Chen et al., 2022; Gouy et al., 2014). However, it is
+783
+important to note our study focused on overtaking scenarios, whereas previous studies primarily
+784
+examined car-following situations. Consequently, the disparate results indicate that different
+785
+platoon organisations should be adopted for different scenarios. For example, if the density of the
+786
+platoon is high or a dedicated lane for platoons is implemented, then car-following would
+787
+predominate in most conditions. In such cases, increasing the inner gap can help mitigate the
+788
+behavioural adaptation of close car-following of other drivers. Conversely, when the density of the
+789
+platoon is low or the dedicated lane is not implemented, decreasing the inner gap would be
+790
+
+===== PAGE 39 =====
+
+beneficial for improving traffic efficiency and other drivers’ overtaking performance, as well as
+791
+decreasing the possibility of other drivers’ cutting into the platoon (Aramrattana et al., 2022).
+792
+4.4 Effects of the presence of the LV on overtaking behaviours
+793
+
+The presence of the LV resulted in a higher LAmax in overtaking start section. A previous
+794
+study also revealed that higher traffic density caused more radical longitudinal behaviors during
+795
+the lane-changing process of overtaking (Yang et al., 2018). These findings indicate that higher
+796
+traffic density could lead drivers to engage in more reckless overtaking behaviours, potentially
+797
+compromising overtaking safety. Moreover, the interaction effect between platoon size and the
+798
+presence of the LV suggests that the impact of the LV on increasing drivers’ LAmax during lane-
+799
+changing process would be more significant in five-truck conditions. This phenomenon might be
+800
+explained by the relationship between the platoon length and the ego-vehicle’s distance to the LV.
+801
+When the platoon only contained three trucks, the platoon length was either 49m (5m inner gap)
+802
+or 89m (25m inner gap). Under these conditions, the LV was either beyond or almost parallel with
+803
+the first truck when the overtake began. This would reassure drivers, as they felt only laterally
+804
+suppressed and not completely trapped by the LV and the platoon. However, in five-platoon
+805
+conditions, the platoon length was either 85m (5m inner gap) or 165m (25m inner gap). Drivers
+806
+would feel completely trapped with no lateral or longitudinal space to handle any emergency.
+807
+Under these conditions, they would either gave up overtaking (when the platoon was 165m and
+808
+the LV was present, the OCR dropped to 75.7%), or become more nervous and behaved more
+809
+radically during overtaking. This result indicates that the total length of the platoon should be
+810
+managed considering traffic conditions. For example, the time headway with moderate traffic
+811
+density in highway is typically between 2.5 and 4 s (Evans & Wasielewski, 1983; Loulizi et al.,
+812
+2019). If the speed limit on the highway was 120 km/h, then the maximum platoon length
+813
+shouldn’t exceed 83m (distance travelled at 120 km/h for 2.5 s) to avoid the synergistic negative
+814
+effect of the platoon and the LV on drivers’ mental workload.
+815
+5. Limitations and future research
+816
+
+===== PAGE 40 =====
+
+In terms of limitations, for practical reasons, this study only investigated overtaking
+817
+behaviors during straight segments. However, road geometry can also influence drivers’
+818
+behavioural adaptations. The complex interaction between road geometry and platoon organisation
+819
+may pose new challenges that need to be addressed in future research. Additionally, this study
+820
+only demonstrated that an inner gap of 5m was more beneficial for drivers’ overtaking behaviour
+821
+compared to an inner gap of 25m. However, the 5m inner gap may not be the optimal value. Thus,
+822
+future research could focus on determining the most suitable inner gap for automated truck
+823
+platoons by testing different inner gap sizes, such as 5m, 10m, 15m and 20m.
+824
+6. Conclusions
+825
+
+This exploratory study sheds light on how the organisation of truck platooning and the traffic
+826
+environment influence other drivers’ behaviours during the process of overtaking the platoon. It
+827
+could be concluded as follows:
+828
+(i)
+The platoon speed was the most significant factor influencing drivers' longitudinal
+829
+behaviour. An increase in platoon speed resulted in higher average speeds and
+830
+greater speed fluctuations of the ego vehicle during the overtaking process, thereby
+831
+increasing the likelihood of speeding. However, the rise in platoon speed also
+832
+heightened the difficulty of overtaking—the overtaking completion rate was 7.5%
+833
+lower at a platoon speed of 100 km/h compared to 80 km/h.
+834
+(ii)
+The inner gap of the platoon significantly affected drivers' lateral control. Compared
+835
+to a 25-meter inner gap, a 5-meter inner gap not only impaired lateral stability during
+836
+lane changes but also caused drivers to maintain a larger lateral distance from the
+837
+platoon during overtaking.
+838
+(iii)
+In critical conditions, although drivers' response time to the lead vehicle's brake was
+839
+0.5 seconds slower in 5-meter conditions compared to 25-meter conditions, this did
+840
+not contribute to a higher crash probability.
+841
+(iv)
+The presence of the LV imposes a significant mental workload on drivers. It
+842
+functioned as an obstruction, reducing the mean speed and increasing the speed
+843
+fluctuation of the ego vehicle, which consequently resulted in a lower overtaking
+844
+
+===== PAGE 41 =====
+
+completion rate.
+845
+This study may provide suggestions for the management of automated truck platoons from a
+846
+human factor perspective. The operating speed of automated truck platoons should be lower than
+847
+the current speed limit for trucks. In terms of platoon organisations, different speeds and inner
+848
+gaps of the platoon should be adopted based on varying traffic conditions to strike a balance
+849
+between efficiency and safety.
+850
+
+851
+Declaration of Competing Interest
+852
+The authors declare that they have no known competing financial interests or personal
+853
+relationships that could have appeared to influence the work reported in this paper.
+854
+
+855
+CRediT authorship contribution statement
+856
+Zijian Lin: Conceptualization, Methodology, Software, Formal analysis, Investigation, Data
+857
+curation, Writing original draft, Visualization. Feng Chen: Conceptualization, Methodology,
+858
+Validation, Formal analysis, Resources, Writing-review & editing, Supervision, Project
+859
+administration, Funding acquisition. İbrahim Öztürk: Methodology, Conceptualization, Writing-
+860
+review & editing. Natasha Merat: Methodology, Conceptualization, Writing-review & editing.
+861
+
+862
+Acknowledgements
+863
+This study was supported by National Key R&D Program of China (2023YFB2504400) and the
+864
+International Exchange Program for Graduate Students, Tongji University (No.2023020022).
+865
+References
+866
+Aramrattana, M., Larsson, T., Englund, C., Jansson, J., Nabo, A., 2022. A Simulation Study on
+867
+
+===== PAGE 42 =====
+
+Effects of Platooning Gaps on Drivers of Conventional Vehicles in Highway Merging
+868
+Situations. IEEE Trans. Intell. Transport. Syst. 23, 3790–3796.
+869
+Axelsson, J., 2017. Safety in Vehicle Platooning: A Systematic Literature Review. IEEE Trans.
+870
+Intell. Transport. Syst. 18, 1033–1045.
+871
+Barton, R.A., Morrall, J., 1998. Study of long combination vehicles on two-lane highways.
+872
+Transp. Res. Rec. 1613, 43–49.
+873
+Brewer, M.A., Fitzpatrick, K., 2017. Potential Effects of Heavy Vehicles on Operations of Super 2
+874
+Highways. Transp. Res. Rec. 2638, 10–17.
+875
+Castritius, S.-M., Dietz, C.J., Schubert, P., Moeller, J., Morvilius, S., Hammer, S., Tran, C.A.,
+876
+Haas, C.T., 2021. Truck Platooning Under Real Traffic Conditions: First Insights on
+877
+Behavioral Adaptations and Gap Preference of Professional Drivers. Hum. Factors 63,
+878
+1033–1045.
+879
+Castritius, S.-M., Lu, X.-Y., Bernhard, C., Liebherr, M., Schubert, P., Hecht, H., 2020. Public
+880
+acceptance of semi-automated truck platoon driving. A comparison between Germany and
+881
+California. Transp. Res. Part F: Traffic Psychol. Behav. 74, 361–374.
+882
+Chen, F., Lu, G., Tan, H., Liu, M., Wan, H., 2022. Effects of assignments of dedicated automated
+883
+vehicle lanes and inter-vehicle distances of automated vehicle platoons on car-following
+884
+performance of nearby manual vehicle drivers. Accid. Anal. Prev. 177, 106826.
+885
+Chen, Y., Quddus, M., Wang, X., 2018. Impact of combined alignments on lane departure: A
+886
+simulator study for mountainous freeways. Transp. Res. Part C: Emerg. Technol. 86, 346–
+887
+359.
+888
+De Waard, D., Dijksterhuis, C., Brookhuis, K.A., 2009. Merging into heavy motorway traffic by
+889
+young and elderly drivers. Accid. Anal. Prev. 41, 588–597.
+890
+De Waard, D., Kruizinga, A., Brookhuis, K.A., 2008. The consequences of an increase in heavy
+891
+goods vehicles for passenger car drivers’ mental workload and behaviour: A simulator
+892
+study. Accid. Anal. Prev. 40, 818–828.
+893
+Evans, L., Wasielewski, P., 1983. Risky driving related to driver and vehicle characteristics. Accid.
+894
+Anal. Prev. 15, 121–136.
+895
+Faber, T., Sharma, S., Snelder, M., Klunder, G., Tavasszy, L., van Lint, H., 2020. Evaluating traffic
+896
+efficiency and safety by varying truck platoon characteristics in a critical traffic situation.
+897
+Transp. Res. Rec. 2674, 525–547.
+898
+Fagnant, D.J., Kockelman, K., 2015. Preparing a nation for autonomous vehicles: opportunities,
+899
+barriers and policy recommendations. Transp. Res. Part A: Policy Pract. 77, 167–181.
+900
+Figueira, A.C., Larocca, A.P.C., 2020. Analysis of the factors influencing overtaking in two-lane
+901
+highways: A driving simulator study. Transp. Res. Part F: Traffic Psychol. Behav. 69, 38–
+902
+48.
+903
+Gao, M., Zhao, Y., Shen, Y., Yu, X., Gou, S., Bao, Q., 2023. Which factors are most relevant to
+904
+drivers’ overtaking choices at two-lane highways: A comparative analysis between
+905
+questionnaire surveys and driving simulation. Transp. Res. Part F: Traffic Psychol. Behav.
+906
+95, 202–214.
+907
+Garcia, A., Pastor‐Serrano, D., 2022. Determination of minimum horizontal curve radius for safe
+908
+stopping sight distance of vehicles overpassing truck platoons. Comput. Aided. Civil.
+909
+Eng. 37, 539–557.
+910
+Gouy, M., Diels, C., Reed, N., Stevens, A., Burnett, G., 2013. Do drivers reduce their headway to
+911
+
+===== PAGE 43 =====
+
+a lead vehicle because of the presence of platoons in traffic? A conformity study
+912
+conducted within a simulator. IET Intell. Transp. Syst. 7, 230–235.
+913
+Gouy, M., Wiedemann, K., Stevens, A., Brunett, G., Reed, N., 2014. Driving next to automated
+914
+vehicle platoons: How do short time headways influence non-platoon drivers’
+915
+longitudinal control? Transp. Res. Part F: Traffic Psychol. Behav. 27, 264–273.
+916
+Guhathakurta, S., Kumar, A., 2019. When and Where Are Dedicated Lanes Needed under Mixed
+917
+Traffic of Automated and Non-automated Vehicles for Optimal System Level Benefits?
+918
+(No. CTEDD: 017-04).
+919
+Guo, X., Cui, L., Park, B., Ding, W., Lockhart, M., Kim, I., 2019. How Will Humans Cut Through
+920
+Automated Vehicle Platoons in Mixed Traffic Environments? A Simulation Study of
+921
+Drivers’ Gaze Behaviors Based on the Dynamic Areas of Interest, in: Adams, S., Beling,
+922
+P.A., Lambert, J.H., Scherer, W.T., Fleming, C.H. (Eds.), Systems Engineering in Context.
+923
+Springer International Publishing, Cham, pp. 691–701.
+924
+Hanley, P.F., Forkenbrock, D.J., 2005. Safety of passing longer combination vehicles on two-lane
+925
+highways. Transp. Res. Part A: Policy Pract. 39, 1–15.
+926
+Haq, M.T., Farid, A., Ksaibati, K., 2022. Estimating passing sight distances for overtaking truck
+927
+platoons – Calibration and validation using VISSIM. Int. J. Transp. Sci. Technol 11, 255–
+928
+267.
+929
+Hart, S.G., Staveland, L.E., 1988. Development of NASA-TLX (Task Load Index): Results of
+930
+empirical and theoretical research, in: Advances in Psychology. Elsevier, pp. 139–183.
+931
+Hussein, A.A., Rakha, H.A., 2021. Vehicle platooning impact on drag coefficients and energy/fuel
+932
+saving implications. IEEE Trans. Veh. Technol. 71, 1199–1208.
+933
+Kinnear, N., Helman, S., Wallbank, C., Grayson, G., 2015. An experimental study of factors
+934
+associated with driver frustration and overtaking intentions. Accid. Anal. Prev. 79, 221–
+935
+230.
+936
+Larburu, M., Sanchez, J., Rodriguez, D.J., 2010. Safe road trains for environment: Human factors’
+937
+aspects in dual mode transport systems. Presented at the ITS world congress, Busan,
+938
+Korea, pp. 1–12.
+939
+Lee, S., Oh, C., Hong, S., 2018. Exploring lane change safety issues for manually driven vehicles
+940
+in vehicle platooning environments. IET Intell. Transp. Syst. 12, 1142–1147.
+941
+Lee, S.Y., Oh, C., 2017. Lane change behavior of manual vehicles in automated vehicle platooning
+942
+environments. J. Korean Soc. Transp. 35, 332–347.
+943
+Loulizi, A., Bichiou, Y., Rakha, H., 2019. Steady-state car-following time gaps: an empirical study
+944
+using naturalistic driving data. J. Adv. Transp. 2019.
+945
+Louw, T., Markkula, G., Boer, E., Madigan, R., Carsten, O., Merat, N., 2017. Coming back into
+946
+the loop: Drivers’ perceptual-motor performance in critical events after automated
+947
+driving. Accid. Anal. Prev. 108, 9–18.
+948
+Ma, X., Tu, Z., Chen, F., 2022. A reliability-based approach to evaluate the lateral safety of truck
+949
+platoon under extreme weather conditions. Accid. Anal. Prev. 174, 106775.
+950
+https://doi.org/10.1016/j.aap.2022.106775
+951
+Madigan, R., Louw, T., Merat, N., 2018. The effect of varying levels of vehicle automation on
+952
+drivers’ lane changing behaviour. PLoS ONE 13, 1–17.
+953
+Ministry of Public Safety of China, 2021. Road Traffic Accident Statistics’ Annual Report of PRC
+954
+(2020). Ministry of Public Safety of China, Beijing.
+955
+
+===== PAGE 44 =====
+
+National Highway Traffic Safety Administration, 2023. Traffic Safety Facts 2021 A Compilation
+956
+of Motor Vehicle Traffic Crash Data. Washington, DC, USA.
+957
+OECD, 1990. Behavioral adaptations to changes in the road transport system. Paris: Organisation
+958
+for Economic Cooperation and Development, Road Transport Research.
+959
+Pituch, K.A., Stevens, J.P., 2015. Applied multivariate statistics for the social sciences: Analyses
+960
+with SAS and IBM’s SPSS. Routledge.
+961
+Razmi Rad, S., Farah, H., Taale, H., van Arem, B., Hoogendoorn, S.P., 2021. The impact of a
+962
+dedicated lane for connected and automated vehicles on the behaviour of drivers of
+963
+manual vehicles. Transp. Res. Part F: Traffic Psychol. Behav. 82, 141–153.
+964
+Rudin-Brown, C., Jamson, S., 2013. Behavioural adaptation and road safety: Theory, evidence and
+965
+action. CRC press.
+966
+Sabek, B., Srour, F.J., El Mendelek, M., El Khoury-Malhame, M., Khoury, J., 2024. Are you in the
+967
+mood to pass? A study on the interplay of psychological traits and traffic on young
+968
+drivers’ overtaking behavior on two-lane, two-way highways. Transp. Res. Part F: Traffic
+969
+Psychol. Behav. 101, 59–77.
+970
+SAIC, 2020. SAIC Motor ranks 52nd among Fortune Global 500. URL
+971
+https://www.saicmotor.com/english/latest_news/saic_motor/53921.shtml
+972
+Shladover, S.E., 2007. PATH at 20—History and major milestones. IEEE Trans. Intell. Transp.
+973
+Syst. 8, 584–592.
+974
+Song, Y., 2024. Integrated Overtaking Model and Safety Analysis for Truck Platooning
+975
+Requirements on Two-Lane Undivided Highways. Transp. Res. Rec.
+976
+03611981231220635.
+977
+Soni, R., Vasudevan, V., Dutta, B., 2020. Analysis of overtaking patterns of Indian drivers with
+978
+data collected using a LiDAR. Transp. Res. Part F: Traffic Psychol. Behav. 74, 139–150.
+979
+Suh, S., Lee, S., Oh, C., Choi, S., 2017. Impacts of Automated Vehicle Platoons on Car-following
+980
+Behavior of Manually-Driven Vehicles. J. Korea Inst. Intell. Transp. Syst. 16, 107–121.
+981
+Sultana, T., Hassan, H.M., 2024. Does recognizability of connected and automated vehicles
+982
+(CAVs) platoons affect drivers’ behavior and safety? Transp. Res. Part F: Traffic Psychol.
+983
+Behav. 103, 368–386. https://doi.org/10.1016/j.trf.2024.04.021
+984
+Thomas, N.E., Martinez-Perez, F.J., 2015. Impacts of Road-Trains on the Geometric Design of
+985
+Highways. J. Transp. Eng. 141, 04014087.
+986
+Trende, A., Unni, A., Weber, L., Rieger, J.W., Luedtke, A., 2019. An investigation into human-
+987
+autonomous vs. human-human vehicle interaction in time-critical situations, in:
+988
+Proceedings of the 12th ACM International Conference on PErvasive Technologies
+989
+Related to Assistive Environments. Presented at the PETRA ’19: The 12th PErvasive
+990
+Technologies Related to Assistive Environments Conference, ACM, Rhodes Greece, pp.
+991
+303–304.
+992
+Tsugawa, S., 2014. Results and issues of an automated truck platoon within the energy ITS
+993
+project, in: 2014 IEEE Intelligent Vehicles Symposium Proceedings. Presented at the
+994
+2014 IEEE Intelligent Vehicles Symposium (IV), IEEE, MI, USA, pp. 642–647.
+995
+Tsugawa, S., Jeschke, S., Shladover, S.E., 2016. A Review of Truck Platooning Projects for
+996
+Energy Savings. IEEE Trans. Intell. Veh. 1, 68–77.
+997
+Watanabe, D., Kenmochi, T., Sasa, K., 2021. An Analytical Approach for Facility Location for
+998
+Truck Platooning—A Case Study of an Unmanned Following Truck Platooning System in
+999
+
+===== PAGE 45 =====
+
+Japan. Logistics 5, 27.
+1000
+Wei, Z., Xu, C., Ozbay, K., Yang, Y., Yang, H., Zuo, F., Yang, D., Fu, C., 2023. Investigating
+1001
+Safety of Evasion Maneuver Choices by Human-Driven Vehicles in Response to High-
+1002
+Density Truck Platoons Near Freeway Diverging Areas, in: 2023 IEEE 26th International
+1003
+Conference on Intelligent Transportation Systems (ITSC). Presented at the 2023 IEEE
+1004
+26th International Conference on Intelligent Transportation Systems (ITSC), IEEE,
+1005
+Bilbao, Spain, pp. 4467–4472.
+1006
+Yang, L., Li, X., Guan, W., Zhang, H.M., Fan, L., 2018. Effect of traffic density on drivers’ lane
+1007
+change and overtaking maneuvers in freeway situation—A driving simulator–based study.
+1008
+Traffic Inj. Prev. 19, 594–600.
+1009
+Yang, S., Park, J., Abdel-Aty, M., 2023. Driver behaviour and experience around automated
+1010
+freight vehicle platoons. Proc. Inst. Civil Eng. - Transp. 176, 165–197.
+1011
+Yang, S., Shladover, S.E., Lu, X.-Y., Ramezani, H., Kailas, A., Altan, O.D., 2021. A Bayesian
+1012
+regression analysis of truck drivers’ use of cooperative adaptive cruise control (CACC)
+1013
+for platooning on California highways. J. Intell. Transp. Syst. 1–12.
+1014
+Zhang, W., Dai, J., Pei, Y., Li, P., Yan, Y., Chen, X., 2016. Drivers’ Visual Search Patterns during
+1015
+Overtaking Maneuvers on Freeway. Int. J. Environ. Res. Public Health. 13, 1159.
+1016
+Zhou, J., Zhu, F., 2021. Analytical analysis of the effect of maximum platoon size of connected
+1017
+and automated vehicles. Transp. Res. Part C: Emerg. Technol. 122, 102882.
+1018
+
+1019
+Appendix
+1020
+Effects of different factors on SDLP.
+1021
+Factor
+df1
+df2
+F
+p
+η2p
+Presence of the LV
+1
+18
+.014
+.906
+.001
+Platoon speed
+1
+18
+2.914
+.105
+.139
+Platoon size
+1
+18
+.024
+.879
+.001
+Inner gap
+1
+18
+.502
+.488
+.027
+
+1022
+Effects of different factors on TTCmin in critical conditions.
+1023
+Factor
+df1
+df2
+F
+p
+η2p
+Platoon size
+1
+15
+.122
+.731
+.008
+Inner gap
+1
+15
+.067
+.800
+.004
+
+1024
+Effects of different factors on subjective mental workload in critical conditions.
+1025
+
+===== PAGE 46 =====
+
+Factor
+df1
+df2
+F
+p
+η2p
+Platoon size
+1
+15
+1.434
+.250
+.087
+Inner gap
+1
+15
+1.248
+.282
+.077
+
+1026

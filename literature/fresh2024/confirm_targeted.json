@@ -1,0 +1,554 @@
+[
+  {
+    "id": "C1",
+    "tag": "LNN × 驾驶/车辆控制",
+    "query": "liquid neural network autonomous driving vehicle control",
+    "total": 2817,
+    "rows": [
+      {
+        "year": 2025,
+        "cited": 0,
+        "venue": "International Conference on Self Sustainable Artificial Intelligence Systems (ICSSAS)",
+        "title": "Autonomous Vehicle Control with Liquid Time Constant Networks",
+        "doi": "10.1109/icssas66150.2025.11081318"
+      },
+      {
+        "year": 2025,
+        "cited": 1,
+        "venue": "Edelweiss Applied Science and Technology",
+        "title": "Convolutional neural network-based approach for edge detection in autonomous driving",
+        "doi": "10.55214/25768484.v9i4.6259"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "ISA Transactions",
+        "title": "Hybrid vehicle state estimation using closed-form liquid neural networks and nonlinear Kalman filtering",
+        "doi": "10.1016/j.isatra.2026.06.027"
+      },
+      {
+        "year": 2024,
+        "cited": 7,
+        "venue": "arXiv (Cornell University)",
+        "title": "Exploring Liquid Neural Networks on Loihi-2",
+        "doi": "10.48550/arxiv.2407.20590"
+      },
+      {
+        "year": 2025,
+        "cited": 7,
+        "venue": "Batteries",
+        "title": "Optimization of Battery Thermal Management for Real Vehicles via Driving Condition Prediction Using Neural Networks",
+        "doi": "10.3390/batteries11060224"
+      },
+      {
+        "year": 2024,
+        "cited": 72,
+        "venue": "Sensors",
+        "title": "Network Latency in Teleoperation of Connected and Autonomous Vehicles: A Review of Trends, Challenges, and Mitigation Strategies",
+        "doi": "10.3390/s24123957"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "Research Square",
+        "title": "Liquid Neural Network-Based Multi-UAV PathPlanning in Dynamic, Obstacle-AwareEnvironments",
+        "doi": "10.21203/rs.3.rs-8834329/v1"
+      },
+      {
+        "year": 2024,
+        "cited": 0,
+        "venue": "arXiv (Cornell University)",
+        "title": "Savvy: Trustworthy Autonomous Vehicles Architecture",
+        "doi": "10.48550/arxiv.2402.14580"
+      },
+      {
+        "year": 2024,
+        "cited": 2,
+        "venue": "-",
+        "title": "WIP: Savvy: Trustworthy Autonomous Vehicles Architecture",
+        "doi": "10.14722/vehiclesec.2024.23058"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "arXiv (Cornell University)",
+        "title": "High-Order Liquid Evidence Encoding for Gradual GNSS Spoofing Detection in Autonomous Driving",
+        "doi": "10.48550/arxiv.2608.11790"
+      },
+      {
+        "year": 2024,
+        "cited": 48,
+        "venue": "Scientific Reports",
+        "title": "Intrusion detection using metaheuristic optimization within IoT/IIoT systems and software of autonomous vehicles",
+        "doi": "10.1038/s41598-024-73932-5"
+      },
+      {
+        "year": 2024,
+        "cited": 8,
+        "venue": "World Electric Vehicle Journal",
+        "title": "Review of Brake-by-Wire Technology for Low-Speed and Autonomous Vehicles",
+        "doi": "10.3390/wevj15120581"
+      }
+    ]
+  },
+  {
+    "id": "C2",
+    "tag": "CfC × 控制/机器人",
+    "query": "closed-form continuous-time network control robotics",
+    "total": 42478,
+    "rows": [
+      {
+        "year": 2024,
+        "cited": 5,
+        "venue": "Robotics",
+        "title": "Closed-Form Continuous-Time Neural Networks for Sliding Mode Control with Neural Gravity Compensation",
+        "doi": "10.3390/robotics13090126"
+      },
+      {
+        "year": 2024,
+        "cited": 4,
+        "venue": "arXiv (Cornell University)",
+        "title": "Continuous-Time State Estimation Methods in Robotics: A Survey",
+        "doi": "10.48550/arxiv.2411.03951"
+      },
+      {
+        "year": 2024,
+        "cited": 4,
+        "venue": "Lecture notes in computer science",
+        "title": "Verification of Neural Network Control Systems in Continuous Time",
+        "doi": "10.1007/978-3-031-65112-0_5"
+      },
+      {
+        "year": 2025,
+        "cited": 4,
+        "venue": "Technologies",
+        "title": "Neuro-Visual Adaptive Control for Precision in Robot-Assisted Surgery",
+        "doi": "10.3390/technologies13040135"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "arXiv (Cornell University)",
+        "title": "Acoustic Feedback for Closed-Loop Force Control in Robotic Grinding",
+        "doi": "10.48550/arxiv.2602.20596"
+      },
+      {
+        "year": 2025,
+        "cited": 0,
+        "venue": "arXiv (Cornell University)",
+        "title": "Closed Form HJB Solution for Continuous-Time Optimal Control of a Non-Linear Input-Affine System",
+        "doi": "10.48550/arxiv.2511.21593"
+      },
+      {
+        "year": 2025,
+        "cited": 6,
+        "venue": "Neural Networks",
+        "title": "Online lifelong optimal tracking control of uncertain nonlinear continuous-time strict-feedback systems using deep neural networks",
+        "doi": "10.1016/j.neunet.2025.107793"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "Frontiers in Neuroscience",
+        "title": "A spiking continuous attractor network for event-driven neuromorphic robot guidance",
+        "doi": "10.3389/fnins.2026.1910808"
+      },
+      {
+        "year": 2024,
+        "cited": 0,
+        "venue": "Research Square",
+        "title": "Adaptive dynamic programming path tracking control of a tractor- trailer wheeled mobile robot",
+        "doi": "10.21203/rs.3.rs-3863165/v1"
+      },
+      {
+        "year": 2024,
+        "cited": 22,
+        "venue": "Advanced Intelligent Systems",
+        "title": "Sensor‐Embedded Muscle for Closed‐Loop Controllable Actuation in Proprioceptive Biohybrid Robots",
+        "doi": "10.1002/aisy.202400413"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "-",
+        "title": "Time-Aggregated Connectivity Maintenance for Multi-Robot Networks",
+        "doi": "10.15607/rss.2026.xxii.043"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "bioRxiv (Cold Spring Harbor Laboratory)",
+        "title": "Automated robotic control system for EEG-BCI-guided closed-loop TMS",
+        "doi": "10.64898/2026.05.15.725366"
+      }
+    ]
+  },
+  {
+    "id": "C3",
+    "tag": "Overtaking frequency（OTF 本体）",
+    "query": "overtaking frequency traffic",
+    "total": 3194,
+    "rows": [
+      {
+        "year": 2024,
+        "cited": 0,
+        "venue": "JTTTP - JOURNAL OF TRAFFIC AND TRANSPORT THEORY AND PRACTICE",
+        "title": "Analysis of a Traffic Accident During Turn and Overtake - Case Study",
+        "doi": "10.7251/jtttp2501036r"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "Smart innovation, systems and technologies",
+        "title": "Optimization of Dynamic Time-Window Overtaking Frequency Function for Autonomous Vehicle State Assessment",
+        "doi": "10.1007/978-3-032-20963-4_21"
+      },
+      {
+        "year": 2024,
+        "cited": 6,
+        "venue": "Applied Ocean Research",
+        "title": "A Fourier-based model for dynamic ship–ship interactions during overtaking in deep and shallow waters",
+        "doi": "10.1016/j.apor.2024.104378"
+      },
+      {
+        "year": 2024,
+        "cited": 1,
+        "venue": "Bulletin of Science and Practice",
+        "title": "Frequency of Injuries and Deaths Due to Traffic Accidents Caused by the Driver, Bishkek",
+        "doi": "10.33619/2414-2948/105/25"
+      },
+      {
+        "year": 2025,
+        "cited": 0,
+        "venue": "SSRN Electronic Journal",
+        "title": "Examining Overtaking Interference by Heterogeneous Non-Motorized Vehicles on Bike Lane",
+        "doi": "10.2139/ssrn.5108355"
+      },
+      {
+        "year": 2025,
+        "cited": 0,
+        "venue": "Human Factors The Journal of the Human Factors and Ergonomics Society",
+        "title": "Influence of Surrounding Traffic and System Behaviors on Driver-Initiated Automation Disengagements in Urban Overtaking Scenarios",
+        "doi": "10.1177/00187208251384118"
+      },
+      {
+        "year": 2025,
+        "cited": 0,
+        "venue": "Lecture notes in civil engineering",
+        "title": "Analysis of Overtaking Behaviour on Undivided Two-Lane Roads in Hilly Region",
+        "doi": "10.1007/978-981-96-8110-5_30"
+      },
+      {
+        "year": 2025,
+        "cited": 7,
+        "venue": "Chaos Solitons & Fractals",
+        "title": "Bifurcation and jamming transition in car-following model integrating PD control to curb overtaking behaviors under CAVs platform",
+        "doi": "10.1016/j.chaos.2025.117116"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "International Journal For Multidisciplinary Research",
+        "title": "Vehicle Accident Prevention During Overtake Using IoT System",
+        "doi": "10.36948/ijfmr.2026.v08i02.73539"
+      },
+      {
+        "year": 2025,
+        "cited": 7,
+        "venue": "Transportation Research Part F Traffic Psychology and Behaviour",
+        "title": "Overtaking automated truck platoons: Effects of platoon organisations and traffic situation on driving behaviours of nearby manual vehicle drivers",
+        "doi": "10.1016/j.trf.2025.01.026"
+      },
+      {
+        "year": 2024,
+        "cited": 40,
+        "venue": "IEEE Transactions on Intelligent Transportation Systems",
+        "title": "Overtaking Feasibility Prediction for Mixed Connected and Connectionless Vehicles",
+        "doi": "10.1109/tits.2024.3398602"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "Flow Turbulence and Combustion",
+        "title": "Evaluating Flow Control Methods in Vehicle Platooning and Overtaking",
+        "doi": "10.1007/s10494-026-00797-1"
+      }
+    ]
+  },
+  {
+    "id": "C4",
+    "tag": "LTC × 编队/跟驰",
+    "query": "liquid time-constant network vehicle platoon car following",
+    "total": 53,
+    "rows": [
+      {
+        "year": 2025,
+        "cited": 0,
+        "venue": "arXiv (Cornell University)",
+        "title": "Adaptive Sliding Mode Control for Vehicle Platoons with State-Dependent Friction Uncertainty",
+        "doi": "10.48550/arxiv.2601.10724"
+      },
+      {
+        "year": 2025,
+        "cited": 0,
+        "venue": "Energies",
+        "title": "Numerical Analysis of Aerodynamics and Aeroacoustics in Heterogeneous Vehicle Platoons: Impacts on Fuel Consumption and Environmental Emissions",
+        "doi": "10.3390/en18195275"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "Communications in Transportation Research",
+        "title": "Vehicle platoon trajectory prediction under traffic oscillation: Causal physics-informed deep learning approach",
+        "doi": "10.26599/commtr.2026.9640029"
+      },
+      {
+        "year": 2025,
+        "cited": 0,
+        "venue": "Spectrum Research Repository (Concordia University)",
+        "title": "Pavement, Traffic, and Environmental Impacts of Autonomous Truck Platoons: A Quebec Case Study",
+        "doi": ""
+      },
+      {
+        "year": 2024,
+        "cited": 8,
+        "venue": "Transportation Research Part C Emerging Technologies",
+        "title": "Implications of stop-and-go traffic on training learning-based car-following control",
+        "doi": "10.1016/j.trc.2024.104578"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "Energy Reports",
+        "title": "Critical analysis of hybrid electric vehicle hosting capacity for renewable-dependent sustainable energy networks",
+        "doi": "10.1016/j.egyr.2026.109727"
+      },
+      {
+        "year": 2025,
+        "cited": 0,
+        "venue": "-",
+        "title": "Potential impacts of automated vehicles, electric vehicles, and shared mobility on sustainable urban mobility",
+        "doi": "10.11606/d.18.2025.tde-26052025-113721"
+      },
+      {
+        "year": 2024,
+        "cited": 33,
+        "venue": "Communications in Transportation Research",
+        "title": "Unveiling the determinants of battery electric vehicle performance: A systematic review and meta-analysis",
+        "doi": "10.1016/j.commtr.2024.100148"
+      },
+      {
+        "year": 2024,
+        "cited": 0,
+        "venue": "arXiv (Cornell University)",
+        "title": "From Road Congestion to Vehicle-Control Enabled Artificial Traffic Fluids",
+        "doi": "10.48550/arxiv.2405.05558"
+      },
+      {
+        "year": 2024,
+        "cited": 0,
+        "venue": "arXiv (Cornell University)",
+        "title": "Optical Wireless Communications: Enabling the Next Generation Network of Networks",
+        "doi": "10.48550/arxiv.2412.16798"
+      },
+      {
+        "year": 2026,
+        "cited": 2,
+        "venue": "Transportation Research Part B Methodological",
+        "title": "The fragile nature of road transportation networks",
+        "doi": "10.1016/j.trb.2025.103386"
+      },
+      {
+        "year": 2026,
+        "cited": 5,
+        "venue": "Automatika",
+        "title": "Application of advanced fault-tolerant control techniques in the design of modern electric vehicles for increased reliability: a review",
+        "doi": "10.1080/00051144.2026.2619804"
+      }
+    ]
+  },
+  {
+    "id": "C5",
+    "tag": "NCP × 控制",
+    "query": "neural circuit policy control",
+    "total": 37003,
+    "rows": [
+      {
+        "year": 2024,
+        "cited": 2,
+        "venue": "Neural Processing Letters",
+        "title": "Neural Circuit Policies for Virtual Character Control",
+        "doi": "10.1007/s11063-024-11640-x"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "Mendeley Data",
+        "title": "Sparse Neural Circuit Policies for Underwater Vehicle Trajectory Tracking in Complex Environments",
+        "doi": "10.17632/bbhdfj28jw"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "Mendeley Data",
+        "title": "Sparse Neural Circuit Policies for Underwater Vehicle Trajectory Tracking in Complex Environments",
+        "doi": "10.17632/bbhdfj28jw.2"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "Mechanisms and machine science",
+        "title": "Early Fault Detection for Wind Turbine Main Bearing Based on Neural Circuit Policies",
+        "doi": "10.1007/978-3-032-00968-5_39"
+      },
+      {
+        "year": 2025,
+        "cited": 0,
+        "venue": "Lecture notes in computer science",
+        "title": "Steering Angle Prediction Based on Travelable Regions and Bio-Inspired Neural Circuit Policy",
+        "doi": "10.1007/978-3-031-92741-6_24"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "SSRN Electronic Journal",
+        "title": "Sparse Neural Circuit Policies for Underwater Vehicle Trajectory Tracking in Complex Environments",
+        "doi": "10.2139/ssrn.6848098"
+      },
+      {
+        "year": 2024,
+        "cited": 3,
+        "venue": "arXiv (Cornell University)",
+        "title": "Neural Circuit Architectural Priors for Quadruped Locomotion",
+        "doi": "10.48550/arxiv.2410.07174"
+      },
+      {
+        "year": 2024,
+        "cited": 92,
+        "venue": "Proceedings of the National Academy of Sciences",
+        "title": "Neural heterogeneity controls computations in spiking neural networks",
+        "doi": "10.1073/pnas.2311885121"
+      },
+      {
+        "year": 2024,
+        "cited": 5,
+        "venue": "IET Control Theory and Applications",
+        "title": "USLC: Universal self‐learning control via physical performance policy‐optimization neural network",
+        "doi": "10.1049/cth2.12758"
+      },
+      {
+        "year": 2024,
+        "cited": 4,
+        "venue": "Advanced Science",
+        "title": "An Artificial Neural Network for Image Classification Inspired by the Aversive Olfactory Learning Neural Circuit in Caenorhabditis elegans",
+        "doi": "10.1002/advs.202410637"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "arXiv (Cornell University)",
+        "title": "Causal Neural Probabilistic Circuits",
+        "doi": "10.48550/arxiv.2603.01372"
+      },
+      {
+        "year": 2025,
+        "cited": 0,
+        "venue": "arXiv (Cornell University)",
+        "title": "Differentiable Weightless Controllers: Learning Logic Circuits for Continuous Control",
+        "doi": "10.48550/arxiv.2512.01467"
+      }
+    ]
+  },
+  {
+    "id": "C6",
+    "tag": "连续时间网络 × 端到端驾驶",
+    "query": "continuous-time recurrent network end-to-end driving",
+    "total": 33249,
+    "rows": [
+      {
+        "year": 2026,
+        "cited": 3,
+        "venue": "Neuromorphic Computing and Engineering",
+        "title": "Spiking neural networks for continuous control via end-to-end model-based learning",
+        "doi": "10.1088/2634-4386/ae5554"
+      },
+      {
+        "year": 2024,
+        "cited": 603,
+        "venue": "Information",
+        "title": "Recurrent Neural Networks: A Comprehensive Review of Architectures, Variants, and Applications",
+        "doi": "10.3390/info15090517"
+      },
+      {
+        "year": 2024,
+        "cited": 14,
+        "venue": "IEEE Access",
+        "title": "End-to-End Autonomous Driving in CARLA: A Survey",
+        "doi": "10.1109/access.2024.3473611"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "arXiv (Cornell University)",
+        "title": "Lagrange: An Open-Vocabulary, Energy-Based Sparse Framework for Generalized End-to-End Driving",
+        "doi": "10.48550/arxiv.2606.20274"
+      },
+      {
+        "year": 2024,
+        "cited": 2,
+        "venue": "Sensors",
+        "title": "The Effects of Speed and Delays on Test-Time Performance of End-to-End Self-Driving",
+        "doi": "10.3390/s24061963"
+      },
+      {
+        "year": 2025,
+        "cited": 0,
+        "venue": "arXiv (Cornell University)",
+        "title": "HENet++: Hybrid Encoding and Multi-task Learning for 3D Perception and End-to-end Autonomous Driving",
+        "doi": "10.48550/arxiv.2511.07106"
+      },
+      {
+        "year": 2025,
+        "cited": 4,
+        "venue": "Frontiers in Robotics and AI",
+        "title": "Efficient and real-time perception: a survey on end-to-end event-based object detection in autonomous driving",
+        "doi": "10.3389/frobt.2025.1674421"
+      },
+      {
+        "year": 2025,
+        "cited": 0,
+        "venue": "IET conference proceedings.",
+        "title": "Automotive radar interference suppression using improved dual-path convolutional recurrent network",
+        "doi": "10.1049/icp.2025.2914"
+      },
+      {
+        "year": 2024,
+        "cited": 1,
+        "venue": "arXiv (Cornell University)",
+        "title": "METDrive: Multi-modal End-to-end Autonomous Driving with Temporal Guidance",
+        "doi": "10.48550/arxiv.2409.12667"
+      },
+      {
+        "year": 2025,
+        "cited": 49,
+        "venue": "IEEE Open Journal of the Communications Society",
+        "title": "Network Digital Twin for 6G and Beyond: An End-to-End View Across Multi-Domain Network Ecosystems",
+        "doi": "10.1109/ojcoms.2025.3599866"
+      },
+      {
+        "year": 2025,
+        "cited": 7,
+        "venue": "Applied Artificial Intelligence",
+        "title": "Time Series Forecasting Using Recurrent Neural Networks Based on Recurrent Sigmoid Piecewise Linear Neurons",
+        "doi": "10.1080/08839514.2025.2490057"
+      },
+      {
+        "year": 2026,
+        "cited": 0,
+        "venue": "Institutional Repositories DataBase (IRDB)",
+        "title": "Constraint-Guided Multimodal Learning for End-to-End Autonomous Driving",
+        "doi": ""
+      }
+    ]
+  }
+]

@@ -1,0 +1,383 @@
+{
+ "run_at_utc": "2026-10-06T03:43:15.221Z",
+ "out": {
+  "unpaywall:10.1109/tce.2025.3612821": {
+   "status": "ERR",
+   "raw": "TypeError: fetch failed"
+  },
+  "unpaywall:10.1007/978-3-032-31441-3_28": {
+   "status": "ERR",
+   "raw": "TypeError: fetch failed"
+  },
+  "crossref:ref30": [
+   {
+    "DOI": "10.2139/ssrn.4923937",
+    "title": [
+     "Concept, Principle, and Modeling of Driving Risk Entropy Based on Human-Vehicle-Road Coupling Model for Autonomous Vehicle"
+    ],
+    "type": "posted-content",
+    "issued": {
+     "date-parts": [
+      [
+       2024
+      ]
+     ]
+    },
+    "author": [
+     {
+      "given": "Hongbo",
+      "family": "Gao",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     },
+     {
+      "given": "Hanqing",
+      "family": "Yang",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     },
+     {
+      "given": "Juping",
+      "family": "Zhu",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     },
+     {
+      "given": "Huiping",
+      "family": "Su",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     },
+     {
+      "given": "Ning",
+      "family": "Wang",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     },
+     {
+      "given": "Liping",
+      "family": "XIE",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     },
+     {
+      "given": "Keqiang",
+      "family": "Li",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "DOI": "10.1109/itsc.2014.6957815",
+    "title": [
+     "The concept and modeling of driving safety field based on driver-vehicle-road interactions"
+    ],
+    "container-title": [
+     "17th International IEEE Conference on Intelligent Transportation Systems (ITSC)"
+    ],
+    "type": "proceedings-article",
+    "issued": {
+     "date-parts": [
+      [
+       2014,
+       10
+      ]
+     ]
+    },
+    "author": [
+     {
+      "given": "Jianqiang",
+      "family": "Wang",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "given": "Jian",
+      "family": "Wu",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "given": "Yang",
+      "family": "Li",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "given": "Keqiang",
+      "family": "Li",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "DOI": "10.1016/j.neucom.2025.132395",
+    "title": [
+     "Concept, principle, and modeling of driving risk entropy based on human-vehicle-road coupling model for autonomous vehicle"
+    ],
+    "container-title": [
+     "Neurocomputing"
+    ],
+    "type": "journal-article",
+    "issued": {
+     "date-parts": [
+      [
+       2026,
+       3
+      ]
+     ]
+    },
+    "author": [
+     {
+      "ORCID": "https://orcid.org/0000-0002-5271-1280",
+      "authenticated-orcid": false,
+      "given": "Hongbo",
+      "family": "Gao",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "given": "Hanqing",
+      "family": "Yang",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "given": "Juping",
+      "family": "Zhu",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "given": "Huiping",
+      "family": "Su",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "given": "Chao",
+      "family": "Tang",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "given": "Xinmiao",
+      "family": "Wang",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "given": "Junjian",
+      "family": "Shi",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "given": "Cuican",
+      "family": "Shen",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "given": "Zhiyong",
+      "family": "Liu",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "given": "Keqiang",
+      "family": "Li",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "crossref:cjht": [
+   {
+    "DOI": "10.1080/15389588.2025.2560531",
+    "title": [
+     "Driving risk variation in mountainous highway tunnels of different lengths: Field evidence from Chongqing, China"
+    ],
+    "container-title": [
+     "Traffic Injury Prevention"
+    ],
+    "type": "journal-article",
+    "issued": {
+     "date-parts": [
+      [
+       2025,
+       10,
+       15
+      ]
+     ]
+    }
+   },
+   {
+    "DOI": "10.1016/j.aap.2025.108080",
+    "title": [
+     "Composite safety potential field for highway driving risk assessment"
+    ],
+    "container-title": [
+     "Accident Analysis &amp; Prevention"
+    ],
+    "type": "journal-article",
+    "issued": {
+     "date-parts": [
+      [
+       2025,
+       9
+      ]
+     ]
+    }
+   },
+   {
+    "DOI": "10.4337/9781786439246.00009",
+    "title": [
+     "Highway development in China"
+    ],
+    "container-title": [
+     "Handbook on Transport and Urban Transformation in China"
+    ],
+    "type": "book-chapter",
+    "issued": {
+     "date-parts": [
+      [
+       2020,
+       3,
+       2
+      ]
+     ]
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,36 @@
+﻿101 | FAIL-NOT-REGISTERED | 10.48550/arXiv.1806.07366
+102 | OK             | jac=1     | 10.1609/aaai.v35i9.16936           | 2021 | Proceedings of the AAAI Conference on Artifi | Liquid Time-constant Networks
+103 | OK             | jac=1     | 10.1038/s42256-020-00237-3         | 2020 | Nature Machine Intelligence                  | Neural circuit policies enabling auditable autonomy
+104 | FAIL-NOT-REGISTERED | 10.48550/arXiv.1907.03907
+105 | MISMATCH       | jac=0     | 10.1109/9.539424                   | 1996 | IEEE Transactions on Automatic Control       | Supervisory control of families of linear set-point controller
+106 | OK             | jac=1     | 10.1103/PhysRevE.62.1805           | 2000 | Physical Review E                            | Congested traffic states in empirical observations and microsc
+107 | OK             | jac=1     | 10.1016/0191-2615(81)90037-0       | 1981 | Transportation Research Part B: Methodologic | A behavioural car-following model for computer simulation
+108 | OK             | jac=1     | 10.1103/PhysRevE.64.017101         | 2001 | Physical Review E                            | Full velocity difference model for a car-following theory
+109 | MISMATCH       | jac=0.5   | 10.3141/1999-10                    | 2007 | Transportation Research Record: Journal of t | General Lane-Changing Model MOBIL for Car-Following Models
+110 | OK             | jac=1     | 10.1098/rsta.2010.0084             | 2010 | Philosophical Transactions of the Royal Soci | Enhanced intelligent driver model to access the impact of driv
+111 | OK             | jac=1     | 10.23919/ECC.2019.8796030          | 2019 | 2019 18th European Control Conference (ECC)  | Control Barrier Functions: Theory and Applications
+112 | FAIL-NOT-REGISTERED | 10.48550/arXiv.1708.06374
+113 | OK             | jac=1     | 10.1109/ITSC.2018.8569552          | 2018 | 2018 21st International Conference on Intell | The highD Dataset: A Drone Dataset of Naturalistic Vehicle Tra
+114 | OK             | jac=1     | 10.1109/CVPR42600.2020.01164       | 2020 | 2020 IEEE/CVF Conference on Computer Vision  | nuScenes: A Multimodal Dataset for Autonomous Driving
+115 | FAIL-NOT-REGISTERED | 10.48550/arXiv.1711.03938
+116 | OK             | jac=1     | 10.1109/CVPR52729.2023.01712       | 2023 | 2023 IEEE/CVF Conference on Computer Vision  | Planning-oriented Autonomous Driving
+117 | OK             | jac=1     | 10.1109/TPAMI.2024.3435937         | 2024 | IEEE Transactions on Pattern Analysis and Ma | End-to-End Autonomous Driving: Challenges and Frontiers
+118 | OK             | jac=1     | 10.1109/TPAMI.2024.3352811         | 2024 | IEEE Transactions on Pattern Analysis and Ma | MTR++: Multi-Agent Motion Prediction With Symmetric Scene Mode
+119 | WEAK           | jac=0.75  | 10.1007/978-3-031-73195-2_4        | 2024 | Lecture Notes in Computer Science            | DriveDreamer: Towards Real-World-Drive World Models for Autono
+120 | FAIL-NOT-REGISTERED | 10.1109/TPAMI.2022.3200242
+121 | OK             | jac=1     | 10.1109/LRA.2024.3440097           | 2024 | IEEE Robotics and Automation Letters         | DriveGPT4: Interpretable End-to-End Autonomous Driving Via Lar
+122 | FAIL-NOT-REGISTERED | 10.48550/arXiv.1802.09477
+123 | OK             | jac=1     | 10.1109/IROS.2017.8202133          | 2017 | 2017 IEEE/RSJ International Conference on In | Domain randomization for transferring deep neural networks fro
+124 | FAIL-NOT-REGISTERED | 10.5555/3157743.3157871
+125 | OK             | jac=1     | 10.1103/PhysRevE.51.4282           | 1995 | Physical Review E                            | Social force model for pedestrian dynamics
+126 | FAIL-NOT-REGISTERED | 10.48550/arXiv.1906.01563
+node : 
+At line:1 char:179
++ ... iterature"; node scripts/check_dois.mjs dois_appendix.json --out dois ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+wrote dois_appendix_checked.json (26); problems=10
+problem keys: 101:node-neurips2018, 104:latentode, 105:stringstability-tac1996, 109:mobil-trr2007, 112:rss2017, 115:car
+la-corl2017, 120:transfuser-tpami2023, 122:td3-pmlr2018, 124:dagger-aistats2011, 126:hnn-neurips2019

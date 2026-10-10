@@ -1,0 +1,668 @@
+[
+  {
+    "theme": "K01",
+    "cluster": "transport",
+    "q": "\"liquid neural network\" OR \"liquid time-constant\"",
+    "url": "https://api.openalex.org/works?search=%22liquid+neural+network%22+OR+%22liquid+time-constant%22&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 3,
+    "exported": 3
+  },
+  {
+    "theme": "K02",
+    "cluster": "transport",
+    "q": "\"closed-form continuous-time\" OR \"continuous-time recurrent\"",
+    "url": "https://api.openalex.org/works?search=%22closed-form+continuous-time%22+OR+%22continuous-time+recurrent%22&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 1,
+    "exported": 1
+  },
+  {
+    "theme": "K03",
+    "cluster": "transport",
+    "q": "\"neural ordinary differential equation\" OR \"neural ODE\"",
+    "url": "https://api.openalex.org/works?search=%22neural+ordinary+differential+equation%22+OR+%22neural+ODE%22&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 15,
+    "exported": 8
+  },
+  {
+    "theme": "K04",
+    "cluster": "transport",
+    "q": "\"ordinary differential equation\" AND \"deep learning\" AND control",
+    "url": "https://api.openalex.org/works?search=%22ordinary+differential+equation%22+AND+%22deep+learning%22+AND+control&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 12,
+    "exported": 8
+  },
+  {
+    "theme": "K05",
+    "cluster": "transport",
+    "q": "\"car-following\" OR \"car following\"",
+    "url": "https://api.openalex.org/works?search=%22car-following%22+OR+%22car+following%22&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 946,
+    "exported": 8
+  },
+  {
+    "theme": "K06",
+    "cluster": "transport",
+    "q": "\"string stability\" OR \"platoon\" OR \"vehicle platoon\"",
+    "url": "https://api.openalex.org/works?search=%22string+stability%22+OR+%22platoon%22+OR+%22vehicle+platoon%22&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 1471,
+    "exported": 8
+  },
+  {
+    "theme": "K07",
+    "cluster": "transport",
+    "q": "\"mixed traffic\" OR \"mixed autonomy\"",
+    "url": "https://api.openalex.org/works?search=%22mixed+traffic%22+OR+%22mixed+autonomy%22&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 854,
+    "exported": 8
+  },
+  {
+    "theme": "K08",
+    "cluster": "transport",
+    "q": "\"lane change\" OR \"lane-changing\" OR overtaking",
+    "url": "https://api.openalex.org/works?search=%22lane+change%22+OR+%22lane-changing%22+OR+overtaking&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 1457,
+    "exported": 8
+  },
+  {
+    "theme": "K09",
+    "cluster": "transport",
+    "q": "\"traffic oscillation\" OR \"traffic flow\" AND stability",
+    "url": "https://api.openalex.org/works?search=%22traffic+oscillation%22+OR+%22traffic+flow%22+AND+stability&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 751,
+    "exported": 8
+  },
+  {
+    "theme": "K10",
+    "cluster": "transport",
+    "q": "\"reinforcement learning\" AND (\"autonomous driving\" OR \"autonomous vehicle\")",
+    "url": "https://api.openalex.org/works?search=%22reinforcement+learning%22+AND+%28%22autonomous+driving%22+OR+%22autonomous+vehicle%22%29&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 922,
+    "exported": 8
+  },
+  {
+    "theme": "K11",
+    "cluster": "transport",
+    "q": "\"model predictive control\" AND (vehicle OR \"autonomous driving\")",
+    "url": "https://api.openalex.org/works?search=%22model+predictive+control%22+AND+%28vehicle+OR+%22autonomous+driving%22%29&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 1114,
+    "exported": 8
+  },
+  {
+    "theme": "K12",
+    "cluster": "transport",
+    "q": "\"control barrier function\" OR \"safety filter\"",
+    "url": "https://api.openalex.org/works?search=%22control+barrier+function%22+OR+%22safety+filter%22&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 96,
+    "exported": 8
+  },
+  {
+    "theme": "K13",
+    "cluster": "transport",
+    "q": "\"formal verification\" AND (\"neural network\" OR controller)",
+    "url": "https://api.openalex.org/works?search=%22formal+verification%22+AND+%28%22neural+network%22+OR+controller%29&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 34,
+    "exported": 8
+  },
+  {
+    "theme": "K14",
+    "cluster": "transport",
+    "q": "\"embedded\" OR \"microcontroller\" AND (\"neural network\" OR inference) AND \"real-time\"",
+    "url": "https://api.openalex.org/works?search=%22embedded%22+OR+%22microcontroller%22+AND+%28%22neural+network%22+OR+inference%29+AND+%22real-time%22&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 16,
+    "exported": 8
+  },
+  {
+    "theme": "K15",
+    "cluster": "transport",
+    "q": "\"quantization\" OR \"knowledge distillation\" OR \"model compression\" AND \"edge\"",
+    "url": "https://api.openalex.org/works?search=%22quantization%22+OR+%22knowledge+distillation%22+OR+%22model+compression%22+AND+%22edge%22&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 22,
+    "exported": 8
+  },
+  {
+    "theme": "K16",
+    "cluster": "transport",
+    "q": "\"end-to-end\" AND (\"autonomous driving\" OR \"self-driving\")",
+    "url": "https://api.openalex.org/works?search=%22end-to-end%22+AND+%28%22autonomous+driving%22+OR+%22self-driving%22%29&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 433,
+    "exported": 8
+  },
+  {
+    "theme": "K17",
+    "cluster": "transport",
+    "q": "\"trajectory prediction\" AND (\"autonomous driving\" OR \"road agents\")",
+    "url": "https://api.openalex.org/works?search=%22trajectory+prediction%22+AND+%28%22autonomous+driving%22+OR+%22road+agents%22%29&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 298,
+    "exported": 8
+  },
+  {
+    "theme": "K18",
+    "cluster": "transport",
+    "q": "\"world model\" AND (driving OR \"autonomous driving\")",
+    "url": "https://api.openalex.org/works?search=%22world+model%22+AND+%28driving+OR+%22autonomous+driving%22%29&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 33,
+    "exported": 8
+  },
+  {
+    "theme": "K19",
+    "cluster": "transport",
+    "q": "\"sim-to-real\" OR \"domain randomization\" OR \"CARLA\"",
+    "url": "https://api.openalex.org/works?search=%22sim-to-real%22+OR+%22domain+randomization%22+OR+%22CARLA%22&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 196,
+    "exported": 8
+  },
+  {
+    "theme": "K20",
+    "cluster": "transport",
+    "q": "\"physics-informed\" OR \"structure-preserving\" OR \"Hamiltonian\"",
+    "url": "https://api.openalex.org/works?search=%22physics-informed%22+OR+%22structure-preserving%22+OR+%22Hamiltonian%22&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 191,
+    "exported": 8
+  },
+  {
+    "theme": "K21",
+    "cluster": "transport",
+    "q": "\"driver behaviour\" OR \"driver behavior\" AND (heterogeneity OR aggressive)",
+    "url": "https://api.openalex.org/works?search=%22driver+behaviour%22+OR+%22driver+behavior%22+AND+%28heterogeneity+OR+aggressive%29&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 208,
+    "exported": 8
+  },
+  {
+    "theme": "K22",
+    "cluster": "transport",
+    "q": "\"sensitivity analysis\" AND (\"adjoint\" OR \"backpropagation\")",
+    "url": "https://api.openalex.org/works?search=%22sensitivity+analysis%22+AND+%28%22adjoint%22+OR+%22backpropagation%22%29&filter=primary_location.source.issn%3A1524-9050%7C2379-8858%7C0968-090X%7C0191-2615%7C0018-9545%7C0041-1655%7C0965-8564%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 25,
+    "exported": 8
+  },
+  {
+    "theme": "K01",
+    "cluster": "control",
+    "q": "\"liquid neural network\" OR \"liquid time-constant\"",
+    "url": "https://api.openalex.org/works?search=%22liquid+neural+network%22+OR+%22liquid+time-constant%22&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 2,
+    "exported": 2
+  },
+  {
+    "theme": "K02",
+    "cluster": "control",
+    "q": "\"closed-form continuous-time\" OR \"continuous-time recurrent\"",
+    "url": "https://api.openalex.org/works?search=%22closed-form+continuous-time%22+OR+%22continuous-time+recurrent%22&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 4,
+    "exported": 4
+  },
+  {
+    "theme": "K03",
+    "cluster": "control",
+    "q": "\"neural ordinary differential equation\" OR \"neural ODE\"",
+    "url": "https://api.openalex.org/works?search=%22neural+ordinary+differential+equation%22+OR+%22neural+ODE%22&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 18,
+    "exported": 8
+  },
+  {
+    "theme": "K04",
+    "cluster": "control",
+    "q": "\"ordinary differential equation\" AND \"deep learning\" AND control",
+    "url": "https://api.openalex.org/works?search=%22ordinary+differential+equation%22+AND+%22deep+learning%22+AND+control&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 30,
+    "exported": 8
+  },
+  {
+    "theme": "K05",
+    "cluster": "control",
+    "q": "\"car-following\" OR \"car following\"",
+    "url": "https://api.openalex.org/works?search=%22car-following%22+OR+%22car+following%22&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 42,
+    "exported": 8
+  },
+  {
+    "theme": "K06",
+    "cluster": "control",
+    "q": "\"string stability\" OR \"platoon\" OR \"vehicle platoon\"",
+    "url": "https://api.openalex.org/works?search=%22string+stability%22+OR+%22platoon%22+OR+%22vehicle+platoon%22&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 233,
+    "exported": 8
+  },
+  {
+    "theme": "K07",
+    "cluster": "control",
+    "q": "\"mixed traffic\" OR \"mixed autonomy\"",
+    "url": "https://api.openalex.org/works?search=%22mixed+traffic%22+OR+%22mixed+autonomy%22&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 45,
+    "exported": 8
+  },
+  {
+    "theme": "K08",
+    "cluster": "control",
+    "q": "\"lane change\" OR \"lane-changing\" OR overtaking",
+    "url": "https://api.openalex.org/works?search=%22lane+change%22+OR+%22lane-changing%22+OR+overtaking&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 149,
+    "exported": 8
+  },
+  {
+    "theme": "K09",
+    "cluster": "control",
+    "q": "\"traffic oscillation\" OR \"traffic flow\" AND stability",
+    "url": "https://api.openalex.org/works?search=%22traffic+oscillation%22+OR+%22traffic+flow%22+AND+stability&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 99,
+    "exported": 8
+  },
+  {
+    "theme": "K10",
+    "cluster": "control",
+    "q": "\"reinforcement learning\" AND (\"autonomous driving\" OR \"autonomous vehicle\")",
+    "url": "https://api.openalex.org/works?search=%22reinforcement+learning%22+AND+%28%22autonomous+driving%22+OR+%22autonomous+vehicle%22%29&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 282,
+    "exported": 8
+  },
+  {
+    "theme": "K11",
+    "cluster": "control",
+    "q": "\"model predictive control\" AND (vehicle OR \"autonomous driving\")",
+    "url": "https://api.openalex.org/works?search=%22model+predictive+control%22+AND+%28vehicle+OR+%22autonomous+driving%22%29&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 703,
+    "exported": 8
+  },
+  {
+    "theme": "K12",
+    "cluster": "control",
+    "q": "\"control barrier function\" OR \"safety filter\"",
+    "url": "https://api.openalex.org/works?search=%22control+barrier+function%22+OR+%22safety+filter%22&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 348,
+    "exported": 8
+  },
+  {
+    "theme": "K13",
+    "cluster": "control",
+    "q": "\"formal verification\" AND (\"neural network\" OR controller)",
+    "url": "https://api.openalex.org/works?search=%22formal+verification%22+AND+%28%22neural+network%22+OR+controller%29&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 80,
+    "exported": 8
+  },
+  {
+    "theme": "K14",
+    "cluster": "control",
+    "q": "\"embedded\" OR \"microcontroller\" AND (\"neural network\" OR inference) AND \"real-time\"",
+    "url": "https://api.openalex.org/works?search=%22embedded%22+OR+%22microcontroller%22+AND+%28%22neural+network%22+OR+inference%29+AND+%22real-time%22&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 51,
+    "exported": 8
+  },
+  {
+    "theme": "K15",
+    "cluster": "control",
+    "q": "\"quantization\" OR \"knowledge distillation\" OR \"model compression\" AND \"edge\"",
+    "url": "https://api.openalex.org/works?search=%22quantization%22+OR+%22knowledge+distillation%22+OR+%22model+compression%22+AND+%22edge%22&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 6,
+    "exported": 6
+  },
+  {
+    "theme": "K16",
+    "cluster": "control",
+    "q": "\"end-to-end\" AND (\"autonomous driving\" OR \"self-driving\")",
+    "url": "https://api.openalex.org/works?search=%22end-to-end%22+AND+%28%22autonomous+driving%22+OR+%22self-driving%22%29&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 215,
+    "exported": 8
+  },
+  {
+    "theme": "K17",
+    "cluster": "control",
+    "q": "\"trajectory prediction\" AND (\"autonomous driving\" OR \"road agents\")",
+    "url": "https://api.openalex.org/works?search=%22trajectory+prediction%22+AND+%28%22autonomous+driving%22+OR+%22road+agents%22%29&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 99,
+    "exported": 8
+  },
+  {
+    "theme": "K18",
+    "cluster": "control",
+    "q": "\"world model\" AND (driving OR \"autonomous driving\")",
+    "url": "https://api.openalex.org/works?search=%22world+model%22+AND+%28driving+OR+%22autonomous+driving%22%29&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 33,
+    "exported": 8
+  },
+  {
+    "theme": "K19",
+    "cluster": "control",
+    "q": "\"sim-to-real\" OR \"domain randomization\" OR \"CARLA\"",
+    "url": "https://api.openalex.org/works?search=%22sim-to-real%22+OR+%22domain+randomization%22+OR+%22CARLA%22&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 388,
+    "exported": 8
+  },
+  {
+    "theme": "K20",
+    "cluster": "control",
+    "q": "\"physics-informed\" OR \"structure-preserving\" OR \"Hamiltonian\"",
+    "url": "https://api.openalex.org/works?search=%22physics-informed%22+OR+%22structure-preserving%22+OR+%22Hamiltonian%22&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 701,
+    "exported": 8
+  },
+  {
+    "theme": "K21",
+    "cluster": "control",
+    "q": "\"driver behaviour\" OR \"driver behavior\" AND (heterogeneity OR aggressive)",
+    "url": "https://api.openalex.org/works?search=%22driver+behaviour%22+OR+%22driver+behavior%22+AND+%28heterogeneity+OR+aggressive%29&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 12,
+    "exported": 8
+  },
+  {
+    "theme": "K22",
+    "cluster": "control",
+    "q": "\"sensitivity analysis\" AND (\"adjoint\" OR \"backpropagation\")",
+    "url": "https://api.openalex.org/works?search=%22sensitivity+analysis%22+AND+%28%22adjoint%22+OR+%22backpropagation%22%29&filter=primary_location.source.issn%3A1063-6536%7C0018-9286%7C0005-1098%7C2377-3766%7C1556-4959%7C2470-9476%7C2573-5144%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 11,
+    "exported": 8
+  },
+  {
+    "theme": "K01",
+    "cluster": "ml",
+    "q": "\"liquid neural network\" OR \"liquid time-constant\"",
+    "url": "https://api.openalex.org/works?search=%22liquid+neural+network%22+OR+%22liquid+time-constant%22&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 10,
+    "exported": 8
+  },
+  {
+    "theme": "K02",
+    "cluster": "ml",
+    "q": "\"closed-form continuous-time\" OR \"continuous-time recurrent\"",
+    "url": "https://api.openalex.org/works?search=%22closed-form+continuous-time%22+OR+%22continuous-time+recurrent%22&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 30,
+    "exported": 8
+  },
+  {
+    "theme": "K03",
+    "cluster": "ml",
+    "q": "\"neural ordinary differential equation\" OR \"neural ODE\"",
+    "url": "https://api.openalex.org/works?search=%22neural+ordinary+differential+equation%22+OR+%22neural+ODE%22&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 117,
+    "exported": 8
+  },
+  {
+    "theme": "K04",
+    "cluster": "ml",
+    "q": "\"ordinary differential equation\" AND \"deep learning\" AND control",
+    "url": "https://api.openalex.org/works?search=%22ordinary+differential+equation%22+AND+%22deep+learning%22+AND+control&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 136,
+    "exported": 8
+  },
+  {
+    "theme": "K05",
+    "cluster": "ml",
+    "q": "\"car-following\" OR \"car following\"",
+    "url": "https://api.openalex.org/works?search=%22car-following%22+OR+%22car+following%22&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 23,
+    "exported": 8
+  },
+  {
+    "theme": "K06",
+    "cluster": "ml",
+    "q": "\"string stability\" OR \"platoon\" OR \"vehicle platoon\"",
+    "url": "https://api.openalex.org/works?search=%22string+stability%22+OR+%22platoon%22+OR+%22vehicle+platoon%22&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 22,
+    "exported": 8
+  },
+  {
+    "theme": "K07",
+    "cluster": "ml",
+    "q": "\"mixed traffic\" OR \"mixed autonomy\"",
+    "url": "https://api.openalex.org/works?search=%22mixed+traffic%22+OR+%22mixed+autonomy%22&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 15,
+    "exported": 8
+  },
+  {
+    "theme": "K08",
+    "cluster": "ml",
+    "q": "\"lane change\" OR \"lane-changing\" OR overtaking",
+    "url": "https://api.openalex.org/works?search=%22lane+change%22+OR+%22lane-changing%22+OR+overtaking&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 216,
+    "exported": 8
+  },
+  {
+    "theme": "K09",
+    "cluster": "ml",
+    "q": "\"traffic oscillation\" OR \"traffic flow\" AND stability",
+    "url": "https://api.openalex.org/works?search=%22traffic+oscillation%22+OR+%22traffic+flow%22+AND+stability&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 62,
+    "exported": 8
+  },
+  {
+    "theme": "K10",
+    "cluster": "ml",
+    "q": "\"reinforcement learning\" AND (\"autonomous driving\" OR \"autonomous vehicle\")",
+    "url": "https://api.openalex.org/works?search=%22reinforcement+learning%22+AND+%28%22autonomous+driving%22+OR+%22autonomous+vehicle%22%29&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 236,
+    "exported": 8
+  },
+  {
+    "theme": "K11",
+    "cluster": "ml",
+    "q": "\"model predictive control\" AND (vehicle OR \"autonomous driving\")",
+    "url": "https://api.openalex.org/works?search=%22model+predictive+control%22+AND+%28vehicle+OR+%22autonomous+driving%22%29&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 70,
+    "exported": 8
+  },
+  {
+    "theme": "K12",
+    "cluster": "ml",
+    "q": "\"control barrier function\" OR \"safety filter\"",
+    "url": "https://api.openalex.org/works?search=%22control+barrier+function%22+OR+%22safety+filter%22&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 42,
+    "exported": 8
+  },
+  {
+    "theme": "K13",
+    "cluster": "ml",
+    "q": "\"formal verification\" AND (\"neural network\" OR controller)",
+    "url": "https://api.openalex.org/works?search=%22formal+verification%22+AND+%28%22neural+network%22+OR+controller%29&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 20,
+    "exported": 8
+  },
+  {
+    "theme": "K14",
+    "cluster": "ml",
+    "q": "\"embedded\" OR \"microcontroller\" AND (\"neural network\" OR inference) AND \"real-time\"",
+    "url": "https://api.openalex.org/works?search=%22embedded%22+OR+%22microcontroller%22+AND+%28%22neural+network%22+OR+inference%29+AND+%22real-time%22&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 129,
+    "exported": 8
+  },
+  {
+    "theme": "K15",
+    "cluster": "ml",
+    "q": "\"quantization\" OR \"knowledge distillation\" OR \"model compression\" AND \"edge\"",
+    "url": "https://api.openalex.org/works?search=%22quantization%22+OR+%22knowledge+distillation%22+OR+%22model+compression%22+AND+%22edge%22&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "retries exhausted",
+    "hits": null,
+    "exported": 0
+  },
+  {
+    "theme": "K16",
+    "cluster": "ml",
+    "q": "\"end-to-end\" AND (\"autonomous driving\" OR \"self-driving\")",
+    "url": "https://api.openalex.org/works?search=%22end-to-end%22+AND+%28%22autonomous+driving%22+OR+%22self-driving%22%29&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "retries exhausted",
+    "hits": null,
+    "exported": 0
+  },
+  {
+    "theme": "K17",
+    "cluster": "ml",
+    "q": "\"trajectory prediction\" AND (\"autonomous driving\" OR \"road agents\")",
+    "url": "https://api.openalex.org/works?search=%22trajectory+prediction%22+AND+%28%22autonomous+driving%22+OR+%22road+agents%22%29&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "retries exhausted",
+    "hits": null,
+    "exported": 0
+  },
+  {
+    "theme": "K18",
+    "cluster": "ml",
+    "q": "\"world model\" AND (driving OR \"autonomous driving\")",
+    "url": "https://api.openalex.org/works?search=%22world+model%22+AND+%28driving+OR+%22autonomous+driving%22%29&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "retries exhausted",
+    "hits": null,
+    "exported": 0
+  },
+  {
+    "theme": "K19",
+    "cluster": "ml",
+    "q": "\"sim-to-real\" OR \"domain randomization\" OR \"CARLA\"",
+    "url": "https://api.openalex.org/works?search=%22sim-to-real%22+OR+%22domain+randomization%22+OR+%22CARLA%22&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "retries exhausted",
+    "hits": null,
+    "exported": 0
+  },
+  {
+    "theme": "K20",
+    "cluster": "ml",
+    "q": "\"physics-informed\" OR \"structure-preserving\" OR \"Hamiltonian\"",
+    "url": "https://api.openalex.org/works?search=%22physics-informed%22+OR+%22structure-preserving%22+OR+%22Hamiltonian%22&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "retries exhausted",
+    "hits": null,
+    "exported": 0
+  },
+  {
+    "theme": "K21",
+    "cluster": "ml",
+    "q": "\"driver behaviour\" OR \"driver behavior\" AND (heterogeneity OR aggressive)",
+    "url": "https://api.openalex.org/works?search=%22driver+behaviour%22+OR+%22driver+behavior%22+AND+%28heterogeneity+OR+aggressive%29&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "retries exhausted",
+    "hits": null,
+    "exported": 0
+  },
+  {
+    "theme": "K22",
+    "cluster": "ml",
+    "q": "\"sensitivity analysis\" AND (\"adjoint\" OR \"backpropagation\")",
+    "url": "https://api.openalex.org/works?search=%22sensitivity+analysis%22+AND+%28%22adjoint%22+OR+%22backpropagation%22%29&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "retries exhausted",
+    "hits": null,
+    "exported": 0
+  },
+  {
+    "theme": "K15",
+    "cluster": "ml",
+    "q": "\"quantization\" OR \"knowledge distillation\" OR \"model compression\"",
+    "url": "https://api.openalex.org/works?search=%22quantization%22+OR+%22knowledge+distillation%22+OR+%22model+compression%22&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "retries exhausted",
+    "hits": null,
+    "exported": 0
+  },
+  {
+    "theme": "K16",
+    "cluster": "ml",
+    "q": "\"end-to-end\" AND (\"autonomous driving\" OR \"self-driving\")",
+    "url": "https://api.openalex.org/works?search=%22end-to-end%22+AND+%28%22autonomous+driving%22+OR+%22self-driving%22%29&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "retries exhausted",
+    "hits": null,
+    "exported": 0
+  },
+  {
+    "theme": "K17",
+    "cluster": "ml",
+    "q": "\"trajectory prediction\" AND (\"autonomous driving\" OR \"road agents\" OR \"road users\")",
+    "url": "https://api.openalex.org/works?search=%22trajectory+prediction%22+AND+%28%22autonomous+driving%22+OR+%22road+agents%22+OR+%22road+users%22%29&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "retries exhausted",
+    "hits": null,
+    "exported": 0
+  },
+  {
+    "theme": "K18",
+    "cluster": "ml",
+    "q": "\"world model\" AND (driving OR \"autonomous driving\")",
+    "url": "https://api.openalex.org/works?search=%22world+model%22+AND+%28driving+OR+%22autonomous+driving%22%29&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "retries exhausted",
+    "hits": null,
+    "exported": 0
+  },
+  {
+    "theme": "K19",
+    "cluster": "ml",
+    "q": "\"sim-to-real\" OR \"domain randomization\" OR \"CARLA\"",
+    "url": "https://api.openalex.org/works?search=%22sim-to-real%22+OR+%22domain+randomization%22+OR+%22CARLA%22&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "fetch failed",
+    "hits": null,
+    "exported": 0
+  },
+  {
+    "theme": "K20",
+    "cluster": "ml",
+    "q": "\"physics-informed\" OR \"structure-preserving\" OR \"Hamiltonian\"",
+    "url": "https://api.openalex.org/works?search=%22physics-informed%22+OR+%22structure-preserving%22+OR+%22Hamiltonian%22&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "retries exhausted",
+    "hits": null,
+    "exported": 0
+  },
+  {
+    "theme": "K21",
+    "cluster": "ml",
+    "q": "\"driver behaviour\" OR \"driver behavior\" OR \"driving style\"",
+    "url": "https://api.openalex.org/works?search=%22driver+behaviour%22+OR+%22driver+behavior%22+OR+%22driving+style%22&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "retries exhausted",
+    "hits": null,
+    "exported": 0
+  },
+  {
+    "theme": "K22",
+    "cluster": "ml",
+    "q": "\"adjoint\" AND (\"sensitivity\" OR \"gradient\")",
+    "url": "https://api.openalex.org/works?search=%22adjoint%22+AND+%28%22sensitivity%22+OR+%22gradient%22%29&filter=primary_location.source.issn%3A2522-5839%7C0162-8828%7C2162-237X%7C1532-4435%7C2041-1723%7C2471-285X%7C0925-2312%2Cfrom_publication_date%3A2012-01-01%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=8&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "retries exhausted",
+    "hits": null,
+    "exported": 0
+  }
+]

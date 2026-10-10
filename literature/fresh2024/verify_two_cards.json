@@ -1,0 +1,910 @@
+{
+ "run_at_utc": "2026-10-06T03:42:15.126Z",
+ "channel": "arXiv API + Crossref REST (api.crossref.org/works?query.bibliographic=...)",
+ "log": [
+  {
+   "kind": "arxiv",
+   "id": "2506.16311",
+   "status": 200,
+   "len": 3016,
+   "body": "<?xml version='1.0' encoding='UTF-8'?>\n<feed xmlns:opensearch=\"http://a9.com/-/spec/opensearch/1.1/\" xmlns:arxiv=\"http://arxiv.org/schemas/atom\" xmlns=\"http://www.w3.org/2005/Atom\">\n  <id>https://arxiv.org/api/QV54fpZSPIP8CLDDAzJGm986NPA</id>\n  <title>arXiv Query: search_query=&amp;id_list=2506.16311&amp;start=0&amp;max_results=1</title>\n  <updated>2026-10-06T03:42:09Z</updated>\n  <link href=\"https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=1&amp;id_list=2506.16311\" type=\"application/atom+xml\"/>\n  <opensearch:itemsPerPage>1</opensearch:itemsPerPage>\n  <opensearch:totalResults>1</opensearch:totalResults>\n  <opensearch:startIndex>0</opensearch:startIndex>\n  <entry>\n    <id>http://arxiv.org/abs/2506.16311v1</id>\n    <title>Towards Emergency Scenarios: An Integrated Decision-making Framework of Multi-lane Platoon Reorganization</title>\n    <updated>2025-06-19T13:35:27Z</updated>\n    <link href=\"https://arxiv.org/abs/2506.16311v1\" rel=\"alternate\" type=\"text/html\"/>\n    <link href=\"https://arxiv.org/pdf/2506.16311v1\" rel=\"related\" type=\"application/pdf\" title=\"pdf\"/>\n    <summary>To enhance the ability for vehicle platoons to respond to emergency scenarios, a platoon distribution reorganization decision-making framework is proposed. This framework contains platoon distribution layer, vehicle cooperative decision-making layer and vehicle planning and control layer. Firstly, a reinforcement-learning-based platoon distribution model is presented, where a risk potential field is established to quantitatively assess driving risks, and a reward function tailored to the platoon reorganization process is constructed. Then, a coalition-game-based vehicle cooperative decision-making model is put forward, modeling the cooperative relationships among vehicles through dividing coalitions and generating the optimal decision results for each vehicle. Additionally, a novel graph-theory-based Platoon Disposition Index (PDI) is incorporated into the game reward function to measure the platoon's distribution state during the reorganization process, in order to accelerating the reorganization process. Finally, the validation of the proposed framework is conducted in two high-risk scenarios under random traffic flows. The results show that, compared to the baseline models, the proposed method can significantly reduce the collision rate and improve driving efficiency. Moreover, the model with PDI can significantly decrease the platoon formation reorganization time and improve the reorganization efficiency.</summary>\n    <category term=\"cs.MA\" scheme=\"http://arxiv.org/schemas/atom\"/>\n    <published>2025-06-19T13:35:27Z</published>\n    <arxiv:primary_category term=\"cs.MA\"/>\n    <author>\n      <name>Aijing Kong</name>\n    </author>\n    <author>\n      <name>Chengkai Xu</name>\n    </author>\n    <author>\n      <name>Xian Wu</name>\n    </author>\n    <author>\n      <name>Xinbo Chen</name>\n    </author>\n    <author>\n      <name>Peng Hang</name>\n    </author>\n  </entry>\n</feed>\n"
+  },
+  {
+   "kind": "arxiv",
+   "id": "2601.06227",
+   "status": 200,
+   "len": 3304,
+   "body": "<?xml version='1.0' encoding='UTF-8'?>\n<feed xmlns:opensearch=\"http://a9.com/-/spec/opensearch/1.1/\" xmlns:arxiv=\"http://arxiv.org/schemas/atom\" xmlns=\"http://www.w3.org/2005/Atom\">\n  <id>https://arxiv.org/api/w+zpAGMD7wsyfmsmd/RFVPvhdK4</id>\n  <title>arXiv Query: search_query=&amp;id_list=2601.06227&amp;start=0&amp;max_results=1</title>\n  <updated>2026-10-06T03:42:10Z</updated>\n  <link href=\"https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=1&amp;id_list=2601.06227\" type=\"application/atom+xml\"/>\n  <opensearch:itemsPerPage>1</opensearch:itemsPerPage>\n  <opensearch:totalResults>1</opensearch:totalResults>\n  <opensearch:startIndex>0</opensearch:startIndex>\n  <entry>\n    <id>http://arxiv.org/abs/2601.06227v3</id>\n    <title>When Smaller Wins: Dual-Stage Distillation and Pareto-Guided Compression of Liquid Neural Networks for Edge Battery Prognostics</title>\n    <updated>2026-06-11T03:06:47Z</updated>\n    <link href=\"https://arxiv.org/abs/2601.06227v3\" rel=\"alternate\" type=\"text/html\"/>\n    <link href=\"https://arxiv.org/pdf/2601.06227v3\" rel=\"related\" type=\"application/pdf\" title=\"pdf\"/>\n    <summary>Battery management systems increasingly require accurate battery health prognostics under strict on-device constraints. This paper presents DLNet, a practical framework with dual-stage distillation of liquid neural networks that turns a high-capacity model into compact and edge-deployable models for battery health prediction. DLNet first applies Euler discretization to reformulate liquid dynamics for embedded compatibility. It then performs dual-stage knowledge distillation to transfer the teacher model's temporal behavior and recover it after further compression. Pareto-guided selection under joint error-cost objectives retains student models that balance accuracy and efficiency. We evaluate DLNet on a widely used dataset and validate real-device feasibility on an Arduino Nano 33 BLE Sense using int8 deployment. The final deployed student achieves a low error of 0.0066 when predicting battery health over the next 100 cycles, which is 15.4% lower than the teacher model. It reduces the model size from 616 kB to 94 kB with 84.7% reduction and takes 21 ms per inference on the device. These results support a practical smaller wins observation that a small model can match or exceed a large teacher for edge-based prognostics with proper supervision and selection. Beyond batteries, the DLNet framework can extend to other industrial analytics tasks with strict hardware constraints.</summary>\n    <category term=\"cs.LG\" scheme=\"http://arxiv.org/schemas/atom\"/>\n    <category term=\"cs.AI\" scheme=\"http://arxiv.org/schemas/atom\"/>\n    <published>2026-01-09T10:20:21Z</published>\n    <arxiv:comment>Accepted at International Conference on Pattern Recognition, ICPR 2026. Code available at: https://github.com/Dhivya-DD17/DLNet</arxiv:comment>\n    <arxiv:primary_category term=\"cs.LG\"/>\n    <author>\n      <name>Dhivya Dharshini Kannan</name>\n    </author>\n    <author>\n      <name>Wei Li</name>\n    </author>\n    <author>\n      <name>Wei Zhang</name>\n    </author>\n    <author>\n      <name>Jianbiao Wang</name>\n    </author>\n    <author>\n      <name>Zhi Wei Seh</name>\n    </author>\n    <author>\n      <name>Man-Fai Ng</name>\n    </author>\n  </entry>\n</feed>\n"
+  },
+  {
+   "kind": "crossref",
+   "query": "Towards Emergency Scenarios: An Integrated Decision-making Framework of Multi-lane Platoon Reorganization",
+   "status": 200,
+   "items": [
+    {
+     "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+     "DOI": "10.1109/tce.2025.3612821",
+     "type": "journal-article",
+     "created": {
+      "date-parts": [
+       [
+        2025,
+        9,
+        22
+       ]
+      ],
+      "date-time": "2025-09-22T17:44:24Z",
+      "timestamp": 1758563064000
+     },
+     "page": "11719-11733",
+     "title": [
+      "Towards Emergency Scenarios: An Integrated Decision-Making Framework of Multi-Lane Platoon Reorganization"
+     ],
+     "author": [
+      {
+       "ORCID": "https://orcid.org/0009-0002-9523-7846",
+       "authenticated-orcid": false,
+       "given": "Aijing",
+       "family": "Kong",
+       "sequence": "first",
+       "affiliation": [
+        {
+         "name": "School of Automotive Studies, Tongji University, Shanghai, China"
+        }
+       ],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      },
+      {
+       "ORCID": "https://orcid.org/0009-0000-6714-3004",
+       "authenticated-orcid": false,
+       "given": "Chengkai",
+       "family": "Xu",
+       "sequence": "additional",
+       "affiliation": [
+        {
+         "name": "College of Transportation, Tongji University, Shanghai, China"
+        }
+       ],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      },
+      {
+       "given": "Xian",
+       "family": "Wu",
+       "sequence": "additional",
+       "affiliation": [
+        {
+         "name": "School of Automotive Studies, Tongji University, Shanghai, China"
+        }
+       ],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      },
+      {
+       "given": "Xinbo",
+       "family": "Chen",
+       "sequence": "additional",
+       "affiliation": [
+        {
+         "name": "School of Automotive Studies, Tongji University, Shanghai, China"
+        }
+       ],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      },
+      {
+       "ORCID": "https://orcid.org/0000-0002-5843-0594",
+       "authenticated-orcid": false,
+       "given": "Peng",
+       "family": "Hang",
+       "sequence": "additional",
+       "affiliation": [
+        {
+         "name": "College of Transportation, Tongji University, Shanghai, China"
+        }
+       ],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      }
+     ],
+     "container-title": [
+      "IEEE Transactions on Consumer Electronics"
+     ],
+     "issued": {
+      "date-parts": [
+       [
+        2025,
+        11
+       ]
+      ]
+     },
+     "published": {
+      "date-parts": [
+       [
+        2025,
+        11
+       ]
+      ]
+     }
+    },
+    {
+     "DOI": "10.26616/nioshpub2023125",
+     "title": [
+      "Emergency decision-making: underground coal mine escape scenarios."
+     ],
+     "type": "report",
+     "issued": {
+      "date-parts": [
+       [
+        2023,
+        3,
+        1
+       ]
+      ]
+     },
+     "published": {
+      "date-parts": [
+       [
+        2023,
+        3,
+        1
+       ]
+      ]
+     },
+     "created": {
+      "date-parts": [
+       [
+        2023,
+        3,
+        2
+       ]
+      ],
+      "date-time": "2023-03-02T18:23:07Z",
+      "timestamp": 1677781387000
+     },
+     "publisher": "U.S. Department of Health and Human Services, Public Health Service, Centers for Disease Control and Prevention, National Institute for Occupational Safety and Health"
+    },
+    {
+     "publisher": "Springer Netherlands",
+     "DOI": "10.1007/978-94-011-3398-2_1",
+     "type": "book-chapter",
+     "created": {
+      "date-parts": [
+       [
+        2011,
+        9,
+        13
+       ]
+      ],
+      "date-time": "2011-09-13T09:23:41Z",
+      "timestamp": 1315905821000
+     },
+     "page": "1-7",
+     "title": [
+      "Simulation-oriented scenarios"
+     ],
+     "author": [
+      {
+       "given": "Uriel",
+       "family": "Rosenthal",
+       "sequence": "first",
+       "affiliation": [],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      },
+      {
+       "given": "Bert",
+       "family": "Pijnenburg",
+       "sequence": "additional",
+       "affiliation": [],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      }
+     ],
+     "container-title": [
+      "Crisis Management and Decision Making"
+     ],
+     "issued": {
+      "date-parts": [
+       [
+        1991
+       ]
+      ]
+     },
+     "ISBN": [
+      "9789401055031",
+      "9789401133982"
+     ],
+     "published": {
+      "date-parts": [
+       [
+        1991
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "kind": "crossref",
+   "query": "When Smaller Wins: Dual-Stage Distillation and Pareto-Guided Compression of Liquid Neural Networks for Edge Battery Prognostics",
+   "status": 200,
+   "items": [
+    {
+     "publisher": "Springer Nature Switzerland",
+     "DOI": "10.1007/978-3-032-31441-3_28",
+     "type": "book-chapter",
+     "created": {
+      "date-parts": [
+       [
+        2026,
+        7,
+        24
+       ]
+      ],
+      "date-time": "2026-07-24T13:21:45Z",
+      "timestamp": 1784899305000
+     },
+     "page": "414-429",
+     "title": [
+      "When Smaller Wins: Dual-Stage Distillation and Pareto-Guided Compression of Liquid Neural Networks for Edge Battery Prognostics"
+     ],
+     "author": [
+      {
+       "given": "Dhivya Dharshini",
+       "family": "Kannan",
+       "sequence": "first",
+       "affiliation": [],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      },
+      {
+       "given": "Wei",
+       "family": "Li",
+       "sequence": "additional",
+       "affiliation": [],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      },
+      {
+       "given": "Wei",
+       "family": "Zhang",
+       "sequence": "additional",
+       "affiliation": [],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      },
+      {
+       "given": "Jianbiao",
+       "family": "Wang",
+       "sequence": "additional",
+       "affiliation": [],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      },
+      {
+       "given": "Zhi Wei",
+       "family": "Seh",
+       "sequence": "additional",
+       "affiliation": [],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      },
+      {
+       "given": "Man-Fai",
+       "family": "Ng",
+       "sequence": "additional",
+       "affiliation": [],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      }
+     ],
+     "container-title": [
+      "Lecture Notes in Computer Science",
+      "Pattern Recognition"
+     ],
+     "issued": {
+      "date-parts": [
+       [
+        2026,
+        7,
+        25
+       ]
+      ]
+     },
+     "ISBN": [
+      "9783032314406",
+      "9783032314413"
+     ],
+     "published": {
+      "date-parts": [
+       [
+        2026,
+        7,
+        25
+       ]
+      ]
+     }
+    },
+    {
+     "publisher": "Elsevier BV",
+     "DOI": "10.1016/j.neunet.2024.106533",
+     "type": "journal-article",
+     "created": {
+      "date-parts": [
+       [
+        2024,
+        7,
+        17
+       ]
+      ],
+      "date-time": "2024-07-17T21:49:53Z",
+      "timestamp": 1721252993000
+     },
+     "page": "106533",
+     "title": [
+      "Joint Dual Feature Distillation and Gradient Progressive Pruning for BERT compression"
+     ],
+     "author": [
+      {
+       "given": "Zhou",
+       "family": "Zhang",
+       "sequence": "first",
+       "affiliation": [],
+       "role": [
+        {
+         "role": "author",
+         "vocabulary": "crossref"
+        }
+       ]
+      },
+      {
+       "given": "Yang",
+       "family": "Lu",
+       "sequence": "additional",
+       "affiliation": [],
+       "role": [
+        {
+         "role": "author",
+         "vocabulary": "crossref"
+        }
+       ]
+      },
+      {
+       "given": "Tengfei",
+       "family": "Wang",
+       "sequence": "additional",
+       "affiliation": [],
+       "role": [
+        {
+         "role": "author",
+         "vocabulary": "crossref"
+        }
+       ]
+      },
+      {
+       "given": "Xing",
+       "family": "Wei",
+       "sequence": "additional",
+       "affiliation": [],
+       "role": [
+        {
+         "role": "author",
+         "vocabulary": "crossref"
+        }
+       ]
+      },
+      {
+       "given": "Zhen",
+       "family": "Wei",
+       "sequence": "additional",
+       "affiliation": [],
+       "role": [
+        {
+         "role": "author",
+         "vocabulary": "crossref"
+        }
+       ]
+      }
+     ],
+     "container-title": [
+      "Neural Networks"
+     ],
+     "issued": {
+      "date-parts": [
+       [
+        2024,
+        11
+       ]
+      ]
+     },
+     "published": {
+      "date-parts": [
+       [
+        2024,
+        11
+       ]
+      ]
+     }
+    },
+    {
+     "publisher": "Elsevier BV",
+     "DOI": "10.1016/j.neunet.2024.106555",
+     "type": "journal-article",
+     "created": {
+      "date-parts": [
+       [
+        2024,
+        7,
+        22
+       ]
+      ],
+      "date-time": "2024-07-22T23:23:35Z",
+      "timestamp": 1721690615000
+     },
+     "page": "106555",
+     "title": [
+      "Dual-stage feedback network for lightweight color image compression artifact reduction"
+     ],
+     "author": [
+      {
+       "given": "Zhengxin",
+       "family": "Chen",
+       "sequence": "first",
+       "affiliation": [],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      },
+      {
+       "given": "Xiaohai",
+       "family": "He",
+       "sequence": "additional",
+       "affiliation": [],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      },
+      {
+       "given": "Tingrong",
+       "family": "Zhang",
+       "sequence": "additional",
+       "affiliation": [],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      },
+      {
+       "given": "Shuhua",
+       "family": "Xiong",
+       "sequence": "additional",
+       "affiliation": [],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      },
+      {
+       "given": "Chao",
+       "family": "Ren",
+       "sequence": "additional",
+       "affiliation": [],
+       "role": [
+        {
+         "vocabulary": "crossref",
+         "role": "author"
+        }
+       ]
+      }
+     ],
+     "container-title": [
+      "Neural Networks"
+     ],
+     "issued": {
+      "date-parts": [
+       [
+        2024,
+        11
+       ]
+      ]
+     },
+     "published": {
+      "date-parts": [
+       [
+        2024,
+        11
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "kind": "crossref",
+   "query": "Dual-Stage Distillation Pareto-Guided Compression Liquid Neural Networks Battery",
+   "status": 200,
+   "items": [
+    {
+     "DOI": "10.1007/978-3-032-31441-3_28",
+     "title": [
+      "When Smaller Wins: Dual-Stage Distillation and Pareto-Guided Compression of Liquid Neural Networks for Edge Battery Prognostics"
+     ],
+     "container-title": [
+      "Lecture Notes in Computer Science",
+      "Pattern Recognition"
+     ],
+     "type": "book-chapter",
+     "issued": {
+      "date-parts": [
+       [
+        2026,
+        7,
+        25
+       ]
+      ]
+     },
+     "published": {
+      "date-parts": [
+       [
+        2026,
+        7,
+        25
+       ]
+      ]
+     },
+     "created": {
+      "date-parts": [
+       [
+        2026,
+        7,
+        24
+       ]
+      ],
+      "date-time": "2026-07-24T13:21:45Z",
+      "timestamp": 1784899305000
+     }
+    },
+    {
+     "DOI": "10.1016/j.neunet.2024.106533",
+     "title": [
+      "Joint Dual Feature Distillation and Gradient Progressive Pruning for BERT compression"
+     ],
+     "container-title": [
+      "Neural Networks"
+     ],
+     "type": "journal-article",
+     "issued": {
+      "date-parts": [
+       [
+        2024,
+        11
+       ]
+      ]
+     },
+     "published": {
+      "date-parts": [
+       [
+        2024,
+        11
+       ]
+      ]
+     },
+     "created": {
+      "date-parts": [
+       [
+        2024,
+        7,
+        17
+       ]
+      ],
+      "date-time": "2024-07-17T21:49:53Z",
+      "timestamp": 1721252993000
+     }
+    },
+    {
+     "DOI": "10.1016/j.neunet.2024.106555",
+     "title": [
+      "Dual-stage feedback network for lightweight color image compression artifact reduction"
+     ],
+     "container-title": [
+      "Neural Networks"
+     ],
+     "type": "journal-article",
+     "issued": {
+      "date-parts": [
+       [
+        2024,
+        11
+       ]
+      ]
+     },
+     "published": {
+      "date-parts": [
+       [
+        2024,
+        11
+       ]
+      ]
+     },
+     "created": {
+      "date-parts": [
+       [
+        2024,
+        7,
+        22
+       ]
+      ],
+      "date-time": "2024-07-22T23:23:35Z",
+      "timestamp": 1721690615000
+     }
+    },
+    {
+     "DOI": "10.1016/j.neunet.2026.109631",
+     "title": [
+      "A novel approach to lossless convolutional neural network compression via progressive knowledge distillation-incorporated low-rank compression"
+     ],
+     "container-title": [
+      "Neural Networks"
+     ],
+     "type": "journal-article",
+     "issued": {
+      "date-parts": [
+       [
+        2027,
+        1
+       ]
+      ]
+     },
+     "published": {
+      "date-parts": [
+       [
+        2027,
+        1
+       ]
+      ]
+     },
+     "created": {
+      "date-parts": [
+       [
+        2026,
+        9,
+        12
+       ]
+      ],
+      "date-time": "2026-09-12T06:45:13Z",
+      "timestamp": 1789195513000
+     }
+    },
+    {
+     "DOI": "10.1016/j.neunet.2026.109581",
+     "title": [
+      "Multimodal-guided self-distillation for unified person search"
+     ],
+     "container-title": [
+      "Neural Networks"
+     ],
+     "type": "journal-article",
+     "issued": {
+      "date-parts": [
+       [
+        2027,
+        1
+       ]
+      ]
+     },
+     "published": {
+      "date-parts": [
+       [
+        2027,
+        1
+       ]
+      ]
+     },
+     "created": {
+      "date-parts": [
+       [
+        2026,
+        9,
+        2
+       ]
+      ],
+      "date-time": "2026-09-02T23:05:43Z",
+      "timestamp": 1788390343000
+     }
+    }
+   ]
+  },
+  {
+   "kind": "crossref-container",
+   "query": "ICPR 2026 International Conference on Pattern Recognition",
+   "status": 200,
+   "items": [
+    {
+     "DOI": "10.1109/icpr.2006.1088",
+     "title": [
+      "Subpixel Alignment of MRI Data Under Cartesian and Log-Polar Sampling"
+     ],
+     "container-title": [
+      "18th International Conference on Pattern Recognition (ICPR'06)"
+     ],
+     "type": "proceedings-article",
+     "issued": {
+      "date-parts": [
+       [
+        2006
+       ]
+      ]
+     }
+    },
+    {
+     "DOI": "10.1109/icpr48806.2021.9413220",
+     "title": [
+      "Directional Graph Networks with Hard Weight Assignments"
+     ],
+     "container-title": [
+      "2020 25th International Conference on Pattern Recognition (ICPR)"
+     ],
+     "type": "proceedings-article",
+     "issued": {
+      "date-parts": [
+       [
+        2021,
+        1,
+        10
+       ]
+      ]
+     }
+    },
+    {
+     "DOI": "10.1109/icpr.2018.8545795",
+     "title": [
+      "A Deep Graphical Model for Layered Knowledge Transfer"
+     ],
+     "container-title": [
+      "2018 24th International Conference on Pattern Recognition (ICPR)"
+     ],
+     "type": "proceedings-article",
+     "issued": {
+      "date-parts": [
+       [
+        2018,
+        8
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "kind": "crossref-container",
+   "query": "Pattern Recognition ICPR 2026 proceedings",
+   "status": 200,
+   "items": [
+    {
+     "DOI": "10.1007/978-3-032-39518-4_10",
+     "title": [
+      "Spatial-Temporal Expert Learning for Video-based Person Re-identification"
+     ],
+     "container-title": [
+      "Lecture Notes in Computer Science",
+      "Pattern Recognition. ICPR 2026 International Workshops"
+     ],
+     "type": "book-chapter",
+     "issued": {
+      "date-parts": [
+       [
+        2026,
+        9,
+        28
+       ]
+      ]
+     }
+    },
+    {
+     "DOI": "10.1007/978-3-032-39518-4_12",
+     "title": [
+      "Enhancing the Accuracy of Aerial Imagery-Based Object Position Estimation"
+     ],
+     "container-title": [
+      "Lecture Notes in Computer Science",
+      "Pattern Recognition. ICPR 2026 International Workshops"
+     ],
+     "type": "book-chapter",
+     "issued": {
+      "date-parts": [
+       [
+        2026,
+        9,
+        28
+       ]
+      ]
+     }
+    },
+    {
+     "DOI": "10.1007/978-3-032-39385-2_28",
+     "title": [
+      "CORSIA: Core Regression for Soil Image Analysis"
+     ],
+     "container-title": [
+      "Lecture Notes in Computer Science",
+      "Pattern Recognition. ICPR 2026 International Workshops"
+     ],
+     "type": "book-chapter",
+     "issued": {
+      "date-parts": [
+       [
+        2026,
+        10,
+        1
+       ]
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,289 @@
+{
+  "run_utc": "2026-10-06T03:29:47.286Z",
+  "from": "2024-01-01",
+  "channels": [],
+  "queries": [
+    {
+      "id": "T01",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 25,
+      "total": 68487
+    },
+    {
+      "id": "T02",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 25,
+      "total": 115458
+    },
+    {
+      "id": "T03",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 25,
+      "total": 47244
+    },
+    {
+      "id": "T04",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 25,
+      "total": 10991
+    },
+    {
+      "id": "T05",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 25,
+      "total": 35966
+    },
+    {
+      "id": "T06",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 25,
+      "total": 14460
+    },
+    {
+      "id": "T07",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 25,
+      "total": 1370
+    },
+    {
+      "id": "T08",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 25,
+      "total": 2584
+    },
+    {
+      "id": "T09",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 25,
+      "total": 931
+    },
+    {
+      "id": "T10",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 25,
+      "total": 14446
+    },
+    {
+      "id": "T11",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 25,
+      "total": 30011
+    },
+    {
+      "id": "T12",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 25,
+      "total": 3384
+    },
+    {
+      "id": "K01",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 2,
+      "total": 2
+    },
+    {
+      "id": "K02",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 15,
+      "total": 488
+    },
+    {
+      "id": "K03",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 5,
+      "total": 5
+    },
+    {
+      "id": "K04",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 15,
+      "total": 60
+    },
+    {
+      "id": "K05",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 7,
+      "total": 7
+    },
+    {
+      "id": "K06",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 15,
+      "total": 83
+    },
+    {
+      "id": "K07",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 0,
+      "total": null
+    },
+    {
+      "id": "K08",
+      "channel": "openalex",
+      "status": 200,
+      "hits": 10,
+      "total": 10
+    },
+    {
+      "id": "X02",
+      "channel": "crossref",
+      "status": 200,
+      "hits": 20,
+      "total": 275526
+    },
+    {
+      "id": "X03",
+      "channel": "crossref",
+      "status": 200,
+      "hits": 20,
+      "total": 405614
+    },
+    {
+      "id": "X04",
+      "channel": "crossref",
+      "status": 200,
+      "hits": 20,
+      "total": 562826
+    },
+    {
+      "id": "X05",
+      "channel": "crossref",
+      "status": 200,
+      "hits": 20,
+      "total": 613550
+    },
+    {
+      "id": "X06",
+      "channel": "crossref",
+      "status": 200,
+      "hits": 20,
+      "total": 187318
+    },
+    {
+      "id": "X07",
+      "channel": "crossref",
+      "status": 200,
+      "hits": 20,
+      "total": 199628
+    },
+    {
+      "id": "X08",
+      "channel": "crossref",
+      "status": 200,
+      "hits": 20,
+      "total": 325778
+    },
+    {
+      "id": "X09",
+      "channel": "crossref",
+      "status": 200,
+      "hits": 20,
+      "total": 826685
+    },
+    {
+      "id": "X10",
+      "channel": "crossref",
+      "status": 200,
+      "hits": 20,
+      "total": 224567
+    },
+    {
+      "id": "A01",
+      "channel": "arxiv",
+      "status": 200,
+      "fetched": 37,
+      "since_2024": 34
+    },
+    {
+      "id": "A02",
+      "channel": "arxiv",
+      "status": 200,
+      "fetched": 28,
+      "since_2024": 21
+    },
+    {
+      "id": "A03",
+      "channel": "arxiv",
+      "status": 200,
+      "fetched": 15,
+      "since_2024": 10
+    },
+    {
+      "id": "A04",
+      "channel": "arxiv",
+      "status": 200,
+      "fetched": 7,
+      "since_2024": 5
+    },
+    {
+      "id": "A05",
+      "channel": "arxiv",
+      "status": 200,
+      "fetched": 0,
+      "since_2024": 0
+    },
+    {
+      "id": "A06",
+      "channel": "arxiv",
+      "status": 200,
+      "fetched": 9,
+      "since_2024": 3
+    },
+    {
+      "id": "A07",
+      "channel": "arxiv",
+      "status": 200,
+      "fetched": 40,
+      "since_2024": 24
+    },
+    {
+      "id": "A08",
+      "channel": "arxiv",
+      "status": 200,
+      "fetched": 40,
+      "since_2024": 31
+    },
+    {
+      "id": "A09",
+      "channel": "arxiv",
+      "status": 200,
+      "fetched": 14,
+      "since_2024": 7
+    },
+    {
+      "id": "A10",
+      "channel": "arxiv",
+      "status": 200,
+      "fetched": 40,
+      "since_2024": 40
+    }
+  ],
+  "totals": {
+    "raw": 724,
+    "unique": 585,
+    "by_source": {
+      "openalex": 307,
+      "crossref": 109,
+      "arxiv": 169
+    }
+  }
+}

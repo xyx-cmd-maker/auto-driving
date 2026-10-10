@@ -1,0 +1,101 @@
+[
+  {
+    "id": "R1",
+    "mode": "recent",
+    "q": "\"liquid neural network\"",
+    "from": "2024-01-01",
+    "sort": "published",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22liquid%20neural%20network%22&filter=from-pub-date:2024-01-01,type:journal-article&sort=published&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 347834,
+    "exported": 25
+  },
+  {
+    "id": "R2",
+    "mode": "recent",
+    "q": "\"liquid time-constant\"",
+    "from": "2024-01-01",
+    "sort": "published",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22liquid%20time-constant%22&filter=from-pub-date:2024-01-01,type:journal-article&sort=published&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 274539,
+    "exported": 25
+  },
+  {
+    "id": "R3",
+    "mode": "recent",
+    "q": "\"closed-form continuous-time\"",
+    "from": "2024-01-01",
+    "sort": "published",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22closed-form%20continuous-time%22&filter=from-pub-date:2024-01-01,type:journal-article&sort=published&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 288338,
+    "exported": 25
+  },
+  {
+    "id": "R4",
+    "mode": "recent",
+    "q": "\"neural ordinary differential equation\" control",
+    "from": "2024-01-01",
+    "sort": "published",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22neural%20ordinary%20differential%20equation%22%20control&filter=from-pub-date:2024-01-01,type:journal-article&sort=published&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 469333,
+    "exported": 25
+  },
+  {
+    "id": "R5",
+    "mode": "recent",
+    "q": "\"string stability\" \"mixed traffic\"",
+    "from": "2024-01-01",
+    "sort": "published",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22string%20stability%22%20%22mixed%20traffic%22&filter=from-pub-date:2024-01-01,type:journal-article&sort=published&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 186559,
+    "exported": 25
+  },
+  {
+    "id": "R6",
+    "mode": "recent",
+    "q": "\"car-following\" \"reinforcement learning\"",
+    "from": "2024-01-01",
+    "sort": "published",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22car-following%22%20%22reinforcement%20learning%22&filter=from-pub-date:2024-01-01,type:journal-article&sort=published&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 705676,
+    "exported": 25
+  },
+  {
+    "id": "R7",
+    "mode": "recent",
+    "q": "\"control barrier function\" \"learning-based control\"",
+    "from": "2024-01-01",
+    "sort": "published",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22control%20barrier%20function%22%20%22learning-based%20control%22&filter=from-pub-date:2024-01-01,type:journal-article&sort=published&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 1990487,
+    "exported": 25
+  },
+  {
+    "id": "R8",
+    "mode": "recent",
+    "q": "\"vehicle platoon\" \"mixed traffic\" control",
+    "from": "2024-01-01",
+    "sort": "published",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22vehicle%20platoon%22%20%22mixed%20traffic%22%20control&filter=from-pub-date:2024-01-01,type:journal-article&sort=published&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 400664,
+    "exported": 25
+  },
+  {
+    "id": "R9",
+    "mode": "recent",
+    "q": "\"overtaking\" \"traffic flow\" stability",
+    "from": "2024-01-01",
+    "sort": "published",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22overtaking%22%20%22traffic%20flow%22%20stability&filter=from-pub-date:2024-01-01,type:journal-article&sort=published&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 225262,
+    "exported": 25
+  }
+]

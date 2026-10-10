@@ -1,0 +1,209 @@
+# 核心参考文献清单（已核验版）
+
+> **本文件是项目的引用库唯一来源**（`AGENTS.md` §8）。原 `references-list.txt`（V1.0）仅作历史留存，**不得再据其写入稿件**。
+> 核验日期：本轮会话（全量 30 条）。核验方式：arXiv 摘要页（journal-ref / comments）＋ Crossref DOI 注册元数据 ＋ 官方 proceedings（ECVA / CVF / PMLR / OpenReview / AAAI OJS / NeurIPS proceedings）＋ Nature Portfolio 官方站。
+> **会话限制**：dblp.org、dl.acm.org、ieeexplore 正文、iso.org、nature.com 直读被反爬或 403 → 改用上述替代来源；受影响字段标 `[待核实]`，**不得在稿件中作肯定表述**。
+> 完整逐条依据（含原始证据摘录）：`audit/05-citations.md`。
+
+**状态标记**
+
+| 标记 | 含义 |
+|---|---|
+| ✅ | 已正式发表（主会/期刊），**优先引用** |
+| 🔶 | **workshop 论文，非主会**——引用时必须显式写 "Workshops" |
+| 📄 | 仍为预印本 / 技术报告 |
+| 🔧 | 软件仓库，非论文 |
+| `[版本+1]` | 推荐引用版本与 V1.0 清单不同（详见文末修正对照表） |
+
+---
+
+## 核心锚点文献（2 篇）
+
+**A1 ✅ DriveDreamer** `[版本+1]`
+Wang X, Zhu Z, Huang G, Chen X, Zhu J, Lu J. **DriveDreamer: Towards Real-world-driven World Models for Autonomous Driving.** In: *Computer Vision – ECCV 2024*. Springer, 2024. DOI 10.1007/978-3-031-73195-2_4
+- 依据：[ECVA 论文页](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/6416_ECCV_2024_paper.php)｜[ECCV 2024 官方 Poster 页](https://eccv.ecva.net/virtual/2024/poster/994)｜[arXiv:2309.09777](https://arxiv.org/abs/2309.09777)（v2，comments 无 journal-ref，**只看 arXiv 会误判为预印本**）
+- 用途：P2 SocialDreamer 直接对标（结构条件 = HDMap / 3D Box）。**⚠ 定位影响见文末 §3**
+
+**A2 🔶 Drive as You Speak** `[版本+1]`
+Cui C, Ma Y, Cao X, Ye W, Wang Z. **Drive As You Speak: Enabling Human-Like Interaction With Large Language Models in Autonomous Vehicles.** *Proc. IEEE/CVF Winter Conference on Applications of Computer Vision (WACV) **Workshops***, 2024: 902–909.
+- 依据：[CVF WACV2024W/LLVM-AD 页](https://openaccess.thecvf.com/content/WACV2024W/LLVM-AD/html/Cui_Drive_As_You_Speak_Enabling_Human-Like_Interaction_With_Large_Language_WACVW_2024_paper.html)｜[arXiv:2309.10228](https://arxiv.org/abs/2309.10228)（v1）
+- 用途：P3 TalkOTF 方法论对标。**写成 "WACV 2024" 主会即属引用失实**
+
+---
+
+## ① LNN / 连续时间控制（P1 OTF-CfC）
+
+**B1 ✅** Chen RTQ, Rubanova Y, Bettencourt J, Duvenaud D. Neural Ordinary Differential Equations. *Advances in Neural Information Processing Systems 31 (NeurIPS 2018)*: 6571–6583. `[版本+1：arXiv 最大 v5]`
+- 依据：[NeurIPS 2018 官方 Awards 页](https://neurips.cc/Conferences/2018/Awards)（**最佳论文奖属实**）｜[proceedings 摘要页](https://proceedings.neurips.cc/paper_files/paper/2018/hash/69386f6bb1dfed68692a24c8686939b9-Abstract.html)
+
+**B2 ✅** Hasani R, Lechner M, Amini A, Rus D, Grosu R. Liquid Time-constant Networks. *Proc. AAAI* 2021;35(9):7657–7666. DOI 10.1609/aaai.v35i9.16936
+- 依据：[AAAI OJS](https://ojs.aaai.org/index.php/AAAI/article/view/16936)｜[Crossref](https://api.crossref.org/works/10.1609/aaai.v35i9.16936)
+
+**B3 ✅** Hasani R, Lechner M, Amini A, Liebenwein L, Ray A, Tschaikowski M, Teschl G, Rus D. Closed-form continuous-time neural **networks**. *Nature Machine Intelligence* 2022;4(11):992–1003. DOI 10.1038/s42256-022-00556-7 `[版本+1：V1.0 写 "Neural Models"]`
+- 依据：[Crossref 主文](https://api.crossref.org/works/10.1038/s42256-022-00556-7)｜[Crossref 更正](https://api.crossref.org/works/10.1038/s42256-022-00597-y)（另有 Publisher Correction, NMI 4:1267）
+- ⚠ 期刊题名与 arXiv 题名不同，属正常（arXiv:2106.13898 的 journal-ref 逐字为 "Nature Machine Intelligence 4, 992--1003 (2022)"）
+
+**B4 ✅** Lechner M, Hasani R, Amini A, Henzinger TA, Rus D, Grosu R. Neural circuit policies enabling auditable autonomy. *Nature Machine Intelligence* 2020;2(10):642–652. DOI 10.1038/s42256-020-00237-3 `[版本+1：V1.0 链接错文]`
+- 依据：[Crossref](https://api.crossref.org/works/10.1038/s42256-020-00237-3)｜[ISTA 机构库 record 8679](https://research-explorer.ista.ac.at/record/8679.jsonl)
+- ⚠⚠ **V1.0 所附 `arXiv:2003.08554` 指向完全不同的论文**（*Adjust Planning Strategies to Accommodate Reinforcement Learning Agents*，Xuerun Chen 单作者）。本条目**不得附 arXiv 链接**
+
+**B5 🔧** Chen RTQ. **torchdiffeq** [Computer software]. 2018. https://github.com/rtqichen/torchdiffeq
+- 依据：[LICENSE](https://api.github.com/repos/rtqichen/torchdiffeq/license)（MIT）｜[CITATION.cff](https://api.github.com/repos/rtqichen/torchdiffeq/contents/CITATION.cff)
+- **未发现** Zenodo DOI 或 JMLR/MLOSS 软件论文——**不得臆造软件论文**；学术机理引用请引 B1
+
+---
+
+## ② 世界模型与轨迹预测（P2 SocialDreamer）
+
+**C1 ✅** Zhao G, Wang X, Zhu Z, Chen X, Huang G, Bao X, Wang X. DriveDreamer-2: LLM-Enhanced World Models for **Diverse** Driving Video Generation. *Proc. AAAI* 2025;39(10):10412–10420. DOI 10.1609/aaai.v39i10.33130 `[版本+1：编号与题名双错]`
+- 依据：[AAAI OJS](https://ojs.aaai.org/index.php/AAAI/article/view/33130)｜[arXiv:2403.06845](https://arxiv.org/abs/2403.06845)（**正确编号**）
+- ⚠⚠ V1.0 写的 `arXiv:2403.06846` 实为 *DiaLoc: An Iterative Approach to Embodied Dialog Localization*（[链接](https://arxiv.org/abs/2403.06846)）
+
+**C2 📄** Hu A, Russell L, Yeo H, Murez Z, Fedoseev G, Kendall A, Shotton J, Corrado G. GAIA-1: A Generative World Model for Autonomous Driving. **arXiv:2309.17080v1**, 2023（Wayve 技术报告，仍为预印本）
+- 依据：[arXiv:2309.17080](https://arxiv.org/abs/2309.17080)
+
+**C3 ✅** Guan Y, Liao H, Li Z, Hu J, Yuan R, Li Y, Zhang G, Xu C. World Models for Autonomous Driving: An Initial Survey. *IEEE Transactions on Intelligent Vehicles*, 2024. DOI 10.1109/TIV.2024.3404834 `[版本+1：实为正式发表]`
+- 依据：[Crossref](https://api.crossref.org/works/10.1109/TIV.2024.3404834)｜[arXiv:2403.02622](https://arxiv.org/abs/2403.02622)（v3，无 journal-ref）
+
+**C4 ✅** Nayakanti N, Al-Rfou R, Zhou A, Goel K, Refaat KS, Sapp B. Wayformer: Motion Forecasting via Simple & Efficient Attention Networks. *2023 IEEE International Conference on Robotics and Automation (ICRA)*, London, 2023: 2980–2987. DOI 10.1109/ICRA48891.2023.10160609
+- 依据：[Crossref](https://api.crossref.org/works/10.1109/icra48891.2023.10160609)｜arXiv 仅 v1、无 comments → **不能据 arXiv 判断发表状态**；已核查无期刊扩展版
+
+**C5 ✅** Shi S, Jiang L, Dai D, Schiele B. Motion Transformer with Global Intention Localization and Local Movement Refinement. *Advances in Neural Information Processing Systems 35 (NeurIPS 2022)*: 6531–6543. `[版本+1：存在期刊扩展版]`
+- 期刊扩展版（**IEEE 格式推荐**）：Shi S, et al. MTR++: Multi-Agent Motion Prediction with Symmetric Scene Modeling and Guided Intention Querying. *IEEE TPAMI* 2024;46(5):3955–3971. DOI 10.1109/TPAMI.2024.3352811
+- 依据：[proceedings.neurips.cc](https://proceedings.neurips.cc/paper_files/paper/2022/hash/2ab47c960bfee4f86dfc362f26ad066a-Abstract-Conference.html)｜[Crossref MTR++](https://api.crossref.org/works/10.1109/TPAMI.2024.3352811)
+- `[待核实]` V1.0 未标 "Oral"——**本项目也不得标 Oral**（仅有作者自填 arXiv comments 作依据）
+
+**C6 ✅** Ngiam J, Vasudevan V, Caine B, Zhang Z, Chiang HTL, Ling J, Roelofs R, Bewley A, Liu C, Venugopal A, Weiss D, Sapp B, Chen Z, Shlens J. **Scene Transformer**: A unified architecture for predicting **future** trajectories of multiple agents. *ICLR 2022*. `[版本+1：题名、作者顺序、分写]`
+- 依据：[OpenReview Wm3EA5OlHsG](https://openreview.net/forum?id=Wm3EA5OlHsG)（ICLR 2022 Poster）
+- ⚠ 官方题名含 "predicting future trajectories"；官方第 2/3 作者为 Vasudevan、Caine（与 arXiv 相反）；官方分写 "Scene Transformer"
+
+---
+
+## ③ 语言决策 / LLM 驾驶（P3 TalkOTF）
+
+**D1 ✅** Wen L, Fu D, Li X, Cai X, Ma T, Cai P, Dou M, Shi B, He L, Qiao Y. DiLu: A Knowledge-Driven Approach to Autonomous Driving with Large Language Models. *ICLR 2024*.
+- 依据：[OpenReview OqTMUPuLuC](https://openreview.net/forum?id=OqTMUPuLuC)
+
+**D2 🔶** Mao J, Qian Y, Ye J, Zhao H, Wang Y. GPT-Driver: Learning to Drive with GPT. *NeurIPS 2023 **Foundation Models for Decision Making Workshop** (FMDM)*, 2023. `[版本+1：workshop 名称须写全]`
+- 依据：[arXiv:2310.01415](https://arxiv.org/abs/2310.01415)｜[OpenReview Pvjk9lxLJK](https://openreview.net/forum?id=Pvjk9lxLJK)
+- **须显式标注 workshop、非主会**（曾被 ICLR 2024 拒稿，无主会正式发表）。简写 "NeurIPS 2023" 会造成主会印象
+
+**D3 ✅** Xu Z, Zhang Y, Xie E, Zhao Z, Guo Y, Wong KYK, Li Z, Zhao H. DriveGPT4: Interpretable End-to-end Autonomous Driving Via Large Language Model. *IEEE Robotics and Automation Letters* 2024;9(10):8186–8193. DOI 10.1109/LRA.2024.3440097
+- 依据：[Crossref](https://api.crossref.org/works/10.1109/LRA.2024.3440097)｜`[待核实]` ICRA 2025 宣读版（无阳性依据，不得写）
+
+**D4 📄** Sha H, Mu Y, Jiang Y, Chen L, Xu C, Luo P, Li SE, Tomizuka M, Zhan W, Ding M. LanguageMPC: Large Language Models as Decision Makers for Autonomous Driving. **arXiv:2310.03026v3**, 2025（**preprint**）`[版本+1：v3 晚于 v2 约 18 个月]`
+- 依据：[arXiv:2310.03026](https://arxiv.org/abs/2310.03026)（无 comments/journal-ref；ICLR 2024 拒稿）
+- ⚠ 同一作品存在两个题名，引用时须与所引版本一致
+
+**D5 ✅** Mao J, Ye J, Qian Y, Pavone M, Wang Y. A Language Agent for Autonomous Driving. *First Conference on Language Modeling (COLM 2024)*. `[版本+1：官方题名无前缀]`
+- 依据：[COLM 2024 官方录用名单](https://colmweb.org/2024/AcceptedPapers.html)｜[OpenReview UPE6WYE8vg](https://openreview.net/forum?id=UPE6WYE8vg)
+- ⚠ 官方题名**无 "Agent-Driver:" 前缀**（该前缀为 arXiv 版用法）
+
+**D6 ✅** Chen L, Sinavski O, Hünermann J, Karnsund A, Willmott AJ, Birch D, Maund D, Shotton J. Driving with LLMs: Fusing Object-Level Vector Modality for Explainable Autonomous Driving. *2024 IEEE International Conference on Robotics and Automation (ICRA)*, 2024: 14093–14100. DOI 10.1109/ICRA57147.2024.10611018 `[版本+1：实为正式发表]`
+- 依据：[Crossref 检索](https://api.crossref.org/works?query.bibliographic=Driving+with+LLMs+Fusing+Object-Level+Vector+Modality+for+Explainable+Autonomous+Driving&rows=3)｜作者与 arXiv 逐位一致
+
+**D7 ✅** Tian X, Gu J, Li B, Liu Y, Wang Y, Zhao Z, Zhan K, Jia P, Lang X, Zhao H. DriveVLM: The Convergence of Autonomous Driving and Large Vision-Language Models. *Proc. 8th Conference on Robot Learning (CoRL)*, PMLR 270: 4698–4726, 2025.
+- 依据：[PMLR v270/tian25c](https://proceedings.mlr.press/v270/tian25c.html)｜`[待核实]` TPAMI 扩展版（检索无阳性证据，不得写）
+
+**D8 ✅** Sima C, Renz K, Chitta K, Chen L, Zhang H, Xie C, Beißwenger J, Luo P, Geiger A, Li H. DriveLM: Driving with Graph Visual Question Answering. *Computer Vision – ECCV 2024*, LNCS: 256–274. DOI 10.1007/978-3-031-72943-0_15
+- 依据：[ECCV 2024 官方 Oral 页](https://eccv.ecva.net/virtual/2024/oral/131)（**Oral 属实**）
+
+**D9 ✅** Choudhary T, Dewangan V, Chandhok S, Priyadarshan S, Jain A, Singh AK, Srivastava S, Jatavallabhula KM, Krishna KM. Talk2BEV: Language-enhanced Bird's-eye View Maps for Autonomous Driving. *2024 IEEE International Conference on Robotics and Automation (ICRA)*, 2024: 16345–16352. DOI 10.1109/ICRA57147.2024.10611485
+- 依据：[Crossref](https://api.crossref.org/works/10.1109/icra57147.2024.10611485)｜作者集合一致、顺序不同（camera-ready 调整）；`[待核实]` CVPR 2024 workshop 版（阴性证据）
+
+---
+
+## ④ 安全隔离与功能安全（P4 IsoLNN）
+
+**E1 ✅** Ames AD, Coogan S, Egerstedt M, Notomista G, Sreenath K, Tabuada P. Control Barrier Functions: Theory and Applications. *2019 18th European Control Conference (ECC)*, Naples, 2019: 3420–3431. DOI 10.23919/ECC.2019.8796030 `[版本+1：会议全称须写全]`
+- 依据：[Crossref](https://api.crossref.org/works/10.23919/ECC.2019.8796030)｜arXiv 仅 v1、无 comments
+
+**E2 ✅（标注须精确到 part）** ISO 26262-1:2018, *Road vehicles — Functional safety — Part 1: Vocabulary*. ISO, 2018. `[版本+1：V1.0 的 68383 只是 Part 1]`
+- 依据：[ISS 标准记录](https://iss.rs/en/project/show/iso:proj:68383)｜[AFNOR 标准页](https://www.boutique.afnor.org/en-gb/standard/iso-2626212018/road-vehicles-functional-safety-part-1-vocabulary/xs128649/127380)｜`[待核实]` iso.org 官方页正文（本会话 403）
+- 系列共 12 个 part，最新版本均 2018 年。**精确引用指引**：HARA / ASIL → -3 / -9；软件 → -6；半导体 → -11
+- **引术语与思路，不得声称合规或已认证**（`AGENTS.md` §4）
+
+---
+
+## ⑤ 全栈架构与基座（P5 AdjointStack + 感知层）
+
+**F1 ✅** Hu Y, Yang J, Chen L, Li K, Sima C, Zhu X, Chai S, Du S, Lin T, Wang W, Lu L, Jia X, Liu Q, Dai J, Qiao Y, Li H. **Planning-Oriented Autonomous Driving.** *Proc. IEEE/CVF CVPR*, 2023: 17853–17862. `[版本+1：官方题名无 "UniAD"]`
+- 依据：[CVPR 2023 官方 Best Paper 公告](https://cvpr.thecvf.com/Conferences/2023/BestPaperAwards)（**最佳论文奖属实**）｜[CVF 论文页](https://openaccess.thecvf.com/content/CVPR2023/html/Hu_Planning-Oriented_Autonomous_Driving_CVPR_2023_paper.html)
+- ⚠ UniAD 是**系统名**，不是官方题名；正文可用 "UniAD (Hu et al., CVPR 2023)"
+
+**F2 ✅** Li Z, Wang W, Li H, Xie E, Sima C, Lu T, Qiao Y, Dai J. BEVFormer: Learning Bird's-Eye-View Representation from Multi-Camera Images via Spatiotemporal Transformers. *Computer Vision – ECCV 2022*, LNCS: 1–18. DOI 10.1007/978-3-031-20077-9_1
+- 依据：[Crossref](https://api.crossref.org/works/10.1007/978-3-031-20077-9_1)｜**CVF 不收录 ECCV**，须用 Springer LNCS 出处｜BEVFormer v2 是**独立工作**（[CVPR 2023](https://openaccess.thecvf.com/content/CVPR2023/html/Yang_BEVFormer_v2_Adapting_Modern_Image_Backbones_to_Birds-Eye-View_Recognition_via_CVPR_2023_paper.html)），不是本篇扩展版｜`[待核实]` 本篇 TPAMI 扩展版
+
+**F3 ✅** Chen L, Wu P, Chitta K, Jaeger B, Geiger A, Li H. End-to-end Autonomous Driving: Challenges and Frontiers. *IEEE TPAMI* 2024;46(12):10164–10183. DOI 10.1109/TPAMI.2024.3435937
+- 依据：[Crossref](https://api.crossref.org/works/10.1109/TPAMI.2024.3435937)｜**年份是 2024，勿写 2023**
+
+**F4 ✅** Fujimoto S, van Hoof H, Meger D. Addressing Function Approximation Error in Actor-Critic Methods. *Proc. 35th International Conference on Machine Learning (ICML)*, PMLR 80: 1587–1596, 2018.
+- 依据：[PMLR v80/fujimoto18a](https://proceedings.mlr.press/v80/fujimoto18a.html)｜用途：学位论文决策基线（TD3）的原始算法出处
+
+**F5 ✅** Caesar H, Bankiti V, Lang AH, Vora S, Liong VE, Xu Q, Krishnan A, Pan Y, Baldan G, Beijbom O. nuScenes: A Multimodal Dataset for Autonomous Driving. *Proc. IEEE/CVF CVPR*, 2020: 11621–11631.
+- 依据：[CVF 论文页](https://openaccess.thecvf.com/content_CVPR_2020/html/Caesar_nuScenes_A_Multimodal_Dataset_for_Autonomous_Driving_CVPR_2020_paper.html)｜**CVF 页码 11621–11631 与 IEEE 页码 11618–11628 不可混用**
+
+**F6 ✅（拆为两条）** `[版本+1：V1.0 把两篇合并成一条，且第二篇会议标错]`
+- (a) Sun P, et al. **Scalability in Perception for Autonomous Driving: Waymo Open Dataset.** *CVPR 2020*: 2443–2451. DOI 10.1109/CVPR42600.2020.00252 — [CVF 页](https://openaccess.thecvf.com/content_CVPR_2020/html/Sun_Scalability_in_Perception_for_Autonomous_Driving_Waymo_Open_Dataset_CVPR_2020_paper.html)
+- (b) Ettinger S, et al. **Large Scale Interactive Motion Forecasting for Autonomous Driving: The Waymo Open Motion Dataset.** *ICCV **2021***: 9710–9719. DOI 10.1109/ICCV48922.2021.00957 — [CVF 页](https://openaccess.thecvf.com/content/ICCV2021/html/Ettinger_Large_Scale_Interactive_Motion_Forecasting_for_Autonomous_Driving_The_Waymo_ICCV_2021_paper.html)
+- ⚠ V1.0 的题名 "Waymo Open Dataset: Perception and Motion — CVPR 2020" **不是任何论文的正式题名**
+
+**F7 ✅** Dosovitskiy A, Ros G, Codevilla F, Lopez A, Koltun V. CARLA: An Open Urban Driving Simulator. *Proc. 1st Conference on Robot Learning (CoRL)*, PMLR 78: 1–16, 2017.
+- 依据：[PMLR v78/dosovitskiy17a](https://proceedings.mlr.press/v78/dosovitskiy17a.html)
+
+**F8 ✅** Kim MJ, Pertsch K, Karamcheti S, et al. OpenVLA: An Open-Source Vision-Language-Action Model. *Proc. 8th Conference on Robot Learning (CoRL)*, PMLR 270: 2679–2713, 2025.
+- 依据：[PMLR v270/kim25c](https://proceedings.mlr.press/v270/kim25c.html)｜arXiv 仅写 Website（**只看 arXiv 会误判为预印本**）
+
+**F9 📄** Bai J, Bai S, Yang S, Wang S, Tan S, Wang P, Lin J, Zhou C, Zhou J. Qwen-VL: A Versatile Vision-Language Model for Understanding, Localization, Text Reading, and Beyond. **arXiv:2308.12966v3**, 2023（preprint）`[版本+1：署名须具名]`
+- 依据：[arXiv:2308.12966](https://arxiv.org/abs/2308.12966)｜⚠ 须列具名作者，**页面不出现 "Qwen Team" / Alibaba**
+
+**F10 📄** Wang P, Bai S, Tan S, Wang S, Fan Z, Bai J, et al. Qwen2-VL: Enhancing Vision-Language Model's Perception of the World at Any Resolution. **arXiv:2409.12191v2**, 2024（preprint，未见接收）
+- 依据：[arXiv:2409.12191](https://arxiv.org/abs/2409.12191)｜DBLP 仅 CoRR 条目；OpenReview 检索零结果
+
+**F11 ✅** Guo D, Yang D, Zhang H, Song J, Wang P, Zhu Q, … Zhang Z. **DeepSeek-R1 incentivizes reasoning in LLMs through reinforcement learning.** *Nature* 2025;645(8081):633–638. DOI 10.1038/s41586-025-09422-z `[版本+1：正刊题名与署名均不同于 arXiv]`
+- 依据：[Crossref](https://api.crossref.org/works/10.1038/s41586-025-09422-z)｜[Nature Portfolio 官方该期目录](https://www.natureasia.com/ja-jp/nature/645/8081)｜[官方 Cover Story 专页](https://www.natureasia.com/ja-jp/nature/highlights/132126)（**"封面论文"说法属实**）
+- ⚠ 正刊**不列集体作者 DeepSeek-AI**，第一作者 Daya Guo；引用不得沿用 arXiv 题名
+
+---
+
+## §1 V1.0 清单修正对照表（17 处，逐条可核）
+
+| # | 编号 | V1.0 写的 | 本文件改为 | 类型 |
+|---|---|---|---|---|
+| 1 | B4 | `arXiv:2003.08554` | DOI 10.1038/s42256-020-00237-3（**删 arXiv 链接**） | **硬错误：链接指向另一篇论文** |
+| 2 | F6 | "Waymo Open Dataset: Perception and Motion — CVPR 2020" | 拆为 (a) CVPR 2020 + (b) **ICCV 2021** | **硬错误：题名不存在 + 会议标错** |
+| 3 | C1 | `arXiv:2403.06846` | `arXiv:2403.06845`；题名 "…for **Diverse** Driving Video Generation"；AAAI-25 | **硬错误：编号指向另一篇论文** |
+| 4 | A1 | 📄 arXiv 预印本 | ✅ ECCV 2024 Poster | venue 判定错 |
+| 5 | A2 | 📄 arXiv 预印本 | 🔶 WACV 2024 **Workshops**, pp. 902–909 | venue 判定错 |
+| 6 | C3 | 📄 arXiv 预印本 | ✅ IEEE T-IV | venue 判定错 |
+| 7 | D6 | 📄 arXiv 预印本 | ✅ ICRA 2024, pp. 14093–14100 | venue 判定错 |
+| 8 | D2 | ✅ NeurIPS 2023 Workshop | 🔶 FMDM@NeurIPS2023（**须写"非主会"**） | workshop 未标清 |
+| 9 | C6 | "…for multiple agents" | "…for predicting **future** trajectories of multiple agents"；作者序 Vasudevan, Caine；"Scene Transformer" | 题名/署名不符官方 |
+| 10 | D5 | "Agent-Driver: A Language Agent…" | "A Language Agent for Autonomous Driving" | 题名不符官方 |
+| 11 | F1 | "UniAD: Planning-oriented…" | "Planning-Oriented Autonomous Driving" | 题名不符官方 |
+| 12 | B3 | "…Neural Models" | "…neural **networks**"（+ Publisher Correction） | 题名不符官方 |
+| 13 | E2 | "ISO 26262" + 68383 | **ISO 26262-1:2018**（68383 仅 Part 1；系列 12 part） | 标准标注不完整 |
+| 14 | E1 | "ECC 2019（欧洲控制会议）" | 2019 18th European Control Conference (ECC), Naples, pp. 3420–3431 | 出处写法不完整 |
+| 15 | C5 | NeurIPS 2022 | 会议版 + **MTR++ (TPAMI 2024)** 期刊扩展版 | 漏标扩展版 |
+| 16 | F11 | arXiv 题名 + 集体作者 | Nature 正刊题名；不列 DeepSeek-AI | 署名/题名与正刊不符 |
+| 17 | F9 | "Qwen-VL（技术报告）" | 列 Jinze Bai 等具名作者 | 署名不精确 |
+
+---
+
+## §2 只挂 arXiv 链接的条目（9 条）——"预印本外观"不能证明未发表
+
+A1、A2、C3、D3、D6、D7、D8、D9、F8 的 arXiv 页面 comments/journal-ref **全空或具误导性**（A1、C4 甚至只有 v1 或无 comments）。
+→ 规则：**判 venue 只认官方 proceedings / Crossref DOI / OpenReview 官方记录**，不得据 arXiv 页面推断发表状态。
+
+## §3 核验对项目定位的影响（须同步到 P2/P3 稿件）
+
+1. **A1 的定位影响（重要）**：DriveDreamer 已是 ECCV 2024 正式论文 → ~~首个经过同行评议的 OTF 条件世界模型~~ **首个以交通流社会压力场（OTF 场）为结构条件模态的世界模型**（DriveDreamer 等的结构条件为 HDMap / 3D Box）。**不得再用"经同行评议"作为差异点**。
+2. **A2 的定位影响（有利）**：Drive as You Speak 是 **workshop 短文（pp. 902–909）** → P3 宣称"解决其未解决的语言意图无定量物理对应物"时反驳空间更小；但引用必须写 "Proc. IEEE/CVF WACV **Workshops**, 2024: 902–909"。
+3. **E2 的引用影响**：ISO 26262 引用须精确到 part；**只引术语，不得声称合规**。
+
+## §4 使用规则
+
+1. 本文件是**引用库唯一来源**；V1.0 清单仅供追溯。
+2. `[待核实]` 字段（C5 Oral、D3 ICRA 2025 版、D9 CVPRW 版、F2/D7 的 TPAMI 扩展版、E2 的 iso.org 正文、F11 封面题字原文）**禁止作肯定表述**。
+3. 他人论文数字引用时标"文献报告值，协议不同，不可直接比较"。
+4. 五篇论文共享本库（原约 70% 共享率不变），**任何修正须一次改到本文件**，避免同一错误在五篇稿件中复现。

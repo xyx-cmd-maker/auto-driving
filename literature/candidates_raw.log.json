@@ -1,0 +1,146 @@
+[
+  {
+    "qid": "T01",
+    "theme": "LNN / continuous-time NN foundations",
+    "q": "\"liquid neural network\" OR \"liquid time-constant\" OR \"liquid time constant\"",
+    "url": "https://api.openalex.org/works?search=%22liquid+neural+network%22+OR+%22liquid+time-constant%22+OR+%22liquid+time+constant%22&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 375,
+    "exported": 30
+  },
+  {
+    "qid": "T02",
+    "theme": "Neural ODE / continuous-depth",
+    "q": "\"neural ordinary differential equation\" OR \"continuous-depth\" OR \"ODE network\"",
+    "url": "https://api.openalex.org/works?search=%22neural+ordinary+differential+equation%22+OR+%22continuous-depth%22+OR+%22ODE+network%22&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 4398,
+    "exported": 30
+  },
+  {
+    "qid": "T03",
+    "theme": "Adaptive ODE solvers / stiff dynamics",
+    "q": "\"adaptive step size\" OR \"Dormand-Prince\" OR \"Dopri5\" OR \"stiff neural\"",
+    "url": "https://api.openalex.org/works?search=%22adaptive+step+size%22+OR+%22Dormand-Prince%22+OR+%22Dopri5%22+OR+%22stiff+neural%22&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 7622,
+    "exported": 30
+  },
+  {
+    "qid": "T04",
+    "theme": "LNN applied to robotics / UAV / driving control",
+    "q": "\"liquid neural network\" AND (robot OR drone OR UAV OR vehicle OR control)",
+    "url": "https://api.openalex.org/works?search=%22liquid+neural+network%22+AND+%28robot+OR+drone+OR+UAV+OR+vehicle+OR+control%29&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 169,
+    "exported": 30
+  },
+  {
+    "qid": "T05",
+    "theme": "Car-following / platoon / string stability",
+    "q": "\"car-following\" OR \"platoon\" OR \"string stability\"",
+    "url": "https://api.openalex.org/works?search=%22car-following%22+OR+%22platoon%22+OR+%22string+stability%22&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 35551,
+    "exported": 30
+  },
+  {
+    "qid": "T06",
+    "theme": "Mixed traffic with automated vehicles",
+    "q": "\"mixed traffic\" AND (autonomous OR \"connected automated\" OR \"automated vehicle\")",
+    "url": "https://api.openalex.org/works?search=%22mixed+traffic%22+AND+%28autonomous+OR+%22connected+automated%22+OR+%22automated+vehicle%22%29&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 6072,
+    "exported": 30
+  },
+  {
+    "qid": "T07",
+    "theme": "Lane change / overtaking behaviour + social pressure",
+    "q": "\"lane-changing\" OR \"overtaking\" OR \"lane change\"",
+    "url": "https://api.openalex.org/works?search=%22lane-changing%22+OR+%22overtaking%22+OR+%22lane+change%22&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 92002,
+    "exported": 30
+  },
+  {
+    "qid": "T08",
+    "theme": "Dynamics-aware / differentiable motion planning for AV",
+    "q": "\"differentiable\" AND (planning OR \"motion planning\") AND (driving OR vehicle OR autonomous)",
+    "url": "https://api.openalex.org/works?search=%22differentiable%22+AND+%28planning+OR+%22motion+planning%22%29+AND+%28driving+OR+vehicle+OR+autonomous%29&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 467334,
+    "exported": 30
+  },
+  {
+    "qid": "T09",
+    "theme": "RL for autonomous driving (TD3 baseline lineage)",
+    "q": "\"deep reinforcement learning\" AND (\"autonomous driving\" OR \"autonomous vehicle\")",
+    "url": "https://api.openalex.org/works?search=%22deep+reinforcement+learning%22+AND+%28%22autonomous+driving%22+OR+%22autonomous+vehicle%22%29&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 12974,
+    "exported": 30
+  },
+  {
+    "qid": "T10",
+    "theme": "Control barrier functions / safety filters",
+    "q": "\"control barrier function\"",
+    "url": "https://api.openalex.org/works?search=%22control+barrier+function%22&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 2816,
+    "exported": 30
+  },
+  {
+    "qid": "T11",
+    "theme": "Real-time / embedded NN deployment on MCU",
+    "q": "\"microcontroller\" AND (\"neural network\" OR \"deep learning\") AND (deployment OR \"real-time\" OR embedded)",
+    "url": "https://api.openalex.org/works?search=%22microcontroller%22+AND+%28%22neural+network%22+OR+%22deep+learning%22%29+AND+%28deployment+OR+%22real-time%22+OR+embedded%29&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 26145,
+    "exported": 30
+  },
+  {
+    "qid": "T12",
+    "theme": "Model compression / quantization for embedded inference",
+    "q": "\"model compression\" OR \"post-training quantization\" OR \"network pruning\"",
+    "url": "https://api.openalex.org/works?search=%22model+compression%22+OR+%22post-training+quantization%22+OR+%22network+pruning%22&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 16650,
+    "exported": 30
+  },
+  {
+    "qid": "T13",
+    "theme": "Formal verification of neural network controllers",
+    "q": "\"formal verification\" AND (\"neural network\" OR \"neural controller\")",
+    "url": "https://api.openalex.org/works?search=%22formal+verification%22+AND+%28%22neural+network%22+OR+%22neural+controller%22%29&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 3281,
+    "exported": 30
+  },
+  {
+    "qid": "T14",
+    "theme": "Intelligent driver model / traffic flow stability",
+    "q": "\"intelligent driver model\" OR \"traffic flow stability\" OR \"microscopic traffic flow\"",
+    "url": "https://api.openalex.org/works?search=%22intelligent+driver+model%22+OR+%22traffic+flow+stability%22+OR+%22microscopic+traffic+flow%22&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 3408,
+    "exported": 30
+  },
+  {
+    "qid": "T15",
+    "theme": "Model predictive control for AV trajectory tracking",
+    "q": "\"model predictive control\" AND (vehicle OR driving OR autonomous)",
+    "url": "https://api.openalex.org/works?search=%22model+predictive+control%22+AND+%28vehicle+OR+driving+OR+autonomous%29&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 41733,
+    "exported": 30
+  },
+  {
+    "qid": "T16",
+    "theme": "Physics-informed / structure-preserving learning for dynamics",
+    "q": "\"physics-informed\" OR \"structure-preserving\" OR \"Hamiltonian neural network\"",
+    "url": "https://api.openalex.org/works?search=%22physics-informed%22+OR+%22structure-preserving%22+OR+%22Hamiltonian+neural+network%22&filter=type%3Aarticle%2Clanguage%3Aen&sort=cited_by_count%3Adesc&per-page=30&select=id%2Cdoi%2Ctitle%2Cdisplay_name%2Cpublication_year%2Cpublication_date%2Ctype%2Ccited_by_count%2Cauthorships%2Cprimary_location%2Clanguage&mailto=research%40example.org",
+    "status": "200",
+    "hits": 54001,
+    "exported": 30
+  }
+]

@@ -1,0 +1,980 @@
+{
+  "run_utc": "2026-10-06T03:33:36.823Z",
+  "confirm": [
+    {
+      "id": "C1",
+      "tag": "LNN × 驾驶/车辆控制",
+      "total": 2817,
+      "rows": [
+        {
+          "year": 2025,
+          "cited": 0,
+          "venue": "International Conference on Self Sustainable Artificial Intelligence Systems (ICSSAS)",
+          "doi": "10.1109/icssas66150.2025.11081318"
+        },
+        {
+          "year": 2025,
+          "cited": 1,
+          "venue": "Edelweiss Applied Science and Technology",
+          "doi": "10.55214/25768484.v9i4.6259"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "ISA Transactions",
+          "doi": "10.1016/j.isatra.2026.06.027"
+        },
+        {
+          "year": 2024,
+          "cited": 7,
+          "venue": "arXiv (Cornell University)",
+          "doi": "10.48550/arxiv.2407.20590"
+        },
+        {
+          "year": 2025,
+          "cited": 7,
+          "venue": "Batteries",
+          "doi": "10.3390/batteries11060224"
+        },
+        {
+          "year": 2024,
+          "cited": 72,
+          "venue": "Sensors",
+          "doi": "10.3390/s24123957"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "Research Square",
+          "doi": "10.21203/rs.3.rs-8834329/v1"
+        },
+        {
+          "year": 2024,
+          "cited": 0,
+          "venue": "arXiv (Cornell University)",
+          "doi": "10.48550/arxiv.2402.14580"
+        },
+        {
+          "year": 2024,
+          "cited": 2,
+          "venue": null,
+          "doi": "10.14722/vehiclesec.2024.23058"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "arXiv (Cornell University)",
+          "doi": "10.48550/arxiv.2608.11790"
+        },
+        {
+          "year": 2024,
+          "cited": 48,
+          "venue": "Scientific Reports",
+          "doi": "10.1038/s41598-024-73932-5"
+        },
+        {
+          "year": 2024,
+          "cited": 8,
+          "venue": "World Electric Vehicle Journal",
+          "doi": "10.3390/wevj15120581"
+        },
+        {
+          "year": 2024,
+          "cited": 1,
+          "venue": "World Electric Vehicle Journal",
+          "doi": "10.3390/wevj16010019"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "arXiv (Cornell University)",
+          "doi": "10.48550/arxiv.2609.26231"
+        },
+        {
+          "year": 2025,
+          "cited": 0,
+          "venue": "Actuators",
+          "doi": "10.3390/act14100494"
+        }
+      ]
+    },
+    {
+      "id": "C1",
+      "tag": "LNN × 驾驶/车辆控制",
+      "error": "Cannot read properties of undefined (reading 'slice')"
+    },
+    {
+      "id": "C2",
+      "tag": "CfC × 控制/机器人",
+      "total": 42478,
+      "rows": [
+        {
+          "year": 2024,
+          "cited": 5,
+          "venue": "Robotics",
+          "doi": "10.3390/robotics13090126"
+        },
+        {
+          "year": 2024,
+          "cited": 4,
+          "venue": "arXiv (Cornell University)",
+          "doi": "10.48550/arxiv.2411.03951"
+        },
+        {
+          "year": 2024,
+          "cited": 4,
+          "venue": "Lecture notes in computer science",
+          "doi": "10.1007/978-3-031-65112-0_5"
+        },
+        {
+          "year": 2025,
+          "cited": 4,
+          "venue": "Technologies",
+          "doi": "10.3390/technologies13040135"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "arXiv (Cornell University)",
+          "doi": "10.48550/arxiv.2602.20596"
+        },
+        {
+          "year": 2025,
+          "cited": 0,
+          "venue": "arXiv (Cornell University)",
+          "doi": "10.48550/arxiv.2511.21593"
+        },
+        {
+          "year": 2025,
+          "cited": 6,
+          "venue": "Neural Networks",
+          "doi": "10.1016/j.neunet.2025.107793"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "Frontiers in Neuroscience",
+          "doi": "10.3389/fnins.2026.1910808"
+        },
+        {
+          "year": 2024,
+          "cited": 0,
+          "venue": "Research Square",
+          "doi": "10.21203/rs.3.rs-3863165/v1"
+        },
+        {
+          "year": 2024,
+          "cited": 22,
+          "venue": "Advanced Intelligent Systems",
+          "doi": "10.1002/aisy.202400413"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": null,
+          "doi": "10.15607/rss.2026.xxii.043"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "bioRxiv (Cold Spring Harbor Laboratory)",
+          "doi": "10.64898/2026.05.15.725366"
+        },
+        {
+          "year": 2024,
+          "cited": 18,
+          "venue": "Processes",
+          "doi": "10.3390/pr12030499"
+        },
+        {
+          "year": 2024,
+          "cited": 0,
+          "venue": "arXiv (Cornell University)",
+          "doi": "10.48550/arxiv.2408.03017"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "Mechatronics",
+          "doi": "10.1016/j.mechatronics.2026.103584"
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "tag": "CfC × 控制/机器人",
+      "error": "Cannot read properties of undefined (reading 'slice')"
+    },
+    {
+      "id": "C3",
+      "tag": "Overtaking frequency (OTF 本体)",
+      "total": 3194,
+      "rows": [
+        {
+          "year": 2024,
+          "cited": 0,
+          "venue": "JTTTP - JOURNAL OF TRAFFIC AND TRANSPORT THEORY AND PRACTICE",
+          "doi": "10.7251/jtttp2501036r"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "Smart innovation, systems and technologies",
+          "doi": "10.1007/978-3-032-20963-4_21"
+        },
+        {
+          "year": 2024,
+          "cited": 6,
+          "venue": "Applied Ocean Research",
+          "doi": "10.1016/j.apor.2024.104378"
+        },
+        {
+          "year": 2024,
+          "cited": 1,
+          "venue": "Bulletin of Science and Practice",
+          "doi": "10.33619/2414-2948/105/25"
+        },
+        {
+          "year": 2025,
+          "cited": 0,
+          "venue": "SSRN Electronic Journal",
+          "doi": "10.2139/ssrn.5108355"
+        },
+        {
+          "year": 2025,
+          "cited": 0,
+          "venue": "Human Factors The Journal of the Human Factors and Ergonomics Society",
+          "doi": "10.1177/00187208251384118"
+        },
+        {
+          "year": 2025,
+          "cited": 0,
+          "venue": "Lecture notes in civil engineering",
+          "doi": "10.1007/978-981-96-8110-5_30"
+        },
+        {
+          "year": 2025,
+          "cited": 7,
+          "venue": "Chaos Solitons & Fractals",
+          "doi": "10.1016/j.chaos.2025.117116"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "International Journal For Multidisciplinary Research",
+          "doi": "10.36948/ijfmr.2026.v08i02.73539"
+        },
+        {
+          "year": 2025,
+          "cited": 7,
+          "venue": "Transportation Research Part F Traffic Psychology and Behaviour",
+          "doi": "10.1016/j.trf.2025.01.026"
+        },
+        {
+          "year": 2024,
+          "cited": 40,
+          "venue": "IEEE Transactions on Intelligent Transportation Systems",
+          "doi": "10.1109/tits.2024.3398602"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "Flow Turbulence and Combustion",
+          "doi": "10.1007/s10494-026-00797-1"
+        },
+        {
+          "year": 2024,
+          "cited": 1,
+          "venue": "SSRN Electronic Journal",
+          "doi": "10.2139/ssrn.4915422"
+        },
+        {
+          "year": 2025,
+          "cited": 0,
+          "venue": "Journal of Transportation Engineering Part A Systems",
+          "doi": "10.1061/jtepbs.teeng-8846"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "Research Square",
+          "doi": "10.21203/rs.3.rs-10575837/v1"
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "tag": "Overtaking frequency (OTF 本体)",
+      "error": "Cannot read properties of undefined (reading 'slice')"
+    },
+    {
+      "id": "C4",
+      "tag": "LTC × 编队/跟驰",
+      "total": 53,
+      "rows": [
+        {
+          "year": 2025,
+          "cited": 0,
+          "venue": "arXiv (Cornell University)",
+          "doi": "10.48550/arxiv.2601.10724"
+        },
+        {
+          "year": 2025,
+          "cited": 0,
+          "venue": "Energies",
+          "doi": "10.3390/en18195275"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "Communications in Transportation Research",
+          "doi": "10.26599/commtr.2026.9640029"
+        },
+        {
+          "year": 2025,
+          "cited": 0,
+          "venue": "Spectrum Research Repository (Concordia University)",
+          "doi": ""
+        },
+        {
+          "year": 2024,
+          "cited": 8,
+          "venue": "Transportation Research Part C Emerging Technologies",
+          "doi": "10.1016/j.trc.2024.104578"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "Energy Reports",
+          "doi": "10.1016/j.egyr.2026.109727"
+        },
+        {
+          "year": 2025,
+          "cited": 0,
+          "venue": null,
+          "doi": "10.11606/d.18.2025.tde-26052025-113721"
+        },
+        {
+          "year": 2024,
+          "cited": 33,
+          "venue": "Communications in Transportation Research",
+          "doi": "10.1016/j.commtr.2024.100148"
+        },
+        {
+          "year": 2024,
+          "cited": 0,
+          "venue": "arXiv (Cornell University)",
+          "doi": "10.48550/arxiv.2405.05558"
+        },
+        {
+          "year": 2024,
+          "cited": 0,
+          "venue": "arXiv (Cornell University)",
+          "doi": "10.48550/arxiv.2412.16798"
+        },
+        {
+          "year": 2026,
+          "cited": 2,
+          "venue": "Transportation Research Part B Methodological",
+          "doi": "10.1016/j.trb.2025.103386"
+        },
+        {
+          "year": 2026,
+          "cited": 5,
+          "venue": "Automatika",
+          "doi": "10.1080/00051144.2026.2619804"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "e-scholar@UOIT (University of Ontario Institute of Technology)",
+          "doi": ""
+        },
+        {
+          "year": 2024,
+          "cited": 2,
+          "venue": "Modelling—International Open Access Journal of Modelling in Engineering Science",
+          "doi": "10.3390/modelling5010008"
+        },
+        {
+          "year": 2026,
+          "cited": 0,
+          "venue": "SSRN Electronic Journal",
+          "doi": "10.2139/ssrn.7412878"
+        }
+      ]
+    },
+    {
+      "id": "C4",
+      "tag": "LTC × 编队/跟驰",
+      "error": "Cannot read properties of undefined (reading 'slice')"
+    }
+  ],
+  "records": [
+    {
+      "kind": "doi",
+      "doi": "10.1038/s41467-025-62597-x",
+      "title": "Knowledge-guided self-learning control strategy for mixed vehicle platoons with delays",
+      "year": 2025,
+      "venue": "Nature Communications",
+      "vol": "16",
+      "issue": "1",
+      "first": "7705",
+      "last": "7705",
+      "cited": 59,
+      "type": "article",
+      "oa": "gold",
+      "authors": [
+        "Jingyao Wang",
+        "Huinian Wang",
+        "Jian Jun Song",
+        "Xingyu Chen",
+        "Jinghua Guo",
+        "Keqiang Li",
+        "Xunrui Li",
+        "Bowen Huang"
+      ],
+      "n_authors": 8,
+      "abstract": "As autonomous vehicles and traditional vehicles will coexist for several decades, how to efficiently manage the mixed traffic, while enhancing road throughput, fuel consumption and traffic stability becomes a challenge. This is due to the randomness and heterogeneity of traditional vehicles interspersed among autonomous vehicles. Moreover, communication delays arising from the shared wireless communication network substantially degrade the performance of platooning control for connected autonomous vehicles. To address these challenging problems, this paper proposes a knowledge-guided self-learning mixed platoon control strategy. Firstly, the proposed strategy extracts key features of the continuous and aggregated behavior of traditional vehicles, such as desired time-varying time gap and standstill spacing, by integrating knowledge from the kinematic wave model and Newell's car-following model. This helps autonomous vehicles predict traditional vehicles' trajectories. Secondly, to tackle delayed current state information, the study incorporates previous control instructions into the state representation of the soft actor-critic algorithm. Simulations show the proposed strategy outperforms existing methods in traffic stability, passenger comfort, energy consumption cost and traffic oscillation dampening, with a zero collision rate in vehicle merging and diverging scenarios. The framework provides a generalizable and scalable solution for the development and adoption of connected autonomous vehicle systems."
+    },
+    {
+      "kind": "doi",
+      "doi": "10.1016/j.trc.2024.104486",
+      "title": "Towards robust car-following based on deep reinforcement learning",
+      "year": 2024,
+      "venue": "Transportation Research Part C Emerging Technologies",
+      "vol": "159",
+      "issue": null,
+      "first": "104486",
+      "last": "104486",
+      "cited": 38,
+      "type": "article",
+      "oa": "hybrid",
+      "authors": [
+        "Fabian Hart",
+        "Ostap Okhrin",
+        "Martin Treiber"
+      ],
+      "n_authors": 3,
+      "abstract": "One of the biggest challenges in the development of learning-driven automated driving technologies remains the handling of uncommon, rare events that may have not been encountered in training. Especially when training a model with real driving data, unusual situations, such as emergency brakings, may be underrepresented, resulting in a model that lacks robustness in rare events. This study focuses on car-following based on reinforcement learning and demonstrates that existing approaches, trained with real driving data, fail to handle safety–critical situations. Since collecting data representing all kinds of possible car-following events, including safety–critical situations, is challenging, we propose a training environment that harnesses stochastic processes to generate diverse and challenging scenarios. Our experiments show that training with real data can lead to models that collide in safety–critical situations, whereas the proposed model exhibits excellent performance and remains accident-free, comfortable, and string-stable even in extreme scenarios, such as full-braking by the leading vehicle. Its robustness is demonstrated by simulating car-following scenarios for various reward function parametrizations and a diverse range of artificial and real leader data that were not included in training and were qualitatively different from the learning data. We further show that conventional reward designs can encourage aggressive behavior when approaching other vehicles. Additionally, we compared the proposed model with classical car-following models and found it to achieve equal or superior results."
+    },
+    {
+      "kind": "doi",
+      "doi": "10.1109/tac.2024.3401082",
+      "title": "Distributed Cooperative Control and Optimization of Connected Automated Vehicles Platoon Against Cut-In Behaviors of Social Drivers",
+      "year": 2024,
+      "venue": "IEEE Transactions on Automatic Control",
+      "vol": "69",
+      "issue": "11",
+      "first": "7785",
+      "last": "7792",
+      "cited": 33,
+      "type": "article",
+      "oa": "closed",
+      "authors": [
+        "Bohui Wang",
+        "Rong Su",
+        "Lingying Huang",
+        "Yun Peng Lu",
+        "Nanbin Zhao"
+      ],
+      "n_authors": 5,
+      "abstract": "This article proposes a dynamic platoon management and cooperative driving framework for a mixed traffic flow consisting of multiple connected automated vehicles(CAVs) and possible human-driven vehicles(HDVs) that can be regarded as the surrounding vehicles(SVs). Specifically, the proposed framework consists of three stages. At the first stage, the cruising information of all the SVs will be collected by the leader CAV through the Cellular-Vehicle-to-X(C-V2X) infrastructure, while an automatic decision-making driving assistance system(ADMDSS) is constructed to determine the driving states of the platoon. When the HDVs approach the communication range of the platoon, in the second stage, the trajectories of the HDVs will be estimated and the reference trajectory planning for the leader CAV and the cooperative controller design for the follower CAVs will be activated, respectively, by using C-V2X infrastructure. We consider two types of social driving behaviors(SDBs): courteous and rude, where the optimal trajectory estimation for the SDBs will be obtained by the known social preferences of the SVs. While the HDVs enable to impose their social cut-in intentions(SCIIs) into the platoon, the ADMDSS will provide a high-level driving guidance to the platoon to adjust the time-varying space error among the CAVs rejecting the potential cut-in behaviors(CIBs). For this case, the problems of collision avoidance, energy efficiency, and stability of the platoon will be solved at the third stage within a finite time by designing a cooperative trajectory tracking optimization algorithm. Simulation cases are presented to illustrate the effectiveness of the proposed approaches."
+    },
+    {
+      "kind": "doi",
+      "doi": "10.1109/tcst.2024.3505036",
+      "title": "Asynchronous Sampled-Data String Stability for a Platoon of Heterogeneous Vehicles via a Mesoscopic Approach",
+      "year": 2024,
+      "venue": "IEEE Transactions on Control Systems Technology",
+      "vol": "33",
+      "issue": "4",
+      "first": "1345",
+      "last": "1360",
+      "cited": 3,
+      "type": "article",
+      "oa": "green",
+      "authors": [
+        "Mattia Mattioni",
+        "Alessio Iovine"
+      ],
+      "n_authors": 2,
+      "abstract": "This article proposes a new mesoscopic approach for controlling a platoon of vehicles under asynchronous sampled-data measurements and bounded disturbances. The proposed control law yields disturbance string stability (DSS) independently of the effect of sampling. The design is constructive and yields simple-to-check conditions to enforce good performance and safety. Simulations illustrate the theoretical results."
+    },
+    {
+      "kind": "doi",
+      "doi": "10.1109/tcst.2024.3361393",
+      "title": "Physics-Augmented Data-EnablEd Predictive Control for Eco-Driving of Mixed Traffic Considering Diverse Human Behaviors",
+      "year": 2024,
+      "venue": "IEEE Transactions on Control Systems Technology",
+      "vol": "32",
+      "issue": "4",
+      "first": "1479",
+      "last": "1486",
+      "cited": 39,
+      "type": "article",
+      "oa": "green",
+      "authors": [
+        "Dongjun Li",
+        "Kaixiang Zhang",
+        "Haoxuan Dong",
+        "Qun Wang",
+        "Zhaojian Li",
+        "Ziyou Song"
+      ],
+      "n_authors": 6,
+      "abstract": "Data-driven cooperative control of connected and automated vehicles (CAVs) has gained extensive research interest as it can utilize collected data to generate control actions without relying on parametric system models that are generally challenging to obtain. Existing methods mainly focused on improving traffic safety and stability, while less emphasis has been placed on energy efficiency in the presence of uncertainties and diversities of human-driven vehicles (HDVs). In this brief, we employ a Data-EnablEd Predictive Control (DeePC) scheme to address the eco-driving of mixed traffic flows with diverse behaviors of human drivers. Specifically, by incorporating first-order physics, we propose the physics-augmented DeePC (PA-DeePC) approach to handle substantial system variations and uncertainties. Then, a novel optimization framework, avoiding conventional reference trajectories during the receding optimization process, is proposed to further reduce the holistic energy consumption of mixed traffic flows. Simulation results demonstrate the effectiveness of our approach in accurately capturing random human driver behaviors and reducing holistic energy consumption, while ensuring driving safety and traffic efficiency. Furthermore, the proposed optimization framework achieves substantial reductions in energy consumption, i.e., average reductions of$4.14\\%$,$4.97\\%$, and$9.29\\%$when compared to the benchmark algorithms."
+    },
+    {
+      "kind": "doi",
+      "doi": "10.1109/tiv.2024.3373512",
+      "title": "Enhancing System-Level Safety in Mixed-Autonomy Platoon via Safe Reinforcement Learning",
+      "year": 2024,
+      "venue": "IEEE Transactions on Intelligent Vehicles",
+      "vol": null,
+      "issue": null,
+      "first": "1",
+      "last": "13",
+      "cited": 30,
+      "type": "article",
+      "oa": "green",
+      "authors": [
+        "Jingyuan Zhou",
+        "Longhao Yan",
+        "Kaidi Yang"
+      ],
+      "n_authors": 3,
+      "abstract": "Connected and automated vehicles (CAVs) have recently gained prominence in traffic research due to advances in communication technology and autonomous driving. Various longitudinal control strategies for CAVs have been developed to enhance traffic efficiency, stability, and safety in mixed-autonomy scenarios. Deep reinforcement learning (DRL) is one promising strategy for mixed-autonomy platoon control, thanks to its capability of managing complex scenarios in real time after sufficient offline training. However, there are three research gaps for DRL-based mixed-autonomy platoon control: (i) the lack of theoretical collision-free guarantees, (ii) the widely adopted but impractical assumption of skilled and rational drivers who will not collide with preceding vehicles, and (iii) the strong assumption of a known human driver model. To address these research gaps, we propose a safe DRL-based controller that can provide a system-level safety guarantee for mixed-autonomy platoon control. First, we combine control barrier function (CBF)-based safety constraints and DRL via a quadratic programming (QP)-based differentiable neural network layer to provide theoretical safety guarantees. Second, we incorporate system-level safety constraints into our proposed method to account for the safety of both CAVs and the following HDVs to address the potential collisions due to irrational human driving behavior. Third, we devise a learning-based human driver behavior identification approach to estimate the unknown human car-following behavior in the real system. Simulation results demonstrate that our proposed method effectively ensures CAV safety and improves HDV safety in mixed platoon environments while simultaneously enhancing traffic capacity and string stability."
+    },
+    {
+      "kind": "doi",
+      "doi": "10.1016/j.trc.2024.104941",
+      "title": "Safety-aware human-lead vehicle platooning by proactively reacting to uncertain human behaving",
+      "year": 2024,
+      "venue": "Transportation Research Part C Emerging Technologies",
+      "vol": "170",
+      "issue": null,
+      "first": "104941",
+      "last": "104941",
+      "cited": 25,
+      "type": "article",
+      "oa": "green",
+      "authors": [
+        "Jia Sheng Hu",
+        "Shuhan Wang",
+        "Shuhan Wang",
+        "Yiming Zhang",
+        "Haoran Wang",
+        "Zhilong Liu",
+        "Guangzhi Cao"
+      ],
+      "n_authors": 7,
+      "abstract": null
+    },
+    {
+      "kind": "doi",
+      "doi": "10.1016/j.inffus.2025.103622",
+      "title": "Knowledge-data fusion dominated vehicle platoon dynamics modeling and analysis: A physics-encoded deep learning approach",
+      "year": 2025,
+      "venue": "Information Fusion",
+      "vol": "126",
+      "issue": null,
+      "first": "103622",
+      "last": "103622",
+      "cited": 7,
+      "type": "article",
+      "oa": "green",
+      "authors": [
+        "Hao Lyu",
+        "Yanyong Guo",
+        "Pan Liu",
+        "Shuo Feng",
+        "Weilin Ren",
+        "Quansheng Yue"
+      ],
+      "n_authors": 6,
+      "abstract": null
+    },
+    {
+      "kind": "doi",
+      "doi": "10.1109/tcst.2024.3478475",
+      "title": "Cooperative Adaptive Cruise Control for Heterogeneous Platoons With Delays: Controller Design and Experiments",
+      "year": 2024,
+      "venue": "IEEE Transactions on Control Systems Technology",
+      "vol": "33",
+      "issue": "4",
+      "first": "1361",
+      "last": "1371",
+      "cited": 9,
+      "type": "article",
+      "oa": "green",
+      "authors": [
+        "Redmer de Haan",
+        "Tom van der Sande",
+        "Erjen Lefeber",
+        "Igo J. M. Besselink"
+      ],
+      "n_authors": 4,
+      "abstract": "Cooperative adaptive cruise control (CACC) has the potential to increase road throughput and safety. To achieve full deployment of CACC on highways, controllers should be able to deal with heterogeneities in the vehicle string. Moreover, actuation delays have shown to be detrimental to the performance of controllers in such settings. In this article, we present a controller design for heterogeneous platoons, where the ego vehicle experiences an actuation delay in the driveline. The proposed controller does not require driveline information of the preceding vehicle, yielding a control approach suitable for heterogeneous platoons. Moreover, no constraints are imposed on the ordering of the delays throughout the platoon. We derive input-to-state stability conditions for the closed-loop system with delay and analyze the string stability properties of the system, taking into account both actuation and communication delay. The proposed controller is experimentally validated with a platoon consisting of two vehicles."
+    },
+    {
+      "kind": "doi",
+      "doi": "10.1109/tcst.2025.3587878",
+      "title": "Equipping Vehicular Platoons With Partial-State Immersion and Invariance Adaptation",
+      "year": 2025,
+      "venue": "IEEE Transactions on Control Systems Technology",
+      "vol": "33",
+      "issue": "6",
+      "first": "2378",
+      "last": "2392",
+      "cited": 2,
+      "type": "article",
+      "oa": "closed",
+      "authors": [
+        "Di Liu",
+        "Simone Baldi",
+        "Kang Yang",
+        "Alessandro Astolfi"
+      ],
+      "n_authors": 4,
+      "abstract": "This work discusses how a large set of longitudinal vehicular platooning protocols proposed in the literature can be augmented, in the framework of immersion and invariance (I&I), with adaptation and partial-state feedback capabilities. The need for adaptation stems from uncertainty and heterogeneity of the vehicle driveline time constants; the need for partial-state feedback stems from tradeoffs in the intervehicle sensing technology. The presented I&I designs yield disturbance decoupling, a system-theoretic property guaranteeing string stability and collision avoidance specifications, crucial in platooning. The proposed protocols are discussed analytically and validated using different traffic scenarios in the Simulation of Urban MObility-Veins (SUMO-Veins) platform for vehicular networks and using data from a traffic smoothing field experiment."
+    },
+    {
+      "kind": "doi",
+      "doi": "10.1109/tits.2024.3512784",
+      "title": "Eliminating Uncertainty of Driver’s Social Preferences for Lane Change Decision-Making in Realistic Simulation Environment",
+      "year": 2024,
+      "venue": "IEEE Transactions on Intelligent Transportation Systems",
+      "vol": "26",
+      "issue": "2",
+      "first": "1583",
+      "last": "1597",
+      "cited": 56,
+      "type": "article",
+      "oa": "green",
+      "authors": [
+        "Zejian Deng",
+        "Wen Hu",
+        "Chen Sun",
+        "Duanfeng Chu",
+        "Tao Huang",
+        "Wenbo Li",
+        "Chao Yu",
+        "Mohammad Pirani",
+        "Dongpu Cao",
+        "Amir Khajepour"
+      ],
+      "n_authors": 10,
+      "abstract": "The task of making lane change decisions for autonomous vehicles in mixed traffic is intricate and challenging due to the uncertainty of surrounding vehicles. The uncertainty exists in terms of the diverse social driving preferences and unpredictable driving behavior of human drivers. To address these challenges, the decision-making process for changing lanes is represented as an incomplete information game, where the driver characteristics of surrounding vehicles are unknown during the interaction. To eliminate the uncertainty of the driving environment, the concept of driver aggressiveness is proposed to quantify the social driving preferences based on the Risk-Response (R-R) diagram in an explainable manner. Then the predicted trajectory is utilized to calculate the driving risks using Gaussian Mixture Model (GMM) that is trained by the naturalistic driving data in the interactive lane change scenarios extracted from the highD dataset. To make the simulation environment more diverse and realistic, the data-driven motion model social Intelligent Driver Model (SIDM) is constructed based on car-following data obtained from cut-in scenarios in the highD dataset. The simulations are conducted by setting up the environment vehicles equipped with SIDM model with diverse social driving preferences. The findings indicate that the proposed decision-making model can recognize the category of surrounding vehicles, and in realistic interactive driving scenarios, it can produce adaptive and human-like driving decisions."
+    },
+    {
+      "kind": "doi",
+      "doi": "10.1109/tiv.2024.3352180",
+      "title": "Social Force Embedded Mixed Graph Convolutional Network for Multi-Class Trajectory Prediction",
+      "year": 2024,
+      "venue": "IEEE Transactions on Intelligent Vehicles",
+      "vol": "9",
+      "issue": "9",
+      "first": "5571",
+      "last": "5580",
+      "cited": 36,
+      "type": "article",
+      "oa": "green",
+      "authors": [
+        "Quancheng Du",
+        "Xiao Wang",
+        "Shouguo Yin",
+        "Lingxi Li",
+        "Huansheng Ning"
+      ],
+      "n_authors": 5,
+      "abstract": "Accurate prediction of agent motion trajectories is crucial for autonomous driving, contributing to the reduction of collision risks in human-vehicle interactions and ensuring ample response time for other traffic participants. Current research predominantly focuses on traditional deep learning methods, including convolutional neural networks (CNNs) and recurrent neural networks (RNNs). These methods leverage relative distances to forecast the motion trajectories of a single class of agents. However, in complex traffic scenarios, the motion patterns of various types of traffic participants exhibit inherent randomness and uncertainty. Relying solely on relative distances may not adequately capture the nuanced interaction patterns between different classes of road users. In this paper, we propose a novel multi-class trajectory prediction method named the social force embedded mixed graph convolutional network (SFEM-GCN). The primary goal is to extract social interactions among agents more accurately. SFEM-GCN comprises three graph topologies: the semantic graph (SG), position graph (PG), and velocity graph (VG). These graphs encode various of social force relationships among different classes of agents in complex scenes. Specifically, SG utilizes one-hot encoding of agent-class information to guide the construction of graph adjacency matrices based on semantic information. PG and VG create adjacency matrices to capture motion interaction relationships between different classes agents. These graph structures are then integrated into a mixed graph, where learning is conducted using a spatio-temporal graph convolutional neural network (ST-GCNN). To further enhance prediction performance, we adopt temporal convolutional networks (TCNs) to generate the predicted trajectory with fewer parameters. Experimental results on publicly available datasets demonstrate that SFEM-GCN surpasses state-of-the-art methods in terms of accuracy and robustness."
+    },
+    {
+      "kind": "doi",
+      "doi": "10.3390/s25103191",
+      "title": "Tiny Machine Learning and On-Device Inference: A Survey of Applications, Challenges, and Future Directions",
+      "year": 2025,
+      "venue": "Sensors",
+      "vol": "25",
+      "issue": "10",
+      "first": "3191",
+      "last": "3191",
+      "cited": 145,
+      "type": "article",
+      "oa": "gold",
+      "authors": [
+        "Soroush Heydari",
+        "Qusay H. Mahmoud"
+      ],
+      "n_authors": 2,
+      "abstract": "The growth in artificial intelligence and its applications has led to increased data processing and inference requirements. Traditional cloud-based inference solutions are often used but may prove inadequate for applications requiring near-instantaneous response times. This review examines Tiny Machine Learning, also known as TinyML, as an alternative to cloud-based inference. The review focuses on applications where transmission delays make traditional Internet of Things (IoT) approaches impractical, thus necessitating a solution that uses TinyML and on-device inference. This study, which follows the PRISMA guidelines, covers TinyML's use cases for real-world applications by analyzing experimental studies and synthesizing current research on the characteristics of TinyML experiments, such as machine learning techniques and the hardware used for experiments. This review identifies existing gaps in research as well as the means to address these gaps. The review findings suggest that TinyML has a strong record of real-world usability and offers advantages over cloud-based inference, particularly in environments with bandwidth constraints and use cases that require rapid response times. This review discusses the implications of TinyML's experimental performance for future research on TinyML applications."
+    },
+    {
+      "kind": "doi",
+      "doi": "10.1109/lra.2024.3440097",
+      "title": "DriveGPT4: Interpretable End-to-End Autonomous Driving Via Large Language Model",
+      "year": 2024,
+      "venue": "IEEE Robotics and Automation Letters",
+      "vol": "9",
+      "issue": "10",
+      "first": "8186",
+      "last": "8193",
+      "cited": 418,
+      "type": "article",
+      "oa": "green",
+      "authors": [
+        "Zhenhua Xu",
+        "Yujia Zhang",
+        "Enze Xie",
+        "Zhao Zhen",
+        "Yong Fang Guo",
+        "Kenneth K. Wong",
+        "Zhenguo Li",
+        "Hengshuang Zhao"
+      ],
+      "n_authors": 8,
+      "abstract": "Multimodallarge language models (MLLMs) have emerged as a prominent area of interest within the research community, given their proficiency in handling and reasoning with non-textual data, including images and videos. This study seeks to extend the application of MLLMs to the realm of autonomous driving by introducing DriveGPT4, a novel interpretable end-to-end autonomous driving system based on LLMs. Capable of processing multi-frame video inputs and textual queries, DriveGPT4 facilitates the interpretation of vehicle actions, offers pertinent reasoning, and effectively addresses a diverse range of questions posed by users. Furthermore, DriveGPT4 predicts low-level vehicle control signals in an end-to-end fashion. These advanced capabilities are achieved through the utilization of a bespoke visual instruction tuning dataset, specifically tailored for autonomous driving applications, in conjunction with a mix-finetuning training strategy. DriveGPT4 represents the pioneering effort to leverage LLMs for the development of an interpretable end-to-end autonomous driving solution. Evaluations conducted on the BDD-X dataset showcase the superior qualitative and quantitative performance of DriveGPT4. Additionally, the fine-tuning of domain-specific data enables DriveGPT4 to yield close or even improved results in terms of autonomous driving grounding when contrasted with GPT4-V."
+    },
+    {
+      "kind": "arxiv",
+      "arxiv": "2605.01731v1",
+      "title": "Lateral String Stability for Vehicle Platoons: Formulation, Definition, and Analysis",
+      "date": "2026-05-03",
+      "updated": "2026-05-03",
+      "authors": [
+        "Sixu Li",
+        "Swaroop Darbha",
+        "Yang Zhou"
+      ],
+      "journal_ref": null,
+      "doi": null,
+      "comment": "",
+      "abstract": "Platooning of connected and automated vehicles provides significant benefits in terms of energy efficiency, traffic throughput, and, most critically, safety. These safety benefits depend on string stability, which dictates how disturbances propagate along a vehicle string. Although longitudinal string stability has been extensively examined, lateral string stability, which governs the propagation of path-tracking errors that can lead to unsafe deviations from the desired path, remains underexplored. Its importance is growing as autonomous vehicles increasingly depend on onboard sensing and map-free navigation, where sensor occlusions and tight formations amplify safety risks. This paper presents a framework for lateral string stability that focuses directly on safety-critical, path-relative tracking errors and enables consistent comparison across vehicles that follow the same planned path. The key element of the framework is an arc-length (Eulerian) viewpoint, a departure from traditional analyses, that clarifies how tracking errors at a given point on the path propagate from one vehicle to the next. Building on this foundation, we propose the definition of L2 lateral string stability along with two control strategies: a feedback-feedforward strategy that relies solely on onboard sensing, and a novel learn-from-predecessor strategy that makes use of vehicle-to-vehicle communication. Both strategies are analyzed for lateral string stability with respect to two error measures: tracking error vector and lateral (cross-track) error. Our results show that onboard sensing alone cannot guarantee attenuation of path-tracking errors, imposing a fundamental safety limitation, while V2V communication enables true error attenuation. The analysis further identifies structural controller requirements, showing that nonzero feedback on specific measurements is essential for guaranteeing stability."
+    },
+    {
+      "kind": "arxiv",
+      "arxiv": "2606.20648v1",
+      "title": "Platooning Connected, Autonomous, and Human-Driven Vehicles: A Deep Reinforcement Learning-based Approach",
+      "date": "2026-06-07",
+      "updated": "2026-06-07",
+      "authors": [
+        "Zhen Qina",
+        "Dong-Fan Xie",
+        "Heng Ma",
+        "Xiaomei Zhao",
+        "Zhengbing He"
+      ],
+      "journal_ref": null,
+      "doi": null,
+      "comment": "",
+      "abstract": "Conventionally, existing vehicle platooning approaches are designed for connected vehicles, typically including connected autonomous vehicles and connected human-driven vehicles. Non-connected vehicles, such as non-connected autonomous or human-driven vehicles, are not incorporated. As a result, these platooning approaches may not properly reflect real-world mixed traffic conditions at the current stage. To address this limitation, this study proposes a hybrid platooning pattern that conditionally permits non-connected vehicles to join platoons, thereby enhancing platooning diversity and flexibility. However, it was found that the unregulated integration of non-connected vehicles can trigger rapid platoon expansion, significantly amplifying the risk of disturbance propagation in traffic flow. This, in turn, exacerbates the inherent conflict between traffic throughput and stability. To mitigate these challenges, this paper further develops a hybrid platooning control strategy based on deep reinforcement learning (DRL). This strategy integrates vehicle dynamics, platoon topology, and traffic flow states through a multi-level state representation network, enabling a dynamic trade-off between traffic capacity and stability. Numerical simulations demonstrate that the proposed strategy effectively suppresses velocity disturbance propagation by dynamically optimizing platoon structures, thereby significantly enhancing the stability and safety of mixed traffic while reducing fuel consumption and emissions."
+    },
+    {
+      "kind": "arxiv",
+      "arxiv": "2506.16311v1",
+      "title": "Towards Emergency Scenarios: An Integrated Decision-making Framework of Multi-lane Platoon Reorganization",
+      "date": "2025-06-19",
+      "updated": "2025-06-19",
+      "authors": [
+        "Aijing Kong",
+        "Chengkai Xu",
+        "Xian Wu",
+        "Xinbo Chen",
+        "Peng Hang"
+      ],
+      "journal_ref": null,
+      "doi": null,
+      "comment": "",
+      "abstract": "To enhance the ability for vehicle platoons to respond to emergency scenarios, a platoon distribution reorganization decision-making framework is proposed. This framework contains platoon distribution layer, vehicle cooperative decision-making layer and vehicle planning and control layer. Firstly, a reinforcement-learning-based platoon distribution model is presented, where a risk potential field is established to quantitatively assess driving risks, and a reward function tailored to the platoon reorganization process is constructed. Then, a coalition-game-based vehicle cooperative decision-making model is put forward, modeling the cooperative relationships among vehicles through dividing coalitions and generating the optimal decision results for each vehicle. Additionally, a novel graph-theory-based Platoon Disposition Index (PDI) is incorporated into the game reward function to measure the platoon's distribution state during the reorganization process, in order to accelerating the reorganization process. Finally, the validation of the proposed framework is conducted in two high-risk scenarios under random traffic flows. The results show that, compared to the baseline models, the proposed method can significantly reduce the collision rate and improve driving efficiency. Moreover, the model with PDI can significantly decrease the platoon formation reorganization time and improve the reorganization efficiency."
+    },
+    {
+      "kind": "arxiv",
+      "arxiv": "2609.33892v1",
+      "title": "Residual Learning-Based Control of Vehicle Platoons with $\\ell_2$ Stability Guarantees via Recurrent Equilibrium Networks",
+      "date": "2026-09-27",
+      "updated": "2026-09-27",
+      "authors": [
+        "Brian Delgado",
+        "Anh-Tu Nguyen",
+        "Hamid Taghavifar"
+      ],
+      "journal_ref": null,
+      "doi": null,
+      "comment": "Submitted to the 2027 American Control Conference (ACC)",
+      "abstract": "This paper proposes a residual learning-based control framework for heterogeneous vehicle platoons subject to parametric uncertainty and external disturbances. A nominal controller designed via Linear Matrix Inequalities (LMIs), along with disturbance-observer compensation, is enhanced by a Recurrent Equilibrium Network (REN) trained offline using stored trajectories and nominal-model prediction errors. The REN is constrained to satisfy a prescribed $\\ell_2$-gain bound, enabling sufficient small-gain conditions for local closed-loop stability and disturbance string stability. Experiments demonstrate reduced spacing and velocity errors relative to the nominal controller."
+    },
+    {
+      "kind": "arxiv",
+      "arxiv": "2502.16466v2",
+      "title": "Robust Nonlinear Data-Driven Predictive Control for Mixed Vehicle Platoons via Koopman Operator and Reachability Analysis",
+      "date": "2025-02-23",
+      "updated": "2025-11-06",
+      "authors": [
+        "Shuai Li",
+        "Jiawei Wang",
+        "Kaidi Yang",
+        "Qing Xu",
+        "Jianqiang Wang",
+        "Keqiang Li"
+      ],
+      "journal_ref": null,
+      "doi": null,
+      "comment": "",
+      "abstract": "Mixed vehicle platoons, comprising connected and automated vehicles (CAVs) and human-driven vehicles (HDVs), hold significant potential for enhancing traffic performance. However, most existing control strategies assume linear system dynamics and often ignore the impact of adverse factors such as noise, disturbances, and attacks, which are inherent to real-world scenarios. To address these limitations, we propose a Robust Nonlinear Data-Driven Predictive Control (RNDDPC) framework that ensures safe and optimal control under uncertain and adverse conditions. By utilizing Koopman operator theory, we map the system's nonlinear dynamics into a higher-dimensional space, constructing a Koopman-based model that approximates the behavior of the original nonlinear system. To mitigate modeling errors associated with this predictor, we introduce a data-driven reachable set analysis technique that performs secondary learning using matrix zonotope sets, generating a reachable set predictor for over-approximation of the future states of the underlying system. Then, we formulate the RNDDPC optimization problem and solve it in a receding horizon manner for robust control inputs. Extensive simulations demonstrate that the proposed framework significantly outperforms baseline methods in tracking performance under noise, disturbances, and attacks."
+    },
+    {
+      "kind": "arxiv",
+      "arxiv": "2609.00385v1",
+      "title": "Risk-Aware Decision-Making for Autonomous Overtaking: A World Model-Based Mixture-of-Experts Framework",
+      "date": "2026-07-14",
+      "updated": "2026-07-14",
+      "authors": [
+        "Yongzhi Liu",
+        "Sunan Zhang",
+        "Jinchang Xu",
+        "Jiawei Wang",
+        "Yushu Qiu",
+        "Chen Lv",
+        "Weichao Zhuang"
+      ],
+      "journal_ref": null,
+      "doi": null,
+      "comment": "",
+      "abstract": "Autonomous highway overtaking demands foresighted decision-making to handle complex interactions, stochastic traffic evolution, and temporal risk accumulation. However, standard safe reinforcement learning approaches typically rely on implicit value-based risk estimations rather than explicit dynamics modeling, thereby struggling to accurately capture complex risk propagation over multi-step horizons. This limitation frequently results in behaviors that are locally safe but induce substantial latent risks in the long term. To address this, a World Model-based Risk-aware Mixture-of-Experts (WM-RMoE) framework is proposed. First, a learned latent dynamics model facilitates parallel multi-step rollouts, elevating safety assessment from the action level to the trajectory level via cumulative risk evaluation. Second, to enhance robustness under varying interaction intensities, a hierarchical gating mechanism dynamically coordinates experts across long-horizon, short-horizon, and rule-based safety modules. Furthermore, a Gaussian Mixture Model is integrated to preserve multimodal maneuvering branches, thereby mitigating the issue of behavioral mode averaging. Experimental results demonstrate that WM-RMoE significantly outperforms representative baselines in terms of safety compliance, decision stability, and generalization capability. Furthermore, benefiting from the risk-aware formulation, the proposed framework uniquely exhibits the ability to generate foresighted and semantically distinct overtaking maneuvers across diverse traffic densities."
+    },
+    {
+      "kind": "arxiv",
+      "arxiv": "2606.15807v1",
+      "title": "Continuous Cross-Domain Traffic State Prediction via Memory-Augmented Graph Liquid Time-Constant Networks",
+      "date": "2026-06-14",
+      "updated": "2026-06-14",
+      "authors": [
+        "Jinrong Xiang",
+        "Ming Xu"
+      ],
+      "journal_ref": null,
+      "doi": null,
+      "comment": "",
+      "abstract": "Traffic state prediction is a fundamental task in intelligent transportation systems. In practical applications, some regions suffer from limited traffic observations due to insufficient sensing infrastructure, making cross-domain knowledge transfer an important solution for data-scarce traffic prediction. However, existing cross-domain traffic prediction methods still face several limitations, including coarse-grained source-target adaptation, limited capability in handling unseen target-domain patterns, and insufficient modeling of continuous traffic dynamics under irregular or heterogeneous temporal conditions. To address these issues, this paper proposes a continuous cross-domain traffic prediction framework, termed Memory-Augmented Graph Liquid Time-Constant Network (MA-GLTC). Specifically, we first construct spatio-temporal units (STUs) to decompose traffic networks into transferable local units, enabling fine-grained knowledge alignment across domains. Then, a graph liquid time-constant network (GLTC) is developed to model graph-coupled traffic evolution in continuous time. Different from generic graph neural ODE-based models, GLTC introduces graph-coupled recurrent conductance into liquid time-constant dynamics, allowing node states to evolve with leakage, adaptive time constants, and neighborhood-aware feedback. Furthermore, a Memory-based Transfer Storage (MTS) mechanism is designed to preserve source-domain knowledge, retrieve matched traffic patterns, and update reliable target-domain patterns when unseen states emerge. Experiments on five public traffic datasets demonstrate that MA-GLTC consistently outperforms representative innerdomain and cross-domain baselines in both short-term and longterm prediction tasks. Compared with the second-best method, MA-GLTC reduces the average prediction errors by 3.02%, 0.33%, 8.92%, 10.09%, and 2.11%, respectively."
+    },
+    {
+      "kind": "arxiv",
+      "arxiv": "2604.01790v1",
+      "title": "Set-Theoretic Receding Horizon Control for Obstacle Avoidance and Overtaking in Autonomous Highway Driving",
+      "date": "2026-04-02",
+      "updated": "2026-04-02",
+      "authors": [
+        "Gianni Cario",
+        "Valentino Carriuolo",
+        "Alessandro Casavola",
+        "Gianfranco Gagliardi",
+        "Marco Lupia",
+        "Franco Angelo Torchiaro"
+      ],
+      "journal_ref": null,
+      "doi": null,
+      "comment": "",
+      "abstract": "This article addresses obstacle avoidance motion planning for autonomous vehicles, specifically focusing on highway overtaking maneuvers. The control design challenge is handled by considering a mathematical vehicle model that captures both lateral and longitudinal dynamics. Unlike existing numerical optimization methods that suffer from significant online computational overhead, this work extends the state-of-the-art by leveraging a fast set-theoretic ellipsoidal Model Predictive Control (Fast-MPC) technique. While originally restricted to stabilization tasks, the proposed framework is successfully adapted to handle motion planning for vehicles modeled as uncertain polytopic discrete-time linear systems. The control action is computed online via a set-membership evaluation against a structured sequence of nested inner ellipsoidal approximations of the exact one-step ahead controllable set within a receding horizon framework. A six-degrees-of-freedom (6-DOF) nonlinear model characterizes the vehicle dynamics, while a polytopic embedding approximates the nonlinearities within a linear framework with parameter uncertainties. Finally, to assess performance and real-time feasibility, comparative co-simulations against a baseline Non-Linear MPC (NLMPC) were conducted. Using the high-fidelity CARLA 3D simulator, results demonstrate that the proposed approach seamlessly rejects dynamic traffic disturbances while reducing online computational time by over 90% compared to standard optimization-based approaches."
+    },
+    {
+      "kind": "arxiv",
+      "arxiv": "2403.19637v1",
+      "title": "In the driver's mind: modeling the dynamics of human overtaking decisions in interactions with oncoming automated vehicles",
+      "date": "2024-03-28",
+      "updated": "2024-03-28",
+      "authors": [
+        "Samir H. A. Mohammad",
+        "Haneen Farah",
+        "Arkady Zgonnikov"
+      ],
+      "journal_ref": null,
+      "doi": null,
+      "comment": "",
+      "abstract": "Understanding human behavior in overtaking scenarios is crucial for enhancing road safety in mixed traffic with automated vehicles (AVs). Computational models of behavior play a pivotal role in advancing this understanding, as they can provide insight into human behavior generalizing beyond empirical studies. However, existing studies and models of human overtaking behavior have mostly focused on scenarios with simplistic, constant-speed dynamics of oncoming vehicles, disregarding the potential of AVs to proactively influence the decision-making process of the human drivers via implicit communication. Furthermore, so far it remained unknown whether overtaking decisions of human drivers are affected by whether they are interacting with an AV or a human-driven vehicle (HDV). To address these gaps, we conducted a \"reverse Wizard-of-Oz\" driving simulator experiment with 30 participants who repeatedly interacted with oncoming AVs and HDVs, measuring the drivers' gap acceptance decisions and response times. The oncoming vehicles featured time-varying dynamics designed to influence the overtaking decisions of the participants by briefly decelerating and then recovering to their initial speed. We found that participants did not alter their overtaking behavior when interacting with oncoming AVs compared to HDVs. Furthermore, we did not find any evidence of brief decelerations of the oncoming vehicle affecting the decisions or response times of the participants. Cognitive modeling of the obtained data revealed that a generalized drift-diffusion model with dynamic drift rate and velocity-dependent decision bias best explained the gap acceptance outcomes and response times observed in the experiment. Overall, our findings highlight the potential of cognitive models for further advancing the ongoing development of safer interactions between human drivers and AVs during overtaking maneuvers."
+    },
+    {
+      "kind": "arxiv",
+      "arxiv": "2401.01425v1",
+      "title": "SwapTransformer: highway overtaking tactical planner model via imitation learning on OSHA dataset",
+      "date": "2024-01-02",
+      "updated": "2024-01-02",
+      "authors": [
+        "Alireza Shamsoshoara",
+        "Safin B Salih",
+        "Pedram Aghazadeh"
+      ],
+      "journal_ref": null,
+      "doi": null,
+      "comment": "19 pages, 12 Figures, 1 Algorithm, 2 Tables",
+      "abstract": "This paper investigates the high-level decision-making problem in highway scenarios regarding lane changing and over-taking other slower vehicles. In particular, this paper aims to improve the Travel Assist feature for automatic overtaking and lane changes on highways. About 9 million samples including lane images and other dynamic objects are collected in simulation. This data; Overtaking on Simulated HighwAys (OSHA) dataset is released to tackle this challenge. To solve this problem, an architecture called SwapTransformer is designed and implemented as an imitation learning approach on the OSHA dataset. Moreover, auxiliary tasks such as future points and car distance network predictions are proposed to aid the model in better understanding the surrounding environment. The performance of the proposed solution is compared with a multi-layer perceptron (MLP) and multi-head self-attention networks as baselines in a simulation environment. We also demonstrate the performance of the model with and without auxiliary tasks. All models are evaluated based on different metrics such as time to finish each lap, number of overtakes, and speed difference with speed limit. The evaluation shows that the SwapTransformer model outperforms other models in different traffic densities in the inference phase."
+    },
+    {
+      "kind": "arxiv",
+      "arxiv": "2601.06227v3",
+      "title": "When Smaller Wins: Dual-Stage Distillation and Pareto-Guided Compression of Liquid Neural Networks for Edge Battery Prognostics",
+      "date": "2026-01-09",
+      "updated": "2026-06-11",
+      "authors": [
+        "Dhivya Dharshini Kannan",
+        "Wei Li",
+        "Wei Zhang",
+        "Jianbiao Wang",
+        "Zhi Wei Seh",
+        "Man-Fai Ng"
+      ],
+      "journal_ref": null,
+      "doi": null,
+      "comment": "Accepted at International Conference on Pattern Recognition, ICPR 2026. Code available at: https://github.com/Dhivya-DD17/DLNet",
+      "abstract": "Battery management systems increasingly require accurate battery health prognostics under strict on-device constraints. This paper presents DLNet, a practical framework with dual-stage distillation of liquid neural networks that turns a high-capacity model into compact and edge-deployable models for battery health prediction. DLNet first applies Euler discretization to reformulate liquid dynamics for embedded compatibility. It then performs dual-stage knowledge distillation to transfer the teacher model's temporal behavior and recover it after further compression. Pareto-guided selection under joint error-cost objectives retains student models that balance accuracy and efficiency. We evaluate DLNet on a widely used dataset and validate real-device feasibility on an Arduino Nano 33 BLE Sense using int8 deployment. The final deployed student achieves a low error of 0.0066 when predicting battery health over the next 100 cycles, which is 15.4% lower than the teacher model. It reduces the model size from 616 kB to 94 kB with 84.7% reduction and takes 21 ms per inference on the device. These results support a practical smaller wins observation that a small model can match or exceed a large teacher for edge-based prognostics with proper supervision and selection. Beyond batteries, the DLNet framework can extend to other industrial analytics tasks with strict hardware constraints."
+    },
+    {
+      "kind": "arxiv",
+      "arxiv": "2603.27058v1",
+      "title": "Liquid Networks with Mixture Density Heads for Efficient Imitation Learning",
+      "date": "2026-03-28",
+      "updated": "2026-03-28",
+      "authors": [
+        "Nikolaus Correll"
+      ],
+      "journal_ref": null,
+      "doi": null,
+      "comment": "",
+      "abstract": "We compare liquid neural networks with mixture density heads against diffusion policies on Push-T, RoboMimic Can, and PointMaze under a shared-backbone comparison protocol that isolates policy-head effects under matched inputs, training budgets, and evaluation settings. Across tasks, liquid policies use roughly half the parameters (4.3M vs. 8.6M), achieve 2.4x lower offline prediction error, and run 1.8 faster at inference. In sample-efficiency experiments spanning 1% to 46.42% of training data, liquid models remain consistently more robust, with especially large gains in low-data and medium-data regimes. Closed-loop results on Push-T and PointMaze are directionally consistent with offline rankings but noisier, indicating that strong offline density modeling helps deployment while not fully determining closed-loop success. Overall, liquid recurrent multimodal policies provide a compact and practical alternative to iterative denoising for imitation learning."
+    },
+    {
+      "kind": "arxiv",
+      "arxiv": "2407.20590v1",
+      "title": "Exploring Liquid Neural Networks on Loihi-2",
+      "date": "2024-07-30",
+      "updated": "2024-07-30",
+      "authors": [
+        "Wiktoria Agata Pawlak",
+        "Murat Isik",
+        "Dexter Le",
+        "Ismail Can Dikmen"
+      ],
+      "journal_ref": null,
+      "doi": null,
+      "comment": "8 pages, 3 figures, 3 tables",
+      "abstract": "This study investigates the realm of liquid neural networks (LNNs) and their deployment on neuromorphic hardware platforms. It provides an in-depth analysis of Liquid State Machines (LSMs) and explores the adaptation of LNN architectures to neuromorphic systems, highlighting the theoretical foundations and practical applications. We introduce a pioneering approach to image classification on the CIFAR-10 dataset by implementing Liquid Neural Networks (LNNs) on state-of-the-art neuromorphic hardware platforms. Our Loihi-2 ASIC-based architecture demonstrates exceptional performance, achieving a remarkable accuracy of 91.3% while consuming only 213 microJoules per frame. These results underscore the substantial potential of LNNs for advancing neuromorphic computing and establish a new benchmark for the field in terms of both efficiency and accuracy."
+    },
+    {
+      "kind": "arxiv",
+      "arxiv": "2510.07578v1",
+      "title": "Accuracy, Memory Efficiency and Generalization: A Comparative Study on Liquid Neural Networks and Recurrent Neural Networks",
+      "date": "2025-10-08",
+      "updated": "2025-10-08",
+      "authors": [
+        "Shilong Zong",
+        "Alex Bierly",
+        "Almuatazbellah Boker",
+        "Hoda Eldardiry"
+      ],
+      "journal_ref": null,
+      "doi": null,
+      "comment": "13 pages, 12 figures. Submitted to IEEE Transactions on Neural Networks and Learning Systems (TNNLS)",
+      "abstract": "This review aims to conduct a comparative analysis of liquid neural networks (LNNs) and traditional recurrent neural networks (RNNs) and their variants, such as long short-term memory networks (LSTMs) and gated recurrent units (GRUs). The core dimensions of the analysis include model accuracy, memory efficiency, and generalization ability. By systematically reviewing existing research, this paper explores the basic principles, mathematical models, key characteristics, and inherent challenges of these neural network architectures in processing sequential data. Research findings reveal that LNN, as an emerging, biologically inspired, continuous-time dynamic neural network, demonstrates significant potential in handling noisy, non-stationary data, and achieving out-of-distribution (OOD) generalization. Additionally, some LNN variants outperform traditional RNN in terms of parameter efficiency and computational speed. However, RNN remains a cornerstone in sequence modeling due to its mature ecosystem and successful applications across various tasks. This review identifies the commonalities and differences between LNNs and RNNs, summarizes their respective shortcomings and challenges, and points out valuable directions for future research, particularly emphasizing the importance of improving the scalability of LNNs to promote their application in broader and more complex scenarios."
+    }
+  ]
+}

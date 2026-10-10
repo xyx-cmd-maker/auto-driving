@@ -1,0 +1,311 @@
+自动驾驶全栈架构研究蓝图
+—— 基于超车频次的纵向深耕论文集群规划 ——
+Full-Stack Autonomous Driving Research Blueprint &amp; Paper Portfolio
+内部研究文档 · 2026 年 9 月 · V1.1（P1 场景修订：高速主线混行编队）
+文档依据：（1）黄梦圆博士学位论文《基于超车频次的自动驾驶车辆行为决策研究》（吉林大学，2023）；
+　　　　　（2）DriveDreamer: Towards Real-world-driven World Models for Autonomous Driving（arXiv:2309.09777）；
+　　　　　（3）Drive as You Speak: Enabling Human-Like Interaction with Large Language Models in Autonomous Vehicles（arXiv:2309.10228）；
+　　　　　（4）课题组核心架构构想（感知—VLA—WLA—LNN—车辆动力学闭环）与 DeepSeek Harness 本地化研究工具链。
+
+第一章 研究基础与参考文献
+1.1 学位论文核心资产盘点
+黄梦圆博士学位论文《基于超车频次的自动驾驶车辆行为决策研究》（吉林大学交通学院，载运工具运用工程，指导教师：李世武教授，2023 年 5 月答辩）是本项目全部研究工作的基准基石。论文以“量化邻车与自车在局域交通流中的状态差异性”为切入点，完成了“参数构建 → 状态评估 → 行为决策”的完整闭环，其核心资产可复用情况如下：
+核心资产
+内容概要
+在新架构中的价值
+超车频次（OTF）参数
+固定时间窗内“相邻车道超车数 − 被超车数”之差；基于滑动窗口法优化定义式；构建动态时间窗函数（速度差→窗长自适应）
+全网唯一的交通社会压力可解释标量，是连接交通流统计与端到端模型的天然锚点
+分层递阶状态评估体系
+安全层（TTC/THW）→ 效率层（OTF 速度适宜性分级）；SVM/LSTM/Bi-LSTM 实现；引入 OTF 后识别准确率提升 1.0–1.7%
+可改造为 VLA 的指令合法性检查器与强化学习奖励塑形器
+TD3 行为决策模型
+状态=邻车/前车/自车运动信息；奖励=安全约束+效率激励；输出加速/减速/转向；轨迹平顺性、加速度与前轮转角稳定性均验证有效
+新论文的对比基线（Baseline）
+实车试验平台与数据集
+毫米波雷达+GPS 融合采集平台、侧向超车/被超车识别算法、CAN 总线数据、高速公路与城市道路双工况自然驾驶数据
+独家 OTF 标注数据源，构成数据护城河
+四类工况场景库
+前方无车、邻车插入、前车减速、前车驶离的定量评估模式
+MVP 论文测试用例的直接来源
+1.2 学位论文的边界与局限
+传感器仅毫米波雷达+GPS，无相机/激光雷达深度表征能力；
+仅研究直线道路场景，交叉口、环形道路等未覆盖（论文自承展望）；
+OTF 为事后统计指标（滑动窗内已发生的超车事件），不具备预测能力；
+TD3 直接输出加速度/前轮转角，离散指令直驱物理系统，无连续时间动力学层；
+决策动机依赖人工设计奖励，无自然语言交互与可解释意图；
+单一决策频率，无“高层决策/底层控制”分层频率解耦设计。
+1.3 核心参考文献
+1.3.1 DriveDreamer（arXiv:2309.09777）
+清华大学 Wang Xiaofeng、Zhu Zheng 等提出，是首个完全基于真实世界驾驶场景构建的世界模型。核心方法：利用扩散模型构建复杂驾驶环境的综合表征；提出两阶段训练流程——第一阶段学习结构化交通约束（HDMap、3D Box），第二阶段获得未来状态预测能力。在 nuScenes 基准上验证了精确可控的视频生成与合理驾驶策略生成能力。在本蓝图中作为世界模型（WLA）的框架参考。
+1.3.2 Drive as You Speak（arXiv:2309.10228）
+Purdue 大学 Cui Can、Ma Yunsheng、Wang Ziran 等提出，利用大语言模型（LLM）增强自动驾驶决策：融合自然语言理解、上下文推理、专用工具调用与车载各模块的协同“推理-行动”能力，实现个性化辅助、持续学习与透明决策。在本蓝图中作为大语言模型集成（VLA）的方法论参考。
+
+第二章 课题组核心架构构想
+本章整合课题组提出的原创性架构构想。核心思想是构建“感知 → VLA → WLA → LNN → 车辆动力学”的闭环系统，VLA 与 WLA 双模型优缺点互补互长，LNN 承担类端到端的低延时动态时序控制。
+2.1 闭环数据流（五层结构）
+层级
+输入与处理
+输出
+感知层
+外部传感器、内部传感器、人机交互指令、先前构建的巨大 RAG 数据库等多元信息处理
+统一的多模态数据流
+VLA 层
+处理多模态数据流，生成局域交通流的语义场景描述
+自动驾驶的宏观驾驶意图与任务分解（VLA 的核心作用）
+WLA 层
+注入 VLA 处理后的信息，进行世界模型推演
+未来局域交通流预测图 + 本车在未来时刻的潜在状态
+LNN 层
+接收 VLA/WLA 输出，液态神经网络连续时间积分
+类端到端优势：延时低、动态时序控制而非硬编码的控制信号
+车辆动力学层
+接收 LNN 输出信号，更新自身状态
+更新后的状态数据回传 VLA 与 WLA，进入下一轮循环
+设计要点：同时引入 VLA 与 WLA 的目的是利用两个模型的优缺点互补互长——VLA 强于语义理解与意图推理但缺乏物理推演精度，WLA 强于时空预测但缺乏任务级语义；LNN 将二者输出落地为毫秒级平滑控制，形成“大胆决策、小心修正”的分层安全机制。
+2.2 模型选型原则：轻量化优先
+关键决策：本架构的大模型组件不使用 GPT-4 乃至更大规模的模型——车载设备无法承载，且课题组算力有限。采用轻量化多模态大模型（如 Qwen-VL 系列）即可满足 VLA 层的语义理解与意图生成需求，同时为边缘部署（Orin-X/Thor + MCU 双轨道）预留算力空间。
+2.3 与系统级技术规范的映射
+将上述构想细化为可工程的模块技术规范，各模块职责、频率与训练策略如下：
+模块
+频率
+功能
+输入
+输出
+Transformer（感知与语义桥接）
+10 Hz
+提取 BEV 特征，执行时空注意力
+相机+激光雷达稀疏时序帧
+语义理解：“我看到了什么”
+WLA（世界潜在动作模型）
+10 Hz
+推理邻车潜在轨迹，生成未来占据网格（潜在流场）
+BEV 特征
+“别人下一秒会怎么动”
+VLA（视觉-语言-动作模型）
+10 Hz
+输出粗粒度驾驶指令
+导航指令（语言/地图）+ 场景上下文
+“我打算怎么开”
+LNN（液态神经网络）
+100 Hz+
+连续时间积分，实时生成细粒度控制
+VLA 指令 + WLA 流场 + IMU/轮速计
+油门/刹车/转向角：“我实际怎么精准执行”
+LNN 是本架构的“时域校准器”：VLA 输出离散指令（如“加速到 60 km/h”），物理系统是连续的。LNN 将 VLA 离散指令视为边界条件、WLA 预测视为动态扰动，通过求解神经常微分方程（Neural ODE）生成毫秒级平滑控制信号，彻底消除传统 PID 控制的顿挫感。
+
+第三章 研究空白分析（蓝海定位）
+将学位论文与全栈架构逐层对齐，每一处空白即一个论文机会：
+架构层
+学位论文现状
+架构要求
+研究空白（=论文机会）
+感知 Transformer
+人工特征（OTF/TTC/THW）
+BEV 时空注意力特征
+OTF 作为 BEV 表征的可解释监督信号，而非被端到端取代
+预测 WLA
+无他车轨迹预测；OTF 为事后统计
+未来占据网格/潜在流场
+把 OTF 从事后统计提升为可预测的时空势场——DriveDreamer 类工作完全没有交通流社会压力建模
+决策 VLA
+TD3 黑盒奖励
+语言指令→粗粒度意图
+语言指令缺乏可 grounding 的交通流物理量；Drive as You Speak 未解决语言→定量交通指标的落地
+控制 LNN
+TD3 直接输出控制量
+Neural ODE 连续时间积分
+LNN/CfC 车辆连续控制应用稀缺，且无人将交通流统计量注入 ODE 边界条件
+安全隔离
+规则级 TTC/THW 约束
+隔离网络+物理可行性概率
+利用 LNN 连续可导性做 VLA 指令实时筛查，对接 ISO 26262 独立隔离
+全栈训练
+单模块独立训练
+可微联合微调（伴随法）
+离散帧网络（10Hz）×连续 ODE（100Hz）混合系统的伴随训练无成熟公开方案
+核心判断：学位论文最大的蓝海价值不是继续改进 OTF 定义，而是——OTF 作为“交通社会压力”一阶可解释标量，在 World Model / VLA / LNN 三条 2026 热点赛道中均无对应物。五篇论文全部围绕“OTF 的升维（势场化、预测化）与下沉（注入 ODE 边界条件）”展开，形成纵向极深、自我引用的论文集群。
+
+第四章 五篇论文集群规划
+4.1 总体规划
+编号
+代号
+架构层
+落地场景
+目标期刊/会议
+周期
+P1
+OTF-CfC
+LNN 控制
+高速主线多车道编队·混行交通（MVP 首发）
+IEEE T-ITS / IV / ICRA
+0–6 月
+P2
+SocialDreamer
+WLA 预测
+交通流社会压力场预测
+CVPR-W / TPAMI / T-ITS
+3–9 月
+P3
+TalkOTF
+VLA 决策
+语言交互式超车决策
+IEEE TVT / IROS
+6–12 月
+P4
+IsoLNN
+安全隔离
+长尾场景指令筛查
+T-ITS 安全专栏 / DASC
+9–15 月
+P5
+AdjointStack
+全栈训练
+混合频率联合微调
+NeurIPS / RSS
+9–18 月
+依赖关系：P1 可独立成文（仅需学位论文实车数据 + CARLA）；P2、P3 分别向预测层、决策层延伸；P4 依赖 P1 的 LNN 控制器；P5 收束全部成果，是方法论旗舰。
+4.2 论文一（MVP 首发）：OTF-CfC
+题目：基于超车频次势场与液态神经网络的高速公路混合交通流编队连续时间控制 / OTF-CfC: Continuous-Time Platoon Control in Mixed Highway Traffic via Overtaking-Frequency Potential Fields and Liquid Neural Networks
+4.2.1 选题逻辑
+高速公路主线多车道编队（人工驾驶与自动驾驶混行）为半结构化场景，匹配 MVP 原则；该场景是超车事件最密集、OTF 信号最强的工况，且学位论文高速实车数据可直接用于训练与开环回放验证（V1.1 修订：因团队不具备收费站实地条件，场景由“收费站→出口”调整为高速主线混行编队，四大创新点与场景解耦不受影响）；
+传统 MPC 需手工推导非线性车辆动力学，LNN 只需真实轨迹即可拟合最优平滑控制曲线——学位论文的高速实车数据恰是现成训练集；
+CfC/LNN 车载控制 + 交通流统计量注入 + 编队场景，三者交集目前为空白。
+4.2.2 核心科学问题
+如何将离散高层驾驶意图（10 Hz）与连续车辆动力学（100 Hz+）桥接，同时利用交通流社会压力信息消除编队跟车/变道中的顿挫感？
+4.2.3 技术贡献
+贡献① OTF 势场化：将离散 OTF 标量推广为时间连续势场函数 Φ_OTF(t)，作为 LNN 的 ODE 边界条件（继承学位论文第三章动态时间窗函数）；
+贡献② OTF-CfC 控制器：基于 CfC 网络构建 100 Hz 控制器，输入=VLA 阶梯指令（边界条件）+ 前车加减速预测（动态扰动）+ IMU/轮速计非均匀采样；参数量 &lt;500 KB；
+贡献③ 伴随敏感度训练：采用 Adjoint Sensitivity Method（torchdiffeq）反向传播，冻结上游低频权重、仅微调 LNN 高频层，从机制上规避积分步长梯度爆炸；
+贡献④ 边缘部署验证：控制器编译为纯 C++ ODE 求解器（Dopri5 自适应步长），Cortex-M7 级 MCU 实测延迟 &lt;1 ms。
+4.2.4 实验与消融设计
+项目
+内容
+仿真平台
+CARLA Town04 高速环线改造地图 + 学位论文高速主线实车数据回放（Sim2Real 对照）
+对比基线
+传统 PID；MPC（线性化车辆模型）；学位论文 TD3 直控方案；OTF-CfC（本文）
+评价指标
+跟车误差 RMSE、加速度平方积分（舒适性）、Jerk 峰值、车道居中偏差、前轮转角方差、端到端延迟、MCU 内存占用
+消融实验
+A1 有/无 OTF 势场输入；A2 LNN vs CfC vs ODE-RNN；A3 Dopri5 自适应步长 vs 固定步长 Euler；A4 10 Hz 阶梯指令 vs 100 Hz 插值指令；A5 伴随法 vs 直接 BP 的梯度范数与显存曲线
+长尾测试
+前车急刹、相邻车道 cut-in 急并入、编队单车退出、激进车流扰动——验证“大胆决策、小心修正”分层机制
+4.3 论文二：SocialDreamer（WLA 世界模型）
+题目：SocialDreamer: Real-world-driven Driving World Models Conditioned on Overtaking-Frequency Social Pressure Fields
+定位：直接对标并延伸 DriveDreamer——DriveDreamer 用 HDMap/3D Box 做结构条件，本文提出交通流社会压力场这一全新条件模态。
+贡献① OTF 时空势场推广：将相邻车道标量 OTF 推广为 BEV 占据网格上的连续标量场，证明其满足类流体力学连续性方程（守恒律），为世界模型提供可微分结构约束；
+贡献② 两阶段训练改造：阶段一学习 OTF 场结构约束（守恒性+动态时间窗规律，直接继承学位论文第三章函数族）；阶段二预测未来 OTF 场+占据流场；
+贡献③ 预测式状态评估：用预测 OTF 场替代事后统计评估，将“我现在是否适宜”升级为“3 秒后我是否会陷入不适宜”。
+数据：nuScenes/Waymo（轨迹真值）+ 学位论文实车平台 OTF 标注（数据护城河）。
+消融：B1 有/无 OTF 场条件（FID 与 minADE）；B2 两阶段 vs 端到端；B3 势场空间分辨率（1m/0.5m/0.25m）；B4 守恒约束损失权重。
+4.4 论文三：TalkOTF（VLA 语言决策）
+题目：TalkOTF: Grounding Natural Language Driving Instructions in Traffic-Flow Metrics via Vision-Language-Action Models
+定位：解决 Drive as You Speak 未落地的核心痛点——LLM 输出意图（“开激进一点”）没有定量物理对应物，无法接入下游控制。
+贡献① 语言→OTF 编译器：建立驾驶意图词表到 OTF 目标区间/安全等级的映射（如“别老被插队”→OTF≥0 且邻车插入响应收紧），用学位论文分层评估体系做 grounding 真值；
+贡献② 指令合法性检查器：将安全层（TTC/THW 分级）+效率层（OTF 适宜性分级）封装为 VLA 输出实时校验模块，拦截 LLM 幻觉导致的非法意图；
+贡献③ 驾驶员偏好记忆画像：借鉴 Drive as You Speak 记忆模块，沉淀个体驾驶人 OTF 容忍度画像，实现个性化决策少样本适配。
+消融：C1 有/无 OTF grounding（指令执行符合率）；C2 有/无合法性检查器（非法指令率）；C3 不同轻量化 LLM backbone（Qwen-VL 各规格）；C4 少样本（1/5/10-shot）个性化适配曲线。
+4.5 论文四：IsoLNN（安全隔离层）
+题目：IsoLNN: A Physically-Differentiable Isolation Layer for Screening Vision-Language-Action Commands in Long-Tail Driving Scenarios
+定位：直接对接 ISO 26262“独立隔离”要求——VLA/WLA 可自由迭代，LNN+隔离层完全不受影响。
+贡献① 物理可行性概率快速估计：利用 LNN 连续可导性（Neural ODE 雅可比解析可得），对输入指令局部线性化推演，毫秒级输出“执行该指令导致动力学突变（如 |a|&gt;10 m/s²）的概率”；
+贡献② 拒绝—反馈—避险三态协议：执行/降级执行/拒绝+紧急避险，并将“危险”信号回传 VLA 形成闭环修正；
+贡献③ 双保险级联：隔离层与学位论文规则级安全评估（TTC/THW）级联——规则层可解释兜底，神经隔离层长尾覆盖，论证故障独立性。
+实验与消融：故障注入测试（突变加速度/急转/语义噪声指令）；D1 隔离层 vs 规则过滤器 vs CBF 的召回率/误杀率；D2 雅可比解析解 vs 数值近似的延迟-精度权衡；D3 降级策略对比。
+4.6 论文五：AdjointStack（全栈训练旗舰）
+题目：AdjointStack: Memory-Efficient Joint Fine-tuning of Hybrid-Frequency Autonomous Driving Stacks via Adjoint Sensitivity
+定位：方法论旗舰（收束 P1–P4），攻克“离散帧网络（10 Hz）×连续时间 ODE（100 Hz）混合系统不可联合训练”的公认难题。
+贡献① 混合频率伴随方程：推导离散跳变点（VLA 阶梯指令更新时刻）处的伴随状态重置条件，将标准伴随法推广到离散-连续混合系统；
+贡献② 分层冻结策略：理论+实证论证“冻结低频（Transformer 主干）+微调高频（LNN 头）”在损失景观上的合理性，给出冻结比例选择准则；
+贡献③ 全链路总损失：L = VLA 意图损失 + WLA 预测误差 + LNN 轨迹跟踪误差 + 安全物理约束（加速度平方惩罚），CARLA/NeuRadar 可微仿真联训，系统证明联合微调 vs 分模块独立训练的性能差。
+消融：E1 联合微调 vs 逐级独立 vs 两两组合；E2 冻结层位置扫描；E3 损失项权重敏感性；E4 积分器选型（Dopri5/RK4/Euler）对训练稳定性的影响。
+
+第五章 数据资产复用与执行路线
+5.1 学位论文数据 → 五篇论文映射
+数据资产
+P1
+P2
+P3
+P4
+P5
+高速实车 OTF 标注数据
+●
+●
+○
+○
+●
+城市工况自然驾驶数据
+
+●
+●
+
+●
+分层评估分级标签（安全/效率等级）
+○
+
+●
+●
+
+TD3 决策模型（基线）
+●
+
+●
+
+●
+四类工况场景库
+●
+
+●
+●
+●
+（●=核心使用，○=辅助引用）
+5.2 十八个月执行时间线
+阶段
+任务
+0–6 月
+P1（OTF-CfC）完成实验与撰写，投稿 IEEE T-ITS / IV；同步启动 P2 的 nuScenes/Waymo OTF 自动标注流水线
+3–9 月
+P2（SocialDreamer）完成势场构建与两阶段训练，投稿 CVPR Workshop → 扩展至 T-ITS/TPAMI
+6–12 月
+P3（TalkOTF）完成语言-OTF 配对数据集构建与微调，投稿 IROS / TVT
+9–15 月
+P4（IsoLNN）完成故障注入测试与 ISO 26262 论证，投稿安全专栏
+9–18 月
+P5（AdjointStack）完成混合频率伴随推导与全栈联训，投稿 NeurIPS / RSS
+5.3 关键风险提示
+风险① P1 的 OTF 增益复现：学位论文 OTF 增益（1–1.7%）在分类器上取得，LNN 控制范式下增益可能缩水或放大，A1 消融必须诚实报告；若不显著，卖点转向“可解释性+零额外传感器成本”；
+风险② P2 的 OTF 场标注成本：nuScenes/Waymo 无 OTF 标注，需开发自动标注流水线（从轨迹真值反推超车事件），属隐性工作量，须提前启动；
+风险③ P5 的野心控制：若混合频率伴随推导遇阻，降级方案为“两两模块联合微调”（Transformer+LNN、VLA+LNN）单独成文，不影响论文集群完整性。
+
+第六章 研究工具链：DeepSeek Harness 本地化方案
+6.1 选型理由
+本研究涉及未发表的学位论文衍生成果、独家实车数据集与完整论文集群规划，数据安全至关重要。DeepSeek Harness 采用本地运行模式，功能强大且不会出现数据泄露风险，适合作为辅助研究的核心 AI 基础设施：文献分析、代码生成、实验脚本编写、论文初稿润色均可在本地闭环完成。
+6.2 推荐 MCP（Model Context Protocol）组件清单
+按研究工作流分组，共 43 个推荐组件：
+类别
+MCP 组件
+基础环境
+Filesystem、Terminal、GitHub、Context7、Python、Jupyter、Docker、Kubernetes
+文献与知识
+arXiv、Semantic Scholar、PapersWithCode、Zotero、Obsidian
+模型与训练
+PyTorch、HuggingFace、W&amp;B、MLflow、OpenMMLab、OpenVLA、LeRobot
+仿真与车辆
+CARLA、ROS2、Gazebo、Isaac Sim、Isaac ROS、Autoware、Apollo、nuPlan、Waymo Dataset、MoveIt
+RAG 与智能体
+LangChain、LlamaIndex、Vector Database、AutoGen、CrewAI
+工程与写作
+OpenCV、Simulink、MATLAB、Wolfram、LaTeX
+6.3 硬件配置建议
+显存提示：调用大模型与配置仿真环境时显存占用较高——尤其 CARLA、Isaac Sim、MATLAB-Simulink、PyTorch 本地训练这类组件会大量占用显存。建议配置外接独立显卡，可显著改善多组件并行时的工作体验。结合第 2.2 节的轻量化模型选型（Qwen-VL 系列），单卡 24 GB 级别显存即可覆盖大部分研发场景；P5 全栈联训阶段建议租借云端 A100/H100 算力。
+第七章 架构原则与参考文献
+7.1 车规级关键架构原则
+不训练统一“大一统”模型：Transformer 为共享主干，VLA+WLA 为两条独立头部分支，LNN 为独立动态状态估计器单独挂载——即使 VLA/WLA 迭代更新，底层控制完全不受影响，符合 ISO 26262 功能安全的独立隔离要求。
+时序对齐：LNN 连续时间、Transformer 离散帧，桥接方法是将 VLA 离散意图视为阶梯函数，LNN 求解器在两个时间步之间采用自适应步长积分（Dopri5），随车辆加速度自动调整插值精度。
+训练避坑：切勿用传统反向传播将 LNN 与 Transformer 直接串联训练——LNN 梯度随积分步长累积极易爆炸，必须采用伴随敏感度法（Adjoint Sensitivity Method）。
+闭环耦合破解：VLA 决策依赖 WLA 预测、WLA 预测依赖 LNN 当前状态，形成“互锁”。采用 MPC+LNN 混合架构：VLA 在 10 Hz 周期使用近似模型，LNN 在 100 Hz 周期用真实物理反馈实时修正——“大胆决策，小心修正”。
+7.2 参考文献
+[1] Wang X, Zhu Z, Huang G, Chen X, Zhu J, Lu J. DriveDreamer: Towards Real-world-driven World Models for Autonomous Driving. arXiv:2309.09777, 2023.
+[2] Cui C, Ma Y, Cao X, Ye W, Wang Z. Drive as You Speak: Enabling Human-Like Interaction with Large Language Models in Autonomous Vehicles. arXiv:2309.10228, 2023.
+[3] 黄梦圆. 基于超车频次的自动驾驶车辆行为决策研究. 吉林大学博士学位论文, 2023.（指导教师：李世武 教授）

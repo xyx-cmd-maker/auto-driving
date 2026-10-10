@@ -1,0 +1,711 @@
+[
+  {
+    "n": 101,
+    "key": "node-neurips2018",
+    "doi": "10.48550/arXiv.1806.07366",
+    "claim": {
+      "title": "Neural Ordinary Differential Equations",
+      "year": 2018,
+      "venue": "NeurIPS"
+    },
+    "check": {
+      "exists": false,
+      "reason": "DOI not registered in Crossref"
+    }
+  },
+  {
+    "n": 102,
+    "key": "ltc-aaai2021",
+    "doi": "10.1609/aaai.v35i9.16936",
+    "claim": {
+      "title": "Liquid Time-constant Networks",
+      "year": 2021,
+      "venue": "AAAI"
+    },
+    "check": {
+      "exists": true,
+      "title": "Liquid Time-constant Networks",
+      "year": 2021,
+      "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+      "short_venue": "AAAI",
+      "volume": "35",
+      "issue": "9",
+      "page": "7657-7666",
+      "type": "journal-article",
+      "publisher": "Association for the Advancement of Artificial Intelligence (AAAI)",
+      "authors": [
+        "Ramin Hasani",
+        "Mathias Lechner",
+        "Alexander Amini",
+        "Daniela Rus",
+        "Radu Grosu"
+      ],
+      "crossref_cited_by": 275,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 103,
+    "key": "ncp-nmi2020",
+    "doi": "10.1038/s42256-020-00237-3",
+    "claim": {
+      "title": "Neural circuit policies enabling auditable autonomy",
+      "year": 2020,
+      "venue": "Nature Machine Intelligence"
+    },
+    "check": {
+      "exists": true,
+      "title": "Neural circuit policies enabling auditable autonomy",
+      "year": 2020,
+      "venue": "Nature Machine Intelligence",
+      "short_venue": "Nat Mach Intell",
+      "volume": "2",
+      "issue": "10",
+      "page": "642-652",
+      "type": "journal-article",
+      "publisher": "Springer Science and Business Media LLC",
+      "authors": [
+        "Mathias Lechner",
+        "Ramin Hasani",
+        "Alexander Amini",
+        "Thomas A. Henzinger",
+        "Daniela Rus",
+        "Radu Grosu"
+      ],
+      "crossref_cited_by": 251,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 104,
+    "key": "latentode",
+    "doi": "10.48550/arXiv.1907.03907",
+    "claim": {
+      "title": "Latent Ordinary Differential Equations for Irregularly-Sampled Time Series",
+      "year": 2019,
+      "venue": "NeurIPS"
+    },
+    "check": {
+      "exists": false,
+      "reason": "DOI not registered in Crossref"
+    }
+  },
+  {
+    "n": 105,
+    "key": "stringstability-tac1996",
+    "doi": "10.1109/9.539424",
+    "claim": {
+      "title": "String stability of interconnected systems",
+      "year": 1996,
+      "venue": "IEEE Transactions on Automatic Control"
+    },
+    "check": {
+      "exists": true,
+      "title": "Supervisory control of families of linear set-point controllers - Part I. Exact matching",
+      "year": 1996,
+      "venue": "IEEE Transactions on Automatic Control",
+      "short_venue": "IEEE Trans. Automat. Contr.",
+      "volume": "41",
+      "issue": "10",
+      "page": "1413-1431",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "A.S. Morse"
+      ],
+      "crossref_cited_by": 1232,
+      "jaccard_vs_claim": 0,
+      "year_ok": true,
+      "verdict": "MISMATCH"
+    }
+  },
+  {
+    "n": 106,
+    "key": "idm-pre2000",
+    "doi": "10.1103/PhysRevE.62.1805",
+    "claim": {
+      "title": "Congested traffic states in empirical observations and microscopic simulations",
+      "year": 2000,
+      "venue": "Physical Review E"
+    },
+    "check": {
+      "exists": true,
+      "title": "Congested traffic states in empirical observations and microscopic simulations",
+      "year": 2000,
+      "venue": "Physical Review E",
+      "short_venue": "Phys. Rev. E",
+      "volume": "62",
+      "issue": "2",
+      "page": "1805-1824",
+      "type": "journal-article",
+      "publisher": "American Physical Society (APS)",
+      "authors": [
+        "Martin Treiber",
+        "Ansgar Hennecke",
+        "Dirk Helbing"
+      ],
+      "crossref_cited_by": 4251,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 107,
+    "key": "gipps-trb1981",
+    "doi": "10.1016/0191-2615(81)90037-0",
+    "claim": {
+      "title": "A behavioural car-following model for computer simulation",
+      "year": 1981,
+      "venue": "Transportation Research Part B"
+    },
+    "check": {
+      "exists": true,
+      "title": "A behavioural car-following model for computer simulation",
+      "year": 1981,
+      "venue": "Transportation Research Part B: Methodological",
+      "short_venue": "Transportation Research Part B: Methodological",
+      "volume": "15",
+      "issue": "2",
+      "page": "105-111",
+      "type": "journal-article",
+      "publisher": "Elsevier BV",
+      "authors": [
+        "P.G. Gipps"
+      ],
+      "crossref_cited_by": 2028,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 108,
+    "key": "fvd-pre2001",
+    "doi": "10.1103/PhysRevE.64.017101",
+    "claim": {
+      "title": "Full velocity difference model for a car-following theory",
+      "year": 2001,
+      "venue": "Physical Review E"
+    },
+    "check": {
+      "exists": true,
+      "title": "Full velocity difference model for a car-following theory",
+      "year": 2001,
+      "venue": "Physical Review E",
+      "short_venue": "Phys. Rev. E",
+      "volume": "64",
+      "issue": "1",
+      "page": null,
+      "type": "journal-article",
+      "publisher": "American Physical Society (APS)",
+      "authors": [
+        "Rui Jiang",
+        "Qingsong Wu",
+        "Zuojin Zhu"
+      ],
+      "crossref_cited_by": 1488,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 109,
+    "key": "mobil-trr2007",
+    "doi": "10.3141/1999-10",
+    "claim": {
+      "title": "MOBIL: General lane-changing model for traffic simulators",
+      "year": 2007,
+      "venue": "Transportation Research Record"
+    },
+    "check": {
+      "exists": true,
+      "title": "General Lane-Changing Model MOBIL for Car-Following Models",
+      "year": 2007,
+      "venue": "Transportation Research Record: Journal of the Transportation Research Board",
+      "short_venue": "Transportation Research Record: Journal of the Transportation Research Board",
+      "volume": "1999",
+      "issue": "1",
+      "page": "86-94",
+      "type": "journal-article",
+      "publisher": "SAGE Publications",
+      "authors": [
+        "Arne Kesting",
+        "Martin Treiber",
+        "Dirk Helbing"
+      ],
+      "crossref_cited_by": 1201,
+      "jaccard_vs_claim": 0.5,
+      "year_ok": true,
+      "verdict": "MISMATCH"
+    }
+  },
+  {
+    "n": 110,
+    "key": "eidm-ptrspa2010",
+    "doi": "10.1098/rsta.2010.0084",
+    "claim": {
+      "title": "Enhanced intelligent driver model to access the impact of driving strategies on traffic capacity",
+      "year": 2010,
+      "venue": "Philosophical Transactions of the Royal Society A"
+    },
+    "check": {
+      "exists": true,
+      "title": "Enhanced intelligent driver model to access the impact of driving strategies on traffic capacity",
+      "year": 2010,
+      "venue": "Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences",
+      "short_venue": "Phil. Trans. R. Soc. A.",
+      "volume": "368",
+      "issue": "1928",
+      "page": "4585-4605",
+      "type": "journal-article",
+      "publisher": "The Royal Society",
+      "authors": [
+        "Arne Kesting",
+        "Martin Treiber",
+        "Dirk Helbing"
+      ],
+      "crossref_cited_by": 773,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 111,
+    "key": "cbf-ecc2019",
+    "doi": "10.23919/ECC.2019.8796030",
+    "claim": {
+      "title": "Control Barrier Functions: Theory and Applications",
+      "year": 2019,
+      "venue": "European Control Conference"
+    },
+    "check": {
+      "exists": true,
+      "title": "Control Barrier Functions: Theory and Applications",
+      "year": 2019,
+      "venue": "2019 18th European Control Conference (ECC)",
+      "short_venue": null,
+      "volume": null,
+      "issue": null,
+      "page": "3420-3431",
+      "type": "proceedings-article",
+      "publisher": "IEEE",
+      "authors": [
+        "Aaron D. Ames",
+        "Samuel Coogan",
+        "Magnus Egerstedt",
+        "Gennaro Notomista",
+        "Koushil Sreenath",
+        "Paulo Tabuada"
+      ],
+      "crossref_cited_by": 1847,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 112,
+    "key": "rss2017",
+    "doi": "10.48550/arXiv.1708.06374",
+    "claim": {
+      "title": "On a Formal Model of Safe and Scalable Self-driving Cars",
+      "year": 2017,
+      "venue": "arXiv"
+    },
+    "check": {
+      "exists": false,
+      "reason": "DOI not registered in Crossref"
+    }
+  },
+  {
+    "n": 113,
+    "key": "highd-itsc2018",
+    "doi": "10.1109/ITSC.2018.8569552",
+    "claim": {
+      "title": "The highD Dataset: A Drone Dataset of Naturalistic Vehicle Trajectories on German Highways for Validation of Highly Automated Driving Systems",
+      "year": 2018,
+      "venue": "IEEE ITSC"
+    },
+    "check": {
+      "exists": true,
+      "title": "The highD Dataset: A Drone Dataset of Naturalistic Vehicle Trajectories on German Highways for Validation of Highly Automated Driving Systems",
+      "year": 2018,
+      "venue": "2018 21st International Conference on Intelligent Transportation Systems (ITSC)",
+      "short_venue": null,
+      "volume": null,
+      "issue": null,
+      "page": "2118-2125",
+      "type": "proceedings-article",
+      "publisher": "IEEE",
+      "authors": [
+        "Robert Krajewski",
+        "Julian Bock",
+        "Laurent Kloeker",
+        "Lutz Eckstein"
+      ],
+      "crossref_cited_by": 1319,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 114,
+    "key": "nuscenes-cvpr2020",
+    "doi": "10.1109/CVPR42600.2020.01164",
+    "claim": {
+      "title": "nuScenes: A Multimodal Dataset for Autonomous Driving",
+      "year": 2020,
+      "venue": "IEEE CVPR"
+    },
+    "check": {
+      "exists": true,
+      "title": "nuScenes: A Multimodal Dataset for Autonomous Driving",
+      "year": 2020,
+      "venue": "2020 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+      "short_venue": null,
+      "volume": null,
+      "issue": null,
+      "page": "11618-11628",
+      "type": "proceedings-article",
+      "publisher": "IEEE",
+      "authors": [
+        "Holger Caesar",
+        "Varun Bankiti",
+        "Alex H. Lang",
+        "Sourabh Vora",
+        "Venice Erin Liong",
+        "Qiang Xu",
+        "Anush Krishnan",
+        "Yu Pan",
+        "Giancarlo Baldan",
+        "Oscar Beijbom"
+      ],
+      "crossref_cited_by": 6145,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 115,
+    "key": "carla-corl2017",
+    "doi": "10.48550/arXiv.1711.03938",
+    "claim": {
+      "title": "CARLA: An Open Urban Driving Simulator",
+      "year": 2017,
+      "venue": "CoRL"
+    },
+    "check": {
+      "exists": false,
+      "reason": "DOI not registered in Crossref"
+    }
+  },
+  {
+    "n": 116,
+    "key": "uniad-cvpr2023",
+    "doi": "10.1109/CVPR52729.2023.01712",
+    "claim": {
+      "title": "Planning-Oriented Autonomous Driving",
+      "year": 2023,
+      "venue": "IEEE CVPR"
+    },
+    "check": {
+      "exists": true,
+      "title": "Planning-oriented Autonomous Driving",
+      "year": 2023,
+      "venue": "2023 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+      "short_venue": null,
+      "volume": null,
+      "issue": null,
+      "page": "17853-17862",
+      "type": "proceedings-article",
+      "publisher": "IEEE",
+      "authors": [
+        "Yihan Hu",
+        "Jiazhi Yang",
+        "Li Chen",
+        "Keyu Li",
+        "Chonghao Sima",
+        "Xizhou Zhu",
+        "Siqi Chai",
+        "Senyao Du",
+        "Tianwei Lin",
+        "Wenhai Wang",
+        "Lewei Lu",
+        "Xiaosong Jia",
+        "Qiang Liu",
+        "Jifeng Dai",
+        "Yu Qiao",
+        "Hongyang Li"
+      ],
+      "crossref_cited_by": 981,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 117,
+    "key": "e2echallenges-tpami2024",
+    "doi": "10.1109/TPAMI.2024.3435937",
+    "claim": {
+      "title": "End-to-End Autonomous Driving: Challenges and Frontiers",
+      "year": 2024,
+      "venue": "IEEE TPAMI"
+    },
+    "check": {
+      "exists": true,
+      "title": "End-to-End Autonomous Driving: Challenges and Frontiers",
+      "year": 2024,
+      "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+      "short_venue": "IEEE Trans. Pattern Anal. Mach. Intell.",
+      "volume": "46",
+      "issue": "12",
+      "page": "10164-10183",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Li Chen",
+        "Penghao Wu",
+        "Kashyap Chitta",
+        "Bernhard Jaeger",
+        "Andreas Geiger",
+        "Hongyang Li"
+      ],
+      "crossref_cited_by": 595,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 118,
+    "key": "mtrpp-tpami2024",
+    "doi": "10.1109/TPAMI.2024.3352811",
+    "claim": {
+      "title": "MTR++: Multi-Agent Motion Prediction with Symmetric Scene Modeling and Guided Intention Querying",
+      "year": 2024,
+      "venue": "IEEE TPAMI"
+    },
+    "check": {
+      "exists": true,
+      "title": "MTR++: Multi-Agent Motion Prediction With Symmetric Scene Modeling and Guided Intention Querying",
+      "year": 2024,
+      "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+      "short_venue": "IEEE Trans. Pattern Anal. Mach. Intell.",
+      "volume": "46",
+      "issue": "5",
+      "page": "3955-3971",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Shaoshuai Shi",
+        "Li Jiang",
+        "Dengxin Dai",
+        "Bernt Schiele"
+      ],
+      "crossref_cited_by": 185,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 119,
+    "key": "drivedreamer-eccv2024",
+    "doi": "10.1007/978-3-031-73195-2_4",
+    "claim": {
+      "title": "DriveDreamer: Towards Real-world-driven World Models for Autonomous Driving",
+      "year": 2024,
+      "venue": "ECCV"
+    },
+    "check": {
+      "exists": true,
+      "title": "DriveDreamer: Towards Real-World-Drive World Models for Autonomous Driving",
+      "year": 2024,
+      "venue": "Lecture Notes in Computer Science",
+      "short_venue": null,
+      "volume": null,
+      "issue": null,
+      "page": "55-72",
+      "type": "book-chapter",
+      "publisher": "Springer Nature Switzerland",
+      "authors": [
+        "Xiaofeng Wang",
+        "Zheng Zhu",
+        "Guan Huang",
+        "Xinze Chen",
+        "Jiagang Zhu",
+        "Jiwen Lu"
+      ],
+      "crossref_cited_by": 162,
+      "jaccard_vs_claim": 0.75,
+      "year_ok": true,
+      "verdict": "WEAK"
+    }
+  },
+  {
+    "n": 120,
+    "key": "transfuser-tpami2023",
+    "doi": "10.1109/TPAMI.2022.3200242",
+    "claim": {
+      "title": "TransFuser: Imitation with Transformer-Based Sensor Fusion for Autonomous Driving",
+      "year": 2023,
+      "venue": "IEEE TPAMI"
+    },
+    "check": {
+      "exists": false,
+      "reason": "DOI not registered in Crossref"
+    }
+  },
+  {
+    "n": 121,
+    "key": "drivegpt4-ral2024",
+    "doi": "10.1109/LRA.2024.3440097",
+    "claim": {
+      "title": "DriveGPT4: Interpretable End-to-End Autonomous Driving Via Large Language Model",
+      "year": 2024,
+      "venue": "IEEE RA-L"
+    },
+    "check": {
+      "exists": true,
+      "title": "DriveGPT4: Interpretable End-to-End Autonomous Driving Via Large Language Model",
+      "year": 2024,
+      "venue": "IEEE Robotics and Automation Letters",
+      "short_venue": "IEEE Robot. Autom. Lett.",
+      "volume": "9",
+      "issue": "10",
+      "page": "8186-8193",
+      "type": "journal-article",
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "authors": [
+        "Zhenhua Xu",
+        "Yujia Zhang",
+        "Enze Xie",
+        "Zhen Zhao",
+        "Yong Guo",
+        "Kwan-Yee K. Wong",
+        "Zhenguo Li",
+        "Hengshuang Zhao"
+      ],
+      "crossref_cited_by": 440,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 122,
+    "key": "td3-pmlr2018",
+    "doi": "10.48550/arXiv.1802.09477",
+    "claim": {
+      "title": "Addressing Function Approximation Error in Actor-Critic Methods",
+      "year": 2018,
+      "venue": "PMLR"
+    },
+    "check": {
+      "exists": false,
+      "reason": "DOI not registered in Crossref"
+    }
+  },
+  {
+    "n": 123,
+    "key": "domainrand-iros2017",
+    "doi": "10.1109/IROS.2017.8202133",
+    "claim": {
+      "title": "Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World",
+      "year": 2017,
+      "venue": "IEEE IROS"
+    },
+    "check": {
+      "exists": true,
+      "title": "Domain randomization for transferring deep neural networks from simulation to the real world",
+      "year": 2017,
+      "venue": "2017 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)",
+      "short_venue": null,
+      "volume": null,
+      "issue": null,
+      "page": "23-30",
+      "type": "proceedings-article",
+      "publisher": "IEEE",
+      "authors": [
+        "Josh Tobin",
+        "Rachel Fong",
+        "Alex Ray",
+        "Jonas Schneider",
+        "Wojciech Zaremba",
+        "Pieter Abbeel"
+      ],
+      "crossref_cited_by": 2350,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 124,
+    "key": "dagger-aistats2011",
+    "doi": "10.5555/3157743.3157871",
+    "claim": {
+      "title": "A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning",
+      "year": 2011,
+      "venue": "AISTATS"
+    },
+    "check": {
+      "exists": false,
+      "reason": "DOI not registered in Crossref"
+    }
+  },
+  {
+    "n": 125,
+    "key": "socialforce-pre1995",
+    "doi": "10.1103/PhysRevE.51.4282",
+    "claim": {
+      "title": "Social force model for pedestrian dynamics",
+      "year": 1995,
+      "venue": "Physical Review E"
+    },
+    "check": {
+      "exists": true,
+      "title": "Social force model for pedestrian dynamics",
+      "year": 1995,
+      "venue": "Physical Review E",
+      "short_venue": "Phys. Rev. E",
+      "volume": "51",
+      "issue": "5",
+      "page": "4282-4286",
+      "type": "journal-article",
+      "publisher": "American Physical Society (APS)",
+      "authors": [
+        "Dirk Helbing",
+        "Péter Molnár"
+      ],
+      "crossref_cited_by": 5600,
+      "jaccard_vs_claim": 1,
+      "year_ok": true,
+      "verdict": "OK"
+    }
+  },
+  {
+    "n": 126,
+    "key": "hnn-neurips2019",
+    "doi": "10.48550/arXiv.1906.01563",
+    "claim": {
+      "title": "Hamiltonian Neural Networks",
+      "year": 2019,
+      "venue": "NeurIPS"
+    },
+    "check": {
+      "exists": false,
+      "reason": "DOI not registered in Crossref"
+    }
+  }
+]

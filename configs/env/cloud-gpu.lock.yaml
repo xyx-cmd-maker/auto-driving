@@ -1,0 +1,11 @@
+# 云端 GPU 环境锁（未定，字段留空）
+kind: cloud-gpu
+provider: "{{待定}}"          # 供应商未决策
+gpu_model: "{{待定}}"          # 蓝图要求 P5 用 A100/H100 级
+driver: "{{待定}}"
+cuda: "{{待定}}"
+container_image: "{{待定}}"
+cost_budget: "{{待定}}"        # 需用户拍板
+notes:
+  - 未填完之前，任何"实验已完成"的表述都不成立。
+  - 蓝图为 0–18 月相对周期，起始日待确认（papers/portfolio.md 待确认项）。

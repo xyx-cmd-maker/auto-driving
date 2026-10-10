@@ -1,0 +1,1820 @@
+SOURCE_PDF: arxiv2025-platoon-risk-potential-field.pdf
+MD5: d4004eeb47318ff7e0d7a7b56dce3138
+PAGES: 15
+
+===== PAGE 1 =====
+
+arXiv:2506.16311v1 [cs.MA] 19 Jun 2025
+1
+Towards Emergency Scenarios: An Integrated
+Decision-making Framework of Multi-lane Platoon
+Reorganization
+Aijing Kong, Chengkai Xu, Xian Wu, Xinbo Chen, Peng Hang, Senior Member, IEEE
+Abstract—To enhance the ability for vehicle platoons to re-
+spond to emergency scenarios, a platoon distribution reorgani-
+zation decision-making framework is proposed. This framework
+contains platoon distribution layer, vehicle cooperative decision-
+making layer and vehicle planning and control layer. Firstly, a
+reinforcement-learning-based platoon distribution model is pre-
+sented, where a risk potential field is established to quantitatively
+assess driving risks, and a reward function tailored to the platoon
+reorganization process is constructed. Then, a coalition-game-
+based vehicle cooperative decision-making model is put forward,
+modeling the cooperative relationships among vehicles through
+dividing coalitions and generating the optimal decision results for
+each vehicle. Additionally, a novel graph-theory-based Platoon
+Disposition Index (PDI) is incorporated into the game reward
+function to measure the platoon’s distribution state during the
+reorganization process, in order to accelerating the reorganiza-
+tion process. Finally, the validation of the proposed framework
+is conducted in two high-risk scenarios under random traffic
+flows. The results show that, compared to the baseline models,
+the proposed method can significantly reduce the collision rate
+and improve driving efficiency. Moreover, the model with PDI
+can significantly decrease the platoon formation reorganization
+time and improve the reorganization efficiency.
+Index Terms—Vehicle platoon, Autonomous driving, Decision
+and control, Platoon reorganization
+I. INTRODUCTION
+P
+LATOONS of Intelligent and connected vehicles can po-
+tentially improve traffic efficiency by organizing vehicles
+in small spaces and improving fuel economy by reducing air
+resistance [7, 26]. However, emergency environments chal-
+lenge traditional single-lane vehicle platoons, which can only
+produce longitudinal acceleration/deceleration behaviors. Mul-
+tilane vehicle platoons show superior capability in response to
+dangerous and complicated environments, through considera-
+tion of appropriate lane-changing and overtaking behaviors to
+achieve higher safety and efficiency. Currently, the main issue
+deserved special attention is how to make smart lane-changing
+This work was supported in part by the National Natural Science Foundation
+of China (52302502), the State Key Laboratory of Intelligent Green Vehicle
+and Mobility under Project No. KFZ2408, the State Key Lab of Intelligent
+Transportation System under Project No. 2024-A002, and the Fundamental
+Research Funds for the Central Universities.
+Ajing Kong, Xian Wu and Xinbo Chen are with the school of Au-
+tomotive Studies, Tongji University, Shanghai 201804, China. (e-mail:
+ajkong@tongji.edu.cn, wuxian@tongji.edu.cn, chenxinbo@tongji.edu.cn)
+Chengkai Xu and Peng Hang are with the College of Transportation, Tongji
+University, Shanghai 201804, China. (e-mail: xck1270157991@gmail.com,
+hangpeng@tongji.edu.cn)
+Corresponding author: Xian Wu, Peng Hang.
+and overtaking decisions for autonomous vehicle platoon in
+complex multilane environment [32].
+An attempt to improve multilane vehicle platoons’ safety
+and efficiency is the Platoon Cooperative Lane Change Control
+(P-CLCC) strategy, which can realize platoon lane-changing
+behaviors automatically. P-CLCC is designed based on two
+main control architectures: the multi-agent tracking control
+scheme and multi-agent motion planning structure.
+i) The multi-agent tracking control scheme contains the
+leader-follower architecture, virtual structure, consensus con-
+trol system and so on. under this scheme, the leader vehicle
+drives referring to the reference trajectory, while other vehicles
+attempt to track the leader with a fixed formation [17], such as
+changing lanes simultaneously, changing lanes one by one and
+so on. However, the fixed-formation lane-changing behavior
+requires larger longitudinal space or longer moving time of and
+has poor ability to avoid dynamic obstacles such as a behind
+high-speed driving vehicle. Moreover, the rear-end collision is
+likely to happen as due to the untimely lane changing obstacle
+avoidance behavior.
+ii) The multi-agent motion planning structure is dedicated
+to calculate feasible, safe, and comfortable trajectories for
+each member vehicle in platoon [24]. Modeling accurate
+trajectories of all vehicles through constrained centralized
+optimization can realize the platoon lane-changing behavior
+through flexible formations, and improve the safety efficiency
+and comfort simultaneously. However, the computational bur-
+den will increase rapidly with the platoon scale expands, which
+is deleterious to platoon decision-making process, especially
+in emergency scenarios with high-speed dynamic obstacles.
+Furthermore, the P-CLCC system pays more attention to the
+motion planning process of vehicle platoons, most of which
+are engined by simple rule-based decision model. Complex en-
+vironments challenge traditional P-CLCC systems. Hence, the
+group decision-making intelligence and cooperative capability
+of autonomous vehicle platoons need to be enhanced instantly.
+Inspired by cooperative Unmanned Aerial Vehicle (UAV) con-
+trol system, the adaptive configuration transformation ability
+plays an important role for UAV group to respond to complex
+environments. Thus, we expect that the vehicle platoon can
+also posses the configuration transformation capability, which
+can change the platoon formation automatically to response to
+emergency environments and then reorganize to the original
+platoon configuration, in order to guarantee platoon safety and
+enhance traffic efficiency. Therefore, a platoon reorganization
+decision-making framework is presented.
+
+===== PAGE 2 =====
+
+2
+In multi-agent systems, the decision-making and plan-
+ning techniques of group reorganization process are gen-
+erally game-based or Reinforcement-Learning-based (RL-
+based). Game-based strategies can make equilibrium decisions
+for each player by modeling the collaboration or competition
+relationships among agents. However, it’s hard to directly build
+a clear game strategy during platoon reorganization process,
+in that the game objective dynamically changes as the platoon
+reconfiguration state evolves, avoiding emergency obstacles in
+early stage and gathering to original formation in late stage.
+While learn-based methods are well-versed in dealing with
+the issues of great variability and uncertainty, and can make
+proper decisions in real-time.
+Therefore, a Game/RL Dual-layer driven decision making
+and motion planning Framework (GRDF) for multilane au-
+tonomous vehicle platoons is proposed to realize the platoon
+reorganization process when facing emergency environments.
+With presented method, the vehicle driving safety will be en-
+hanced, and the ability to cope with risks and traffic efficiency
+of vehicle platoons will be improved. The main contributions
+of this paper are summarized as follows:
+i) An upper RL-based platoon behavior decision making
+model is presented, which can decide proper platoon formation
+according to the risk grade of different environments. A risk
+potential field model is established in the reward function
+to explicitly assess the risk of exploration actions, thereby
+improving the safety of the RL model.
+ii) A lower coalition-game-based cooperative decision-
+making model is put forward, which is devoted to generating
+optimal behavior for each vehicle on the basis of current
+formation. A novel index based on the graph theory is pro-
+posed to measure the platoon formation distribution. Through
+verification, it has been shown that this index can significantly
+reduce the time required for platoon formation reorganization,
+improve reorganization efficiency, and thus enhance the overall
+traffic efficiency of the platoon.
+iii) A dual-layer decision making and motion planning
+framework driven by RL and game is proposed for platoon
+formation reorganization. The method is verified in multiple
+typical emergency scenarios with uncertainty on the highway
+road, which shows better performance in safety and traffic
+efficiency.
+The remainder of this paper is as follows: Section II
+introduces related works. Section III establishes the overall
+framework of the platoon reorganization strategy. The method
+of making platoon-layer decisions and vehicle-layer decisions
+is represented in section IV and V. Section VI designs exper-
+iments involving multiple scenarios and thoroughly validates
+the effectiveness of the proposed strategy. Section VII draws
+a clear conclusion of this paper.
+II. RELATED WORKS
+The related works are summarized from two aspects, the
+P-CLCC strategies for multi-lane vehicle platoons and the
+cooperative decision-making methods of intelligent vehicle
+platoons.
+A. P-CLCC Strategies
+The schemes of the P-CLCC methods can be divided into
+two main types.
+i) Decoupling decision making and control for the vehicle
+platoon: This scheme usually adopts a rule-based model to
+make the lane change decisions of each vehicle in a certain
+order [13]. When the lane change space for the vehicle platoon
+is large enough, the vehicles are able to make lane change
+decisions together [9, 22]. When there is not enough free
+space, work [28] proposed a successive platoon lane change
+approach to improve the passing ability of the platoon in a
+high-density traffic environment. Moreover, works [18, 29,
+35] put forward a particular P-CLCC logic that, the vehicle
+in platoon, who satisfies the safety conditions at the first
+place, should change to the target lane immediately, and then
+slow down to make enough space for other vehicles within
+a given time window. However, the predefined rules or logic
+for lane changing are not suitable for complex environments,
+especially when encountering aggressive human drivers or
+sudden emergency situations.
+ii) Coupling decision making and control for the vehicle
+platoon: This scheme allows vehicles in the platoon to make
+lane change decisions asynchronously, which can coordinate
+all platoon vehicles to a greater degree when faced with more
+complex and emergency environments. Most studies transform
+the cooperative lane change process into a Multiple Vehicle
+Motion Planning (MVMP) problem [6, 19, 25]. Work [19]
+proposed a MVMP method for platoon using Monte Carlo Tree
+Search, which splits the whole process into a series of lane
+change tasks and determines the optimal lane change sequence.
+The works [20, 34, 36] established a central Mixed Integer
+Linear Programming (MILP) model to calculate each vehicle’s
+optimal discrete lane change decision. However, the MVMP
+model mainly focus on the trajectory planning process and it
+still needs clear inputs of starting and ending states of vehicles.
+Studies such as [3, 5, 14, 37] proposed multilayer decision
+structures, containing the upper platoon coordination layer and
+the lower vehicle motion planning layer, which can leverage
+the benefits of vehicle collaboration and improve model gener-
+alization. Works [3] and [5] presented a optimal-based model
+to generate the ideal formation order and motion planning
+was executed via Model Predictive Control (MPC) system.
+The dual-layer decision-making framework significantly out-
+performs the MVMP framework in terms of generalization
+and computational efficiency. However, pure optimization-
+based frameworks require the formulation of complex multi-
+variable and multi-objective coupled optimization problems,
+facing both solution difficulty and computational efficiency
+challenges.
+B. Cooperative Decision-making Methods of Multi-lane Pla-
+toons
+Existing Cooperative decision-making methods for au-
+tonomous vehicle platoons can generally be categorized
+into learning-based methods, optimization-based methods, and
+other approaches. Among the optimization-based methods,
+
+===== PAGE 3 =====
+
+3
+there are further distinctions between pure optimization and
+game-theoretic optimization approaches.
+i) Learning-based methods: Longitudinal control of vehicle
+platoons using reinforcement learning or multi-agent rein-
+forcement learning has become increasingly prevalent [33, 16,
+1, 38]. Work [16] proposes a longitudinal control algorithm for
+platooning based on multi-agent reinforcement learning, which
+allocates reward functions according to the car-following re-
+lationships within the platoon to address the ”lazy agent”
+problem. Work [38] introduces a multi-agent reinforcement
+learning algorithm aimed at enhancing safety in human-
+machine mixed platoons. The approach incorporates a CEF-
+QP constraint and an uncertainty-aware trajectory prediction
+model to improve control safety. However, these researches
+only account for uncertainties within the platoon, such as
+driver reaction times, while neglecting external uncertainties,
+such as obstacles ahead or sudden intrusions from other
+vehicles. Moreover, these learning-based methods have poor
+ability to efficiently coordinate the lateral maneuvers of the
+platoon, lack of adaptability to complex scenarios.
+ii) Optimization-based methods: Optimization-based and
+game theory-based methods are primarily applied to longitu-
+dinal and lateral cooperative control of vehicle platoons, col-
+laborative obstacle avoidance decision-making, and decisions
+related to vehicle merging into or leaving the platoon [2, 15,
+11]. Work [21] proposes a non-cooperative game decision-
+making model for platoons to handle scenarios involving lane-
+right conflicts. When an external vehicle attempts to cut into
+the platoon, the model determines the entry position of the
+vehicle within the platoon through a non-cooperative game, au-
+tomatically adjusting the longitudinal gaps in the platoon. This
+method effectively mitigates collision risks caused by external
+vehicle cut-ins. However, the platoon passively accommodates
+the cut-in behavior, leading to disruption of its formation.
+Over time, this could result in reduced driving efficiency
+for the platoon. Work [8] introduces a game-theory-based
+cooperative obstacle avoidance method for vehicle platoons.
+This approach assumes that the platoon can evade obstacles
+and execute overtaking maneuvers by transitioning between
+predefined configurations. However, the method only considers
+a limited number of fixed configurations, and the transitions
+between these configurations are governed by simple logical
+rules. Consequently, the approach has limited adaptability to
+diverse and complex scenarios, as the transition rules lack
+sophistication and generalization capabilities.
+iii) Other methods: Work [4] proposes a rule-based and
+graph-theoretic approach for cooperative obstacle avoidance
+and decision-making in platoons. When obstacles are detected,
+the leading vehicle guides the following vehicles to perform
+formation adjustments by navigating through graph nodes to
+avoid the obstacle. Work [23, 31] introduces a multi-mode
+platoon decision control algorithm, dividing platoon control
+into functions such as cruising, following, lane-changing, over-
+taking, and parking. Mode transitions are managed via a state
+machine, aiming to enhance the adaptability of the platoon
+to diverse scenarios. However, most methods rely solely on
+physical rules tailored to specific scenarios, limiting their
+scalability and adaptability to dynamic environments. What’s
+Follow CAV
+Lead CAV
+Leader-Leader Communication
+Leader-Follower Communication
+A
+B
+Fig. 1. The communication topology of vehicle platoon
+more, when external risks disrupt the platoon formation, these
+methods fails to provide effective countermeasures to restore
+the formation or mitigate the resulting safety risks.
+III. OVERALL FRAMEWORK
+A. Problem Statement
+Assume the traffic flow condition is a mixed traffic flow:
+the vehicle platoon consists of Connected and Autonomous
+Vehicles (CAVs), while the background traffic flow consists of
+Human-Driven Vehicles (HDVs). Within the platoon, vehicles
+share state information, which is transmitted following a
+specified communication topology. The traffic flow set is noted
+as V .
+V =
+
+V c
+1 , V c
+2 , V c
+3 , V h
+4 , V h
+5 , ...
+
+(1)
+The platoon adopts a Leader-Leader-Predecessor-Follower
+(LLPF) communication topology, defined as follows: There is
+bidirectional communication between different platoon lead-
+ers. There is bidirectional communication between the leader
+and its directly connected followers within the platoon and
+between each follower and its immediate predecessor. The
+schematic diagram of the communication topology adopted by
+the platoon is shown in Figure 1. The information exchanged
+between vehicles is represented in Equation 2.
+F = {ltarget,i, xi, yi, vx,i, vy,i, ax,i, ay,i}
+(2)
+where ltarget,i means the target lane number of the i-th
+vehicle, xi, yi, vx,i, vy,i, ax,i and ay,i denote the position,
+speed and acceleration information of the i-th vehicle.
+The communication topology of the vehicle platoon is
+modeled on the basis of graph theory, noted as G = (V c, E).
+E is the set of edges between vehicles.
+
+===== PAGE 4 =====
+
+4
+Platoon Distribution Layer
+Vehicle Execution
+Coalition Game Model
+Observation
+Platoon behavior
+Value
+Vehicle Decision Layer
+Actor
+Net
+Critic
+Net
+PDI
+High-risk Scenarios
+Around Vehicle states
+Action
+Platoon
+configurations
+Payoff Function
+Equilibrium
+Solution
+Coalitions
+Sub-leader-Followers structure
+Proper motions
+Motion
+Prediction
++
+Safe index
+Efficiency
+index
+Track Error
+index
+
+
+
+Predict infos
+Cut bad
+motions
+MIP
+Problem
+Left
+Keep
+Right
+Behavior
+𝛿𝛿𝑓𝑓𝑖𝑖
+𝑎𝑎𝑖𝑖
+𝛿𝛿𝑓𝑓𝑖𝑖+𝑛𝑛
+𝑎𝑎𝑖𝑖+𝑛𝑛
+…
+Vehicle𝒊𝒊
+Vehicle𝒊𝒊+𝒏𝒏
+Control
+Infos
+Env
+Infos
+01
+02
+03
+Feature
+Extractor
+Risk Estimation
+
+
+Observed car
+Platoon
+Rear-end Collision
+Sharply
+slow down
+Vehicle states
+Forced Cut-in
+Congested
+merge area
+Fig. 2. The overall structure of GRDF framwork
+Definition 1 (Platoon Communication Topology): For ∀i, ∈
+, [0, n −1], ∀j, ∈, [1, n], Eij satisfies:
+Eij =
+(
+1
+if i = 0 or i < j
+0
+otherwise
+(3)
+where n represents the number of platoon vehicles, 0 ∼n
+means the numbering of all vehicles in the platoon in de-
+scending order based on their longitudinal positions. Eij = 1
+denotes the information can be transferred from V c
+i to V c
+j .
+To reduce additional computational complexity, the vehicles
+within the platoon are simplified using a kinematic model.
+˙y (t) = u(t) cos(θ(t))
+(4)
+˙x(t) = u(t) sin(θ(t))
+B. The Dual-layer Framework
+In this paper, we present a Game/RL Dual-layer driven
+decision making and motion planning Framework (GRDF) for
+multilane autonomous vehicle platoons in highway environ-
+ments. The diagram of GRDF is shown in Figure 2.
+The GRDF framework proposed in this paper is divided
+into three main modules: the platoon distribution model, the
+vehicle cooperative decision-making model, and the vehicle
+execution model.
+Environmental information including around vehicle states
+and risk, is input to the platoon distribution layer, and the
+output is the ideal platoon configuration. In this model, an
+RL-based decision-making method is proposed, which extracts
+necessary observation information from the dynamic environ-
+ment and calculates the desired platoon grouping using an
+actor-critic network architecture.
+After receiving the platoon distribution behavior, the vehicle
+decision layer is supposed to generate the behavioral decision-
+making results for each vehicle in platoon. In this model, we
+propose a coalition game-based cooperative decision-making
+method and formulate an mixed-integer optimization problem
+(MIP) optimization problem to compute the game equilibrium
+solution. Additionally, to improve optimization efficiency, a
+pruning strategy is designed to eliminate actions that are
+infeasible or do not meet safety requirements.
+Finally, the vehicle execution model is created to transform
+the vehicle behavior into the longitudinal and lateral control
+information and make the vehicle drive in obedience to the
+given control commands. In this model, the motion planning
+is realized through lattice method.The trajectory clusters are
+generated using polynomials and a dynamics stability checker
+id designed to validate the trajectories. The best trajectory is
+selected by a comprehensive evaluation function, considering
+efficiency, safety, comfort and so on. The lower-level vehi-
+cle following and steering control are achieved using linear
+quadratic regulator (LQR) and Proportional Integral Derivative
+(PID) controllers.
+
+===== PAGE 5 =====
+
+5
+IV. PLATOON DISTRIBUTION LAYER
+A. Preliminary Knowledge
+Reinforcement learning methods are based on Markov pro-
+cesses, where reward or penalty functions are predefined.
+Through training, agents interact with the environment to
+learn optimal strategies that maximize the reward or minimize
+the penalty function. Deep reinforcement learning further
+facilitates approximating highly nonlinear functions from com-
+plex datasets, making it well-suited for addressing complex
+decision-making and control problems [10].
+Early reinforcement learning algorithms, such as Deep Q
+Network (DQN), use neural networks to predict the Q-values
+of actions, aiming to minimize the discrepancy between the
+predicted Q-value network and the target Q-value network.
+The loss function can be defined as Equation 5. However, the
+process of optimizing and updating the action network may
+not align with the dynamic characteristics of the environment,
+presenting challenges for applications in complex and dynamic
+scenarios.
+L(θ) = E(s,a,r,s′)[(r + γ)2] max
+a′ Qθtargt(s′, a′)
+(5)
+where (s, a, r, s′) represents the transition tuple, s is the
+current state, a is the action taken, r is the reward received, and
+s′ is the next state, Qθ(s′, a′) is the Q-value estimated by the
+current network with parameters θ, Qθtargt(s′, a′) means the
+target Q-value estimated by the target network with parameters
+θtarget, γ denotes the discount factor, which determines the
+weight of future rewards.
+The Proximal Policy Optimization (PPO) algorithm is im-
+plemented based on the actor-critic architecture. It approxi-
+mates the optimal policy using the actor network and evaluates
+the policy’s Q-values through the critic network, integrating
+policy gradient and value network update methods for more
+accurate policy evaluation and updates. Additionally, the PPO
+method introduces a clipping function to constrain the range of
+policy update gradients, thereby enhancing the stability of the
+learning process. The loss function for policy gradient updates
+is defined as Equation 6.
+LF G(θ) = Et
+h
+min
+
+rt(θ) ˆAt, clip(rt(θ), 1 −ϵ, 1 + ϵ) ˆAt
+i
+(6)
+where rt(θ) =
+πθ(at|st)
+πθold(at|st) is the probability ratio between
+the new policy πθ and the old policy πθold, ˆAt represents the
+advantage estimate at time step t, and ϵ is a hyperparameter
+controlling the clipping range to balance exploration and
+stability during policy updates.
+B. Centralized Proximal Policy Optimization Algorithm
+In this section, we propose a platoon configuration decision-
+making method based on the PPO algorithm. The leading
+vehicle can obtain the state and perception information of other
+vehicles through the communication topology, enabling infor-
+mation sharing within the platoon. Based on this information-
+sharing mechanism, the leading vehicle performs centralized
+decision-making for platoon configuration.
+Action 1
+Action 2
+Action 3
+Action 4
+Sub-leader
+Follower
+Fig. 3. The platoon configuration actions
+The decision-making process is modeled as a general
+Partial Observation Markov Decision Process (POMDP),
+(S, A, P, R, γ, O, Z). Among these elements, the action space
+A, observation space O, and reward function R are particularly
+important.
+The action space A includes various platoon configurations,
+defined in Equation 7. Taking 3-vehicle platoon as an example,
+the platoon configuration action is illustrated in Figure 3.
+A = {a1, a2, a3, . . . , am}
+(7)
+a1 = [(0, 1, 2, . . . , m)]
+a2 = [(0)(1, 2, . . . , m)]
+a3 = [(0)(1)(2, 3, . . . , m)]
+where ai represents each platoon configuration. m is the
+total number of a n-vehicle platoon’s configuration, m =
+C1
+n−1 + C2
+n−1 + ... + Cn−1
+n−1 + 1.
+The observation space O denotes the observed environment
+information accessible to the controlled platoon, including po-
+sitions, speeds, accelerations and jerk of objects. Additionally,
+we incorporated the TTC index into the observation space as
+an explicit representation of environmental risk states. This
+enhancement improves the algorithm’s adaptability to high-
+risk scenarios by providing a quantitative measure of potential
+collision risks. The observations are obtained through sensors
+and communication units with random noise. The observation
+space O is defined in Equation 8.
+O = {x, y, vx, vy, ax, ay, jx, jy, τ}
+(8)
+where x, yx, vy, ax, ay, jx, jy represent longitudinal and lateral
+position, speed, acceleration and jerk of observed objects. The
+values of ax, ay, jx, jy are derived by vx, vy. τ means the TTC
+between ego vehicle and observed objects.
+The reward function R guides the training process by defin-
+ing the awards and penalties for decision-making results. The
+reward function primarily considers safety Rs, efficiency Re,
+platoon driving performance Rd and platoon reorganization
+performance Rr.
+R = ws × Rs + we × Re + wd × Rd + wr × Rr
+(9)
+
+===== PAGE 6 =====
+
+6
+60
+80
+100
+120
+140
+160
+180
+200
+220
+X Position
+5
+0
+5
+Y Position
+60
+80
+100
+120
+140
+160
+180
+200
+220
+X Position
+5
+0
+5
+Y Position
+60
+80
+100
+120
+140
+160
+180
+200
+220
+X Position
+5
+0
+5
+Y Position
+60
+80
+100
+120
+140
+160
+180
+200
+220
+X Position
+5
+0
+5
+Y Position
+181608
+191274
+200939
+210604
+220270
+229935
+239601
+249266
+258931
+268597
+Fig. 4. The risk field distribution
+The safety reward Rs consists of the collision penalty rcol
+and the risk penalty rris.
+Rs = wcol × rcol + wris × rris
+(10)
+rcol =
+(
+0,
+if collision happened
+1,
+else
+(11)
+The risk reward rris is characterized by the field intensity of
+the driving risk field, determined in Equation 12. The detailed
+construction of the risk field refers to work [30], the scenario
+risk distribution is shown in Figure 4.
+rris = max
+i∈[1,n](GRM
+dk1
+i
+)k2vi/(GRM
+dk1
+min
+)k2vmax
+(12)
+The efficiency reward Re is the platoon’s average speed.
+Re = 1
+n
+n
+X
+i=1
+vi
+vmax
+(13)
+The platoon driving performance reward Rd contains the
+tracking error of distance, lateral position and speed.
+Rd =
+1
+n −1
+n−1
+X
+i=1
+wx × (xi −xi+1 −dtarget) +
+(14)
+wy × (yi −yi+1) +
+wv × (vi −vi+1)
+where the target follow distance dtarget in platoon is 10 m.
+The platoon reorganization performance reward Rr is com-
+posed of platoon reorganization frequency rrf, reorganization
+time rre and reorganization incentive rre, shown in Equation
+15
+Rr = wrf × rrf + wre × rre + wri × rri
+(15)
+The platoon reorganization frequency reward rrf means the
+number of platoon reorganization events triggered per unit
+time, which is defined and normalized in Equation 16.
+rrf = Ntrigger
+Nstep
+(16)
+where Ntrigger refers to the decision steps involved in switch-
+ing the platoon from a single sub-platoon configuration to
+other multiple sub-platoon configurations during a single
+episode. Nstep represents the total decision steps within a
+single episode.
+The platoon reorganization time rre represents the average
+time taken by the platoon to successfully complete a reor-
+ganization process. Successfully completing a reorganization
+process means that the platoon switches from a single sub-
+platoon configuration to a multi-sub-platoon configuration and
+then back to a single sub-platoon configuration.
+The platoon reorganization incentive rrc denotes the degree
+of incentive for triggering platoon reorganization behavior
+under varying environments. When the platoon encounters
+a sudden decrease in environmental risk, denoted by TTC
+or a significant decline in efficiency, denoted by Re, higher
+reorganization incentive is provided. Conversely, when rris
+remains stable and the Re keeps in a higher level, a lower
+reorganization incentive is applied.
+rrc = kt × τ 0
+min
+τ 0 + kv ×
+n
+X
+i=1
+vi
+vmax
+(17)
+where τ 0 represents the TTC between platoon leader and
+front object, τ 0
+min is the critical value of TTC, set as 2.5 s. kt,
+kv are constant parameters.
+V. VEHICLE DECISION LAYER
+After the platoon-layer decision-making model calculates
+the optimal platoon configuration, this section establishes a
+coalition game model to determine the behavioral decisions
+for each vehicle.
+A. Formulation of coalition game decision-making model
+Coalition game is a type of cooperative game, which usually
+involves multiple players, denoted by N = {1, ...n}. who seek
+to form cooperative groups to achieve the optimal collective
+payoff distribution. Each group is called a coalition. Players
+within a coalition reach an agreement and act as a unified en-
+tity in the collaborative decision-making process. v represents
+the quantified benefit that the coalition achieves during the
+game. The definition of ⊑determines the specific form and
+type of the game. Hence, the coalition game can be described
+by a pair (N, v).
+The characteristic function v can be defined in two ways
+[27]. In coalitional games with nontransferable utility (NTU),
+the payoff of each coalition S is closely related to the joint
+actions of other coalitions. In games with transferable utility
+(TU), however, the payoff of each coalition is independent of
+the performance of other coalitions.
+
+===== PAGE 7 =====
+
+7
+Definition 2 (The characteristic function v in NTU games):
+In a NTU game G = (N, v), coalition S is a subset of
+N. All coalitions other than S are supposed to form a
+complementary coalition, denoted as N\S. Treat S and N\S
+as two players participating in a non-cooperative game. The
+actions of coalition is denoted by a, and the profit of actions
+is denoted by u. The characteristic function v of NTU game
+can be calculated by the maximin principle in equation 18,
+which means that the sum of the maximum payoffs guaranteed
+to coalition S members when facing the most severe threats
+from coalition N\S is ensured.
+v(S) = min
+N\S max
+S
+X
+i∈S
+ui(aS, aN\S)
+(18)
+where aS and aN\S means the actions of coalition S and
+complementary coalition N\S. Natural convention V (∅) = 0.
+Definition 3 (The characteristic function v in TU games):
+In a TU game G = (N, v), coalition S is a subset of N. The
+actions of coalition is denoted by a, and the profit of actions
+is denoted by u. The characteristic function v of TU game can
+be defined in Equation 19.
+v(S) = max
+S
+X
+i∈S
+ui(aS, aN\S)
+(19)
+The NTU games contains implicit competitive relationship
+among coalitions. While in TU games, coalitions are in a
+totally cooperative relationship. In this paper, all vehicles
+within the platoon are committed to cooperation, thus a TU
+game is established.
+In our platoon reorganization problem, the coalition S needs
+to satisfy follow conditions.
+Remark 1 (Vehicle coalition formation conditions): When
+the vehicles drive on the same lane and no other obstacles exist
+between them, a coalition can be formed from these vehicles.
+The positions of these vehicles are limited by Equation 20.
+Each coalition is a sub-platoon. The vehicle at the forefront
+becomes the leader of the sub-platoon. Based on the LLPF
+communication topology, the vehicles within the coalition
+and the sub-leaders between coalitions can exchange driving
+information.
+max
+i
+|xi −xi+1| < exlim
+(20)
+max
+i
+|yi −yi+1| < eylim
+where exlim and ylim are constants, exlim = 30 m and ylim =
+1.5 m.
+B. Coalition characteristic function
+The goal of platoon decision-making is to ensure that
+each sub-platoon, or coalition, completes the configuration
+transformation process safely and efficiently. This process can
+be divided into two phases: platoon splitting and platoon
+merging.
+During the platoon splitting phase, each coalition strives to
+make full use of road space for coordinated lane changes to
+enhance the safety and efficiency of the grand coalition. In
+the platoon merging phase, each coalition aims to form a new
+platoon configuration as quickly as possible while ensuring its
+own safety and maintaining driving efficiency.
+The characteristic function vp(S) of platoon splitting and
+platoon merging process is shown in Equation 21.
+vp(S) = max
+S
+X
+i∈S
+Ji
+sp(αi, βi)
+(21)
+vp(S) = max
+S
+X
+i∈S
+Ji
+mg(αi, βi)
+where Jsp(αi, βi) and Jmg(αi, βi) are the profit of platoon
+splitting and platoon merging process. αi and βi are the i-th
+action in aS and aN \S, the action list of current coalition
+S and the complementary coalition N\S. The action α,
+β refers to the lateral decision of each vehicle, α, β
+∈
+{left lane change, right lane change , keep the lane}
+The
+splitting
+profit
+Jsp(αi, βi)
+includes
+safety
+profit
+Js(αi, βi), driving efficiency profit Je(αi, βi) and platoon
+integration profit Jit(αi, βi). The merging profit Jmgαi, βi)
+contains formation error Jtr(αi, βi) on the basis of the
+splitting profit Jsp(αi, βi). Jsp(αi, βi) and Jmg(αi, βi) are
+calculated by Equation 22.
+Jsp(αi, βi) =ws × Js(αi, βi) + we × Je(αi, βi)
+(22)
++ wit × Jit(αi, βi)
+Jmg(αi, βi) =ws × Js(αi, βi) + we × Je(αi, βi)
++ wit × Jit(αi, βi)
++ wer × Jer(αi, βi)
+where ws, we, wit and wer are constant weights.
+The safety profit Js(αi, βi) is calculated in Equation 23.
+Js(αi, βi) =(Pris(αi, βi) + kτ × τ 0(αi, βi)
+(23)
++ kd × ((xi −xLV
+i
+)2 + (yi −yLV
+i
+)2))
+where Pris(αi, βi) denotes the value of risk field, which
+can be calculated in Equation 12. (xi and yi are the predicted
+longitudinal and lateral positions of vehicle i. LV refers to
+the near front vehicle of vehicle i. xLV
+i
+and yLV
+i
+denote the
+position of LV . τ 0(αi, βi) means the TTC value between
+vehicle i and LV . kτ and kd are constant values.
+The efficiency profit Je(αi, βi) is derivated in Equation 24.
+Je(αi, βi) = vx,ave
+i
+(24)
+where vx,ave
+i
+represents the average longitudinal speed in
+prediction time of vehicle i.
+The platoon integration profit Jit(αi, βi) refers to the per-
+formance of maintaining the integrity of the platoon formation
+during the platoon reorganization process, which can be rep-
+resented by traffic entropy, shown in Equation 25.
+Jit(αi, βi) = −nS
+l
+X
+j=1
+( pj
+nS
+ln( pj
+nS
+))
+(25)
+
+===== PAGE 8 =====
+
+8
+Detection
+Area
+HDV
+CAV
+Predicted position
+Fig. 5. Diagram of road node division
+where nS is the number of vehicles in coalition S, l denotes
+the number of lanes in roads, pj is the number of the j-th
+lane, including both ego vehicles and background vehicles.
+The tracking profit Jtr is characterized by the position and
+speed error of vehicles within ego platoon, denoted in Equation
+26.
+Jtr(αi, βi) =
+nS−1
+X
+j=1
+((xj −xj+1 −dtarget)+
+(26)
+ky(yj −yj+1) + kv(vj −vj+1))
+where xj, yj, vj are the lateral position, longitudinal posi-
+tion, and speed of the j-th vehicle in the platoon, xj+1, yj+1,
+vj+1 are the lateral position, longitudinal position, and speed
+of the (j + 1)-th vehicle in the platoon
+C. Platoon Disposition Index (PDI)
+To further improve the performance of the platoon reorgani-
+zation process, decrease the reorganization time, and enhance
+reorganization efficiency, we propose the Platoon Disposition
+Index (PDI) based on graph theory.
+The PDI serves to comprehensively assess the environmen-
+tal situation, providing a real-time representation of the spatial
+distribution of vehicles within the platoon, as well as the diffi-
+culty of transitioning from the current distribution to the ideal
+one. The PDI not only considers the positional information
+of the vehicles within the platoon but also takes into account
+the distribution of surrounding vehicles in the environment.
+In contrast, common error metrics such as longitudinal or
+lateral position error only indirectly reflect the distribution of
+platoon vehicles through error terms, without considering the
+distribution of other vehicles in the environment.
+The PDI is calculated based on graph theory. Thus, we
+simplifies the road into a node map, where each vehicle or
+obstacle occupies a node. The schematic diagram of road node
+division is shown in Figure 5. dn is the distance between
+nodes, dn ∈[dmin
+n
+, dmax
+n
+). The values of dmin
+n
+and dmax
+n
+are
+related to the vehicle’s dimensions. In this paper, dmin
+n
+= 10
+m and dmax
+n
+= 20 m.
+Before calculating PDI, The following assumptions are
+made for the nodes:
+𝑐𝑐𝑖𝑖,𝑖𝑖+1
+Optimal connection
+Step 0
+Step 1
+Step 2
+Fig. 6. PDI calculation process
+i) The node occupied by the first vehicle of the platoon is
+considered the starting point.
+ii) The node occupied by the last vehicle of the platoon is
+considered the end point.
+iii) Nodes occupied by background vehicles or obstacles are
+considered infeasible nodes.
+iv) Only adjacent nodes can be connected to form an edge.
+the adjacent nodes are defined in Definition 4.
+v) The weight of an edge is defined by both the distance
+between the two nodes and the lanes in which the nodes are
+located. Its physical meaning is the difficulty for a vehicle to
+move from one node to another, named Equivalence Distance
+(ED), is defined in Definition 5.
+Definition 4 (Adjacent Nodes): Node ni ∈Nn and node
+nj ∈Nn. N means the set of all nodes of the map. Li and
+Lj are the lanes that ni and nj belong to. xi and xj are the
+longitudinal positions of ni and nj. If a vehicle occupies a
+node, the node is located at the center of the vehicle’s rear
+axle. If a node is occupied by an obstacle, the node is located
+at the center of the physical outline of the obstacle. If Li = Lj
+and |xi −xj| < dmax
+n
+, then ni and nj are adjacent nodes. If
+|Li −Lj| = 1 and there exits a nk such that |xi −xj| ≤
+|xk −xi|, then ni and nj are adjacent nodes.
+Definition 5 (Equivalence Distance): Eij denotes the edge
+between node ni and node nj. The EDij is the weight of Eij.
+The value of wij id given by Equation 27.
+Eij =
+˜dij
+D + kl|Li −Lj|
+(27)
+where ˜dij refers to the Euclidean distance between ni and nj,
+kl is a constant value. In this paper, kl = 10.
+Based on the above assumptions i) ∼v), the goal is to
+find the shortest path in terms of equivalent distance from the
+starting point to the endpoint, with the constraint that the path
+cannot pass through nodes occupied by background vehicles
+or obstacles. The sum of the ED between all the nodes along
+this path is defined as the equivalent length of the path. We
+will use the equivalent length of the path as the PDI. The
+schematic of the PDI calculation process is shown in Figure
+6.
+The process of finding the shortest path is modeled as a
+MIP to solve for the PDI. All edges in the graph are set as
+0-1 integer variables, denoted by u. The number of variables
+is nu The objective function is given by Equation 28. The
+constraints are shown in Equation 29.
+
+===== PAGE 9 =====
+
+9
+Jpath =
+nu
+X
+i=1
+EDiui
+(28)
+
+
+
+
+
+
+
+
+
+
+
+Pnu
+j=1 uij = 1,
+if ni = n0
+Pnu
+i=1 uij = 0,
+if nj = n0
+Pnu
+i=1 uij = 1,
+if ni = ne
+Pnu
+j=1 uij = 0,
+if nj = ne
+Pnu
+i=1 uij = Pnu
+i=1 uji,
+if nj̸ = n0 and nj̸ = n0
+(29)
+The PDI can be computed using common MIP solving
+methods, such as branch and bound, etc. The advantages of
+PDI mainly lie in: When vehicles in the platoon are in the
+same position but the positions of surrounding vehicles differ,
+traditional error metrics cannot distinguish such situations.
+For example, when the platoon is cut in by other vehicles,
+the traditional error indexes will make conservative decisions
+and guide the platoon to drive behind the cut-in vehicle,
+maintaining its original lane, in order to minimize tracking
+error indexes. However, by adopting PDI, the optimal decision
+is to change lanes to the left, allowing the platoon to transform
+into a tighter configuration more quickly, thereby improving
+platoon efficiency and fuel economy.
+VI. SIMULATION AND DISCUSSION
+A. Simulation Settings
+The simulation platform is built on the basis of an OpenAI
+Gym environment. In the simulator, actions determined by
+specific policies are translated into low-level steering and
+acceleration signals through a closed-loop PID controller. The
+vehicles in the simulator are built on the basis of kinematic
+models. The longitude and lateral decisions of HDVs are
+controlled by Intelligent Driver Model (IDM) and Minimizing
+Overall Braking Induced by Lane Change (MOBIL) models,
+respectively.
+In our simulation, the vehicles in the background traffic flow
+are generated randomly, with different driving styles to simu-
+late the uncertainty of the environment. Due to communication
+distance and latency constraints, the number of vehicles in a
+platoon is typically limited to 2 to 5. In our case, the number of
+platoon vehicles is 3. All vehicles in the platoon are equipped
+with advanced autonomous driving capabilities and V2X or
+DSRC communication technologies.
+In the proposed GRDF model, we adopt the Multi-layer
+Perception (MLP) as the encoder and decoder, which contains
+one hidden layer and two fully connected (FC) layers. The size
+of hidden and FC layers is 256. The detailed hyperparameter
+is shown in Table I
+B. Case Studies
+When driving in highway roads, the platoon faces risks
+mainly from two directions, longitudinal and lateral. The
+longitudinal risk means potential collisions coming from the
+same lane as platoon. For instance, the front vehicle suddenly
+decelerates and causes a rear-end collision, which occurs
+frequently in high-speed traffic. The lateral risk indicates
+TABLE I
+HYPERPARAMETERS OF DPL MODEL
+Symbol
+Definition
+Value
+Nt
+Total Training Steps
+106
+λ
+Learning Rate
+3−4
+γ
+Discount Factor
+0.85
+B
+Batch Size
+64
+ϵ
+Clip Parameter
+0.2
+Su
+Number of Forward Steps
+128
+τ
+Target Update Rate
+0.0
+cv
+Value Loss Coefficient
+0.5
+ce
+Entropy Term Coefficient
+0.0
+possible collisions caused by lateral adjacent vehicles as some
+drivers may take aggressive lane-change or overtake behaviors
+in order to pursue higher speed, which may lead to corner
+collision unluckily. Especially in ramp merging area, continu-
+ously vehicles merge into the merging lane of the main road,
+which brings about temporary congestion in merging lane.
+When platoon drives in uninterrupted near lane, the vehicles in
+merging lane is likely to cut into the platoon, breaking platoon
+formation and increasing lateral collision risk.
+Hence, in this paper, we organize two simulation cases of
+longitudinal and lateral driving risks to evaluate the perfor-
+mance of proposed model, respectively.
+1) Case 1: Lateral Driving Risk: In Case 1, we simulated
+a typical lateral high-risk scenario in a three-lane highway
+environment with ramp merging area. Lateral high risk refers
+to situations where the platoon’s original formation is dis-
+rupted by lateral interference from other vehicles or objects. At
+highway ramp merging points, unclear right-of-way between
+main road and ramp vehicles significantly raises the driving
+risk. Additionally, the continuous flow of ramp vehicles into
+the rightmost lane often causes congestion in that lane. To
+improve driving efficiency, vehicles in the rightmost lane are
+more likely to change lanes into the middle lane. If the
+controlled vehicle platoon happens to be traveling in the
+middle lane, the platoon’s substantial spatial occupation makes
+it highly likely for vehicles from the rightmost lane to cut
+into the platoon. This increases the risk of collision within the
+platoon significantly.
+At first, the platoon drives in tight line formation in the
+middle lane to decline air resistance. The distance between
+between the rear axle center of the lead vehicle and the rear
+axle center of the following vehicle is 10 m. The length of
+vehicle body is 5 m.
+To validate the advantages of the proposed multi-lane
+platoon reorganization strategy, we compared it with two
+cooperative lane-changing methods for platooning. The SiPLC
+proposed in 2018 [12] and SuPLC proposed in 2022 [28],
+are selected as baseline models. The SiPLC allows platoon
+to change lanes holistically, while maintaining original for-
+mation at the same time. This will lead to conservative lane
+change behaviors. The platoon can only change lane as the
+premise of sufficient longitudinal spacing, which is hard to
+be satisfied in real highway environment, especially under
+emergency conditions. Besides, the SuPLC permits platoon
+
+===== PAGE 10 =====
+
+10
+Time: 0 min
+Time: 1.2 min
+Time: 7.5 min
+Time: 10.5 min
+Time: 14 min
+Time: 0 min
+Time: 2.7 min
+Time: 4.5 min
+Time: 5.2 min
+Time: 7.2 min
+Time
+Case 1 SiPLC
+AP
+HV
+HV
+(Aggressive)
+Case 1 SuPLC
+AP
+HV
+HV
+(Aggressive)
+Fig. 7. The scenario slice diagram of SiPLC and SuPLC
+to take successive lane-change, cutting through the traffic like
+a snake [28]. This method occupies smaller road space but
+extends the lane changing time window, which is difficult to
+implement in emergency environments.
+To visually demonstrate the differences in performance
+across various control models, we used scenario slice di-
+agrams to illustrate the platoon’s driving behavior. Rel-
+evant
+video
+materials
+can
+be
+found
+on
+the
+website
+https://github.com/KongAAAAAAJ/GRDF. The platoon’s per-
+formance in the same scenario after applying the GRDF,
+SiPLC, and SuPLC methods is shown in Figure 7 and 8.
+Figure 7 illustrates scenario slice diagrams of platoon
+driving under the baseline methods. The left side of Figure
+7 shows platoon’s driving behavior under SiPLC. At t=1.2
+min, the platoon initiated a left lane-changing maneuver, with
+all vehicles in the platoon changing lanes simultaneously. As
+the number of merging ramp vehicles in the rightmost lane
+increased, a human-driven vehicle in the rear of the rightmost
+lane exhibited an intention to change lanes to the left. At
+t=7.5 min, this vehicle cut into the space between the first
+and second vehicles of the autonomous platoon. The second
+vehicle of the platoon performed an emergency brake to avoid
+a collision. However, the third vehicle failed to decelerate in
+time, resulting in a rear-end collision with the second vehicle.
+The right side of Figure 7 shows platoon’s driving behavior
+under SuPLC. At t=2.7 min, the platoon initiated a left lane-
+changing maneuver, while the last vehicle in the rightmost lane
+also exhibited an intention to change lanes to the left. Since the
+platoon adopts a serpentine lane-changing method, the lane-
+changing times for the platoon’s vehicles gradually increase
+from the first vehicle to the last. At t=7.2 min, a human-
+driven vehicle cut into the space between the first and second
+vehicles of the platoon. By this time, the first vehicle had
+already completed the lane change, while the second vehicle
+was still in the process of changing lanes. Due to the human-
+driven vehicle’s cut-in, the second vehicle failed to avoid the
+collision in time.
+Figure 8 shows the vehicle platoon’s driving behaviors after
+applying the proposed GRDF method. As seen in Figure 8,
+at t=3 min, a human-driven vehicle cuts into the platoon. At
+t=5 min, the platoon detects the cut-in behavior of another
+vehicle, and the second vehicle, most affected by the cut-
+in, initiates a left lane change to avoid a collision. After the
+second vehicle changes lanes, between t=10 min and t=16
+min, the remaining vehicles in the platoon sequentially change
+lanes with the aim of restoring the original platoon formation,
+ultimately successfully completing the platoon reorganization
+process.
+This demonstrates that the SiPLC and SuPLC methods can-
+not effectively handle the vehicle cut-in risk during cooperative
+lane-change process of the platoon. These methods struggle
+to address unexpected dangerous scenarios, exhibiting poor
+
+===== PAGE 11 =====
+
+11
+Time: 1 min
+Time: 3 min
+Time: 5 min
+Time: 7.7 min
+Time: 10.2 min
+Time: 12.7 min
+Time: 16.2 min
+Time: 19.2 min
+Time: 30.5 min
+Time: 42.7 min
+Time
+Case 1 GRDF
+AP
+HV
+HV(Aggressive)
+Fig. 8. The scenario slice diagram of GRDF
+TABLE II
+PERFORMANCE EVALUATION OF CASE 1
+Index
+SiPLC
+SuPLC
+GRDF
+Collision Rate
+0.884
+0.965
+0.021
+Average Speed (m/s)
+24.47
+24.08
+25.42
+Minimum TTC (s)
+3.21
+3.39
+7.23
+Average Distance (m)
+7.39
+9.57
+9.09
+robustness and insufficient safety. However, the GRDF method
+can autonomously organize the vehicles to complete the pla-
+toon reorganization process in an orderly manner when facing
+the risk of cut-in by other vehicles, effectively preventing
+collisions and enhancing the safety and robustness of platoon
+driving.
+To evaluate the performance of the proposed GRDF method
+in terms of driving efficiency and safety, we conducted 100
+simulation experiments under random traffic flow, focusing
+on the lateral risk scenarios. The evaluation metrics selected
+include collision rate, average platoon speed, average inter-
+vehicle distance within the platoon, and the minimum TTC of
+the platoon vehicles. The results of these metrics are shown
+in Table II.
+As shown in Table II, after applying the SiPLC and SuPLC
+methods, the platoon experiences a relatively high collision
+rate in the cut-in scenarios, with values of 0.884 and 0.965,
+respectively. However, after applying the GRDF method, the
+platoon’s collision rate drops to 0.021, representing a reduction
+of 97.6% and 97.8%, significantly enhancing collision safety.
+From the Minimum TTC metric, after applying the baseline
+models, the Minimum TTC values are 3.21 s and 3.39 s,
+respectively, while the TTC value for GRDF is 7.23 s, which
+is 2.25 times and 2.13 times higher than the baseline models.
+The improvement in Minimum TTC indirectly reflects the
+enhanced safety of the platoon’s driving. In addition, the
+average speed of the platoon increased from 24.47 m/s and
+24.08 m/s to 25.42 m/s, representing an improvement of 3.9%
+and 5.6%, respectively.
+The data distribution of metrics are illustrated in box plots,
+as shown in Figure 9 and Figure 10. The Average Speed and
+Minimum TTC values achieved by the GRDF model both
+surpass those of the baseline models. GRDF not only enhanced
+the safety of the platoon but also slightly improved its driving
+efficiency. This indicates that after applying GRDF, the platoon
+made better decisions, significantly improving safety without
+sacrificing efficiency, and effectively addressing lateral high-
+risk scenarios such as vehicle cut-ins.
+The Average Distance metric refers to the average following
+distance between vehicles within the platoon, with an ideal
+following distance of 10 meters. SiPLC causes the vehicles to
+
+===== PAGE 12 =====
+
+12
+Ours
+SiPLC
+SuPLC
+Method
+22
+24
+26
+28
+30
+Average Speed Value (m/s)
+Fig. 9. The box plot of average speed
+Ours
+SiPLC
+SuPLC
+Method
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Minimum TTC Value (s)
+Fig. 10. The box plot of minimum TTC
+change lanes simultaneously, resulting in the shortest Average
+Distance of 7.39 m. SuPLC, which has the vehicles change
+lanes in a serpentine manner, leads to the longest Average
+Distance of 9.57 m. During the platoon reorganization process,
+the following distance inevitably increases. However, after
+applying the GRDF strategy, the Average Distance is 9.09
+m, which is still close to the ideal following distance. This
+indicates that, in most cases, the platoon maintains an ideal
+following distance and formation, implementing the reorgani-
+zation strategy only when the risk level is higher.
+2) Case 2: Longitudinal Driving Risk: In Case 2, we
+simulated a typical longitudinal risk scenario for platooning
+in a three-lane highway environment. The longitudinal risk in
+this case is brought about by the rapid deceleration behavior
+from the vehicle in front of the whole platoon. When the front
+vehicle makes a sharp deceleration, the longitudinal collision
+risk for rear platoon will be greatly increased. The platoon
+needs to avoid the obstacle vehicle and reduce the loss of
+traffic efficiency as much as possible.
+To validate the superiority of the proposed graph-theory-
+and-game-based formation reorganization method (GRDF-
+GT), we compared GRDF-GT, GRDF, and a reinforcement-
+learning-and-rule-based
+formation
+reorganization
+method
+(RRL), closely observing changes in relevant performance
+metrics.
+To eliminate uncertainties, the simulation experiments were
+TABLE III
+PERFORMANCE EVALUATION OF CASE 2
+Index
+RRL
+GRDF
+GRDF-GT
+Collision Rate
+0.21
+0.01
+0
+Average Speed (m/s)
+24.27
+26.08
+24.91
+Minimum TTC (s)
+6.50
+4.13
+4.08
+Average Distance (m)
+12.58
+10.19
+9.74
+Formation Success Rate
+0.80
+0.88
+0.94
+Formation Time (min)
+6.45
+6.16
+4.56
+repeated 100 times under random traffic flow conditions. The
+results were then subjected to statistical analysis, and the key
+performance metrics are summarized in Table III.
+From Table III, it can be observed that both GRDF and
+GRDF-GT significantly reduce the collision rate, from 0.21
+to 0.01 and 0. Although the Minimum TTC indicator slightly
+decreases from 6.50 s to 4.13 s and 4.08 s, it remains within
+a safe range. Overall, the application of GRDF and GRDF-
+GT substantially enhances the safety of the platoon’s driving
+performance. The Average Speed indicator also increases from
+24.27 m/s to 26.08 m/s and 24.91 m/s, respectively, indicating
+an improvement in platoon driving efficiency while ensuring
+safety.
+The indicators Average Distance, Formation Success Rate,
+and Formation Time reflect the capabilities of the platoon
+during the reorganization process.
+i) Formation Success Rate refers to whether the platoon
+successfully restores its original formation and completes the
+reorganization process within 15 min. A higher value for this
+indicator signifies stronger capability in executing formation
+reorganization.
+ii) Formation Time measures the time required for the pla-
+toon to restore its original formation from the initiation of the
+reorganization process. A lower value for this indicator reflects
+higher efficiency in the platoon’s reorganization process.
+As shown in Table III, the Average Distance decreased from
+12.58 m and 10.09 m to 9.74 m with the application of GRDF-
+GT. This indicates that during the reorganization process, the
+platoon maintained a smaller inter-vehicle distance, enhancing
+the overall driving efficiency. Furthermore, the Formation
+Success Rate was highest with GRDF-GT at 0.94, followed by
+GRDF at 0.88, and RRL at 0.80. In addition, the Formation
+Time was minimized with GRDF-GT, achieving 4.56 min,
+significantly lower than 6.45 min for RRL and 6.16 min for
+GRDF. These results demonstrate that GRDF-GT effectively
+enhances the platoon’s formation transformation capabilities
+and reorganization efficiency, improving its adaptability and
+robustness in risk-prone scenarios.
+Meanwhile, the distribution of the Average Speed and
+Minimum TTC indicators is presented in the form of box
+plots in Figure 11. It can be seen that after applying the
+GRDF method, the data points for the Average Speed indicator
+of the vehicle platoon are mostly located above those of the
+RRL method, demonstrating a significant advantage in terms
+of efficiency. In contrast, the distribution of the Minimum TTC
+indicator for the RRL method is quite wide, indicating that the
+decision-making safety of RRL is unstable across different
+
+===== PAGE 13 =====
+
+13
+GRDF
+GRDF-PDI
+RRL
+Method
+18
+20
+22
+24
+26
+28
+30
+Value (m/s)
+Average Speed
+GRDF
+GRDF-PDI
+RRL
+Method
+2.5
+5.0
+7.5
+10.0
+12.5
+15.0
+17.5
+20.0
+Value (m)
+Minimum TTC
+Fig. 11. The box plot of average speed and minimum TTC
+GRDF
+GRDF-GT
+RRL
+Method
+6
+8
+10
+12
+14
+16
+18
+Average Distance (m)
+Fig. 12. The violin plot of average distance
+GRDF
+GRDF-GT
+RRL
+Method
+0
+5
+10
+15
+20
+25
+30
+Formation Time (min)
+Fig. 13. The violin plot of formation time
+traffic flow scenarios. There are even many data points below
+2.5 s, further decreasing safety. However, after applying the
+GRDF and GRDF-GT models, the distribution of the platoon’s
+Minimum TTC indicator is more concentrated, with the vast
+majority of data points above 3.0 s, indicating a higher level
+of decision-making safety.
+To provide a detailed presentation of the distribution density
+of various indicators during the platoon reorganization process,
+violin plots were used to analyze the Average Distance and
+Formation Time indicators. From Figure 12, it can be observed
+that the Average Distance indicator for the RRL model is
+approximately uniformly distributed between 7 and 18 m.
+This suggests that the model is quite sensitive to changes
+in scene parameters, and the platoon maintains a relatively
+tight formation only in certain simpler scenarios. In con-
+trast, both the GRDF and GRDF-GT models exhibit a more
+concentrated distribution of the Average Distance indicator,
+indicating that their decision-making methods have stronger
+adaptability to varying traffic scenarios. From Figure 13, it
+can be observed that the Formation Time data for the RRL
+model has a wide distribution range, strongly correlating with
+changes in scene parameters. A significant portion of the
+data is distributed at the upper part of the graph, around t
+= 25 min, indicating that in many scenarios, the platoon does
+not complete the reorganization process within the specified
+time. In contrast, the Formation Time data for the GRDF-
+GT model is more concentrated and shows lower values,
+highlighting that the GRDF-GT model significantly improves
+platoon reorganization efficiency and enhances its adaptability
+to varying environments.
+VII. CONCLUSION
+This paper proposes a decision-making and control frame-
+work for multi-lane platoon formation reorganization, aiming
+to enhance the platoon’s ability to respond to dynamic emer-
+gency environment. The framework divides the reorganization
+process into the upper platoon-level distribution layer and
+the lower vehicle-level collaborative decision-making layer.
+In the upper layer, a reinforcement learning-based platoon
+formation decision algorithm is introduced, which uses a risk
+potential field to establish explicit risk evaluation metrics. A
+reward function tailored to the platoon reorganization process
+is designed to guide exploratory actions. In the lower layer,
+a coalition game algorithm is used to model cooperative
+relationships among vehicles. An innovative PDI is proposed
+to accelerate the platoon reorganization process and improve
+platoon driving efficiency. In addition, the lateral and longitu-
+dinal high-risk scenarios are designed based on the directional
+distribution of risk sources to test the proposed method. After
+the testings in random traffic flows, the results show that
+compared to the baseline model, the proposed method reduces
+the collision rate in longitudinal risk scenarios from 0.884 and
+0.965 to 0.021, increasing the average speed from 24.08 m/s
+and 24.47 m/s to 25.42 m/s. Both platoon driving safety and
+efficiency are improved. Besides, the proposed PDI reduces
+the platoon reorganization time from 6.45 min and 6.16 min
+to 4.56 min, significantly enhancing the efficiency of platoon
+reformation and configuration transitions.
+REFERENCES
+[1]
+Jianzhong Chen et al. “Collaborative Control of Vehi-
+cle Platoon Based on Deep Reinforcement Learning”.
+In: IEEE Transactions on Vehicular Technology 73.10
+(2024), pp. 14399–14414.
+[2]
+Zhiyun Deng et al. “A coevolutionary algorithm for
+cooperative platoon formation of connected and auto-
+mated vehicles”. In: IEEE Transactions on Vehicular
+Technology 71.12 (2022), pp. 12461–12474.
+
+===== PAGE 14 =====
+
+14
+[3]
+Zhiyun Deng et al. “Cooperative platoon formation of
+connected and autonomous vehicles: Toward efficient
+merging coordination at unsignalized intersections”. In:
+IEEE Transactions on Intelligent Transportation Sys-
+tems 24.5 (2023), pp. 5625–5639.
+[4]
+Hao Du et al. “Digital twin empowered cooperative
+trajectory planning of platoon vehicles for collision
+avoidance with unexpected obstacles”. In: Digital Com-
+munications and Networks (2023).
+[5]
+Leyi Duan et al. “Centralized vehicle trajectory plan-
+ning on general platoon sorting problem with multi-
+vehicle lane changing”. In: Transportation research part
+C: emerging technologies 154 (2023), p. 104273.
+[6]
+Xuting Duan et al. “Cooperative lane-change motion
+planning for connected and automated vehicle platoons
+in multi-lane scenarios”. In: IEEE Transactions on In-
+telligent Transportation Systems 24.7 (2023), pp. 7073–
+7091.
+[7]
+Felix Fahrenkrog et al. “European Research Project’s
+Contributions to a Safer Automated Road Traffic”. In:
+Automotive Innovation 6.4 (2023), pp. 521–530.
+[8]
+Xinle Gong et al. “Game theory-based decision-making
+and iterative predictive lateral control for cooperative
+obstacle avoidance of guided vehicle platoon”. In: IEEE
+Transactions on Vehicular Technology 72.6 (2023),
+pp. 7051–7066.
+[9]
+Xu Han et al. “Strategic and tactical decision-making
+for cooperative vehicle platooning with organized be-
+havior on multi-lane highways”. In: Transportation
+Research Part C: Emerging Technologies 145 (2022),
+p. 103952.
+[10]
+Ammar Haydari and Yasin Yılmaz. “Deep reinforce-
+ment learning for intelligent transportation systems: A
+survey”. In: IEEE Transactions on Intelligent Trans-
+portation Systems 23.1 (2020), pp. 11–32.
+[11]
+Julian Heinovski and Falko Dressler. “Where to De-
+cide? Centralized Versus Distributed Vehicle Assign-
+ment for Platoon Formation”. In: IEEE Transactions on
+Intelligent Transportation Systems (2024).
+[12]
+Harry Chia-Hung Hsu and Alan Liu. “Kinematic design
+for platoon-lane-change maneuvers”. In: IEEE Transac-
+tions on Intelligent Transportation Systems 9.1 (2008),
+pp. 185–190.
+[13]
+Yangsheng Jiang et al. “Platoon-aware cooperative lane-
+changing strategy for connected automated vehicles in
+mixed traffic flow”. In: Physica A: Statistical Mechanics
+and its Applications 640 (2024), p. 129689.
+[14]
+Jianjie Kuang et al. “Research of obstacle vehicles
+avoidance for automated heavy vehicle platoon by
+switching the formation”. In: IET Intelligent Transport
+Systems 18.4 (2024), pp. 630–644.
+[15]
+Bo Li et al. “Deep reinforcement learning based incen-
+tive mechanism design for platoon autonomous driving
+with social effect”. In: IEEE Transactions on Vehicular
+Technology 71.7 (2022), pp. 7719–7729.
+[16]
+Meng Li, Zehong Cao, and Zhibin Li. “A reinforcement
+learning-based vehicle platoon control strategy for re-
+ducing energy consumption in traffic oscillations”. In:
+IEEE Transactions on Neural Networks and Learning
+Systems 32.12 (2021), pp. 5309–5322.
+[17]
+Zirui Li et al. “Continual driver behaviour learn-
+ing for connected vehicles and intelligent transporta-
+tion systems: Framework, survey and challenges”. In:
+Green Energy and Intelligent Transportation (2023),
+p. 100103.
+[18]
+Chenglin Liu et al. “A multistep cooperative lane
+change strategy for connected and autonomous vehicle
+platoons departing from dedicated lanes”. In: Trans-
+portation Research Part C: Emerging Technologies 165
+(2024), p. 104720.
+[19]
+Chenglin Liu et al. “Decentralized Multi-Vehicle Mo-
+tion Planning for Platoon Forming in Mixed Traffic
+Using Monte Carlo Tree Search”. In: IEEE Transactions
+on Intelligent Transportation Systems (2024).
+[20]
+Qingquan
+Liu
+et
+al.
+“Coordinated
+lane-changing
+scheduling of multilane CAV platoons in heterogeneous
+scenarios”. In: Transportation Research Part C: Emerg-
+ing Technologies 147 (2023), p. 103992.
+[21]
+Yang Liu et al. “Behavioral Decision-Making Approach
+for Vehicle Platoon Control: Two Noncooperative Game
+Models”. In: IEEE Transactions on Transportation
+Electrification 9.3 (2023), pp. 4626–4638.
+[22]
+Yitao Ma et al. “Collision-avoidance lane change con-
+trol method for enhancing safety for connected vehicle
+platoon in mixed traffic environment”. In: Accident
+Analysis & Prevention 184 (2023), p. 106999.
+[23]
+Yulin Ma et al. “A novel multimode hybrid control
+method for cooperative driving of an automated vehi-
+cle platoon”. In: IEEE Internet of Things Journal 8.7
+(2020), pp. 5822–5838.
+[24]
+Hafiz Muhammad Yasir Naeem et al. “Optimal-Control-
+Based Eco-Driving Solution for Connected Battery
+Electric Vehicle on a Signalized Route”. In: Automotive
+Innovation 6.4 (2023), pp. 586–596.
+[25]
+Guangming Nie et al. “A cooperative lane change
+approach for heterogeneous platoons under different
+communication topologies”. In: IET Intelligent Trans-
+port Systems 16.1 (2022), pp. 53–70.
+[26]
+Chaofeng Pan et al. “Research on multi-lane energy-
+saving driving strategy of connected electric vehicle
+based on vehicle speed prediction”. In: Green Energy
+and Intelligent Transportation 2.6 (2023), p. 100127.
+[27]
+Walid Saad et al. “Coalitional game theory for commu-
+nication networks”. In: Ieee signal processing magazine
+26.5 (2009), pp. 77–97.
+[28]
+Haoran Wang et al. “Cut through traffic like a snake:
+Cooperative adaptive cruise control with successive pla-
+toon lane-change capability”. In: Journal of Intelligent
+Transportation Systems 28.2 (2022), pp. 141–162.
+[29]
+Haoran Wang et al. “Make space to change lane: A
+cooperative adaptive cruise control lane change con-
+troller”. In: Transportation research part C: emerging
+technologies 143 (2022), p. 103847.
+[30]
+Jian-qiang Wang, Jian Wu, and Yang Li. “Concept,
+principle and modeling of driving risk field based on
+
+===== PAGE 15 =====
+
+15
+driver-vehicle-road interaction”. In: China Journal of
+Highway and Transport 29.1 (2016), pp. 105–114.
+[31]
+Yuning Wang et al. “A homogeneous multi-vehicle co-
+operative group decision-making method in complicated
+mixed traffic scenarios”. In: Transportation Research
+Part C: Emerging Technologies 167 (2024), p. 104833.
+[32]
+Chengkai Xu et al. “Towards Safe and Robust Au-
+tonomous Vehicle Platooning: A Self-Organizing Co-
+operative Control Framework”. In: arXiv preprint
+arXiv:2408.09468 (2024).
+[33]
+Yaqi Xu et al. “A Multi-agent Reinforcement Learning
+Based Control Method for Connected and Autonomous
+Vehicles in A Mixed Platoon”. In: IEEE Transactions
+on Vehicular Technology (2024).
+[34]
+Siwen Yang et al. “An Efficient Rolling-Horizon Ap-
+proach for Cooperative Multi-Lane Platoon Formation
+With Undefined Configurations”. In: IEEE Transactions
+on Intelligent Transportation Systems (2024).
+[35]
+Yanduo Yin et al. “A cooperative lane change control
+strategy for cooperative adaptive cruise control pla-
+toons with insufficient headway gaps”. In: Physica A:
+Statistical Mechanics and its Applications 655 (2024),
+p. 130175.
+[36]
+Hanyu Zhang, Lili Du, and Jinglai Shen. “Hybrid MPC
+system for platoon based cooperative lane change con-
+trol using machine learning aided distributed optimiza-
+tion”. In: Transportation Research Part B: Methodolog-
+ical 159 (2022), pp. 104–142.
+[37]
+Jinqi Zhang, Maode Yan, and Lei Zuo. “Deep Q-
+network based multi-layer safety lane changing strat-
+egy for vehicle platoon”. In: IET Intelligent Transport
+Systems 18.4 (2024), pp. 645–656.
+[38]
+Jingyuan Zhou et al. “Enforcing Cooperative Safety
+for Reinforcement Learning-based Mixed-Autonomy
+Platoon Control”. In: arXiv preprint arXiv:2411.10031
+(2024).

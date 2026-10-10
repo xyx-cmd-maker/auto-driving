@@ -1,0 +1,101 @@
+[
+  {
+    "id": "E1",
+    "mode": "embedded",
+    "q": "\"TinyML\" \"microcontroller\"",
+    "from": "2017-01-01",
+    "sort": "is-referenced-by-count",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22TinyML%22%20%22microcontroller%22&filter=from-pub-date:2017-01-01,type:journal-article&sort=is-referenced-by-count&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 3767,
+    "exported": 25
+  },
+  {
+    "id": "E2",
+    "mode": "embedded",
+    "q": "\"tiny machine learning\" survey",
+    "from": "2017-01-01",
+    "sort": "is-referenced-by-count",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22tiny%20machine%20learning%22%20survey&filter=from-pub-date:2017-01-01,type:journal-article&sort=is-referenced-by-count&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 1517013,
+    "exported": 25
+  },
+  {
+    "id": "E3",
+    "mode": "embedded",
+    "q": "\"post-training quantization\"",
+    "from": "2017-01-01",
+    "sort": "is-referenced-by-count",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22post-training%20quantization%22&filter=from-pub-date:2017-01-01,type:journal-article&sort=is-referenced-by-count&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 640911,
+    "exported": 25
+  },
+  {
+    "id": "E4",
+    "mode": "embedded",
+    "q": "\"quantization\" \"neural network inference\" survey",
+    "from": "2017-01-01",
+    "sort": "is-referenced-by-count",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22quantization%22%20%22neural%20network%20inference%22%20survey&filter=from-pub-date:2017-01-01,type:journal-article&sort=is-referenced-by-count&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 989735,
+    "exported": 25
+  },
+  {
+    "id": "E5",
+    "mode": "embedded",
+    "q": "\"knowledge distillation\" survey",
+    "from": "2017-01-01",
+    "sort": "is-referenced-by-count",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22knowledge%20distillation%22%20survey&filter=from-pub-date:2017-01-01,type:journal-article&sort=is-referenced-by-count&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 575986,
+    "exported": 25
+  },
+  {
+    "id": "E6",
+    "mode": "embedded",
+    "q": "\"model compression\" \"deep neural network\" survey",
+    "from": "2017-01-01",
+    "sort": "is-referenced-by-count",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22model%20compression%22%20%22deep%20neural%20network%22%20survey&filter=from-pub-date:2017-01-01,type:journal-article&sort=is-referenced-by-count&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 2493728,
+    "exported": 25
+  },
+  {
+    "id": "E7",
+    "mode": "embedded",
+    "q": "\"edge intelligence\" \"deep learning\" survey",
+    "from": "2017-01-01",
+    "sort": "is-referenced-by-count",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22edge%20intelligence%22%20%22deep%20learning%22%20survey&filter=from-pub-date:2017-01-01,type:journal-article&sort=is-referenced-by-count&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 1993478,
+    "exported": 25
+  },
+  {
+    "id": "E8",
+    "mode": "embedded",
+    "q": "\"Cortex-M\" neural network kernel",
+    "from": "2017-01-01",
+    "sort": "is-referenced-by-count",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22Cortex-M%22%20neural%20network%20kernel&filter=from-pub-date:2017-01-01,type:journal-article&sort=is-referenced-by-count&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 797063,
+    "exported": 25
+  },
+  {
+    "id": "E9",
+    "mode": "embedded",
+    "q": "\"on-device\" inference latency microcontroller",
+    "from": "2017-01-01",
+    "sort": "is-referenced-by-count",
+    "url": "https://api.crossref.org/works?query.bibliographic=%22on-device%22%20inference%20latency%20microcontroller&filter=from-pub-date:2017-01-01,type:journal-article&sort=is-referenced-by-count&order=desc&rows=25&select=DOI,title,author,issued,container-title,type,volume,issue,page,is-referenced-by-count,publisher,abstract&mailto=research@example.org",
+    "status": "200",
+    "hits": 164296,
+    "exported": 25
+  }
+]

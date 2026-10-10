@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "auto-driving/results.schema.json",
+  "title": "results/<paper>/<experiment>_<scenario>_<seedset>.json",
+  "description": "本项目数字唯一来源的结构契约（AGENTS.md §2）。字段只增不改；改动须在 audit/ 记录。",
+  "type": "object",
+  "required": [
+    "paper", "experiment", "scenario", "seedset",
+    "seeds", "config_path", "config_hash",
+    "mode", "platform", "provenance",
+    "metrics", "aggregates", "failure_modes", "notes"
+  ],
+  "properties": {
+    "paper": { "enum": ["p1", "p2", "p3", "p4", "p5"] },
+    "experiment": {
+      "type": "string",
+      "pattern": "^(main_otf_cfc|baseline_pid|baseline_mpc|baseline_td3|ablation_a[1-5])(_[a-z0-9-]+)*$"
+    },
+    "scenario": {
+      "enum": ["highway-mixed", "lead-brake", "cutin-hard", "platoon-exit", "aggressive-flow", "city-expressway-replay"]
+    },
+    "seedset": { "type": "string", "pattern": "^s[0-9]+$" },
+    "seeds": {
+      "type": "array", "minItems": 5, "items": { "type": "integer" },
+      "description": "实际使用的种子列表；禁用'只报最优运行'（discipline-rigor §0.2）"
+    },
+    "config_path": { "type": "string" },
+    "config_hash": { "type": "string", "description": "配置内容哈希；配置改了结果即不可复现" },
+    "mode": {
+      "enum": ["smoke", "real"],
+      "description": "smoke 产物一律不得进入任何对外文本（AGENTS.md §2）"
+    },
+    "platform": {
+      "type": "object",
+      "required": ["kind", "detail"],
+      "properties": {
+        "kind": { "enum": ["simulator", "replay", "mcu", "cpu", "cloud-gpu"] },
+        "detail": { "type": "string", "description": "如 CARLA 0.9.x / 具体 MCU 型号；本地平台为字符串 '{{待填}}'" },
+        "compiler": { "type": ["string", "null"], "description": "MCU 部署须记录编译器与优化档位（AGENTS.md §3）" }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "enum": ["ours-reproduced", "literature-reported", "mixed"],
+      "description": "literature-reported 表示数字来自他人论文，不得与本项目同协议结果并列比较（AGENTS.md §1）"
+    },
+    "metrics": {
+      "type": "object",
+      "required": ["per_scenario"],
+      "properties": {
+        "per_scenario": {
+          "type": "object",
+          "description": "逐场景报告，不只报总平均（AGENTS.md §5）",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "following_rmse_m": { "type": ["number", "null"] },
+              "accel_sq_integral": { "type": ["number", "null"], "description": "加速度平方积分（舒适性）" },
+              "jerk_peak_mps3": { "type": ["number", "null"] },
+              "lane_center_dev_m": { "type": ["number", "null"] },
+              "steer_angle_var": { "type": ["number", "null"] },
+              "e2e_latency_ms": { "type": ["number", "null"] },
+              "mcu_mem_kb": { "type": ["number", "null"] }
+            }
+          }
+        }
+      }
+    },
+    "aggregates": {
+      "type": "object",
+      "required": ["method"],
+      "description": "聚合方式；成功率/长尾类小样本必须用 Wilson 或 Clopper-Pearson，不得用正态近似（AGENTS.md §4）",
+      "properties": {
+        "method": { "enum": ["mean-std", "ci95-t", "ci95-bootstrap", "wilson", "clopper-pearson"] },
+        "values": { "type": ["object", "null"] },
+        "n_seeds": { "type": ["integer", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "fairness": {
+      "type": "object",
+      "description": "公平性自查（AGENTS.md §3）",
+      "properties": {
+        "no_privileged_inputs": { "type": "boolean", "description": "本方法未获得基线没有的特权输入" },
+        "equal_tuning_budget": { "type": "boolean" },
+        "same_map_and_seeds": { "type": "boolean" }
+      }
+    },
+    "failure_modes": {
+      "type": "array",
+      "description": "闭环时必填：失败分类（感知/规划/执行/硬件）与计数",
+      "items": {
+        "type": "object",
+        "required": ["category", "count"],
+        "properties": {
+          "category": { "enum": ["perception", "planning", "control", "hardware", "other"] },
+          "count": { "type": "integer" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "notes": {
+      "type": "object",
+      "required": ["abandoned_settings", "known_biases", "seed_independence"],
+      "description": "消融须报告失败设定与放弃的路线（AGENTS.md §4）",
+      "properties": {
+        "abandoned_settings": { "type": "array", "items": { "type": "string" } },
+        "known_biases": { "type": "array", "items": { "type": "string" } },
+        "seed_independence": {
+          "type": "object",
+          "description": "种子独立性的自检结果：5 个种子若共用同一份数据划分，等价于 n=1（discipline-rigor §0.2/§0.3）。由 scripts/smoke/ 的自检脚本填写并校验。",
+          "required": ["verified", "split_policy", "entity_group", "check_script", "partial_scope"],
+          "properties": {
+            "verified": { "type": "boolean", "description": "必须为 true 才可引用；任一检查为 not-run 时必须为 false（见 scripts/smoke/check_seed_independence.SPEC.md §6）" },
+            "split_policy": {
+              "enum": ["by-time", "by-entity", "by-seed-holdout"],
+              "description": "时序数据按时间切分；同一实体不得跨折（数据卫生）"
+            },
+            "entity_group": { "type": "string", "description": "不可跨折的实体粒度，如 'vehicle'、'drive-run'、'scene'" },
+            "check_script": { "type": "string", "description": "执行该自检的脚本路径，如 scripts/smoke/check_seed_independence.py" },
+            "partial_scope": {
+              "type": "array",
+              "description": "未执行的检查项（无则空数组）；非空时 verified 必须为 false",
+              "items": { "enum": ["CHECK-1", "CHECK-2", "CHECK-3", "CHECK-4"] }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

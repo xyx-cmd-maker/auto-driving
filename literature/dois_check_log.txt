@@ -1,0 +1,62 @@
+﻿  1 | OK             | jac=1     | 10.1038/s42256-022-00556-7         | 2022 | Nature Machine Intelligence                  | Closed-form continuous-time neural networks
+  2 | OK             | jac=1     | 10.1126/scirobotics.adc8892        | 2023 | Science Robotics                             | Robust flight navigation out of distribution with liquid neura
+  3 | OK             | jac=1     | 10.1109/LRA.2022.3146555           | 2022 | IEEE Robotics and Automation Letters         | Interpretable Autonomous Flight Via Compact Visualizable Neura
+  4 | OK             | jac=1     | 10.1038/s42256-020-0225-y          | 2020 | Nature Machine Intelligence                  | Using online verification to prevent autonomous vehicles from 
+  5 | OK             | jac=1     | 10.1038/s42256-023-00650-4         | 2023 | Nature Machine Intelligence                  | Accurate online training of dynamical spiking neural networks 
+  6 | OK             | jac=1     | 10.1038/s42256-021-00302-5         | 2021 | Nature Machine Intelligence                  | Learning nonlinear operators via DeepONet based on the univers
+  7 | OK             | jac=1     | 10.1016/j.neucom.2024.127419       | 2024 | Neurocomputing                               | Physics-informed neural nets for control of dynamical systems
+  8 | OK             | jac=1     | 10.1016/j.automatica.2024.111907   | 2025 | Automatica                                   | Deep networks for system identification: A survey
+  9 | OK             | jac=1     | 10.1109/TITS.2021.3054625          | 2022 | IEEE Transactions on Intelligent Transportat | Deep Reinforcement Learning for Autonomous Driving: A Survey
+ 10 | OK             | jac=1     | 10.1109/TITS.2020.3024655          | 2022 | IEEE Transactions on Intelligent Transportat | Survey of Deep Reinforcement Learning for Motion Planning of A
+ 11 | OK             | jac=1     | 10.1109/TITS.2019.2913998          | 2020 | IEEE Transactions on Intelligent Transportat | A Review of Motion Planning for Highway Autonomous Driving
+ 12 | FAIL-NOT-REGISTERED | 10.48550/arXiv.1802.09477
+ 13 | FAIL-NOT-REGISTERED | 10.48550/arXiv.1801.01290
+ 14 | OK             | jac=1     | 10.1109/TITS.2020.3032227          | 2021 | IEEE Transactions on Intelligent Transportat | Deep Learning for Safe Autonomous Driving: Current Challenges 
+ 15 | OK             | jac=1     | 10.1016/j.trc.2018.10.024          | 2018 | Transportation Research Part C: Emerging Tec | Human-like autonomous car-following model with deep reinforcem
+ 16 | OK             | jac=1     | 10.1016/j.trc.2020.102662          | 2020 | Transportation Research Part C: Emerging Tec | Safe, efficient, and comfortable velocity control based on rei
+ 17 | OK             | jac=1     | 10.1016/j.trc.2021.103452          | 2022 | Transportation Research Part C: Emerging Tec | Decision making of autonomous vehicles in lane change scenario
+ 18 | OK             | jac=1     | 10.1126/scirobotics.adg1462        | 2023 | Science Robotics                             | Reaching the limit in autonomous racing: Optimal control versu
+ 19 | OK             | jac=1     | 10.1109/TCST.2019.2949757          | 2020 | IEEE Transactions on Control Systems Technol | Cautious Model Predictive Control Using Gaussian Process Regre
+ 20 | OK             | jac=1     | 10.1109/TAC.2021.3105491           | 2022 | IEEE Transactions on Automatic Control       | High-Order Control Barrier Functions
+ 21 | OK             | jac=1     | 10.1109/TAC.2021.3074895           | 2022 | IEEE Transactions on Automatic Control       | Adaptive Control Barrier Functions
+ 22 | OK             | jac=1     | 10.1016/j.automatica.2018.07.004   | 2018 | Automatica                                   | Robust control barrier functions for constrained stabilization
+ 23 | OK             | jac=1     | 10.1109/TAC.2016.2638961           | 2017 | IEEE Transactions on Automatic Control       | Control Barrier Function Based Quadratic Programs for Safety C
+ 24 | OK             | jac=1     | 10.1016/j.automatica.2021.109597   | 2021 | Automatica                                   | A predictive safety filter for learning-based control of const
+ 25 | OK             | jac=1     | 10.1146/annurev-control-042920-020211 | 2022 | Annual Review of Control, Robotics, and Auto | Safe Learning in Robotics: From Learning-Based Control to Safe
+ 26 | OK             | jac=1     | 10.1109/TAC.2018.2876389           | 2019 | IEEE Transactions on Automatic Control       | A General Safety Framework for Learning-Based Control in Uncer
+ 27 | OK             | jac=1     | 10.1146/annurev-control-071420-081941 | 2021 | Annual Review of Control, Robotics, and Auto | Set Propagation Techniques for Reachability Analysis
+ 28 | OK             | jac=1     | 10.1146/annurev-control-060117-105157 | 2018 | Annual Review of Control, Robotics, and Auto | Planning and Decision-Making for Autonomous Vehicles
+ 29 | OK             | jac=1     | 10.1109/TITS.2013.2278494          | 2014 | IEEE Transactions on Intelligent Transportat | Cooperative Adaptive Cruise Control in Real Traffic Situations
+ 30 | OK             | jac=1     | 10.1109/TITS.2014.2302816          | 2014 | IEEE Transactions on Intelligent Transportat | Cooperative Adaptive Cruise Control: Network-Aware Analysis of
+ 31 | OK             | jac=1     | 10.1109/TITS.2015.2483063          | 2016 | IEEE Transactions on Intelligent Transportat | A Review of Communication, Driver Characteristics, and Control
+ 32 | OK             | jac=1     | 10.1109/TITS.2015.2402153          | 2016 | IEEE Transactions on Intelligent Transportat | Stability and Scalability of Homogeneous Vehicular Platoon: St
+ 33 | OK             | jac=1     | 10.1109/TCST.2013.2258346          | 2014 | IEEE Transactions on Control Systems Technol | Lp String Stability of Cascaded Systems: Application to Vehicl
+ 34 | OK             | jac=1     | 10.1109/TITS.2013.2291493          | 2014 | IEEE Transactions on Intelligent Transportat | Controller Synthesis for String Stability of Vehicle Platoons
+ 35 | OK             | jac=1     | 10.1109/TAC.2017.2682421           | 2017 | IEEE Transactions on Automatic Control       | String Stability and a Delay-Based Spacing Policy for Vehicle 
+ 36 | OK             | jac=1     | 10.1109/TCST.2016.2542044          | 2017 | IEEE Transactions on Control Systems Technol | Cooperative Look-Ahead Control for Fuel-Efficient and Safe Hea
+ 37 | OK             | jac=1     | 10.1109/TCST.2015.2437336          | 2015 | IEEE Transactions on Control Systems Technol | Design, Analysis, and Experimental Validation of a Distributed
+ 38 | OK             | jac=1     | 10.1109/TCST.2019.2893830          | 2020 | IEEE Transactions on Control Systems Technol | Combined Longitudinal and Lateral Control of Car-Like Vehicle 
+ 39 | OK             | jac=1     | 10.1109/TCST.2012.2200826          | 2013 | IEEE Transactions on Control Systems Technol | Model Predictive Control for Vehicle Stabilization at the Limi
+ 40 | OK             | jac=1     | 10.1016/j.trc.2014.09.001          | 2014 | Transportation Research Part C: Emerging Tec | Modeling cooperative and autonomous adaptive cruise control dy
+ 41 | OK             | jac=1     | 10.1016/j.trc.2014.09.008          | 2014 | Transportation Research Part C: Emerging Tec | Incorporating human-factors in car-following models: A review 
+ 42 | OK             | jac=1     | 10.1016/j.trc.2016.07.007          | 2016 | Transportation Research Part C: Emerging Tec | Influence of connected and autonomous vehicles on traffic flow
+ 43 | OK             | jac=1     | 10.1016/j.trc.2018.02.005          | 2018 | Transportation Research Part C: Emerging Tec | Dissipation of stop-and-go waves via control of autonomous veh
+ 44 | OK             | jac=1     | 10.1109/TAC.2020.3034871           | 2021 | IEEE Transactions on Automatic Control       | Analysis and Design of Vehicle Platooning Operations on Mixed-
+ 45 | OK             | jac=1     | 10.1109/TCST.2023.3288636          | 2023 | IEEE Transactions on Control Systems Technol | DeeP-LCC: Data-EnablEd Predictive Leading Cruise Control in Mi
+ 46 | OK             | jac=1     | 10.1109/TIV.2022.3167103           | 2022 | IEEE Transactions on Intelligent Vehicles    | A Survey on Trajectory-Prediction Methods for Autonomous Drivi
+ 47 | OK             | jac=1     | 10.1109/TIV.2023.3274536           | 2023 | IEEE Transactions on Intelligent Vehicles    | Motion Planning for Autonomous Driving: The State of the Art a
+ 48 | OK             | jac=1     | 10.1109/TIV.2022.3223131           | 2023 | IEEE Transactions on Intelligent Vehicles    | Milestones in Autonomous Driving and Intelligent Vehicles: Sur
+ 49 | OK             | jac=1     | 10.1109/TIV.2024.3398357           | 2025 | IEEE Transactions on Intelligent Vehicles    | World Models for Autonomous Driving: An Initial Survey
+ 50 | OK             | jac=1     | 10.1109/TITS.2020.3013234          | 2022 | IEEE Transactions on Intelligent Transportat | Multimodal End-to-End Autonomous Driving
+ 51 | OK             | jac=1     | 10.1146/annurev-control-071020-010108 | 2021 | Annual Review of Control, Robotics, and Auto | Koopman Operators for Estimation and Control of Dynamical Syst
+ 52 | OK             | jac=1     | 10.1038/s42256-020-00231-9         | 2020 | Nature Machine Intelligence                  | Enabling the future of colonoscopy with intelligent and autono
+ 53 | OK             | jac=1     | 10.1038/s42256-024-00879-7         | 2024 | Nature Machine Intelligence                  | Efficient and scalable reinforcement learning for large-scale 
+node : 
+At line:1 char:179
++ ... iterature"; node scripts/check_dois.mjs dois.json --out dois_checked. ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+wrote dois_checked.json (53); problems=2
+problem keys: 12:td3-icml2018, 13:sac-icml2018

@@ -1,0 +1,212 @@
+[
+  {
+    "src_id": "A1",
+    "into_n": null,
+    "into": "DriveDreamer [版本+1]",
+    "how": "kept as old-only (best j=0.125)"
+  },
+  {
+    "src_id": "A2",
+    "into_n": null,
+    "into": "Drive as You Speak [版本+1]",
+    "how": "kept as old-only (best j=0.111)"
+  },
+  {
+    "src_id": "B1",
+    "into_n": 101,
+    "into": "Neural Ordinary Differential Equations",
+    "how": "title j=1.000"
+  },
+  {
+    "src_id": "B2",
+    "into_n": 102,
+    "into": "Liquid Time-constant Networks",
+    "how": "doi"
+  },
+  {
+    "src_id": "B3",
+    "into_n": 1,
+    "into": "Closed-form continuous-time neural networks",
+    "how": "doi"
+  },
+  {
+    "src_id": "B4",
+    "into_n": 103,
+    "into": "Neural circuit policies enabling auditable autonomy",
+    "how": "doi"
+  },
+  {
+    "src_id": "B5",
+    "into_n": null,
+    "into": "2018. https://github.com/rtqichen/torchdiffeq",
+    "how": "kept as old-only (best j=0.000)"
+  },
+  {
+    "src_id": "C1",
+    "into_n": null,
+    "into": "DriveDreamer-2: LLM-Enhanced World Models for Diverse Driving Video Generation",
+    "how": "kept as old-only (best j=0.333)"
+  },
+  {
+    "src_id": "C2",
+    "into_n": null,
+    "into": "GAIA-1: A Generative World Model for Autonomous Driving",
+    "how": "kept as old-only (best j=0.333)"
+  },
+  {
+    "src_id": "C3",
+    "into_n": 49,
+    "into": "World Models for Autonomous Driving: An Initial Survey",
+    "how": "title j=1.000"
+  },
+  {
+    "src_id": "C4",
+    "into_n": null,
+    "into": "Wayformer: Motion Forecasting via Simple & Efficient Attention Networks. *2023",
+    "how": "kept as old-only (best j=0.100)"
+  },
+  {
+    "src_id": "C5",
+    "into_n": null,
+    "into": "Motion Transformer with Global Intention Localization and Local Movement Refinement",
+    "how": "kept as old-only (best j=0.125)"
+  },
+  {
+    "src_id": "C6",
+    "into_n": null,
+    "into": "Scene Transformer: A unified architecture for predicting future trajectories of multiple agents",
+    "how": "kept as old-only (best j=0.067)"
+  },
+  {
+    "src_id": "D1",
+    "into_n": null,
+    "into": "DiLu: A Knowledge-Driven Approach to Autonomous Driving with Large Language Models",
+    "how": "kept as old-only (best j=0.333)"
+  },
+  {
+    "src_id": "D2",
+    "into_n": null,
+    "into": "GPT-Driver: Learning to Drive with GPT",
+    "how": "kept as old-only (best j=0.125)"
+  },
+  {
+    "src_id": "D3",
+    "into_n": 121,
+    "into": "DriveGPT4: Interpretable End-to-End Autonomous Driving Via Large Language Model",
+    "how": "title j=1.000"
+  },
+  {
+    "src_id": "D4",
+    "into_n": null,
+    "into": "LanguageMPC: Large Language Models as Decision Makers for Autonomous Driving",
+    "how": "kept as old-only (best j=0.364)"
+  },
+  {
+    "src_id": "D5",
+    "into_n": null,
+    "into": "A Language Agent for Autonomous Driving",
+    "how": "kept as old-only (best j=0.400)"
+  },
+  {
+    "src_id": "D6",
+    "into_n": null,
+    "into": "Driving with LLMs: Fusing Object-Level Vector Modality for Explainable Autonomous Driving. *2024",
+    "how": "kept as old-only (best j=0.200)"
+  },
+  {
+    "src_id": "D7",
+    "into_n": null,
+    "into": "DriveVLM: The Convergence of Autonomous Driving and Large Vision-Language Models",
+    "how": "kept as old-only (best j=0.364)"
+  },
+  {
+    "src_id": "D8",
+    "into_n": null,
+    "into": "DriveLM: Driving with Graph Visual Question Answering",
+    "how": "kept as old-only (best j=0.125)"
+  },
+  {
+    "src_id": "D9",
+    "into_n": null,
+    "into": "Talk2BEV: Language-enhanced Bird's-eye View Maps for Autonomous Driving. *2024",
+    "how": "kept as old-only (best j=0.250)"
+  },
+  {
+    "src_id": "E1",
+    "into_n": 111,
+    "into": "Control Barrier Functions: Theory and Applications",
+    "how": "curated-cross-list"
+  },
+  {
+    "src_id": "E2",
+    "into_n": null,
+    "into": "ISO 26262-1:2018,",
+    "how": "kept as old-only (best j=0.000)"
+  },
+  {
+    "src_id": "F1",
+    "into_n": 116,
+    "into": "Planning-oriented Autonomous Driving",
+    "how": "title j=1.000"
+  },
+  {
+    "src_id": "F2",
+    "into_n": null,
+    "into": "BEVFormer: Learning Bird's-Eye-View Representation from Multi-Camera Images via Spatiotemporal Transformers",
+    "how": "kept as old-only (best j=0.067)"
+  },
+  {
+    "src_id": "F3",
+    "into_n": 117,
+    "into": "End-to-End Autonomous Driving: Challenges and Frontiers",
+    "how": "title j=1.000"
+  },
+  {
+    "src_id": "F4",
+    "into_n": 12,
+    "into": "Addressing Function Approximation Error in Actor-Critic Methods",
+    "how": "title j=1.000"
+  },
+  {
+    "src_id": "F5",
+    "into_n": 114,
+    "into": "nuScenes: A Multimodal Dataset for Autonomous Driving",
+    "how": "curated-cross-list"
+  },
+  {
+    "src_id": "F6",
+    "into_n": null,
+    "into": "",
+    "how": "kept as old-only (best j=0.000)"
+  },
+  {
+    "src_id": "F7",
+    "into_n": 115,
+    "into": "CARLA: An Open Urban Driving Simulator",
+    "how": "title j=1.000"
+  },
+  {
+    "src_id": "F8",
+    "into_n": null,
+    "into": "OpenVLA: An Open-Source Vision-Language-Action Model",
+    "how": "kept as old-only (best j=0.167)"
+  },
+  {
+    "src_id": "F9",
+    "into_n": null,
+    "into": "Qwen-VL: A Versatile Vision-Language Model for Understanding, Localization, Text Reading, and Beyond",
+    "how": "kept as old-only (best j=0.133)"
+  },
+  {
+    "src_id": "F10",
+    "into_n": null,
+    "into": "Qwen2-VL: Enhancing Vision-Language Model's Perception of the World at Any Resolution",
+    "how": "kept as old-only (best j=0.154)"
+  },
+  {
+    "src_id": "F11",
+    "into_n": null,
+    "into": "DeepSeek-R1 incentivizes reasoning in LLMs through reinforcement learning",
+    "how": "kept as old-only (best j=0.182)"
+  }
+]
