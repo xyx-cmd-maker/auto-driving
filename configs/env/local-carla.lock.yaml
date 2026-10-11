@@ -40,20 +40,45 @@ verified:
   town04_present_expected: true     # HDMaps/Town04.pcd 已随包解压；待 Python 客户端连通后逐项确认
   smoke_script: scripts/smoke/check_carla_env.py
 
-# ── ★ 当前阻塞：Python 版本墙（**必须用户决策**）──
+# ── ✅ 客户端已打通（2026-10-11，用户批准后安装 Python 3.12）──
 python_client:
   bundled_wheel: 'F:\CARLA\PythonAPI\carla\dist\carla-0.9.16-cp312-cp312-win_amd64.whl'
   required_python: "3.12（wheel 标签 cp312）"
-  host_pythons: ["3.14（主用，C:\\Python314）", "3.13", "3.13t（freethreaded）", "Anaconda 3.9（2022.10）"]
+  host_pythons_before: ["3.14（主用）", "3.13", "3.13t", "Anaconda 3.9"]
   attempts:
-    - "① Python 3.14 直接装原 wheel → ❌ 被 pip 拒绝：'not a supported wheel on this platform'"
-    - "② 改标签为 cp313 装进 Python 3.13 → pip 安装成功，但 `import carla` 报 `ModuleNotFoundError: No module named 'carla.libcarla'`（ABI 不兼容，扩展模块无法加载）。**试错后已 pip uninstall 清理**"
-  conclusion: "**必须 Python 3.12**：cp312 wheel 在 3.13/3.14 下均不可用，改标签无效。"
-  options_for_user:
-    - "A（推荐）：本机并装 Python 3.12（官方安装包，约 25 MB），**只用于 CARLA**；主用 3.14 不动。"
-    - "B：用现有 Python 3.13 + 源码方式（需 CARLA 源码编译 libcarla，代价大、耗时长，不推荐）。"
-    - "C：暂不装客户端——服务端已可独立运行与观察（桌面快捷方式），但**无法用 Python 做闭环实验**。"
-  not_yet_installable_reason: "装新 Python 解释器属'安装新依赖'，按用户 2026-10-11 指示**不擅自执行**，等确认。"
+    - "① Python 3.14 直接装原 wheel → ❌ pip 拒：'not a supported wheel on this platform'"
+    - "② 改标签为 cp313 装进 3.13 → pip 装成功，但 `import carla` 报 `ModuleNotFoundError: No module named 'carla.libcarla'`（ABI 不兼容）。**试错后已 pip uninstall 清理**"
+    - "③ ✅ **装 Python 3.12.10 后成功**（见下）"
+  installed_python:
+    version: "3.12.10"
+    interpreter: 'C:\Users\<user>\AppData\Local\Programs\Python\Python312\python.exe'
+    launcher: "py -3.12"
+    installer: '~\Downloads\python-3.12.10-amd64.exe（25.7 MB）'
+    installer_signature: "Authenticode **Valid**，签名者 CN=Python Software Foundation（Microsoft ID Verified CS AOC CA 01 颁发）"
+    install_flags: "InstallAllUsers=0 PrependPath=1 Include_launcher=1 Include_test=0 Include_doc=0 SimpleInstall=1"
+    verification: "`py --list` 已注册 3.12；**主用 3.14 不受影响**（`python` 仍为 3.14.4，torch 2.11.0+cu128、cuda=True 均正常）"
+    version_note: >-
+      3.12.11–3.12.15 **只有源码包、无 Windows 安装器**（3.12 已进入仅安全修复阶段），
+      实测逐个 HEAD 探测：3.12.15/14/13/12/11 均 HTTP 404，**3.12.10 是最新可用安装器**。
+  client_install:
+    command: 'py -3.12 -m pip install --no-deps F:\CARLA\PythonAPI\carla\dist\carla-0.9.16-cp312-cp312-win_amd64.whl && py -3.12 -m pip install numpy'
+    notes: "carla 包没有 __version__ 属性（正常）；顶层导出含 Client / VehicleControl / BlueprintLibrary 等；numpy 为运行依赖，已装"
+  smoke_test:
+    command: 'py -3.12 scripts/smoke/check_carla_env.py --exe F:\CARLA\CarlaUE4.exe --kill-after --wait 150'
+    result: "✅ **8/8 全部通过**"
+    evidence:
+      - "import-carla：成功（site-packages\\carla）"
+      - "server-exe：找到 F:\\CARLA\\CarlaUE4.exe（18.07 GB 目录）"
+      - "server-start + port-ready：**25 秒**内 2000 端口就绪"
+      - "client-connect：**已连接**，默认地图 `Carla/Maps/Town10HD_Opt`，仿真时间 3.2 s"
+      - "**town04-present：可用地图 13 张，Town04 在 ✓（P1 的目标地图可用）**"
+      - "server-stop：已关闭；**另有 CarlaUE4-Win64-Shipping 子进程需手动清理**（脚本只 terminate launcher）"
+    cleanup_note: "冒烟后残留 CarlaUE4-Win64-Shipping（约 1.29 GB 内存）需 `Stop-Process` 显式清理；已在流程中记录"
+  open_questions:
+    - "CARLA 首次换图会下载 Nav/OpenDrive/TM 缓存（冒烟日志可见），换 Town04 的耗时未单独测量"
+    - "8 GiB 显存下 CARLA 与训练同时运行的余量未测（CARLA 低画质静态约 3.9 GiB）"
+
+weather: n/a
 
 open_questions:
   - "8 GiB 显存运行 CARLA + 训练是否够用：CARLA 低画质静态占用约 3.9 GiB，**训练时余量未测**。"
