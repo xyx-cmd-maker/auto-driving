@@ -2,7 +2,18 @@
 
 > ⚠️ **项目实例，只对本项目生效。不要复制到其他项目**——新项目请用模板 `C:\Users\本手\.dsh\templates\PROJECT-AGENTS.template.md`。
 > 来源文档：`sources/blueprint-papers-v1.1.docx`（论文规划）、`sources/blueprint-overview-v1.1.docx`（综合文档）、`sources/thesis-huang2023.pdf`（学位论文，全文文本见 `sources/thesis-huang2023.fulltext.txt`，可 grep）。
-> 基准资产：黄梦圆《基于超车频次的自动驾驶车辆行为决策研究》（吉林大学，2023，导师李世武）——OTF 参数、分层递阶评估、TD3 基线、实车数据集、四类工况场景库。
+> 基准资产：黄梦圆（2023，吉林大学，导师李世武）——OTF 参数、分层递阶评估、TD3 基线、实车数据集、四类工况场景库。**完整题名以 `sources/thesis-huang2023.pdf` 为准，引用须用全名。**
+
+## 文件族（三份 AGENTS 效力相同，开工都要读）
+
+| 文件 | 管什么 | 何时读 | 何时改 |
+|---|---|---|---|
+| **`AGENTS.md`**（本文件） | 入口：身份与红线、分支登记、开工协议、三问自检、待确认项、资料库索引 | **每次开工** | 红线/登记/协议变更时 |
+| [`AGENTS-PROJECT.md`](AGENTS-PROJECT.md) | **项目进程同步**：目的、成果形态、venue 策略与纪律、进度快照、术语表、收工检查清单 | **每次开工** | **每轮收工**（快照必须更新） |
+| [`AGENTS-NORMS.md`](AGENTS-NORMS.md) | **技能路由**（代码类/学术类触发即调用）、学术写作工作流、多轮验证协议、拆分规则 | **每次开工** | 技能或协议变更时 |
+
+> 规则：新增规范**优先落到子文件**；本文件只保留入口级内容。**拆分与登记规则**见 `AGENTS-NORMS.md` §3；校验脚本 `scripts/smoke/check_agents_family.mjs`。
+> **开工时**先跑 `node scripts/smoke/check_agents_family.mjs`（文件族完整性）＋ `check_progress_snapshot.mjs`（快照常量）＋ `check_branch_freshness.mjs`（分支新鲜度）。
 
 ## 0. 分支对话登记（跨对话信息同步）
 
@@ -10,7 +21,7 @@
 
 | 分支 | 角色 | 主要产出/落点 | 状态 | 最后更新 |
 |---|---|---|---|---|
-| **主支**（本对话） | 立项、资产盘点、引用核验、实验契约、风险登记、组会材料；**负责把分支产出收编进项目级约定** | `audit/第一次组会/00`–`05`、`audit/第二次组会/组会汇报-第二次-*.docx`、`README.md`、`configs/**`、`docs/README.md`、`papers/portfolio.md`、`scripts/**` | 进行中（2026-10-08：骨架重写、风险登记表补至 12 条、第二次组会文档产出、快照复核） | 2026-10-08 |
+| **主支**（本对话） | 立项、资产盘点、引用核验、实验契约、风险登记、组会材料、**文件族与同步协议**；**负责把分支产出收编进项目级约定** | `AGENTS.md`＋`AGENTS-PROJECT.md`＋`AGENTS-NORMS.md`、`scripts/smoke/check_agents_family.mjs`、`audit/第一次组会/00`–`05`、`audit/第二次组会/组会汇报-第二次-*.docx`、`README.md`、`configs/**`、`papers/portfolio.md` | 进行中（2026-10-11：文件族拆分＋技能路由＋venue 策略＋三问/验证协议；2026-10-08：骨架重写、风险 12 条、第二次组会文档） | 2026-10-11 |
 | **层 3 精读分支** | 文献检索与深度精读（九技能流水线）；产出 P1 的文献图与逐篇限定语 | `literature/**`（`search-log.md`、`library/P1-library.jsonl`＋`merge-report.md`、`notes/citation-qualifiers.md`、`meeting2/notes/**`、`fresh2024/notes/**`、`fulltext/**`、`refs.bib`） | 已产出，见 §1 新增约束 | 2026-10-06 |
 | **第二次组会分支** | 按主题归档论文原文并做会前材料 | `audit/第二次组会/**`（TITS、决策基线、连续时间流体神经网络三组 PDF） | 进行中 | 2026-10-08 |
 | **分支：SUMO 环境线**（本对话，2026-10-08 登记） | 本机交通仿真工具链落地与验证（老师指派装 SUMO）；**只记录环境事实，不改研究设计** | SUMO 1.27.1 已装至 `D:\SUMO\sumo-1.27.1`（便携 ZIP、官方 SHA256 核验一致、无需管理员）；完整事实与四条验证记录见 `configs/env/local-cpu.lock.yaml` 的 `sumo:` 段；本文件 §2、§3、§7 与 `README.md` 已同步 | 安装完成且实测通过；**定位已裁决＝路线 B（2026-10-08）**，见 §2 | 2026-10-08 |
@@ -21,7 +32,7 @@
 >
 > ```text
 > branch-watch:
->   主支: audit/第一次组会, audit/第二次组会, papers, configs, docs, scripts, README.md
+>   主支: AGENTS.md, AGENTS-PROJECT.md, AGENTS-NORMS.md, audit/第一次组会, audit/第二次组会, papers, configs, docs, scripts, README.md
 >   层 3 精读分支: literature
 >   第二次组会分支: audit/第二次组会
 >   分支：SUMO 环境线: configs/env, scripts/smoke
@@ -39,14 +50,16 @@
 
 **每次会话开工协议（用户 2026-10-08 指定，强制）**
 
-1. **先读本文件**：任何动作之前先读 `AGENTS.md`（至少 §0、§1、§7 与本节）。**不读不开工**——本条是为防止分支凭记忆做事、把已作废的口径又写回去。
-2. **先同步，再干活**：开工第一步核对**本分支 vs 主支**的信息差：
-   - 本分支在 §0 表里的行是否还在？角色/产出/状态是否需要更新？
-   - 主支是否搬动了目录、改了文件名、更新了 `papers/portfolio.md` 或本文件？
-   - **本分支上一轮的产出是否已被收编**（例如 `audit/` 文件被移入 `第一次组会/` 子目录）？若被搬动，**引用路径必须同步修正**。
+1. **先读本文件族**：动作之前先读 `AGENTS.md` ＋ [`AGENTS-PROJECT.md`](AGENTS-PROJECT.md) ＋ [`AGENTS-NORMS.md`](AGENTS-NORMS.md)。**不读不开工**——防止凭记忆做事、把已作废的口径写回去。
+   - 顺带跑三个自检：`check_agents_family.mjs`、`check_progress_snapshot.mjs`、`check_branch_freshness.mjs`（均在 `scripts/smoke/`）。
+2. **先同步，再干活**：核对**本分支 vs 主支**的信息差：
+   - 本分支在 §0 表里的行是否还在？角色/产出/状态/"最后更新"是否需要更新？
+   - 主支是否搬动了目录、改了文件名、更新了 `papers/portfolio.md` 或本文件族？
+   - **本分支上一轮的产出是否已被收编**（例：`audit/` 文件被移入 `第一次组会/`）？**被搬动就必须同步修正引用路径**。
    - 发现信息差 → **先修引用、先补登记，再开始本轮任务**。
-3. **实时更新进度，不攒到最后**：每当完成一项会改变项目状态的工作（新增/搬动/重命名文件、装工具、改环境变量、产出审计或风险条目、改动台账状态），**当场**更新：§0 本分支行的"状态"列 → 本节的进度快照 →（涉及状态变更时）通知主支改 `papers/portfolio.md`。
-4. **不凭记忆**：任何"已完成/已核对/我记得"的判断，必须先落到文件或命令输出上。长对话里模型记忆会与磁盘事实分叉，**磁盘优先**。
+3. **实时更新进度，不攒到最后**：完成任何改变项目状态的工作（新增/搬动/重命名文件、装工具、改环境变量、产出风险条目、改台账）后，**当场**更新：§0 本分支行状态 → [`AGENTS-PROJECT.md`](AGENTS-PROJECT.md) §4 快照 →（涉及状态变更时）`papers/portfolio.md`。
+4. **不凭记忆**：任何"已完成/已核对/我记得"必须先落到文件或命令输出上。长对话里记忆会与磁盘事实分叉，**磁盘优先**。
+5. **不瞎猜**：判断前按 [`AGENTS-NORMS.md`](AGENTS-NORMS.md) §2 的多轮验证协议取证；工具与平台行为查官方文档，文献主张查本库或做一次可核验检索。
 
 ### 0.1 进度快照（每轮收工时更新；**必须来自文件或命令输出，不来自记忆**）
 
