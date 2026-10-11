@@ -3,7 +3,7 @@
 experiment: main_otf_cfc
 runnable: false
 blocked_by:
-  - "CfC 控制器需训练环境与算力：本机无 GPU（AGENTS.md §3 算力路线＝先降级只跑 CPU）"
+  - "**GPU 已有**（RTX 5060 8 GB / sm_120，2026-10-11 实测）——不再是阻塞项；仍需①CUDA 12.8 版 torch ②CARLA 闭环环境"
   - "闭环评测环境（CARLA）未建；SUMO 不承担闭环被控对象"
 
 controller:

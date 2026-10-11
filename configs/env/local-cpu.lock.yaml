@@ -1,12 +1,26 @@
 # 本机环境锁（当前事实，非目标）
-kind: local-cpu
-gpu: none            # 用户确认：无 GPU 或显存不足
-carla: unknown       # 【需核实】CARLA 是否已安装、版本未知
+kind: local
+gpu:
+  present: true                 # 2026-10-11 实测纠正：旧值 none 来自问答选项、从未核实，已作废
+  name: "NVIDIA GeForce RTX 5060 Laptop GPU"
+  vram_mib: 8151
+  driver: "592.15"
+  compute_capability: "12.0"    # Blackwell / sm_120
+  cuda_runtime_available: false # 本机 torch 为 2.13.0+cpu（cuda_available=False）
+  requirement: "sm_120 需 CUDA 12.8+；PyTorch 官方 cu128 索引含 cp314-win_amd64 轮子"
+cpu: "Intel Core i7-14650HX (16C/24T)"
+ram_gb: 15.7
+disks:
+  C: {free_gb: 31.5, writable: false, note: "系统盘；本会话沙箱只读"}
+  D: {free_gb: 46.9, writable: true}
+  F: {free_gb: 420.4, writable: true, note: "SanDisk Portable SSD (USB, MediaType=SSD)；CARLA 计划装此"}
+carla: not_installed
 python: "3.14.4"     # 实测：python 3.14.4 64bit
-torch: "{{待填}}"
+torch: "2.13.0+cpu"  # 待换为 cu128 版（见 gpu.requirement）
 notes:
   - 本锁只用于自检与规则层复现（W1–W3）；不得据此声称任何训练结果。
-  - 云端算力路线未决策 → 见 configs/env/cloud-gpu.lock.yaml 与 audit/00-asset-inventory.md R7。
+  - **算力不再是阻塞项**（GPU 实测可用）；当前阻塞为：CUDA torch 未装、CARLA 未装、实车数据不在本机。
+  - 云端算力路线：P5 仍需 A100/H100 级，另行决策 → 见 configs/env/cloud-gpu.lock.yaml。
 
 # 交通仿真工具（2026-10-08 实际安装并验证，非计划）
 sumo:
@@ -27,6 +41,6 @@ sumo:
   smoke_dir: 'D:\SUMO\_smoke'       # 冒烟产物，非研究结果，可随时删除
   zip_kept: 'D:\Downloads\sumo-win64-1.27.1.zip'  # 安装包，可自行决定是否删除（170 MB）
   open_questions:
-    - "SUMO 在五篇论文中的定位未定：替换蓝图里的 CARLA（Town04），还是只承担交通流生成/合成 OTF 真值（风险 R13 的备选 B1）？"
-    - "若替换 CARLA，AGENTS.md §1 的措辞上限（'在 CARLA 与真实数据回放中'）与 §3 的公平性条款（同一 CARLA 地图版本）需同步修订。"
-    - "本机尚未安装任何 SUMO 场景库；是否有可对标的高速主线混行场景需要用户确认。"
+    - "SUMO 定位**已裁决（2026-10-08）＝路线 B**：只承担交通流生成 / 合成 OTF 真值，不替换 CARLA、不做联合仿真。"
+    - "因上条：AGENTS.md §1 的措辞上限与 §3 的公平性条款**按原 CARLA 口径执行、一字不改**；SUMO 结果只能写成'在 SUMO 合成交通流中'。"
+    - "本机尚未安装 SUMO 场景库；是否有可对标的高速主线混行场景需要用户确认。"

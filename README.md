@@ -6,7 +6,7 @@
 
 以黄梦圆《基于超车频次的自动驾驶车辆行为决策研究》（吉林大学，2023）的 OTF 参数为锚点，做五篇论文（P1 OTF-CfC → P2 SocialDreamer → P3 TalkOTF → P4 IsoLNN → P5 AdjointStack）。台账见 [`papers/portfolio.md`](papers/portfolio.md)（唯一状态来源）。
 
-**当前状态（诚实版）**：无 GPU；学位论文数据与 TD3 代码不在本机；CARLA 环境未见。因此当前可做的是**契约冻结**与**文献底座**，不是实验。**例外**：交通仿真工具 **Eclipse SUMO 1.27.1 已装于 `D:\SUMO\sumo-1.27.1` 并四项实测通过（含 Python TraCI）**——它纯 CPU 可跑，是目前唯一能独立产出"带 OTF 真值的合成交通流"的工具；但其在五篇论文中的定位**尚未裁决**（见 [`AGENTS.md`](AGENTS.md) §2、§7）。
+**当前状态（诚实版，2026-10-11 纠正）**：**本机有 GPU** —— RTX 5060 Laptop（8 GB，sm_120/Blackwell，驱动 592.15），但**当前 torch 是 CPU 版、缺 CUDA 12.8**，且 **CARLA 未装**；学位论文数据与 TD3 代码不在本机。因此现在能做的是：**契约冻结、文献底座、纯 CPU 合成实验**（已产出 A1 信息量版结论），以及**装 CUDA torch + CARLA 后进入闭环实验**。**已有工具**：SUMO 1.27.1（`D:\SUMO\sumo-1.27.1`，四项实测通过含 Python TraCI），定位＝**只做交通流生成 / 合成 OTF 真值**（见 [`AGENTS.md`](AGENTS.md) §2）。
 
 > **跨对话**：本项目由多个分支对话并行推进，分支登记与协作契约见 [`AGENTS.md`](AGENTS.md) §0。本文件只讲"东西放在哪、数字从哪来"。
 >
@@ -92,7 +92,7 @@ results/<paper>/<experiment>_<scenario>_<seedset>.json
 | 阻塞 | 状态 | 解除路径 |
 |---|---|---|
 | 数据不可得（A1 消融做不了） | 申请信待发出 | [`audit/第一次组会/04-data-request-and-ethics.md`](audit/第一次组会/04-data-request-and-ethics.md) |
-| 无 GPU | 未决策（云端 or 降级） | 需你拍板 |
+| ~~无 GPU~~ → **GPU 可用**（RTX 5060 8 GB / sm_120） | **已纠正**（2026-10-11 实测；旧口径来自问答选项、未核实） | 现阻塞：CUDA 12.8 版 torch、CARLA、实车数据 |
 | TD3 基线：引用 vs 复现 | **未决策** | 影响 P1 主表结构 |
 | OTF 增益口径（1.0–1.7% vs 论文实际 +2.23~+3.60） | **已修正**（口径统一为 +1.0~+5.5 个百分点，见 [`AGENTS.md`](AGENTS.md) §1） | — |
 | P1 指标集无可对标物（延迟 / MCU 内存） | **开放**（新增） | [`audit/第一次组会/03-risk-register.md`](audit/第一次组会/03-risk-register.md) R20 |

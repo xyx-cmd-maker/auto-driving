@@ -5,7 +5,7 @@ experiment: baseline_td3
 mode: cited                 # 必填枚举：cited = 原样引用学位论文实现；reproduced = 我们复现（须附协议与差异清单）
 runnable: false
 blocked_by:
-  - "无 GPU（AGENTS.md §2）"
+  - "**GPU 已有**（RTX 5060 8 GB / sm_120，2026-10-11 实测）——不再是阻塞项；仍需 CUDA 12.8 版 torch"
   - "学位论文实车数据不在本机（申请函见 audit/第一次组会/04-data-request-and-ethics.md）"
   - "TD3 代码/权重不可得——论文仅给网络与训练参数（表 5.1/5.2）"
 
