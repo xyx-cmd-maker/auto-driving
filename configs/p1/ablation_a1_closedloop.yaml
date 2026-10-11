@@ -1,0 +1,85 @@
+# A1 消融（闭环控制版）——实验协议（**先冻结，后执行**）
+# 冻结于 2026-10-11。执行前提：CARLA 环境就绪（见 configs/env/local-carla.lock.yaml，待建）。
+# 与 ablation_a1.yaml（信息量版）的关系：
+#   - 信息量版测"OTF 有没有前瞻性" → 已得负结果（audit/第一次组会/06-a1-otf-information-bound.md）
+#   - **本协议测"OTF 接进控制回路后控制性能是否更好"** → 这才是 P1 主张的直接检验
+#   两者结论可以不一致：控制器用好 OTF 不需要 OTF 有前瞻性（可经状态表征/奖励塑形起作用）。
+#   **本协议的结果优先于信息量版**用于 P1 的 claim 判定。
+
+experiment: ablation_a1_closedloop
+design: "两臂闭环对照：控制器输入 有 Φ_OTF / 无 Φ_OTF，其余完全相同"
+arms:
+  a1_otf_on:
+    controller_inputs: [lead_gap_m, rel_speed_mps, ego_speed_mps, phi_otf]
+  a1_otf_off:
+    controller_inputs: [lead_gap_m, rel_speed_mps, ego_speed_mps]
+
+controller:
+  type: CfC                        # Closed-form Continuous-time；蓝图 4.3
+  rate_hz: 100
+  hidden: "{{待定：与参数量口径一起报，禁止在实测前写 <500 KB}}"
+  params: "{{待实测}}"
+  training:
+    episodes: "{{待定：两臂必须相同}}"
+    seed_per_arm: "两臂使用**同一组**训练种子"
+    tuning_budget: "两臂**同等调参预算**（AGENTS.md §3 公平性）"
+
+environment:
+  simulator: CARLA
+  version: "0.9.16（UE 4.26）"
+  map: "Town04（高速公路环线，与蓝图一致）"
+  ood: "高速公路主线 / 多车道 / 人工与自动混行 / 晴天（AGENTS.md §5）"
+  traffic: "CARLA Traffic Manager 生成混行流；**固定同一组交通流随机种子**"
+  note: "**本机已装 UE 5.3，但 CARLA 0.9.16 基于 UE 4.26，不能复用该引擎**——必须用官方预编译包"
+
+scenarios:
+  # 逐场景报告，不只报总平均（AGENTS.md §5）
+  - none          # 前方无车
+  - cutin         # 邻车插入
+  - lead-brake    # 前车减速
+  - lead-exit     # 前车驶离
+  long_tail: [hard_brake, aggressive_cutin, platoon_exit, aggressive_traffic]
+
+metrics:
+  primary: [following_rmse_m, accel_sq_integral_mps3]
+  secondary: [jerk_peak_mps3, lane_center_dev_m, steer_angle_var, collision_count, min_ttc_s]
+  resource:
+    e2e_latency_ms: "{{待实测：须写明平台（GPU/CPU 型号）与档位}}"
+    mcu_mem_kb: "{{待实测：本项在 CARLA 里测不到 —— 需目标 MCU 或等效估算，且必须标注来源}}"
+  reporting: "种子 ≥5，报 mean ± std 或 95% CI；长尾/成功率类用 Wilson 或 Clopper-Pearson（AGENTS.md §4）"
+
+statistics:
+  seeds: [0, 1, 2, 3, 4]
+  unit_of_analysis: "每个 (场景 × 种子) 一次闭环运行"
+  primary_test: "对 primary 指标做配对比较（同场景同种子成对）；报告效应量与 95% CI"
+  no_peeking: "两臂跑完再比较，不做中途择优"
+  equivalence_rule: "若结论是'无差异'，必须用等价/非劣检验，**不得**用'p>0.05'代替（AGENTS.md §1 铁律 2）"
+
+fairness:
+  same_map_and_seeds: true
+  equal_info: "两臂信息集只差 Φ_OTF；不得给 a1_otf_on 额外特权输入"
+  equal_tuning_budget: true
+  same_training_episodes: true
+
+claim_ceiling:
+  allowed: "在 CARLA Town04 高速公路混行场景中，Φ_OTF 作为控制器输入的 A1 消融结果"
+  forbidden:
+    - "不得写成实车验证（AGENTS.md §1）"
+    - "不得预先假定 OTF 有增益；若两臂无差异，卖点改为'可解释性 + 零额外传感器成本'"
+    - "不得与学位论文的 TD3 数字直接比较（协议不同）"
+  failure_handling: "若 a1_otf_on 更差，必须同样报告，并分析原因（如 Φ_OTF 引入的额外输入维度导致训练更难）"
+
+outputs:
+  path: results/p1/ablation_a1-closedloop_<scenario>_highway-mixed_s1.json
+  schema: configs/schema/results.schema.json
+  mode: real
+  per_scenario: true
+
+blocked_by:
+  - "CARLA 未装（下载中，7450 MB；本机到国际源实测 0.04–0.5 MB/s，预计数小时）"
+  - "CfC 控制器尚未实现（需 src/ctrl/）"
+  - "8 GiB 显存是否够 CARLA + 训练同时运行：**未测**"
+
+notes:
+  - "本协议的'禁止事项'与 claim 上限先写死，避免看到结果后再调口径（防 HARKing）。"
+  - "与信息量版结论不一致时**不是矛盾**：前者测预测力，后者测控制效用；须在稿件中分别陈述。"

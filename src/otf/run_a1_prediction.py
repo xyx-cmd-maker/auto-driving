@@ -32,6 +32,7 @@ from collections import defaultdict
 
 import numpy as np
 import yaml
+from sklearn.ensemble import HistGradientBoostingClassifier, RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import brier_score_loss, roc_auc_score
 from sklearn.model_selection import GroupKFold
@@ -273,8 +274,13 @@ def featurize(records, window_mode, with_otf):
     return X, y, g, cols
 
 
-def arm_metrics(X, y, g, seed):
-    """5 折 GroupKFold（按 run 分组）× 指定随机种子，返回折内 AUC/Brier。"""
+def arm_metrics(X, y, g, seed, family="logistic"):
+    """5 折 GroupKFold（按 run 分组）× 指定随机种子，返回折内 AUC/Brier。
+
+    family: logistic（默认，线性）/ rf（随机森林）/ hgb（直方图梯度提升）
+    为什么要多族：OTF 是**计数量**，与风险的关系可能是非线性的。只测线性模型会
+    **低估**它的信息量——这是 A1 结论的第 6 条限制，本函数就是为了消解它。
+    """
     n_groups = len(set(g))
     k = min(5, n_groups)
     if k < 2:
@@ -285,9 +291,21 @@ def arm_metrics(X, y, g, seed):
         if len(set(y[tr])) < 2 or len(set(y[te])) < 2:
             continue
         sc = StandardScaler().fit(X[tr])
-        clf = LogisticRegression(max_iter=2000, random_state=seed)
-        clf.fit(sc.transform(X[tr]), y[tr])
-        p = clf.predict_proba(sc.transform(X[te]))[:, 1]
+        if family == "logistic":
+            clf = LogisticRegression(max_iter=2000, random_state=seed)
+            Xtr, Xte = sc.transform(X[tr]), sc.transform(X[te])
+        elif family == "rf":
+            clf = RandomForestClassifier(n_estimators=400, min_samples_leaf=5,
+                                         n_jobs=-1, random_state=seed)
+            Xtr, Xte = X[tr], X[te]          # 树模型不需要标准化
+        elif family == "hgb":
+            clf = HistGradientBoostingClassifier(max_iter=300, learning_rate=0.06,
+                                                 min_samples_leaf=20, random_state=seed)
+            Xtr, Xte = X[tr], X[te]
+        else:
+            raise ValueError("unknown family: %s" % family)
+        clf.fit(Xtr, y[tr])
+        p = clf.predict_proba(Xte)[:, 1]
         aucs.append(roc_auc_score(y[te], p))
         briers.append(brier_score_loss(y[te], p))
     if not aucs:
@@ -305,6 +323,10 @@ def main():
     ap.add_argument("--seeds", default="0,1,2,3,4")
     ap.add_argument("--ego-speed", type=float, default=23.0)
     ap.add_argument("--stat-seeds", default="0,1,2,3,4")
+    ap.add_argument("--families", default="logistic",
+                    help="逗号分隔：logistic / rf / hgb（多族用于消解'只测线性模型'的限制）")
+    ap.add_argument("--sim-cache", default=None,
+                    help="轨迹缓存 JSON：存在则跳过 SUMO 仿真直接复用（换模型族时省 20 分钟）")
     ap.add_argument("--quick", action="store_true", help="只跑 1 模型 1 窗型 2 种子（冒烟）")
     args = ap.parse_args()
 
@@ -317,21 +339,37 @@ def main():
 
     all_records, per_run = [], {}
     run_meta = {}
-    for model in models:
-        for wm in wmodes:
-            cfg["_window_mode"] = wm
-            for sd in seeds:
-                rec, fail = run_sim(sd, model, "none", cfg, args.ego_speed)
-                all_records.extend(rec)
-                key = "%s|%s|%d" % (model, "dyn" if wm == "dynamic" else "stat", sd)
-                per_run[key] = len([r for r in rec if r["y"] is not None])
-                run_meta[key] = {"model": model, "window_mode": wm, "seed": sd,
-                                 "n_records": len(rec), "insert_fail": fail}
-                print("  run %-22s records=%d labeled=%d" % (key, len(rec), per_run[key]))
+    import json as _json
+    if args.sim_cache and os.path.exists(args.sim_cache):
+        with open(args.sim_cache, encoding="utf-8") as fh:
+            cached = _json.load(fh)
+        all_records = cached["records"]
+        run_meta = cached.get("run_meta", {})
+        print("  [cache] 复用轨迹缓存 %s（%d 条记录，跳过 SUMO 仿真）"
+              % (os.path.basename(args.sim_cache), len(all_records)))
+    else:
+        for model in models:
+            for wm in wmodes:
+                cfg["_window_mode"] = wm
+                for sd in seeds:
+                    rec, fail = run_sim(sd, model, "none", cfg, args.ego_speed)
+                    all_records.extend(rec)
+                    key = "%s|%s|%d" % (model, "dyn" if wm == "dynamic" else "stat", sd)
+                    per_run[key] = len([r for r in rec if r["y"] is not None])
+                    run_meta[key] = {"model": model, "window_mode": wm, "seed": sd,
+                                     "n_records": len(rec), "insert_fail": fail}
+                    print("  run %-22s records=%d labeled=%d" % (key, len(rec), per_run[key]))
+        if args.sim_cache:
+            os.makedirs(os.path.dirname(args.sim_cache), exist_ok=True)
+            with open(args.sim_cache, "w", encoding="utf-8") as fh:
+                _json.dump({"records": all_records, "run_meta": run_meta}, fh, ensure_ascii=False)
+            print("  [cache] 已写轨迹缓存 %s" % args.sim_cache)
 
     stat_seeds = [int(s) for s in args.stat_seeds.split(",") if s.strip()]
+    families = [f.strip() for f in args.families.split(",") if f.strip()]
     results = {}
-    for model in models:
+    for fam in families:
+      for model in models:
         for wm in wmodes:
             sel = [r for r in all_records if r["run"].startswith("%s|%s|" % (model, "dyn" if wm == "dynamic" else "stat"))
                    and r["y"] is not None]
@@ -339,8 +377,8 @@ def main():
                 continue
             X_off, y, g, cols_off = featurize(sel, wm, with_otf=False)
             X_on, _, _, cols_on = featurize(sel, wm, with_otf=True)
-            off = [arm_metrics(X_off, y, g, s) for s in stat_seeds]
-            on = [arm_metrics(X_on, y, g, s) for s in stat_seeds]
+            off = [arm_metrics(X_off, y, g, s, fam) for s in stat_seeds]
+            on = [arm_metrics(X_on, y, g, s, fam) for s in stat_seeds]
             off = [o for o in off if o]; on = [o for o in on if o]
             if not off or not on:
                 continue
@@ -351,8 +389,9 @@ def main():
             fold_d = [np.mean(np.array(b) - np.array(a)) for a, b in fold_pairs
                       if len(a) == len(b) and len(a) > 0]
             fold_d = np.array(fold_d) if fold_d else np.array([float(np.mean(d_auc))])
-            key = "%s|%s" % (model, wm)
+            key = "%s|%s|%s" % (fam, model, wm)
             results[key] = {
+                "family": fam,
                 "n_samples": int(len(y)), "n_runs": len(set(g)), "positive_rate": float(np.mean(y)),
                 "features_off": cols_off, "features_on": cols_on,
                 "a1_off": {"auc_mean": float(np.mean([o["auc"] for o in off])),
@@ -388,6 +427,7 @@ def main():
         "seed_semantics": "SUMO --seed（交通流随机性）；统计侧另有 5 个 CV 随机种子",
         "config_path": "configs/p1/params.frozen.yaml + configs/p1/ablation_a1.yaml",
         "config_hash": cfg_hash(cfg["otf"], models, wmodes),
+        "model_families": families,
         "mode": "real",
         "platform": {"kind": "simulator", "detail": "Eclipse SUMO %s；合成高速三车道混行" % cfg["simulation"]["step_length_s"]},
         "provenance": "ours-reproduced",

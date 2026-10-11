@@ -13,6 +13,11 @@
   "seed_semantics": "SUMO --seed（交通流随机性）；统计侧另有 5 个 CV 随机种子",
   "config_path": "configs/p1/params.frozen.yaml + configs/p1/ablation_a1.yaml",
   "config_hash": "36284c28062091bb",
+  "model_families": [
+    "logistic",
+    "rf",
+    "hgb"
+  ],
   "mode": "real",
   "platform": {
     "kind": "simulator",
@@ -21,7 +26,8 @@
   "provenance": "ours-reproduced",
   "metrics": {
     "per_scenario": {
-      "Krauss|static": {
+      "logistic|Krauss|static": {
+        "family": "logistic",
         "n_samples": 5600,
         "n_runs": 5,
         "positive_rate": 0.11214285714285714,
@@ -65,7 +71,8 @@
         "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
         "delta_brier_mean": 0.00017693050254781462
       },
-      "Krauss|dynamic": {
+      "logistic|Krauss|dynamic": {
+        "family": "logistic",
         "n_samples": 5600,
         "n_runs": 5,
         "positive_rate": 0.11214285714285714,
@@ -107,7 +114,8 @@
         "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
         "delta_brier_mean": -0.0003614747644285765
       },
-      "IDM|static": {
+      "logistic|IDM|static": {
+        "family": "logistic",
         "n_samples": 5568,
         "n_runs": 5,
         "positive_rate": 0.14188218390804597,
@@ -151,7 +159,8 @@
         "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
         "delta_brier_mean": 0.0006353181552222475
       },
-      "IDM|dynamic": {
+      "logistic|IDM|dynamic": {
+        "family": "logistic",
         "n_samples": 5568,
         "n_runs": 5,
         "positive_rate": 0.14188218390804597,
@@ -192,6 +201,370 @@
         "delta_auc_ci95": null,
         "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
         "delta_brier_mean": 2.654885245423344e-06
+      },
+      "rf|Krauss|static": {
+        "family": "rf",
+        "n_samples": 5600,
+        "n_runs": 5,
+        "positive_rate": 0.11214285714285714,
+        "features_off": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj"
+        ],
+        "features_on": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj",
+          "otf_w5",
+          "otf_w10",
+          "otf_w20"
+        ],
+        "a1_off": {
+          "auc_mean": 0.8621581874856916,
+          "auc_fold_std": 0.016947828691437024,
+          "brier_mean": 0.041108538235518334
+        },
+        "a1_on": {
+          "auc_mean": 0.8582070422271293,
+          "auc_fold_std": 0.026273727490104128,
+          "brier_mean": 0.0408314396950296
+        },
+        "delta_auc_mean": -0.003951145258562239,
+        "delta_auc_fold_spread": 0.0019027461360893619,
+        "delta_auc_per_fold": [
+          -0.0034526633084730474,
+          -0.004761147608384397,
+          -0.0037678449106936405,
+          -0.0029356621645854953,
+          -0.004838408300674857
+        ],
+        "delta_auc_ci95": [
+          -0.004601986708058232,
+          -0.0033003038090662464
+        ],
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
+        "delta_brier_mean": -0.0002770985404887308
+      },
+      "rf|Krauss|dynamic": {
+        "family": "rf",
+        "n_samples": 5600,
+        "n_runs": 5,
+        "positive_rate": 0.11214285714285714,
+        "features_off": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj"
+        ],
+        "features_on": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj",
+          "otf_dyn"
+        ],
+        "a1_off": {
+          "auc_mean": 0.8621581874856916,
+          "auc_fold_std": 0.016947828691437024,
+          "brier_mean": 0.041108538235518334
+        },
+        "a1_on": {
+          "auc_mean": 0.8608821171338035,
+          "auc_fold_std": 0.023388164037617787,
+          "brier_mean": 0.0405000212342826
+        },
+        "delta_auc_mean": -0.001276070351888392,
+        "delta_auc_fold_spread": 0.0014048375461980455,
+        "delta_auc_per_fold": [
+          -0.0006649232443776354,
+          -0.002069760790575681,
+          -0.001159119843585099,
+          -0.001285271420452383,
+          -0.001201276460450962
+        ],
+        "delta_auc_ci95": [
+          -0.001672514258047609,
+          -0.0008796264457291748
+        ],
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
+        "delta_brier_mean": -0.0006085170012357352
+      },
+      "rf|IDM|static": {
+        "family": "rf",
+        "n_samples": 5568,
+        "n_runs": 5,
+        "positive_rate": 0.14188218390804597,
+        "features_off": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj"
+        ],
+        "features_on": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj",
+          "otf_w5",
+          "otf_w10",
+          "otf_w20"
+        ],
+        "a1_off": {
+          "auc_mean": 0.867709090938986,
+          "auc_fold_std": 0.023174666347794033,
+          "brier_mean": 0.06001864261944765
+        },
+        "a1_on": {
+          "auc_mean": 0.8632189252513094,
+          "auc_fold_std": 0.02419363068127181,
+          "brier_mean": 0.05855823428912325
+        },
+        "delta_auc_mean": -0.0044901656876765285,
+        "delta_auc_fold_spread": 0.0015280548642244711,
+        "delta_auc_per_fold": [
+          -0.0038111400765434844,
+          -0.0036636563466452498,
+          -0.005099742606536206,
+          -0.005191711210869721,
+          -0.00468457819778807
+        ],
+        "delta_auc_ci95": [
+          -0.005050840786330155,
+          -0.003929490589022902
+        ],
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
+        "delta_brier_mean": -0.0014604083303244018
+      },
+      "rf|IDM|dynamic": {
+        "family": "rf",
+        "n_samples": 5568,
+        "n_runs": 5,
+        "positive_rate": 0.14188218390804597,
+        "features_off": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj"
+        ],
+        "features_on": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj",
+          "otf_dyn"
+        ],
+        "a1_off": {
+          "auc_mean": 0.867709090938986,
+          "auc_fold_std": 0.023174666347794033,
+          "brier_mean": 0.06001864261944765
+        },
+        "a1_on": {
+          "auc_mean": 0.8635850696600157,
+          "auc_fold_std": 0.024793198309310167,
+          "brier_mean": 0.059415801076400876
+        },
+        "delta_auc_mean": -0.004124021278970225,
+        "delta_auc_fold_spread": 0.0013835842701650503,
+        "delta_auc_per_fold": [
+          -0.003330747479774643,
+          -0.0039011154958478846,
+          -0.0046466138828031855,
+          -0.004027297786485607,
+          -0.004714331749939693
+        ],
+        "delta_auc_ci95": [
+          -0.004572667843378494,
+          -0.003675374714561956
+        ],
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
+        "delta_brier_mean": -0.0006028415430467671
+      },
+      "hgb|Krauss|static": {
+        "family": "hgb",
+        "n_samples": 5600,
+        "n_runs": 5,
+        "positive_rate": 0.11214285714285714,
+        "features_off": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj"
+        ],
+        "features_on": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj",
+          "otf_w5",
+          "otf_w10",
+          "otf_w20"
+        ],
+        "a1_off": {
+          "auc_mean": 0.8453447633982268,
+          "auc_fold_std": 0.016903893996028138,
+          "brier_mean": 0.05404697429381987
+        },
+        "a1_on": {
+          "auc_mean": 0.849869375727175,
+          "auc_fold_std": 0.01928810816421166,
+          "brier_mean": 0.05306996266119336
+        },
+        "delta_auc_mean": 0.0045246123289481854,
+        "delta_auc_fold_spread": 0.0,
+        "delta_auc_per_fold": [
+          0.004524612328948163,
+          0.004524612328948163,
+          0.004524612328948163,
+          0.004524612328948163,
+          0.004524612328948163
+        ],
+        "delta_auc_ci95": null,
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
+        "delta_brier_mean": -0.0009770116326265066
+      },
+      "hgb|Krauss|dynamic": {
+        "family": "hgb",
+        "n_samples": 5600,
+        "n_runs": 5,
+        "positive_rate": 0.11214285714285714,
+        "features_off": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj"
+        ],
+        "features_on": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj",
+          "otf_dyn"
+        ],
+        "a1_off": {
+          "auc_mean": 0.8453447633982268,
+          "auc_fold_std": 0.016903893996028138,
+          "brier_mean": 0.05404697429381987
+        },
+        "a1_on": {
+          "auc_mean": 0.8497522571120145,
+          "auc_fold_std": 0.014575430607435557,
+          "brier_mean": 0.0528082561177422
+        },
+        "delta_auc_mean": 0.00440749371378768,
+        "delta_auc_fold_spread": 0.0,
+        "delta_auc_per_fold": [
+          0.004407493713787547,
+          0.004407493713787547,
+          0.004407493713787547,
+          0.004407493713787547,
+          0.004407493713787547
+        ],
+        "delta_auc_ci95": null,
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
+        "delta_brier_mean": -0.001238718176077666
+      },
+      "hgb|IDM|static": {
+        "family": "hgb",
+        "n_samples": 5568,
+        "n_runs": 5,
+        "positive_rate": 0.14188218390804597,
+        "features_off": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj"
+        ],
+        "features_on": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj",
+          "otf_w5",
+          "otf_w10",
+          "otf_w20"
+        ],
+        "a1_off": {
+          "auc_mean": 0.8458459525099776,
+          "auc_fold_std": 0.025506659073508305,
+          "brier_mean": 0.0770986247294854
+        },
+        "a1_on": {
+          "auc_mean": 0.8468300573507284,
+          "auc_fold_std": 0.026538366473681213,
+          "brier_mean": 0.07329998853204522
+        },
+        "delta_auc_mean": 0.0009841048407507325,
+        "delta_auc_fold_spread": 0.0,
+        "delta_auc_per_fold": [
+          0.0009841048407507325,
+          0.0009841048407507325,
+          0.0009841048407507325,
+          0.0009841048407507325,
+          0.0009841048407507325
+        ],
+        "delta_auc_ci95": null,
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
+        "delta_brier_mean": -0.0037986361974401694
+      },
+      "hgb|IDM|dynamic": {
+        "family": "hgb",
+        "n_samples": 5568,
+        "n_runs": 5,
+        "positive_rate": 0.14188218390804597,
+        "features_off": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj"
+        ],
+        "features_on": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj",
+          "otf_dyn"
+        ],
+        "a1_off": {
+          "auc_mean": 0.8458459525099776,
+          "auc_fold_std": 0.025506659073508305,
+          "brier_mean": 0.0770986247294854
+        },
+        "a1_on": {
+          "auc_mean": 0.8437554834383242,
+          "auc_fold_std": 0.03247286961759009,
+          "brier_mean": 0.07913580291426198
+        },
+        "delta_auc_mean": -0.0020904690716534446,
+        "delta_auc_fold_spread": 0.0,
+        "delta_auc_per_fold": [
+          -0.0020904690716536225,
+          -0.0020904690716536225,
+          -0.0020904690716536225,
+          -0.0020904690716536225,
+          -0.0020904690716536225
+        ],
+        "delta_auc_ci95": null,
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
+        "delta_brier_mean": 0.0020371781847765835
       }
     }
   },
@@ -201,16 +574,32 @@
       "sensitivity": {
         "sign_consistent": false,
         "signs": {
-          "Krauss|static": 1,
-          "Krauss|dynamic": -1,
-          "IDM|static": -1,
-          "IDM|dynamic": 1
+          "logistic|Krauss|static": 1,
+          "logistic|Krauss|dynamic": -1,
+          "logistic|IDM|static": -1,
+          "logistic|IDM|dynamic": 1,
+          "rf|Krauss|static": -1,
+          "rf|Krauss|dynamic": -1,
+          "rf|IDM|static": -1,
+          "rf|IDM|dynamic": -1,
+          "hgb|Krauss|static": 1,
+          "hgb|Krauss|dynamic": 1,
+          "hgb|IDM|static": 1,
+          "hgb|IDM|dynamic": -1
         },
         "indistinguishable_from_zero": {
-          "Krauss|static": false,
-          "Krauss|dynamic": false,
-          "IDM|static": false,
-          "IDM|dynamic": false
+          "logistic|Krauss|static": false,
+          "logistic|Krauss|dynamic": false,
+          "logistic|IDM|static": false,
+          "logistic|IDM|dynamic": false,
+          "rf|Krauss|static": false,
+          "rf|Krauss|dynamic": false,
+          "rf|IDM|static": false,
+          "rf|IDM|dynamic": false,
+          "hgb|Krauss|static": false,
+          "hgb|Krauss|dynamic": false,
+          "hgb|IDM|static": false,
+          "hgb|IDM|dynamic": false
         }
       }
     },
@@ -224,7 +613,7 @@
   "failure_modes": [],
   "notes": {
     "abandoned_settings": [
-      "闭环控制版 A1：需 CfC 控制器与闭环被控对象，本机无 GPU、CARLA 未建 → 推迟",
+      "闭环控制版 A1：需 CfC 控制器与闭环被控对象——GPU 可用但 CUDA torch 与 CARLA 未装 → 推迟",
       "更多决策采样密度（0.5 s）：样本量翻倍但组内相关增强，本轮取 2 s"
     ],
     "known_biases": [
