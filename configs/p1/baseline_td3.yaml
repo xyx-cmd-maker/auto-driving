@@ -1,0 +1,23 @@
+# 基线③：学位论文 TD3 直控
+# 冻结于 2026-10-11（W3）；口径依据 AGENTS.md §3「TD3 基线呈现方式已裁决」。
+
+experiment: baseline_td3
+mode: cited                 # 必填枚举：cited = 原样引用学位论文实现；reproduced = 我们复现（须附协议与差异清单）
+runnable: false
+blocked_by:
+  - "无 GPU（AGENTS.md §2）"
+  - "学位论文实车数据不在本机（申请函见 audit/第一次组会/04-data-request-and-ethics.md）"
+  - "TD3 代码/权重不可得——论文仅给网络与训练参数（表 5.1/5.2）"
+
+cited_source:
+  ref: "黄梦圆. 基于超车频次的自动驾驶车辆行为决策研究. 吉林大学博士学位论文, 2023. 第 5 章"
+  network_table: "表 5.1（actor lr=1e-4/critic lr=1e-3/adam/梯度阈值 1/L2=1e-4；actor 3×250 ReLU，输出 Tanh）"
+  agent_table: "表 5.2（迭代步长 0.1、折扣因子等）"
+
+reporting_rule:
+  - "主表分两栏：同协议复现结果（PID / MPC / OTF-CfC）与**文献报告值**必须分开。"
+  - "文献报告值一栏的表注必须写：'文献报告值，协议不同，不可直接比较'。"
+  - "稿件不得出现'我们复现了 TD3'，除非确实重训。"
+
+notes:
+  - "重实现推迟到有 GPU 与实车数据之后；届时须附协议与差异清单才可把 mode 改为 reproduced。"

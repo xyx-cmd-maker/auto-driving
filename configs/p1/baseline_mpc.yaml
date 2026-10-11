@@ -1,0 +1,18 @@
+# 基线②：MPC（线性化车辆模型）
+# 冻结于 2026-10-11（W3）。
+experiment: baseline_mpc
+runnable: false
+blocked_by:
+  - "同 PID：需要闭环被控对象与车辆动力学模型（CARLA 未建）"
+  - "线性化模型参数需与实车/仿真一致性说明——当前无实车数据"
+
+control:
+  type: MPC
+  model: "线性化纵向跟驰模型（待定：状态空间阶数与离散化步长）"
+  horizon: "{{待定：N1/N2/Nu}}"
+  weights: "{{待定：Q/R —— 与其它基线同等调参预算}}"
+  inputs: [gap_m, rel_speed_mps]        # 公平性：不得使用 OTF 之外的特权输入
+
+metrics_expected: [following_rmse_m, accel_sq_integral, jerk_peak_mps3]
+notes:
+  - "与 OTF-CfC 的对标必须在**同等信息 + 同等调参预算**下进行（AGENTS.md §3）。"

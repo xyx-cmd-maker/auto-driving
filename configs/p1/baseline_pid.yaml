@@ -1,0 +1,17 @@
+# 基线①：PID 跟车控制
+# 冻结于 2026-10-11（W3）。
+experiment: baseline_pid
+runnable: false
+blocked_by:
+  - "需要闭环被控对象（CARLA 或等效闭环环境）——本机 CARLA 未建（AGENTS.md §2/§7）"
+  - "SUMO 的车辆动力学由内置跟驰模型驱动，**不能**直接作为外接控制器的被控对象来评测端到端延迟/MCU 内存"
+
+control:
+  type: PID
+  inputs: [gap_m, rel_speed_mps]        # 与 OTF-CfC 同等可用信息（AGENTS.md §3 公平性）
+  outputs: [accel_mps2]
+  gains: "{{待调参：Kp/Ki/Kd —— 与其它基线同等调参预算}}"
+
+metrics_expected: [following_rmse_m, accel_sq_integral, jerk_peak_mps3]
+notes:
+  - "冻结后先只登记接口与输入集，不写实现——避免在前提未满足时堆不可运行的代码。"

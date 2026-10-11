@@ -1,0 +1,38 @@
+# A1 消融（合成版）—— OTF 预测信息增量
+# 冻结于 2026-10-11（W3）。
+# 本次所做的 A1 是**信息量版**，不是闭环控制版；两者的差别与后续补法写在 notes 里。
+
+experiment: ablation_a1
+design: "有 OTF / 无 OTF 两臂，同一批轨迹上做同一预测任务"
+arms:
+  a1_otf_on:
+    features: [ttc_min_s, gap_min_m, rel_speed_min_mps, ego_speed_mps, density_adj_veh, otf_w5, otf_w10, otf_w20]
+  a1_otf_off:
+    features: [ttc_min_s, gap_min_m, rel_speed_min_mps, ego_speed_mps, density_adj_veh]
+
+target:
+  name: imminent_lead_decel
+  definition: "决策时刻后 dt 内，同车道前车相对减速 ≥ brake_thresh_mps（或前车消失=驶离）"
+  dt_s: 3.0
+  brake_thresh_mps: 2.0
+
+control_factors:
+  # 一次只改一个因素；这两项是红队要求的两项敏感性检查
+  factor_1_car_following_model: [Krauss, IDM]
+  factor_2_otf_window: [static, dynamic]
+
+stats:
+  cv: "5 折，按 run 分组切分（GroupKFold）——防止同一条轨迹同时进训练与测试"
+  repeats_seeds: 5
+  report: [auc_mean, auc_std, brier_mean, brier_std, delta_auc_mean, alpha_ci95]
+
+outputs:
+  path: results/p1/ablation_a1_otf-info_highway-mixed_s1.json
+  schema: configs/schema/results.schema.json
+  mode: real
+
+notes:
+  - "本实验不含控制器：A1 的闭环控制版本需要 CfC 控制器 + CARLA/闭环环境，**本机当前不具备**（无 GPU；闭环环境未建）。"
+  - "结论措辞上限：'在 SUMO 合成交通流中'；不得写成 CARLA、不得写成实车（AGENTS.md §1/§2）。"
+  - "动态窗为本项目自有近似，非论文式(3.13)复现——只用于判断'窗函数形式是否改变结论'。"
+  - "跟驰模型敏感性通过的判据：两种模型下 ΔAUC 的符号一致，且 95% CI 不跨越 0。"

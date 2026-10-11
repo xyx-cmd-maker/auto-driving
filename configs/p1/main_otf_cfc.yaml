@@ -1,0 +1,25 @@
+# 主实验：OTF-CfC（本文方法）——接口冻结，实现待算力
+# 冻结于 2026-10-11（W3）。
+experiment: main_otf_cfc
+runnable: false
+blocked_by:
+  - "CfC 控制器需训练环境与算力：本机无 GPU（AGENTS.md §3 算力路线＝先降级只跑 CPU）"
+  - "闭环评测环境（CARLA）未建；SUMO 不承担闭环被控对象"
+
+controller:
+  type: CfC                          # Closed-form Continuous-time
+  rate_hz: 100
+  inputs: [otf_potential_phi, lead_accel_pred, imu_wheel_speed]   # 依据蓝图 4.3
+  lead_accel_pred_source_phase1: IDM  # 论文 1 阶段用 IDM 顶替，P2 完成后换 WLA 输出
+  params: "{{待实测：参数量与本机实测内存 —— 在实测前不得写 <500 KB（AGENTS.md §1 参数量口径）}}"
+  quantization: "{{待定：fp32 / fp16 / int8 —— 必须与参数量一起报}}"
+
+deployment_target:
+  mcu: "{{待定：Cortex-M7 级}}"
+  compiler_flags: "{{待定}}"
+  measured_latency_ms: "{{待实测 —— 未拿到板子前不得写 <1 ms}}"
+
+metrics_expected: [following_rmse_m, accel_sq_integral, jerk_peak_mps3, lane_center_dev_m, steer_angle_var, e2e_latency_ms, mcu_mem_kb, mcu_flash_kb]
+notes:
+  - "术语：不得自称 physics-informed；用 structure-informed / prior-informed / boundary-conditioned（AGENTS.md §1）。"
+  - "OTF 势场 Φ_OTF(t) 的构造继承论文第 3 章动态窗，但**输出形式改造**必须单独记录差异。"

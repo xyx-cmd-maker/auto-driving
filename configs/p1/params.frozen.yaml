@@ -1,0 +1,57 @@
+# P1 主实验共享参数（冻结版）
+# 冻结于 2026-10-11（W3）。**冻结后任何改动必须新建版本并在 notes 里记录，不得就地改数值。**
+# 所有 paths 相对仓库根；数值单位在键名或注释中写明。
+# 来源：src/otf/run_p1_scenarios.py（已跑通、已对拍）+ 本次 A1 需要的扩展项。
+
+paper: p1
+scenario: highway-mixed
+scenario_definition:
+  net: configs/p1/sumo_highway.net.xml
+  net_meta: configs/p1/sumo_highway.meta.json
+  lanes_one_way: 3
+  edge_length_m: 2980.8
+  speed_limit_mps: 30.0
+  odd: "高速公路主线 / 多车道 / 人工与自动混行 / 晴天；无匝道与交叉口（AGENTS.md §5）"
+
+simulation:
+  step_length_s: 0.5
+  sim_end_s: 600.0          # 主场景 1200 s；A1 预测实验降到 600 s 换取多配置覆盖
+  warmup_s: 10.0
+  time_to_teleport: -1
+  collision_action: warn
+
+traffic:
+  speed_limits_mps: {slow: 13.0, probe: 23.0, fast: 32.0, opposite: 25.0}
+  flows_vph: {slow: 900, probe: 120, fast: 600, opposite: 300}
+  ego_type: probe
+
+otf:
+  windows_s: [5, 10, 20]
+  bin_width: 0.2            # 与论文表 3.3 一致
+  # 动态时间窗：论文式(3.13) 的系数未公开 → 本项为**自有近似**，只能做敏感性检查，
+  # 不得表述为对论文动态窗函数的复现。依据论文第 3.2.2 节的单调性陈述构造：
+  #   速度差越大 → 窗越短；车流越密 → 窗越长。
+  dynamic_window:
+    enabled: true
+    label: "own-approximation (NOT the thesis Eq.3.13)"
+    base_s: 10.0
+    speed_diff_ref_mps: 5.0
+    speed_diff_gain: 2.0    # win = base * (1 - gain * clip(vdiff/ref, 0, 1) / 2)
+    min_s: 5.0
+    max_s: 20.0
+
+car_following:
+  # 敏感性检查：结论是否随跟驰模型翻转（红队 R1 要求）
+  models: [Krauss, IDM]
+  kappa: 0.5
+
+seeds:
+  source: configs/seeds/seedset_s1.yaml
+  list: [0, 1, 2, 3, 4]
+
+metrics:
+  following_rmse_m: null            # 需闭环控制器，本轮不做
+  accel_sq_integral: null           # 同上
+  jerk_peak_mps3: null              # 同上
+  predictive_auc: "OTF vs 无 OTF 的短时预测判别力（A1 合成版主指标）"
+  predictive_brier: "概率校准，越低越好"

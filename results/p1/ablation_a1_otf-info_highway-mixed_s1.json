@@ -1,0 +1,354 @@
+{
+  "paper": "p1",
+  "experiment": "ablation_a1_otf-info",
+  "scenario": "highway-mixed",
+  "seedset": "s1",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "seed_semantics": "SUMO --seed（交通流随机性）；统计侧另有 5 个 CV 随机种子",
+  "config_path": "configs/p1/params.frozen.yaml + configs/p1/ablation_a1.yaml",
+  "config_hash": "36284c28062091bb",
+  "mode": "real",
+  "platform": {
+    "kind": "simulator",
+    "detail": "Eclipse SUMO 0.5；合成高速三车道混行"
+  },
+  "provenance": "ours-reproduced",
+  "metrics": {
+    "per_scenario": {
+      "Krauss|static": {
+        "n_samples": 5600,
+        "n_runs": 5,
+        "positive_rate": 0.11214285714285714,
+        "features_off": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj"
+        ],
+        "features_on": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj",
+          "otf_w5",
+          "otf_w10",
+          "otf_w20"
+        ],
+        "a1_off": {
+          "auc_mean": 0.7810009144045167,
+          "auc_fold_std": 0.02646295010947881,
+          "brier_mean": 0.08160778605740868
+        },
+        "a1_on": {
+          "auc_mean": 0.781697670569146,
+          "auc_fold_std": 0.027236705606239097,
+          "brier_mean": 0.08178471655995649
+        },
+        "delta_auc_mean": 0.0006967561646292753,
+        "delta_auc_fold_std": 0.0,
+        "delta_auc_ci95": null,
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_std（折级配对差标准差）表达",
+        "delta_brier_mean": 0.00017693050254781462
+      },
+      "Krauss|dynamic": {
+        "n_samples": 5600,
+        "n_runs": 5,
+        "positive_rate": 0.11214285714285714,
+        "features_off": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj"
+        ],
+        "features_on": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj",
+          "otf_dyn"
+        ],
+        "a1_off": {
+          "auc_mean": 0.7810009144045167,
+          "auc_fold_std": 0.02646295010947881,
+          "brier_mean": 0.08160778605740868
+        },
+        "a1_on": {
+          "auc_mean": 0.7798060329162068,
+          "auc_fold_std": 0.025047855939031,
+          "brier_mean": 0.0812463112929801
+        },
+        "delta_auc_mean": -0.001194881488309929,
+        "delta_auc_fold_std": 0.0,
+        "delta_auc_ci95": null,
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_std（折级配对差标准差）表达",
+        "delta_brier_mean": -0.0003614747644285765
+      },
+      "IDM|static": {
+        "n_samples": 5568,
+        "n_runs": 5,
+        "positive_rate": 0.14188218390804597,
+        "features_off": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj"
+        ],
+        "features_on": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj",
+          "otf_w5",
+          "otf_w10",
+          "otf_w20"
+        ],
+        "a1_off": {
+          "auc_mean": 0.7060621033964039,
+          "auc_fold_std": 0.048309605036952384,
+          "brier_mean": 0.1010089811521927
+        },
+        "a1_on": {
+          "auc_mean": 0.7045363349239258,
+          "auc_fold_std": 0.04751165557391558,
+          "brier_mean": 0.10164429930741495
+        },
+        "delta_auc_mean": -0.001525768472478095,
+        "delta_auc_fold_std": 0.0,
+        "delta_auc_ci95": null,
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_std（折级配对差标准差）表达",
+        "delta_brier_mean": 0.0006353181552222475
+      },
+      "IDM|dynamic": {
+        "n_samples": 5568,
+        "n_runs": 5,
+        "positive_rate": 0.14188218390804597,
+        "features_off": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj"
+        ],
+        "features_on": [
+          "ttc_min",
+          "gap_min",
+          "rel_speed_min",
+          "ego_speed",
+          "density_adj",
+          "otf_dyn"
+        ],
+        "a1_off": {
+          "auc_mean": 0.7060621033964039,
+          "auc_fold_std": 0.048309605036952384,
+          "brier_mean": 0.1010089811521927
+        },
+        "a1_on": {
+          "auc_mean": 0.7064754645186897,
+          "auc_fold_std": 0.04443233204193451,
+          "brier_mean": 0.10101163603743812
+        },
+        "delta_auc_mean": 0.0004133611222858491,
+        "delta_auc_fold_std": 0.0,
+        "delta_auc_ci95": null,
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_std（折级配对差标准差）表达",
+        "delta_brier_mean": 2.654885245423344e-06
+      }
+    }
+  },
+  "aggregates": {
+    "method": "mean-std",
+    "values": {
+      "sensitivity": {
+        "sign_consistent": false,
+        "signs": {
+          "Krauss|static": 1,
+          "Krauss|dynamic": -1,
+          "IDM|static": -1,
+          "IDM|dynamic": 1
+        },
+        "indistinguishable_from_zero": {
+          "Krauss|static": false,
+          "Krauss|dynamic": false,
+          "IDM|static": false,
+          "IDM|dynamic": false
+        }
+      }
+    },
+    "n_seeds": 5
+  },
+  "fairness": {
+    "no_privileged_inputs": false,
+    "equal_tuning_budget": true,
+    "same_map_and_seeds": true
+  },
+  "failure_modes": [],
+  "notes": {
+    "abandoned_settings": [
+      "闭环控制版 A1：需 CfC 控制器与闭环被控对象，本机无 GPU、CARLA 未建 → 推迟",
+      "更多决策采样密度（0.5 s）：样本量翻倍但组内相关增强，本轮取 2 s"
+    ],
+    "known_biases": [
+      "SUMO 合成交通流；Krauss/IDM 跟驰模型本身决定 OTF 与跟车行为的耦合 → 结论不可外推到真实混行",
+      "动态窗为本项目自有近似，非论文式(3.13)复现 → 仅用于判断'窗函数形式是否改变结论'",
+      "无前车样本按 ttc=15 s / gap=150 m 编码（右删失），可能弱化 TTC 的判别力",
+      "正类定义含'前车消失=驶离'，与'前车急刹'混合为一个标签 → 后续应拆分"
+    ],
+    "evidence_grade": "C（仿真）",
+    "wording_limit": "在 SUMO 合成交通流中"
+  },
+  "snapshot_date": "2026-10-11",
+  "run_meta": {
+    "Krauss|stat|0": {
+      "model": "Krauss",
+      "window_mode": "static",
+      "seed": 0,
+      "n_records": 1130,
+      "insert_fail": {}
+    },
+    "Krauss|stat|1": {
+      "model": "Krauss",
+      "window_mode": "static",
+      "seed": 1,
+      "n_records": 1126,
+      "insert_fail": {}
+    },
+    "Krauss|stat|2": {
+      "model": "Krauss",
+      "window_mode": "static",
+      "seed": 2,
+      "n_records": 1125,
+      "insert_fail": {}
+    },
+    "Krauss|stat|3": {
+      "model": "Krauss",
+      "window_mode": "static",
+      "seed": 3,
+      "n_records": 1133,
+      "insert_fail": {}
+    },
+    "Krauss|stat|4": {
+      "model": "Krauss",
+      "window_mode": "static",
+      "seed": 4,
+      "n_records": 1126,
+      "insert_fail": {}
+    },
+    "Krauss|dyn|0": {
+      "model": "Krauss",
+      "window_mode": "dynamic",
+      "seed": 0,
+      "n_records": 1130,
+      "insert_fail": {}
+    },
+    "Krauss|dyn|1": {
+      "model": "Krauss",
+      "window_mode": "dynamic",
+      "seed": 1,
+      "n_records": 1126,
+      "insert_fail": {}
+    },
+    "Krauss|dyn|2": {
+      "model": "Krauss",
+      "window_mode": "dynamic",
+      "seed": 2,
+      "n_records": 1125,
+      "insert_fail": {}
+    },
+    "Krauss|dyn|3": {
+      "model": "Krauss",
+      "window_mode": "dynamic",
+      "seed": 3,
+      "n_records": 1133,
+      "insert_fail": {}
+    },
+    "Krauss|dyn|4": {
+      "model": "Krauss",
+      "window_mode": "dynamic",
+      "seed": 4,
+      "n_records": 1126,
+      "insert_fail": {}
+    },
+    "IDM|stat|0": {
+      "model": "IDM",
+      "window_mode": "static",
+      "seed": 0,
+      "n_records": 1125,
+      "insert_fail": {}
+    },
+    "IDM|stat|1": {
+      "model": "IDM",
+      "window_mode": "static",
+      "seed": 1,
+      "n_records": 1119,
+      "insert_fail": {}
+    },
+    "IDM|stat|2": {
+      "model": "IDM",
+      "window_mode": "static",
+      "seed": 2,
+      "n_records": 1118,
+      "insert_fail": {}
+    },
+    "IDM|stat|3": {
+      "model": "IDM",
+      "window_mode": "static",
+      "seed": 3,
+      "n_records": 1124,
+      "insert_fail": {}
+    },
+    "IDM|stat|4": {
+      "model": "IDM",
+      "window_mode": "static",
+      "seed": 4,
+      "n_records": 1122,
+      "insert_fail": {}
+    },
+    "IDM|dyn|0": {
+      "model": "IDM",
+      "window_mode": "dynamic",
+      "seed": 0,
+      "n_records": 1125,
+      "insert_fail": {}
+    },
+    "IDM|dyn|1": {
+      "model": "IDM",
+      "window_mode": "dynamic",
+      "seed": 1,
+      "n_records": 1119,
+      "insert_fail": {}
+    },
+    "IDM|dyn|2": {
+      "model": "IDM",
+      "window_mode": "dynamic",
+      "seed": 2,
+      "n_records": 1118,
+      "insert_fail": {}
+    },
+    "IDM|dyn|3": {
+      "model": "IDM",
+      "window_mode": "dynamic",
+      "seed": 3,
+      "n_records": 1124,
+      "insert_fail": {}
+    },
+    "IDM|dyn|4": {
+      "model": "IDM",
+      "window_mode": "dynamic",
+      "seed": 4,
+      "n_records": 1122,
+      "insert_fail": {}
+    }
+  }
+}
