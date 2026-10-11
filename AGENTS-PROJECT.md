@@ -69,7 +69,7 @@
 | 文献 | 30 条 venue 全量核验（17 处修正）；`literature/**` 文献图＋逐字限定语；第二次组会精读 23 篇 | P2–P5 文献图；OpenAlex 引文展开（额度耗尽，"外部复现"列仍为"未检"） |
 | 环境 | SUMO 1.27.1 实测四项通过；SUMO→OTF 采集链路跑通＋真值校验；**GPU 算力链路已通**（RTX 5060 8 GB / sm_120 ＋ torch 2.11.0+cu128，11/11 验证、6.7× 加速，见 `configs/env/local-gpu.lock.yaml`） | **CARLA（待装，计划装 F: 移动 SSD）**、SUMO 场景库（未建）、动态时间窗（论文系数未公开） |
 | 工具与数据 | `results/p1/` **36 份算例**（原 35 份 + **A1 信息量版 1 份**）；A1 执行器 `src/otf/run_a1_prediction.py`；**A1 负结果已落盘**（见 §8） | 实车数据（申请函待发，条款已补）、TD3 代码/权重、与论文的严格对拍 |
-| 版本管理 | **git 已落地并已推送**：私有仓库 `github.com/xyx-cmd-maker/auto-driving`（本地/远程同 SHA，5→6 次提交）；`http.curloptResolve` 钉 IP 绕过对 `github.com:443` 的选择性阻断 | GitHub 归属的**登录态确认**（私有仓库对匿名返回 404，本机无法验证） |
+| 版本管理 | **git 已落地并已推送**：私有仓库 `github.com/xyx-cmd-maker/auto-driving`（本地/远程同 SHA，10 次提交） | GitHub 归属的**登录态确认**（用户 2026-10-11 已确认无误）；推送偶发被重置，见 §9 |
 | 组会材料 | 第一次组会 docx＋PDF；第二次组会 docx＋PDF；**A1 结论文件 `audit/第一次组会/06-a1-otf-information-bound.md`** | 第二次组会正文两处 `【待填】` |
 
 **待用户裁决（阻塞）**：① 起始日（相对周起算点）与各论文投稿截止；② P1 是否补报振荡阻尼比 g_p 与交通流稳定性 f_flow；③ P2 是否因 §8 的负结果调整定位（是否继续假设"OTF 可升维为可预测势场"）。
@@ -123,4 +123,33 @@
 | 对 P2 | **风险上升**：P2 假设 OTF 可升维为可预测势场；若 OTF 自身不可预测，P2 须给出"势场比标量更可预测"的机制性理由 |
 | 对 P4 | 不受影响（P4 用 OTF 做**后验**指令筛查，不依赖前瞻性） |
 | 明确未测 | 闭环控制效用、真实数据、CARLA —— 前者因**无数据**、后者因**环境未建**；**注意：算力与 CUDA 工具链已就绪**（GPU 实测可用、torch 2.11.0+cu128 验证通过），不得再以"无 GPU／无算力"为由外推 |
+
+---
+
+## 9. 本机到 GitHub 的连通性（2026-10-11 实测，**推送失败时先看这里**）
+
+**症状**：`github.com:443` 的 DNS 解析到境外 IP（如 `20.205.243.166`）会**连接超时**；即使钉到可达 IP，TLS 通道也会**间歇被重置**（`Recv failure: Connection was reset`）。`api.github.com` 一直可用（`web_fetch` 与 API 调用正常）。
+
+**绕行方法（已验证可用，无需管理员、不改 hosts）**：
+
+```powershell
+# 1) 探测哪些 GitHub 边缘 IP 可达
+foreach ($ip in '140.82.112.3','140.82.112.4','140.82.113.3','140.82.114.3','140.82.121.3','4.237.22.38','20.27.177.113') {
+  $c = New-Object System.Net.Sockets.TcpClient
+  try { $iar = $c.BeginConnect($ip,443,$null,$null)
+        if ($iar.AsyncWaitHandle.WaitOne(3000) -and $c.Connected) { "$ip 可达" } else { "$ip 超时" } } finally { $c.Close() }
+}
+
+# 2) 用 http.curloptResolve 把主机名钉到可达 IP（保留 SNI/Host，TLS 校验正常）
+git -c http.curloptResolve=github.com:443:140.82.114.3 push origin main
+
+# 3) 成功后写回仓库 local 配置（仅本仓库，不动全局）
+git config --local http.curloptResolve github.com:443:<可达IP>
+```
+
+**注意事项**
+- **IP 会失效**：同一 IP 可能几分钟前可用、之后被重置 → 失败就换下一个 IP 重试；当前写入配置的 IP 记录于此：`140.82.114.3`（2026-10-11）。
+- **本地提交不会丢**：推送失败只影响远程同步；`git log` 与工作区完好，网络恢复后 `git push` 即可。
+- 若系统代理恢复监听（注册表配的是 `127.0.0.1:7897`，实测该端口**未监听**），改用代理更稳：`git -c http.proxy=http://127.0.0.1:7897 push origin main`。
+- **不要**把这项工作当成常态：它只是网络绕行，与研究内容无关；**不要**据此改动任何研究口径。
 
