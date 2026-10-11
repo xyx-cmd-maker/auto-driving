@@ -94,9 +94,9 @@
 > **本协议目前的强制边界（诚实说明）**：脚本只校验 §0.1 的四条可机器判定常量与 §0 表的新鲜度；引用路径是否失效、协议是否被完整执行**仍无自动强制**。
 >
 > ```text
-> snapshot-date: 2026-10-08
-> results-json-count: 35
-> src-code-file-count: 6
+> snapshot-date: 2026-10-11
+> results-json-count: 36
+> src-code-file-count: 7
 > env:sumo-version: 1.27.1
 > portfolio:source: papers/portfolio.md
 > portfolio-check: status-column
