@@ -6,8 +6,8 @@ gpu:
   vram_mib: 8151
   driver: "592.15"
   compute_capability: "12.0"    # Blackwell / sm_120
-  cuda_runtime_available: false # 本机 torch 为 2.13.0+cpu（cuda_available=False）
-  requirement: "sm_120 需 CUDA 12.8+；PyTorch 官方 cu128 索引含 cp314-win_amd64 轮子"
+  cuda_runtime_available: true  # 2026-10-11 已装 torch 2.11.0+cu128（实测 11/11 通过）
+  requirement: "sm_120 需 CUDA 12.8+；已用 https://download.pytorch.org/whl/cu128 落地，详见 local-gpu.lock.yaml"
 cpu: "Intel Core i7-14650HX (16C/24T)"
 ram_gb: 15.7
 disks:
@@ -16,10 +16,10 @@ disks:
   F: {free_gb: 420.4, writable: true, note: "SanDisk Portable SSD (USB, MediaType=SSD)；CARLA 计划装此"}
 carla: not_installed
 python: "3.14.4"     # 实测：python 3.14.4 64bit
-torch: "2.13.0+cpu"  # 待换为 cu128 版（见 gpu.requirement）
+torch: "2.11.0+cu128"  # 2026-10-11 由 2.13.0+cpu 换装；GPU 侧记录见 local-gpu.lock.yaml
 notes:
   - 本锁只用于自检与规则层复现（W1–W3）；不得据此声称任何训练结果。
-  - **算力不再是阻塞项**（GPU 实测可用）；当前阻塞为：CUDA torch 未装、CARLA 未装、实车数据不在本机。
+  - **算力不再是阻塞项**（GPU 实测可用 ＋ CUDA torch 已装并验证 11/11）；当前阻塞为：**CARLA 未装**、实车数据不在本机。
   - 云端算力路线：P5 仍需 A100/H100 级，另行决策 → 见 configs/env/cloud-gpu.lock.yaml。
 
 # 交通仿真工具（2026-10-08 实际安装并验证，非计划）

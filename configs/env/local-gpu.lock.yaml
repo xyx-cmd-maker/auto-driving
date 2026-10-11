@@ -1,0 +1,61 @@
+# GPU 环境锁（2026-10-11 落地并实测）
+# 由用户明确指示安装；性质＝"换装既有库的 CUDA 版本"，非新增第三方依赖。
+# 与 local-cpu.lock.yaml 的关系：本文件是同一台机器的 GPU 侧记录，两者共同描述本机环境。
+
+kind: local-gpu
+host:
+  gpu: "NVIDIA GeForce RTX 5060 Laptop GPU"
+  vram_mib: 8151
+  driver: "592.15"                 # 已高于 CUDA 12.8 所需，无需装系统级 CUDA Toolkit
+  compute_capability: "12.0"       # Blackwell / sm_120
+  cpu: "Intel Core i7-14650HX (16C/24T)"
+  ram_gb: 15.7
+
+# ── 安装记录（授权来源 + 实际动作，供其它分支核对）──
+install:
+  authorized_by: "用户 2026-10-11 明确批准"
+  nature: "换装既有库的 CUDA 版本（全局 AGENTS.md §4 的'不安装新包'按用户指示放行，此处留痕）"
+  python: "3.14.4 (C:\\Python314\\python.exe)"
+  command: >-
+    python -m pip install --user --no-cache-dir
+    --extra-index-url https://download.pytorch.org/whl/cu128
+    "torch==2.10.0+cu128"
+    随后为解 torchvision 依赖冲突执行：
+    python -m pip install --user --no-cache-dir
+    --extra-index-url https://download.pytorch.org/whl/cu128 "torchvision==0.26.0+cu128"
+  site_packages: 'C:\Users\<user>\AppData\Roaming\Python\Python314\site-packages'
+  download_mb: 2886                # torch 轮子本体
+  version_note: >-
+    torch 原本装 2.10.0+cu128；因 torchvision 0.28.0（CPU 时代残留）强制要求 torch==2.13.0，
+    pip 在装 torchvision 0.26.0+cu128 时把 torch 自动升到 **2.11.0+cu128** 以满足配套关系。
+    最终配对：torch 2.11.0+cu128 + torchvision 0.26.0+cu128（依赖冲突已消除）。
+
+installed:
+  torch: "2.11.0+cu128"
+  torchvision: "0.26.0+cu128"
+  cuda_runtime: "12.8"             # 随轮子自带，无需系统级 CUDA Toolkit
+  cuda_toolkit: not_installed      # 本机无 nvcc；纯 PyTorch 推理/训练不需要它
+  other: {numpy: "2.4.6", scipy: "1.18.1", sklearn: "1.9.0", pandas: "2.3.3", pyyaml: "6.0.3", matplotlib: "3.10.9", onnxruntime: "1.26.0"}
+
+# ── 验证记录（可复跑：python scripts/smoke/check_gpu_env.py）──
+verified:
+  script: scripts/smoke/check_gpu_env.py
+  exit_code: 0
+  result: "11/11 全部通过"
+  evidence:
+    - "torch.cuda.is_available() = True；torch.version.cuda = 12.8"
+    - "device0 = NVIDIA GeForce RTX 5060 Laptop GPU；compute capability = sm_120（与预期一致）"
+    - "显存 7.96 GiB 可见"
+    - "2048x2048 matmul + backward（已预热）：CPU 649.3 ms / GPU 97.2 ms → **6.7x 加速**"
+    - "数值一致性：loss 差 0.000e+00；梯度最大绝对差 1.630e-08（容差 1e-3）"
+    - "fp32 / fp16 / bf16 三种精度均可用"
+    - "torchvision 实测：nms 算子可用；resnet18 CPU 与 GPU 前向均通过（out shape (2,1000)）"
+
+sm_120 要点（**给其它分支的关键约束**）:
+  - Blackwell（sm_120）需要 **CUDA 12.8 及以上**的 PyTorch 构建；旧 cu118/cu121/cu124 轮子**不含 sm_120 内核**，装了也不可用。
+  - 因此环境锁必须记 **cuXXX 后缀**，不能只记版本号——只写 "torch 2.x" 无法判断能否在本机跑。
+  - 本机可用索引：`https://download.pytorch.org/whl/cu128`（已实测含 cp314-win_amd64 的 torch 与 torchvision）。
+
+open_questions:
+  - "8 GiB 显存对 P2（世界模型训练）与 P5（联合微调）是否够用——**未测**；不够时这两篇的训练走云端，推理与小规模消融留本机。"
+  - "是否需要系统级 CUDA Toolkit（nvcc）：当前不需要（纯 PyTorch）；若将来要编译自定义算子再评估。"
