@@ -53,9 +53,16 @@
           "brier_mean": 0.08178471655995649
         },
         "delta_auc_mean": 0.0006967561646292753,
-        "delta_auc_fold_std": 0.0,
+        "delta_auc_fold_spread": 0.0,
+        "delta_auc_per_fold": [
+          0.0006967561646292753,
+          0.0006967561646292753,
+          0.0006967561646292753,
+          0.0006967561646292753,
+          0.0006967561646292753
+        ],
         "delta_auc_ci95": null,
-        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_std（折级配对差标准差）表达",
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
         "delta_brier_mean": 0.00017693050254781462
       },
       "Krauss|dynamic": {
@@ -88,9 +95,16 @@
           "brier_mean": 0.0812463112929801
         },
         "delta_auc_mean": -0.001194881488309929,
-        "delta_auc_fold_std": 0.0,
+        "delta_auc_fold_spread": 0.0,
+        "delta_auc_per_fold": [
+          -0.001194881488309907,
+          -0.001194881488309907,
+          -0.001194881488309907,
+          -0.001194881488309907,
+          -0.001194881488309907
+        ],
         "delta_auc_ci95": null,
-        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_std（折级配对差标准差）表达",
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
         "delta_brier_mean": -0.0003614747644285765
       },
       "IDM|static": {
@@ -125,9 +139,16 @@
           "brier_mean": 0.10164429930741495
         },
         "delta_auc_mean": -0.001525768472478095,
-        "delta_auc_fold_std": 0.0,
+        "delta_auc_fold_spread": 0.0,
+        "delta_auc_per_fold": [
+          -0.0015257684724781617,
+          -0.0015257684724781617,
+          -0.0015257684724781617,
+          -0.0015257684724781617,
+          -0.0015257684724781617
+        ],
         "delta_auc_ci95": null,
-        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_std（折级配对差标准差）表达",
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
         "delta_brier_mean": 0.0006353181552222475
       },
       "IDM|dynamic": {
@@ -160,9 +181,16 @@
           "brier_mean": 0.10101163603743812
         },
         "delta_auc_mean": 0.0004133611222858491,
-        "delta_auc_fold_std": 0.0,
+        "delta_auc_fold_spread": 0.0,
+        "delta_auc_per_fold": [
+          0.0004133611222858713,
+          0.0004133611222858713,
+          0.0004133611222858713,
+          0.0004133611222858713,
+          0.0004133611222858713
+        ],
         "delta_auc_ci95": null,
-        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_std（折级配对差标准差）表达",
+        "delta_auc_ci95_note": "跨 CV 随机种子的 ΔAUC 完全一致 → CI 退化为点，不予报告；不确定性以 delta_auc_fold_spread（折级配对差的范围）表达",
         "delta_brier_mean": 2.654885245423344e-06
       }
     }
