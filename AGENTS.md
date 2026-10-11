@@ -22,10 +22,11 @@
 | 分支 | 角色 | 主要产出/落点 | 状态 | 最后更新 |
 |---|---|---|---|---|
 | **主支**（本对话） | 立项、资产盘点、引用核验、实验契约、风险登记、组会材料、**文件族与同步协议**；**负责把分支产出收编进项目级约定** | `AGENTS.md`＋`AGENTS-PROJECT.md`＋`AGENTS-NORMS.md`、`scripts/smoke/check_agents_family.mjs`、`audit/第一次组会/00`–`05`、`audit/第二次组会/组会汇报-第二次-*.docx`、`README.md`、`configs/**`、`papers/portfolio.md` | 进行中（2026-10-11：文件族拆分＋技能路由＋venue 策略＋三问/验证协议；2026-10-08：骨架重写、风险 12 条、第二次组会文档） | 2026-10-11 |
-| **层 3 精读分支** | 文献检索与深度精读（九技能流水线）；产出 P1 的文献图与逐篇限定语 | `literature/**`（`search-log.md`、`library/P1-library.jsonl`＋`merge-report.md`、`notes/citation-qualifiers.md`、`meeting2/notes/**`、`fresh2024/notes/**`、`fulltext/**`、`refs.bib`） | 已产出，见 §1 新增约束 | 2026-10-06 |
+| **层 3 精读分支** | 文献检索与深度精读（九技能流水线）；产出 P1 的文献图与逐篇限定语 | `literature/**`（`search-log.md`、`library/P1-library.jsonl`＋`merge-report.md`、`notes/citation-qualifiers.md`、`meeting2/notes/**`、`fresh2024/notes/**`、`fulltext/**`、`refs.bib`） | 已产出，见 §1 新增约束。**2026-10-11 由主支补记**：`literature/` 下新增 **P3/P4/P5 三张文献图**（`p3/`、`p4/`、`p5/`，各含 `文献需求-50篇顶刊.md`＋`candidates.jsonl`＋`verified.jsonl`＋`search-log.md`）与工具 `scripts/literature/discover.mjs`、`triage.mjs`——**这批产物由主支完成**（用户指派），非本分支自产；本分支自身的既有产物未改动 | 2026-10-11 |
 | **第二次组会分支** | 按主题归档论文原文并做会前材料 | `audit/第二次组会/**`（TITS、决策基线、连续时间流体神经网络三组 PDF） | 进行中 | 2026-10-08 |
 | **分支：SUMO 环境线**（本对话，2026-10-08 登记） | 本机交通仿真工具链落地与验证（老师指派装 SUMO）；**只记录环境事实，不改研究设计** | SUMO 1.27.1 已装至 `D:\SUMO\sumo-1.27.1`（便携 ZIP、官方 SHA256 核验一致、无需管理员）；完整事实与四条验证记录见 `configs/env/local-cpu.lock.yaml` 的 `sumo:` 段；本文件 §2、§3、§7 与 `README.md` 已同步。**2026-10-11 由主支补记**：该锁文件新增 `gpu:` 段（GPU 实测纠正） | 安装完成且实测通过；**定位已裁决＝路线 B（2026-10-08）**，见 §2 | 2026-10-11 |
-| **分支：GPU 环境线**（2026-10-11 登记，同属本对话） | CUDA 版 PyTorch 落地与验证；**只记录环境事实，不改研究设计** | [`configs/env/local-gpu.lock.yaml`](configs/env/local-gpu.lock.yaml)（安装记录＋11 项验证证据＋sm_120 约束）、`scripts/smoke/check_gpu_env.py`（可复跑自检） | 完成：torch 2.11.0+cu128 ＋ torchvision 0.26.0+cu128，**11/11 通过、6.7× 加速**；CARLA 待装 | 2026-10-11 |
+| **分支：GPU 环境线**（2026-10-11 登记，同属本对话） | CUDA 版 PyTorch 落地与验证；**只记录环境事实，不改研究设计** | [`configs/env/local-gpu.lock.yaml`](configs/env/local-gpu.lock.yaml)（安装记录＋11 项验证证据＋sm_120 约束）、`scripts/smoke/check_gpu_env.py`（可复跑自检） | 完成：torch 2.11.0+cu128 ＋ torchvision 0.26.0+cu128，**11/11 通过、6.7× 加速**；CARLA 见下行 | 2026-10-11 |
+| **分支：CARLA 环境线**（2026-10-11 登记，同属本对话） | CARLA 仿真器落地与验证；**只记录环境事实，不改研究设计** | [`configs/env/local-carla.lock.yaml`](configs/env/local-carla.lock.yaml)、`scripts/smoke/check_carla_env.py`；装于 `F:\CARLA`（18.07 GB），桌面 3 个快捷方式 | **服务端 ✅ 实测启动**（29 s 端口就绪、GPU 3.9 GiB）；**⚠ 客户端受阻：官方 wheel 仅 cp312，本机 3.14/3.13 均不可用（实测），需装 Python 3.12 → 等用户决策** | 2026-10-11 |
 | **资料归档（非分支）** | 用户手工整理的原始资料库 | `自动驾驶_世界模型科研汇总/**`（蓝图×2、参考文献清单、DriveDreamer、Drive as You Speak、黄梦圆学位论文、`Automatic_feild_Top_Paper/**` 分期刊归档） | 只读，**不视为项目结论来源** | —（非分支，不校验） |
 
 > ⚠️ **上表"最后更新"列的校验**：`scripts/smoke/check_branch_freshness.mjs` 会读下表的 `watch-paths`，算出每个分支**产出落点的最新文件 mtime**，与本列比对；**落后超过 3 天即报 stale（退出码 1）**。
@@ -38,6 +39,7 @@
 >   第二次组会分支: audit/第二次组会
 >   分支：SUMO 环境线: configs/env, scripts/smoke
 >   分支：GPU 环境线: configs/env/local-gpu.lock.yaml, scripts/smoke/check_gpu_env.py
+>   分支：CARLA 环境线: configs/env/local-carla.lock.yaml, scripts/smoke/check_carla_env.py
 > ```
 
 > ⚠️ **路径纪律**：`audit/` 下的文件**按会议轮次分子目录**（`第一次组会/`、`第二次组会/`）。本文件中出现的 `audit/00-…` 等简写，实际路径为 `audit/第一次组会/00-…`；分支新增产物必须写**完整相对路径**，避免跨分支引用失效。
@@ -70,7 +72,7 @@
 
 | 论文 | 状态（来源：`papers/portfolio.md`） | 前提是否满足 |
 |---|---|---|
-| P1 OTF-CfC | 蓝图完成，未开工 | **部分满足**：GPU **有且算力链路已通**（RTX 5060 8 GB / sm_120；torch 2.11.0+cu128 实测 11/11，见 §2）；仍缺**实车数据**与**CARLA 环境** |
+| P1 OTF-CfC | 蓝图完成，未开工 | **部分满足**：GPU **有且算力链路已通**（RTX 5060 8 GB / sm_120；torch 2.11.0+cu128 实测 11/11）；**CARLA 已装且服务端实测可启**（0.9.16 于 `F:\CARLA`）；仍缺**实车数据**与**CARLA Python 客户端**（需 Python 3.12） |
 | P2 SocialDreamer | 蓝图完成，未开工 | 未验证（依赖公开数据访问） |
 | P3 TalkOTF | 蓝图完成，未开工 | 未验证（需自建 500–1000 条配对数据） |
 | P4 IsoLNN | 蓝图完成，未开工 | 未验证（依赖 P1 控制器） |
@@ -81,8 +83,8 @@
 | 立项与契约 | 资产盘点、仓库骨架、结果 schema、环境锁、**风险登记表 12 条**、审计编号表、**`audit/第一次组会/01-p1-plan.md` 二十四周逐周计划（2026-10-08 交付）** | —（`01-` 已补，编号表齐全） |
 | 文献 | 30 条 venue 全量核验（17 处修正，清单已由 `audit/05-` 迁至 `audit/第一次组会/05-citations.md`，**literature 分支已同步其引用路径**）；`literature/**` 文献图＋逐字限定语；**第二次组会精读记录 23 篇 + 2024+ 增量分诊** | P2–P5 的文献图；OpenAlex 引文展开（额度耗尽，**"外部复现"列仍为"未检"**） |
 | 组会交付物 | **第一次组会**：汇报 docx（7 页）＋前提准备 PDF；**第二次组会（2026-10-08 新增）**：`组会汇报-第二次-P1文献底座与三条硬约束.docx`（5 页/3933 字/6 表）＋同名 PDF，生成器 `scripts/make_meeting2_docx.py` | 第二次组会正文待补汇报人与日期两处 `【待填】` |
-| 环境 | **GPU 算力链路已通**：RTX 5060 Laptop 8 GB / sm_120 ＋ **torch 2.11.0+cu128**（11/11 验证、6.7× 加速，见 §2）；**SUMO 1.27.1 四项实测通过**（纯 CPU）；SUMO→OTF 采集链路跑通＋真值校验 | **CARLA**（计划装 F: 移动 SSD）、SUMO 场景库；动态时间窗（论文系数未公开） |
-| 工具与数据 | **`results/p1/` 有 36 份真实算例**（35 份 OTF 分布 + **1 份 A1 信息量版**；schema 校验通过、种子独立性 4/4 通过）；`src/` 7 个实现文件；**A1 负结果已出结论**（`audit/第一次组会/06-a1-otf-information-bound.md`） | 实车数据（申请函待发）、TD3 代码/权重、CARLA、**与论文的严格对拍**（存在归一化口径差异 + 非重叠窗口，目前只能比趋势）、动态时间窗、`src/eval|ctrl|metrics` 正式实现 |
+| 环境 | **GPU 算力链路已通**：RTX 5060 Laptop 8 GB / sm_120 ＋ **torch 2.11.0+cu128**（11/11 验证、6.7× 加速，见 §2）；**CARLA 0.9.16 已装于 `F:\CARLA`（18.07 GB）且服务端实测启动成功**（29 s 就绪）；**SUMO 1.27.1 四项实测通过**（纯 CPU）；SUMO→OTF 采集链路跑通＋真值校验 | **CARLA Python 客户端**（需 Python 3.12，等用户决策）、SUMO 场景库；动态时间窗（论文系数未公开） |
+| 工具与数据 | **`results/p1/` 有 36 份真实算例**（35 份 OTF 分布 + **1 份 A1 信息量版**；schema 校验通过、种子独立性 4/4 通过）；`src/` 7 个实现文件；**A1 负结果已出结论**（`audit/第一次组会/06-a1-otf-information-bound.md`） | 实车数据（申请函待发）、TD3 代码/权重、**CARLA Python 客户端（需 Python 3.12）**、与论文的严格对拍（存在归一化口径差异 + 非重叠窗口，目前只能比趋势）、`src/eval|ctrl|metrics` 正式实现 |
 
 **待裁决（阻塞）**：① ~~SUMO 定位~~ **已裁决＝路线 B（§2）**；② ~~算力路线~~ **已裁决＝先降级只跑 CPU（§3）**；③ ~~TD3 基线~~ **已裁决＝先写引用值、主表分两栏（§3）**；④ ~~时间基准~~ **已裁决＝按相对周排**；⑤ **仍待确认**：起始日（相对周起算点）与各论文投稿截止；⑥ **仍待确认**：P1 是否补报振荡阻尼比 g_p 与交通流稳定性 f_flow（第二次组会 §3.3，见 `literature/fresh2024/notes/natcommun2025-platoon-knowledge-guided.md`）。
 
@@ -131,12 +133,15 @@
 - **★ 本机交通仿真工具（2026-10-08 实测，非计划）**：**Eclipse SUMO 1.27.1 已装于 `D:\SUMO\sumo-1.27.1`**（便携 ZIP 解压，非 MSI；官方 SHA256 核验一致），`SUMO_HOME` 与用户级 `PATH` 已配置，14 个工具齐全；`sumo --version`、`netgenerate` 造网、端到端仿真、**Python TraCI 实连仿真** 四项均已跑通。完整事实与验证记录见 `configs/env/local-cpu.lock.yaml` 的 `sumo:` 段。
   - **★ 定位已裁决（用户 2026-10-08）＝ 路线 B：只做交通流生成 / 合成 OTF 真值**。即：**SUMO 不替换 CARLA、不做联合仿真**，只承担"生成带 OTF 真值的合成高速混行交通流"（风险 R13 备选 B1），供 A1 消融的合成版本使用。
     - **因此下列硬约束一字不改**：§1 的措辞上限仍为"在 CARLA 与真实数据回放中"；SUMO 结果只能表述为"**在 SUMO 合成交通流中**"，**不得**写成 CARLA、不得写成实车；§3 的公平性条款（同一 CARLA 地图版本）照旧；§5 的 sim-to-real 条款照旧。
-    - **连带后果**：CARLA 仍属"未建"（前提未满足之一），SUMO 不能替代它；R14（CARLA 从零重建）**保持开放**，不因装了 SUMO 而关闭。
+    - **连带后果（2026-10-11 更新）**：**CARLA 已于同日装好并实测启动**（见下"本机算力"段的 CARLA 部分），因此 **R14（CARLA 从零重建）风险关闭**；但**客户端仍缺 Python 3.12**，闭环实验尚不能开跑。
 - **★ 本机算力（2026-10-11 实测，纠错）**：**NVIDIA GeForce RTX 5060 Laptop GPU，显存 8151 MiB，驱动 592.15，compute capability 12.0（Blackwell / sm_120）**；CPU i7-14650HX（16 核 24 线程）；内存 15.7 GB。
   - **旧口径作废**：此前多处写的"本机无 GPU"**来自一次问答选项，从未实测核实**——现予撤销，全库已同步纠正。
   - **✅ 已完成（2026-10-11）**：装好 CUDA 版 PyTorch 并**实测通过 11/11**——最终配对 **torch 2.11.0+cu128 ＋ torchvision 0.26.0+cu128**，`cuda.is_available()=True`、`version.cuda=12.8`、**sm_120 一致**、2048² matmul+backward 实测 **6.7× 加速**、fp32/fp16/bf16 均可用。完整安装与验证记录见 [`configs/env/local-gpu.lock.yaml`](configs/env/local-gpu.lock.yaml)；复跑命令 `python scripts/smoke/check_gpu_env.py`。
   - **sm_120 硬约束（给其它分支）**：Blackwell 需 **CUDA 12.8+** 的 PyTorch 构建；**环境锁必须记 `cuXXX` 后缀**，只写"torch 2.x"无法判断本机能否跑。可用索引：`https://download.pytorch.org/whl/cu128`。
-  - **仍缺**：**CARLA 未装**（计划装 F: 移动 SSD，420 GB 可用）；实车数据不在本机。
+  - **✅ CARLA 已装（2026-10-11）**：**0.9.16（UE 4.26）装于 `F:\CARLA`，18.07 GB**；**服务端实测启动成功**（`CarlaUE4.exe -quality-level=Low` → 29 s 端口就绪，GPU 显存 3.9 GiB）；桌面已建 3 个快捷方式。完整记录见 [`configs/env/local-carla.lock.yaml`](configs/env/local-carla.lock.yaml)，冒烟脚本 `scripts/smoke/check_carla_env.py`。
+    - ⚠️ **客户端受阻（需用户决策）**：官方 wheel 仅 `cp312`（`PythonAPI/carla/dist/carla-0.9.16-cp312-cp312-win_amd64.whl`）。**实测**：Python 3.14 直接被 pip 拒（`not a supported wheel on this platform`）；改标签装进 3.13 后 `import carla` 报 `No module named 'carla.libcarla'`。→ **必须 Python 3.12**，等用户确认后才装。
+    - 注意：本机虽已装 **UE 5.3**（`F:\UE_5.3`），但 CARLA 0.9.16 基于 **UE 4.26**，**不能复用该引擎**。
+  - **仍缺**：**实车数据不在本机**；CARLA Python 客户端（等 Python 3.12）。
   - **磁盘布局**：C: 31.5 GB 可用（沙箱只读）／D: 46.9 GB 可用／**F: 移动 SSD 420.4 GB 可用**。约定：**PyTorch 装本机**（必须跟随解释器）、**CARLA 装 F:**（自包含、体积大，给本机省空间）。
 - **公开数据**：nuScenes / Waymo（P2 用）遵守各自许可，**不得再分发**原始数据；**OTF 自动标注流水线是 P2 的隐性关键路径，须在第 2 个月启动**。
 - **结果唯一来源**：`results/<paper>/<experiment>_<scenario>_<seedset>.json`（本项目约定）。数字必须可指到文件名与字段；自检、冒烟、调试产物不得进入任何对外文本。
@@ -178,7 +183,7 @@
 ## 7. 待确认（写死之前先问我）
 
 - 学位论文数据集位置/规模/标注格式；TD3 代码或权重是否可得。
-- CARLA 环境与版本。**GPU 已实测并已装好 CUDA 版 PyTorch（2026-10-11，见 §2）**；**唯一剩余的环境缺口是 CARLA**（计划装 F: 移动 SSD）。P5 的云端 A100/H100 仍需另行决策（8 GiB 显存对 P2/P5 训练是否够用未测）。
+- CARLA：**已装并用实测锁定版本 0.9.16（UE 4.26），见 §2**。**唯一待决策项是 CARLA 的 Python 客户端**——官方 wheel 仅支持 Python 3.12，本机 3.14/3.13 实测均不可用，**是否并装 Python 3.12 等用户拍板**。P5 的云端 A100/H100 仍需另行决策（8 GiB 显存对 P2/P5 训练是否够用未测）。
 - ~~SUMO 定位~~ → **已裁决 2026-10-08＝路线 B（只做交通流生成 / 合成 OTF 真值），见 §2**。
 - ~~算力路线~~ → **已裁决 2026-10-08＝先降级只跑 CPU，见 §3**。
 - ~~TD3 基线引用还是复现~~ → **已裁决 2026-10-08＝先写引用值、主表分两栏，见 §3**。
