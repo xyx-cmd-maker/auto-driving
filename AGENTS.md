@@ -26,7 +26,7 @@
 | **第二次组会分支** | 按主题归档论文原文并做会前材料 | `audit/第二次组会/**`（TITS、决策基线、连续时间流体神经网络三组 PDF） | 进行中 | 2026-10-08 |
 | **分支：SUMO 环境线**（本对话，2026-10-08 登记） | 本机交通仿真工具链落地与验证（老师指派装 SUMO）；**只记录环境事实，不改研究设计** | SUMO 1.27.1 已装至 `D:\SUMO\sumo-1.27.1`（便携 ZIP、官方 SHA256 核验一致、无需管理员）；完整事实与四条验证记录见 `configs/env/local-cpu.lock.yaml` 的 `sumo:` 段；本文件 §2、§3、§7 与 `README.md` 已同步。**2026-10-11 由主支补记**：该锁文件新增 `gpu:` 段（GPU 实测纠正） | 安装完成且实测通过；**定位已裁决＝路线 B（2026-10-08）**，见 §2 | 2026-10-11 |
 | **分支：GPU 环境线**（2026-10-11 登记，同属本对话） | CUDA 版 PyTorch 落地与验证；**只记录环境事实，不改研究设计** | [`configs/env/local-gpu.lock.yaml`](configs/env/local-gpu.lock.yaml)（安装记录＋11 项验证证据＋sm_120 约束）、`scripts/smoke/check_gpu_env.py`（可复跑自检） | 完成：torch 2.11.0+cu128 ＋ torchvision 0.26.0+cu128，**11/11 通过、6.7× 加速**；CARLA 见下行 | 2026-10-11 |
-| **分支：CARLA 环境线**（2026-10-11 登记，同属本对话） | CARLA 仿真器落地与验证；**只记录环境事实，不改研究设计** | [`configs/env/local-carla.lock.yaml`](configs/env/local-carla.lock.yaml)、`scripts/smoke/check_carla_env.py`；装于 `F:\CARLA`（18.07 GB），桌面 3 个快捷方式；**并装 Python 3.12.10**（仅 CARLA 用）＋ 官方 wheel | **✅ 全线打通**：服务端 25 s 就绪、**Python 客户端连通 8/8**、**Town04 在 13 张可用地图内**；闭环实验的环境前提已清空 | 2026-10-11 |
+| **分支：CARLA 环境线**（2026-10-11 登记，同属本对话） | CARLA 仿真器落地与验证；**只记录环境事实，不改研究设计** | [`configs/env/local-carla.lock.yaml`](configs/env/local-carla.lock.yaml)、`scripts/smoke/check_carla_env.py`（连通冒烟 8/8）、**`src/envs/carla_town04.py`（闭环环境，自检 8/8）**、`src/ctrl/cfc.py`、`src/eval/metrics.py`；**装于 `D:\CARLA`**（18.07 GB，原 F: 因掉盘搬迁），桌面 3 个快捷方式；**并装 Python 3.12.10**（仅 CARLA 用） | **✅ 全线打通**：服务端 25 s 就绪、客户端 8/8、**Town04 可用**、**闭环环境自检 8/8**（前车检测 50.9 m、场景注入 500 样本、实时倍率 2.27×） | 2026-10-11 |
 | **资料归档（非分支）** | 用户手工整理的原始资料库 | `自动驾驶_世界模型科研汇总/**`（蓝图×2、参考文献清单、DriveDreamer、Drive as You Speak、黄梦圆学位论文、`Automatic_feild_Top_Paper/**` 分期刊归档） | 只读，**不视为项目结论来源** | —（非分支，不校验） |
 
 > ⚠️ **上表"最后更新"列的校验**：`scripts/smoke/check_branch_freshness.mjs` 会读下表的 `watch-paths`，算出每个分支**产出落点的最新文件 mtime**，与本列比对；**落后超过 3 天即报 stale（退出码 1）**。
@@ -138,7 +138,7 @@
   - **旧口径作废**：此前多处写的"本机无 GPU"**来自一次问答选项，从未实测核实**——现予撤销，全库已同步纠正。
   - **✅ 已完成（2026-10-11）**：装好 CUDA 版 PyTorch 并**实测通过 11/11**——最终配对 **torch 2.11.0+cu128 ＋ torchvision 0.26.0+cu128**，`cuda.is_available()=True`、`version.cuda=12.8`、**sm_120 一致**、2048² matmul+backward 实测 **6.7× 加速**、fp32/fp16/bf16 均可用。完整安装与验证记录见 [`configs/env/local-gpu.lock.yaml`](configs/env/local-gpu.lock.yaml)；复跑命令 `python scripts/smoke/check_gpu_env.py`。
   - **sm_120 硬约束（给其它分支）**：Blackwell 需 **CUDA 12.8+** 的 PyTorch 构建；**环境锁必须记 `cuXXX` 后缀**，只写"torch 2.x"无法判断本机能否跑。可用索引：`https://download.pytorch.org/whl/cu128`。
-  - **✅ CARLA 全线打通（2026-10-11）**：**0.9.16（UE 4.26）装于 `F:\CARLA`，18.07 GB**；桌面 3 个快捷方式。完整记录见 [`configs/env/local-carla.lock.yaml`](configs/env/local-carla.lock.yaml)，冒烟脚本 `scripts/smoke/check_carla_env.py`。
+  - **✅ CARLA 全线打通（2026-10-11）**：**0.9.16（UE 4.26）装于 `D:\CARLA`，18.07 GB**（原装 `F:\CARLA`，因移动 SSD 在大 I/O 后掉盘而**搬迁到内置 D:**，`robocopy` 校验 31 417 文件 / 18.065 GB 完全一致）；桌面 3 个快捷方式。完整记录见 [`configs/env/local-carla.lock.yaml`](configs/env/local-carla.lock.yaml)，冒烟脚本 `scripts/smoke/check_carla_env.py`。
     - **服务端**：`CarlaUE4.exe -quality-level=Low` → **25 秒**端口就绪（GPU 显存约 3.9 GiB）。
     - **Python 客户端**：官方 wheel 仅 `cp312`。**实测**：3.14 被 pip 拒；改标签进 3.13 报 `No module named 'carla.libcarla'`（ABI 不兼容）；**装 Python 3.12.10 后成功**。
       - **Python 3.12.10 为并装**（`py -3.12`，`C:\Users\...\Programs\Python\Python312`），**只给 CARLA 用**；**主用 3.14 不受影响**（实测 torch 2.11.0+cu128、cuda=True 仍正常）。安装包签名 **Authenticode Valid，签名者 Python Software Foundation**。
@@ -147,7 +147,8 @@
     - ⚠️ **操作提示**：冒烟后 `CarlaUE4-Win64-Shipping` 子进程可能残留（约 1.3 GB 内存），需显式 `Stop-Process` 清理。
     - 注意：本机虽已装 **UE 5.3**（`F:\UE_5.3`），但 CARLA 0.9.16 基于 **UE 4.26**，**不能复用该引擎**。
   - **仍缺**：**实车数据不在本机**（唯一的实质前提缺口）。**闭环 A1 的环境前提已全部清空。**
-  - **磁盘布局**：C: 31.5 GB 可用（沙箱只读）／D: 46.9 GB 可用／**F: 移动 SSD 420.4 GB 可用**。约定：**PyTorch 装本机**（必须跟随解释器）、**CARLA 装 F:**（自包含、体积大，给本机省空间）。
+  - **磁盘布局**：C: 27.3 GB 可用（系统盘，**实际最紧的一个**；可回收：pip 缓存 5.45 GB、conda pkgs 2.63 GB、npm 缓存 2.43 GB）／**D: 28.7 GB 可用（CARLA 在此，占 18.07 GB）**／E: 8.2 GB／**F: 移动 SSD 365.8 GB 可用**。
+    - 约定：**PyTorch 装本机**（必须跟随解释器）；**CARLA 放内置 D:**（移动 SSD 实测在大 I/O 后掉过盘）；**会增长的产物（checkpoint、轨迹日志）写 F:**（空间充裕），仓库内只保留 schema 要求的小 JSON。
 - **公开数据**：nuScenes / Waymo（P2 用）遵守各自许可，**不得再分发**原始数据；**OTF 自动标注流水线是 P2 的隐性关键路径，须在第 2 个月启动**。
 - **结果唯一来源**：`results/<paper>/<experiment>_<scenario>_<seedset>.json`（本项目约定）。数字必须可指到文件名与字段；自检、冒烟、调试产物不得进入任何对外文本。
 
