@@ -22,6 +22,8 @@ const TOPIC_META = {
         usage: "安全隔离层的机制来源、可引用的规范边界、以及 P4 的净增量论证" },
   p5: { name: "P5 AdjointStack", zh: "混合频率伴随敏感度与联合微调", total: 50, perTheme: 4,
         usage: "伴随法与双层优化的理论工具、混合频率训练先例、以及 P5 的方法论边界" },
+  p2: { name: "P2 SocialDreamer", zh: "以 OTF 社会压力场为结构条件模态的驾驶世界模型", total: 50, perTheme: 4,
+        usage: "世界模型与条件生成的方法底座、社会交互/压力场的表征先例、以及 P2 相对 DriveDreamer（结构条件为 HDMap/3D Box）的净增量论证" },
 };
 
 // 顶刊/顶会加权（venue 名做小写包含匹配）
@@ -52,6 +54,12 @@ const META_BLACKLIST = [
 // 早期版本把 simulat / planning / dynam cal 也算语境，结果放进了组织力学、粘弹性、时空混沌等
 // 与控制系统无关的工作（实测）。收紧为控制侧专有词。
 const DOMAIN_ANCHORS = {
+  // p2 —— 用**双层**口径（与 p5 同理，见 METHOD_ANCHORS.p2）：
+  //   本层 = **驾驶语境**词。检索词 "diffusion model"、"interaction"、"world model" 是全学科
+  //   通用的，单层过滤会放进小脑动力学、声呐成像、机械臂遥操作等（实测，已剔除）。
+  //   因此这一层必须真的是"车/路/交通"语境，世界模型类词放在下一层。
+  p2: ["driv", "vehicle", "autonomous", "traffic", "car", "transport", "road", "lane", "platoon",
+       "intersection", "highway", "pedestrian", "adas", "self-driving", "ego"],
   p3: ["driv", "vehicle", "autonomous", "traffic", "car", "transport", "robot", "road", "lane", "platoon",
        "ground", "embodied", "navigation", "spatial", "scene", "motion", "behavi"],
   p4: ["driv", "vehicle", "autonomous", "robot", "control", "traffic", "safety", "collision", "platoon", "manipulat", "uav", "flight"],
@@ -68,8 +76,15 @@ const OFF_DOMAIN_APPS = [
   "quantum", "smart grid", "power system", "photogrammetr", "agricultur", "finance",
   "social network", "recommend", "speech", "music", "art restoration",
 ];
-// 仅 p5 用：方法词（双层过滤的第一层）
+// 仅 p2 / p5 用：方法词（双层过滤的第一层，必须与 DOMAIN_ANCHORS 同时命中）
 const METHOD_ANCHORS = {
+  // p2 的方法层 = 世界模型 / 条件生成 / 交互表征。与驾驶语境层同时命中 ⇒ 图里只剩
+  // "驾驶 + 世界模型"这一交集，正是 P2 的定位域（OTF 条件世界模型）。
+  p2: ["world model", "occupancy", "scene generation", "scene synthesis", "generative",
+       "diffusion", "conditional", "controllable", "latent", "forecast", "prediction",
+       "interaction field", "social force", "social interaction", "traffic simulation",
+       "simulation", "multi-agent", "neural rendering", "gaussian splatting", "video prediction",
+       "representation learning", "foundation model"],
   p5: ["neural ordinary differential", "neural ode", "adjoint", "implicit differentiation",
        "differentiable", "bilevel", "bi-level", "meta-learning", "hyperparameter", "sensitivity",
        "multi-timescale", "multi-scale", "mixed frequency", "gradient", "inverse problem",

@@ -21,6 +21,26 @@ const TODAY = new Date().toISOString().slice(0, 10);
 
 // ── 每篇论文的检索主题（theme 即最终文献图的分节）──
 const TOPICS = {
+  p2: {
+    name: "P2 SocialDreamer",
+    title: "以 OTF 社会压力场为结构条件模态的驾驶世界模型",
+    from: "2019-01-01",
+    // 检索式设计依据（写在此处以便复核，而不是事后猜）：
+    //   P2 的定位是"**首个以交通流社会压力场（OTF 场）为结构条件模态**的世界模型"，
+    //   对标对象 DriveDreamer（ECCV 2024）的结构条件是 HDMap / 3D Box。
+    //   主题分四组：世界模型本体、条件模态与可控生成、社会交互/压力场、交通流与多智能体。
+    //   **不得**把"是否已有 OTF 条件世界模型"当作已知——这正是本检索要回答的空缺。
+    queries: [
+      { id: "P2-T1", theme: "驾驶世界模型（预测/规划）", q: '"world model" AND ("autonomous driving" OR "driving")' },
+      { id: "P2-T2", theme: "驾驶场景生成与合成", q: '"driving scene" AND ("generation" OR "synthesis") AND ("world model" OR "diffusion")' },
+      { id: "P2-T3", theme: "条件模态与可控 rollout", q: '"conditional" AND "world model" AND ("controllable" OR "conditioning")' },
+      { id: "P2-T4", theme: "社会交互与压力场建模", q: '("social force" OR "social interaction" OR "interaction field") AND (driving OR vehicle OR traffic)' },
+      { id: "P2-T5", theme: "交互感知的行为/轨迹预测", q: '"interaction-aware" AND ("trajectory prediction" OR "behavior prediction") AND vehicle' },
+      { id: "P2-T6", theme: "多智能体交通流仿真与生成", q: '"multi-agent" AND ("traffic simulation" OR "traffic flow") AND ("learning" OR "generative")' },
+      { id: "P2-T7", theme: "占用/潜空间世界模型", q: '("occupancy" OR "latent") AND "world model" AND driving' },
+      { id: "P2-T8", theme: "扩散模型用于轨迹与场景生成", q: '"diffusion model" AND ("trajectory" OR "scene") AND ("prediction" OR "generation") AND driving' },
+    ],
+  },
   p3: {
     name: "P3 TalkOTF",
     title: "语言 → OTF 定量 grounding 与指令合法性检查",
