@@ -11,6 +11,7 @@
 | **`AGENTS.md`**（本文件） | 入口：身份与红线、分支登记、开工协议、三问自检、待确认项、资料库索引 | **每次开工** | 红线/登记/协议变更时 |
 | [`AGENTS-PROJECT.md`](AGENTS-PROJECT.md) | **项目进程同步**：目的、成果形态、venue 策略与纪律、进度快照、术语表、收工检查清单 | **每次开工** | **每轮收工**（快照必须更新） |
 | [`AGENTS-NORMS.md`](AGENTS-NORMS.md) | **技能路由**（代码类/学术类触发即调用）、学术写作工作流、多轮验证协议、拆分规则 | **每次开工** | 技能或协议变更时 |
+| [`AGENTS-LESSONS.md`](AGENTS-LESSONS.md) | **错误登记与预防**（★用户 2026-10-12 指定）：8 类反复错误模式 + 逐次明细 + 强制手段；**每轮收工必须追加一行** | **每次开工** | **每轮收工**（哪怕"本轮无新增"也要写一行） |
 
 > 规则：新增规范**优先落到子文件**；本文件只保留入口级内容。**拆分与登记规则**见 `AGENTS-NORMS.md` §3；校验脚本 `scripts/smoke/check_agents_family.mjs`。
 > **开工时**先跑 `node scripts/smoke/check_agents_family.mjs`（文件族完整性）＋ `check_progress_snapshot.mjs`（快照常量）＋ `check_branch_freshness.mjs`（分支新鲜度）。
@@ -34,7 +35,7 @@
 >
 > ```text
 > branch-watch:
->   主支: AGENTS.md, AGENTS-PROJECT.md, AGENTS-NORMS.md, audit/第一次组会, audit/第二次组会, papers, configs, docs, scripts, README.md
+>   主支: AGENTS.md, AGENTS-PROJECT.md, AGENTS-NORMS.md, AGENTS-LESSONS.md, audit/第一次组会, audit/第二次组会, papers, configs, docs, scripts, README.md
 >   层 3 精读分支: literature
 >   第二次组会分支: audit/第二次组会
 >   分支：SUMO 环境线: configs/env, scripts/smoke
@@ -62,6 +63,7 @@
    - **本分支上一轮的产出是否已被收编**（例：`audit/` 文件被移入 `第一次组会/`）？**被搬动就必须同步修正引用路径**。
    - 发现信息差 → **先修引用、先补登记，再开始本轮任务**。
 3. **实时更新进度，不攒到最后**：完成任何改变项目状态的工作（新增/搬动/重命名文件、装工具、改环境变量、产出风险条目、改台账）后，**当场**更新：§0 本分支行状态 → [`AGENTS-PROJECT.md`](AGENTS-PROJECT.md) §4 快照 →（涉及状态变更时）`papers/portfolio.md`。
+3.1. **收工时写错题本**（用户 2026-10-12 指定，强制）：在 [`AGENTS-LESSONS.md`](AGENTS-LESSONS.md) §4 追加一行（含"本轮无新增"）；若有本轮被证据推翻的判断/返工/被用户纠正/造成副作用，追加到 §2 明细表；同一模式出现 ≥2 次则升级到 §1 并**补一条机器可校验的强制手段**。
 4. **不凭记忆**：任何"已完成/已核对/我记得"必须先落到文件或命令输出上。长对话里记忆会与磁盘事实分叉，**磁盘优先**。
 5. **不瞎猜**：判断前按 [`AGENTS-NORMS.md`](AGENTS-NORMS.md) §2 的多轮验证协议取证；工具与平台行为查官方文档，文献主张查本库或做一次可核验检索。
 
@@ -178,6 +180,35 @@
 ## 6. 交付与语言
 
 - 稿件：**英文**（目标 venue 均为英文）；与我讨论、解释、给判断：**中文**。
+
+### 6.1 ★ 首选 venue 已裁决（2026-10-12 联网核验后定稿）
+
+**裁决：P1 首投 `IEEE Transactions on Intelligent Vehicles`（T-IV），第一备选 `IEEE T-ITS`。**
+（此处与 `AGENTS-PROJECT.md` 原策略"T-ITS 主 / T-IV 备"**顺序相反**——以本表为准，理由见下。）
+
+| venue | 联网核验到的事实（2026-10-12 取用） | 判定 |
+|---|---|---|
+| **T-IV** | CiteScore **19.9**；Q1 级排名：Control and Optimization **3/198**、Automotive Engineering **3/143**、AI **28/570**；SCIE 收录；年发文 382；ISSN 2379-8858；范围明写"**intelligent vehicles in a roadway environment, and in particular in automated vehicles**" | **★ 首投**。范围与"高速混行场景下的自动驾驶车辆控制器"**逐字对口**；小体量（382 篇/年）意味着编辑对单篇的注意力更多 |
+| **T-ITS** | CiteScore **20.5**；CiteScore 排名：Automotive Eng **2/143**、Mechanical Eng 16/740、CS Applications 27/1022；SCIE；WoS **Q1**（Eng. Civil 8/193、EE 25/369、Transportation Sci 7/80）；审稿约 **3 个月**；竞年量 1656 篇；Regular 10 页 + 最多 6 页超页（$175/页） | 第一备选。指标略高、体量更大，但**desk 门槛有一条硬规则**（见下），需要重写摘要与 Fig.1 |
+| TVT | 联网未取到可靠事实 | 不作首选（范围偏车载电子/通信） |
+
+**T-ITS 的 desk 硬规则（必须照做，否则会被转投 TVT/TCST）**——核验来源明确指出：
+T-ITS 编辑会检查"**交通系统贡献是否为承载性主张，而不只是应用场景**"；
+若把"道路/车辆/交通/基础设施/移动性"语境**去掉之后贡献仍然成立**，稿件会被转投 T-COM / T-WC / TCST / TVT。
+此外要求**用已建立的 ITS 基准**做对比（其示例清单含 **CARLA**、NGSIM、PeMS、nuScenes 等）。
+
+**因此本项目 P1 的写作纪律（不可违背）**：
+1. **标题/摘要前两句必须落在交通现象上**（高速混行中的跟车与换道压力），**不得**先讲"我们提出一个 CfC/LNN 控制器"。
+2. **Figure 1 必须是交通场景示意图**（多车道高速 + 混行流 + OTF 场/跟车几何），**不得**用网络结构图当 Fig.1（网络图放后面）。
+3. **OTF 是交通流量**——这是 P1 通过 T-ITS/T-IV 范围审查的**最强论据**（OTF 本身是交通流社会压力的一阶标量，不是神经网络技巧）；写作时必须把这条讲出来。
+4. **必须出现 CARLA 基准**（已在核验清单内）；CARLA+SUMO 的协议须**逐项写清版本与场景**，因为对比数据是自建的，需要用协议透明度补足。
+5. 若 P1 最终是负结果 → **卖点改为"可解释性 + 零额外传感器成本 + 混行交通的社会压力表征"**，此时 **T-ITS 比 T-IV 更合适**（T-ITS 更接受系统级/可解释性贡献）。**负结果时优先投 T-ITS。**
+
+**待核实（不得直接写进稿件）**：
+- 两刊的**最新 JIF**：联网来源口径不一（同一来源内先写 9.1、后写 8.4）⇒ **标 `【需核实：以投稿时 Clarivate JCR 为准】`**，稿件正文**不引 JIF 数字**。
+- T-IV 的 **WoS 分区**：取到的页面显示 "N/A"（可能尚未入 JCR 分区或数据缺失）⇒ 若毕业/评奖要求"JCR Q1 期刊"，**须先自行核实 T-IV 的分区状态**，否则改用 T-ITS。**这是本裁决唯一的实质风险点。**
+- 检索到的"ITSC 2026 混行交通 invited session"：会议线备选，未核实截稿日期与具体分会要求。
+
 - 五篇论文的台账 `papers/portfolio.md` 是**唯一状态来源**：先改台账，再改稿。
 - 审计文件编号（`audit/`）：`00-` 资产盘点、`01-` P1 计划（待补）、`02-` 仓库骨架、`03-` 风险登记表、`04-` 数据申请与伦理、`05-` 引用核验清单。
 - 引用锚点（**已于本轮逐条核验，见 `audit/第一次组会/05-citations.md`**）：

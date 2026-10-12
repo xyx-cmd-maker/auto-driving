@@ -45,7 +45,7 @@
 
 | 论文 | **首选** | **备选** | **会议轨** | 为什么这样排 |
 |---|---|---|---|---|
-| P1 | **IEEE T-ITS** | **IEEE T-IV**（更贴"智能车"） | **IEEE IV**（可先投会议再扩刊）／ICRA | T-ITS 覆盖交通流＋控制＋安全，与"混行编队＋OTF 交通流度量"最贴；ICRA 偏机器人本体，P1 的贡献不在机械 |
+| P1 | **IEEE T-IV**（★2026-10-12 联网核验后改） | **IEEE T-ITS** | **IEEE IV**／ITSC（含"混行交通 AI 自动驾驶"分会） | **顺序已与初版相反**，理由与 desk 硬规则见 `AGENTS.md` §6.1：T-IV 范围明写"roadway environment, in particular automated vehicles"，与"高速混行场景下的 AV 控制器"逐字对口；T-ITS 指标略高但要求"交通系统贡献是承载性主张"，需专门改摘要与 Fig.1。**负结果时优先 T-ITS** |
 | P2 | **IEEE TPAMI** | **IEEE T-ITS** | **CVPR-W / ICCV-W**（先占位） | 世界模型＋生成属 CV 主流；TPAMI 容得下方法＋大规模实验；workshop 用来抢时间窗 |
 | P3 | **IEEE TVT** | **IEEE T-ITS** | **IROS** | TVT 收车辆层面的语言/决策集成；IROS 收机器人交互 |
 | P4 | **IEEE T-ITS**（安全/可靠性专栏） | **DASC** | DASC | 与"独立隔离＋SOTIF 思路"最贴；DASC 是 AD 安全社区主场 |
@@ -66,7 +66,7 @@
 | 类别 | 已完成 | 未完成 |
 |---|---|---|
 | 立项与契约 | 资产盘点、仓库骨架、结果 schema、环境锁、风险登记 12 条、24 周逐周计划；**`configs/p1/` 已冻结**（6 份：params.frozen / main_otf_cfc / 三基线含 `baseline_td3: mode: cited` / ablation_a1） | `src/eval|ctrl|metrics` 正式实现；CfC 控制器（需算力） |
-| 文献 | 30 条 venue 全量核验（17 处修正）；`literature/**` 文献图＋逐字限定语；第二次组会精读 23 篇；**P3/P4/P5 三张文献图已补齐**（各 50/50/28 条，DOI 逐条 Crossref 核验，见 `literature/p3|p4|p5/`） | P2 文献图（唯一缺口）；OpenAlex 引文展开（额度耗尽，"外部复现"列仍为"未检"）；P5 图仅 28 条——**已证实是该交叉方向文献稀缺，非检索不足** |
+| 文献 | 30 条 venue 全量核验（17 处修正）；`literature/**` 文献图＋逐字限定语；第二次组会精读 23 篇；**P2–P5 四张文献图齐备**（`literature/p2|p3|p4|p5/`，50/50/50/28 条，DOI 逐条 Crossref 核验） | OpenAlex 引文展开（额度耗尽，"外部复现"列仍为"未检"）；P5 图仅 28 条——**已证实是该交叉方向文献稀缺，非检索不足** |
 | 环境 | **环境前提已全部清空**：GPU（RTX 5060 8 GB / sm_120）＋ **torch 2.11.0+cu128**（11/11、6.7×）＋ **CARLA 0.9.16 装于 `D:\CARLA`**（服务端 25 s 就绪；Python 3.12.10 并装；客户端冒烟 8/8；**闭环环境 `src/envs/carla_town04.py` 自检 8/8**：前车 50.9 m、场景注入 500 样本、实时倍率 2.27×）＋ **SUMO 1.27.1** | **学位论文实车数据**（唯一实质缺口，申请函待发）；**闭环 A1 的 `train_cfc.py` 训练循环**（环境、CfC 单元、指标三件已就位） |
 | 工具与数据 | `src/ctrl/cfc.py`（CfC 单元，自检 11/11）、`src/eval/metrics.py`（七项指标，自检 8/8）、`src/envs/carla_town04.py`（Town04 闭环环境，自检 8/8）、`src/otf/otf_core.py`（OTF 唯一实现）；`results/p1/` **36 份算例**；**A1 信息量版负结果已落盘**（见 §8） | 实车数据（申请函待发，条款已补）、TD3 代码/权重、`train_cfc.py`、与论文的严格对拍 |
 | 版本管理 | **git 已落地并已推送**：私有仓库 `github.com/xyx-cmd-maker/auto-driving`（本地/远程同 SHA，10 次提交） | GitHub 归属的**登录态确认**（用户 2026-10-11 已确认无误）；推送偶发被重置，见 §9 |

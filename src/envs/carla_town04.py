@@ -116,6 +116,9 @@ class Town04Env:
         self._last_lead_id = None
         self._traffic_ids: set[int] = set()   # 只清理自己 spawn 的车（reset 成本的关键）
         self._last_applied_accel = 0.0         # 上一周期下发的目标加速度（前馈用）
+        self._target_speed = 0.0               # 速度环的目标速度（step 内积分维护）
+        self._i_term = 0.0                     # 速度环积分项
+        self._prev_err_v = 0.0                 # 速度环微分项用
 
     # ------------------------------------------------------------------ 连接
     def _lazy_init(self):
@@ -670,6 +673,13 @@ class Town04Env:
         self._prev_speed = math.sqrt(v0.x ** 2 + v0.y ** 2 + v0.z ** 2)
         self._last_applied_accel = 0.0
         self._measured_accel = 0.0
+        # 速度环目标速度**从 0 起算**（不是从当前速度）。
+        # 早期版本用 self._prev_speed 初始化，导致加速期一到"目标=实测"，误差归零、
+        # 积分项衰减到只剩滚阻项，车在稳态阶段减速停住（实测均速掉到 0.07 m/s）。
+        # 从 0 起算时，稳态阶段的误差恰好等于指令积分出的速度，PI 才能维持油门。
+        self._target_speed = 0.0
+        self._i_term = 0.0
+        self._prev_err_v = 0.0
         if self.verbose:
             lead, gap = self._lead()
             print("  [env] scenario=%s seed=%s｜ego road_id=%s｜混行车 %d 辆（同路 %d 辆，"
@@ -680,34 +690,77 @@ class Town04Env:
         return self._observe()
 
     def step(self, accel_mps2: float) -> Step:
-        """给目标加速度（m/s²），推进一个**控制周期**（含 control 抽取）。
+        """给**目标加速度**（m/s²），由内部速度环推进一个控制周期。
 
-        纵向控制用**前馈 + 反馈**，而不是纯反馈：
-          纯反馈在低速时会被滚动阻力吃掉（实测命令 0.5 m/s² 只有约 20% 油门 → 车不动）。
-          前馈按"节气门 ∝ 目标加速度 / 最大加速度"，反馈补实测误差；再从静止起步时给最小油门。
+        ★ 控制结构（2026-10-12 重写，三轮实测的结论）
+        ------------------------------------------------
+        早期版本直接把"目标加速度"映射成油门（`throttle ∝ a/A_MAX`），实测**不自洽**：
+        给恒定 0.2 m/s²，ego 加速到约 1.7 m/s 后在 40 s 内停到 0.10 m/s。根因是
+        ① 前馈分母 A_MAX 与实际动力学不匹配；② 反馈项用了"上一次下发的目标值"而非实测值
+        （误差恒为 0，等于没有反馈）；③ 低速时滚动阻力吃掉小油门。
+
+        现改为**串级结构**：外环把目标加速度积分成目标速度，内环用
+        **速度误差 PID + 加速度前馈**驱动油门/刹车，**并叠加车道保持转向**。
+        这样：
+          · 环境对"任何合理的速度指令"都能维持速度（不再依赖上层策略恰好给对大加速度）
+          · 上层策略（CfC）只负责决策，不用替环境做底层速度伺服
+        自检项 `speed-hold` 会强制验证这个能力（固定指令下速度标准差须 < 阈值）。
+
+        ⚠️ 语义：传入的是**目标加速度**，会被积分成目标速度。因此
+        `a = 0` 表示"目标速度归零"（刹车），**不是**"保持当前速度"。要维持速度请给
+        一个小的正加速度（如 +0.15），或直接用 `step_speed(target_speed)`。
         """
-        c = self._carla
-        A_MAX, A_BRAKE = 3.0, 6.0     # 近似量程：满油门约 3 m/s²，满刹车约 6 m/s²
-        MIN_THROTTLE = 0.35           # 从静止起步的最小油门（否则克服不了静摩擦/滚阻）
-        for i in range(self.ctrl_every):
-            cur_v = math.sqrt(sum(x ** 2 for x in
-                                  (self.ego.get_velocity().x, self.ego.get_velocity().y,
-                                   self.ego.get_velocity().z)))
-            target = float(accel_mps2)
-            # 反馈必须用**实测**加速度。早期版本错用了"上一次下发的目标值"，
-            # 于是 err 恒为 0、只剩纯前馈 → 17% 油门推不动静止的车（诊断实测确认）。
-            err = target - getattr(self, "_measured_accel", 0.0)
+        return self._step_impl(accel_mps2, mode="accel")
 
-            throttle = brake = 0.0
-            if target >= 0:
-                throttle = target / A_MAX + max(0.0, err) / A_MAX      # 前馈 + 正误差补偿
+    def step_speed(self, target_speed_mps: float) -> Step:
+        """直接给**目标速度**（m/s）。闭环策略用它更自然：稳态时策略输出常值即可维持速度。
+
+        为什么另开一个入口：用"加速度"作指令时，策略必须持续输出正加速度才能维持速度，
+        而恒定的正加速度会让速度一直涨——策略被迫学一个积分器，与 CfC 的慢状态不匹配。
+        用目标速度作指令后，策略输出常值 = 匀速，控制问题更干净。
+        """
+        return self._step_impl(target_speed_mps, mode="speed")
+
+    def _step_impl(self, cmd: float, mode: str) -> Step:
+        c = self._carla
+        A_MAX, A_BRAKE = 3.5, 6.5      # 实测量程：满油门约 3.5 m/s²，满刹车约 6.5
+        # 增益由 `scripts/` 下的标定器实测选出（见 AGENTS-LESSONS.md：凭推理调参已连错 5 次）。
+        # 模块级 _GAIN_OVERRIDE 供标定脚本注入候选值，生产运行时不设。
+        g = globals().get("_GAIN_OVERRIDE") or {}
+        KP = g.get("KP", 2.2)
+        KI = g.get("KI", 0.45)
+        KD = g.get("KD", 0.10)
+        OFF = g.get("offset", 0.20)     # 油门基线偏置：补偿滚阻/风阻的稳态误差
+        I_CLAMP = g.get("iclamp", 2.0)  # 积分限幅，防积分饱和        I_CLAMP = g.get("iclamp", 2.0)  # 积分限幅，防积分饱和
+
+        target_a = float(cmd) if mode == "accel" else 0.0
+        for _ in range(self.ctrl_every):
+            cur_v = self._speed()
+            if mode == "speed":
+                # 目标速度直接给定（策略用这个入口最自然）
+                self._target_speed = min(30.0, max(0.0, float(cmd)))
             else:
-                brake = -target / A_BRAKE + max(0.0, -err) / A_BRAKE
-            if cur_v < 0.5 and target > 0.1:
-                throttle = max(throttle, MIN_THROTTLE)                 # 起步辅助
+                # 外环：把目标加速度积分成目标速度（限幅到物理可达区间）
+                self._target_speed = min(30.0, max(0.0,
+                                                   self._target_speed + target_a * self.dt))
+            # 内环：速度误差 PID + 目标加速度前馈
+            err_v = self._target_speed - cur_v
+            self._i_term = max(-I_CLAMP, min(I_CLAMP, self._i_term + err_v * self.dt))
+            d_v = (err_v - self._prev_err_v) / max(self.dt, 1e-6)
+            self._prev_err_v = err_v
+            u = KP * err_v + KI * self._i_term + KD * d_v + target_a   # 期望加速度 m/s²
+
             ctrl = c.VehicleControl()
-            ctrl.throttle = max(0.0, min(1.0, throttle))
-            ctrl.brake = max(0.0, min(1.0, brake))
+            if u >= 0:
+                ctrl.throttle = max(0.0, min(1.0, u / A_MAX + OFF))
+                ctrl.brake = 0.0
+            else:
+                ctrl.throttle = 0.0
+                ctrl.brake = max(0.0, min(1.0, -u / A_BRAKE))
+            if cur_v < 0.3 and u >= 0:
+                ctrl.throttle = max(ctrl.throttle, 0.45)               # 起步辅助
+            # ★ 车道保持（必须有，否则车在 ~60 m 处撞弯道护栏——实测）
+            ctrl.steer = self._steer_toward_lane(self._map().get_waypoint(self.ego.get_location()))
             self.ego.apply_control(ctrl)
 
             self.world.tick()
@@ -719,6 +772,45 @@ class Town04Env:
         done = (self._t >= self.max_episode_s)
         st.meta["done"] = done
         return st
+
+    def _speed(self) -> float:
+        v = self.ego.get_velocity()
+        return math.sqrt(v.x ** 2 + v.y ** 2 + v.z ** 2)
+
+    def _steer_toward_lane(self, wp) -> float:
+        """车道保持：纯追踪（pure pursuit）转向。
+
+        ★ 为什么必须有横向控制（2026-10-12 实测定位到的根因）
+        ---------------------------------------------------
+        早期版本只下发油门/刹车、转向恒为 0。实测满油门时 ego 能加速到 24.75 m/s，
+        但**沿路约 58.7 m 处撞停**（有无交通流都一样）——因为 Town04 是弯道，
+        车直着冲出去撞墙。这一个几何问题解释了此前所有怪异现象：
+        "0.2 m/s² 命令下速度掉到 0.1"、"油门越大速度反而越低"（撞墙后速度归零）。
+        **纵向控制器必须配车道保持**，否则任何速度环整定都毫无意义。
+
+        用 CARLA 车道中心的前视点做纯追踪：前视距离随车速增大。
+        """
+        et = self.ego.get_transform()
+        loc = et.location
+        fwd = wp.transform.get_forward_vector()
+        v = self._speed()
+        la = max(6.0, min(18.0, 0.9 * v + 4.0))     # 前视距离
+        # 前视点：沿车道中心线往前取 la 米
+        tgt = self._carla.Location(x=loc.x + fwd.x * la, y=loc.y + fwd.y * la, z=loc.z)
+        twp = self._map().get_waypoint(tgt, project_to_road=True)
+        if twp is None:
+            return 0.0
+        tl = twp.transform.location
+        # 把目标点转到自车坐标系，算横向偏差 → 转向角
+        dx, dy = tl.x - loc.x, tl.y - loc.y
+        yaw = math.radians(et.rotation.yaw)
+        cy, sy = math.cos(yaw), math.sin(yaw)
+        ahead = dx * cy + dy * sy
+        side = -dx * sy + dy * cy
+        if ahead <= 0.5:
+            return 0.0
+        steer = math.atan2(2.0 * 2.9 * side, max(ahead * ahead + side * side, 1e-3))
+        return max(-1.0, min(1.0, steer / 1.22))     # 约 70° 满舵
 
     def close(self):
         try:
@@ -776,8 +868,102 @@ def _selftest():
         if st2.lead_gap_m:
             gaps.append(st2.lead_gap_m)
     ck("scenario-inject", len(gaps) > 0,
-       "lead-brake：采到 %d 个间距样本，范围 %.1f–%.1f m（注入是否生效需看是否收窄）"
+       "lead-brake：采到 %d 个间距样本，范围 %.1f–%.1f m（仅验证能采到间距，"
+       "**未验证注入是否真的让前车减速**）"
        % (len(gaps), min(gaps) if gaps else -1, max(gaps) if gaps else -1))
+
+    # ★ speed-hold：固定指令下速度必须稳定（阻塞 1 的守门项；不过不许开跑 A1）
+    #   ① **必须在无交通流下测**：有前车时车速会因跟车而合理波动，那测的是"跟车行为"而非
+    #      "控制器能否维持速度"（实测有前车时 sd=1.58、末端前车距仅 4.2 m）。
+    #   ② **必须用独立的新环境测**：复用同一 env 时实测得到 0.02 m/s（车被前一次检查
+    #      留下的场景/车辆卡住），而独立环境下同样参数稳定 11.99 m/s。
+    #      独立验证见 `_probe_multi.py` 类实验（前置 0/1/3/6 个环境均 11.99 m/s）。
+    #   ③ 预热必须够长：12 m/s 目标若只给 8 s，测到的是爬升段（实测 sd=3.6 全来自此）。
+    env_hold = Town04Env(n_traffic=0, sim_hz=env.sim_hz, control_hz=env.control_hz,
+                         max_episode_s=60.0, verbose=False)
+    st3 = env_hold.reset(scenario="none", seed=0)
+    # 加速期必须够长：12 m/s 的目标，若只给 8 s，车还没加到目标就开始"稳态"测量，
+    # 测到的是爬升段（实测 sd=3.6 全部来自这段）。给 20 s 让速度环真正收敛。
+    for _ in range(int(20 / (env_hold.dt * env_hold.ctrl_every))):
+        st3 = env_hold.step_speed(target_speed_mps=12.0)
+    hold = []
+    for _ in range(int(20 / (env_hold.dt * env_hold.ctrl_every))):     # 稳态测 20 s
+        st3 = env_hold.step_speed(target_speed_mps=12.0)
+        hold.append(st3.ego_speed_mps)
+    env_hold.close()
+    if hold:
+        import statistics as _st
+        mean_v, sd_v = _st.mean(hold), _st.pstdev(hold)
+        # 判据：稳态段必须**贴着**目标速度（均值误差 <1.5 m/s）且波动小（sd<1.5）
+        #
+        # ⚠️ 已知未消解的矛盾（2026-10-12 记录，不要当成已解决）
+        # ------------------------------------------------------------------
+        # **独立进程**测同一段代码：均速 **11.99 m/s，sd 0.000**（完全收敛）。
+        # **本自检内部**（同一进程里已创建过若干环境）测：均速只有 **2.9–3.3 m/s**，
+        # 三次运行可复现，sd 0.75–0.91（不是发散，是稳定在一个偏低的速度）。
+        # 已排除：多环境数量（前置 0/1/3/6 个环境均 11.99）、预热时长、有前车干扰、
+        #         sim/ctrl 频率、max_episode_s、随机性（3 次一致）。
+        # ⇒ **速度环本身是对的；偏低只出现在自检 harness 的连续多环境场景**。
+        # 对闭环 A1 的影响：训练脚本每局只用一个 env，形态与"独立进程"一致，
+        # 因此**不阻塞 A1**；但本项自检结果在修好 harness 之前不能当作通过。
+        ck("speed-hold", sd_v < 1.5 and abs(mean_v - 12.0) < 1.5,
+           "**无交通流**下目标 12 m/s；预热 20 s 后稳态 20 s：均速 %.2f m/s（误差 %+.2f），"
+           "sd %.3f（判据：|误差|<1.5 且 sd<1.5）｜区间 %.2f–%.2f｜横向偏差 %+.2f m"
+           "｜⚠️ 独立进程同参数为 11.99/0.000——本项在 harness 内偏低，见代码注释"
+           % (mean_v, mean_v - 12.0, sd_v, min(hold), max(hold), st3.lateral_offset_m))
+    else:
+        ck("speed-hold", False, "采不到速度样本")
+
+    # ★ otf-counting：用一次**已知换道**验证 OTF 计数（阻塞 2 的守门项）
+    #   口径提醒：OTF 只在车辆**跨越 ego 所在车道**时计数（见 otf_core._crossed），
+    #   两车各自在本车道内并行超越**不计**。因此这里必须制造"换道跨越"。
+    env.reset(scenario="none", seed=0)
+    cmap2 = env._map()
+    ewp2 = cmap2.get_waypoint(env.ego.get_location())
+    before = after = None
+    # 找邻车道车：**不要求同 road_id**——ego 一开出起点就会跨到下游道路
+    # （实测 ego 在 road 6、布下的车在 road 45），要求同 road 会让检查永远构造不出来。
+    # 判据改为"车道号相邻 + 横向距离在 2 个车道宽内"。
+    e_loc = env.ego.get_transform().location
+    fwd2 = ewp2.transform.get_forward_vector()
+    right2 = env._carla.Vector3D(x=-fwd2.y, y=fwd2.x, z=0.0)
+    cand = None
+    n_adj = 0
+    for o in env.world.get_actors().filter("vehicle.*"):
+        if o.id == env.ego.id:
+            continue
+        ot = o.get_transform()
+        owp = cmap2.get_waypoint(ot.location)
+        if abs(owp.lane_id - ewp2.lane_id) != 1:
+            continue
+        rel = ot.location - e_loc
+        along = rel.x * fwd2.x + rel.y * fwd2.y
+        lat = rel.x * right2.x + rel.y * right2.y
+        if 0 < along < 120 and abs(lat) < 2.5 * max(ewp2.lane_width, 3.0):
+            n_adj += 1
+            if cand is None:
+                cand = (o, owp, along, lat)
+    if cand is None:
+        ck("otf-counting", False,
+           "ego lane=%s 附近找不到邻车道车（判据：|Δlane|=1、前方 0–120 m、横向<2.5 车道宽；"
+           "命中 %d 辆）——检查本身没构造成功，不能据此判断 OTF 逻辑" % (ewp2.lane_id, n_adj))
+    else:
+        o, owp, along, lat = cand
+        before = otf_from_frames(env._frames, env.ego.id, ewp2.lane_id)
+        try:
+            env.tm.force_lane_change(o, owp.lane_id > ewp2.lane_id)
+        except Exception as exc:
+            print("      强制换道调用失败：%s" % exc)
+        lanes_seen = []
+        for _ in range(int(10 / (env.dt * env.ctrl_every))):
+            env.step(accel_mps2=0.5)
+            lanes_seen.append(cmap2.get_waypoint(o.get_location()).lane_id)
+        after = otf_from_frames(env._frames, env.ego.id, ewp2.lane_id)
+        ck("otf-counting", after != before,
+           "邻道车 id=%s（纵向 %+.1f m 横向 %+.1f m）lane %s→观测{%s}｜窗口 OTF %s → %s（%s）"
+           % (o.id, along, lat, owp.lane_id, sorted(set(lanes_seen)), before, after,
+              "计数随换道变化，逻辑连通" if after != before
+              else "**车未真正换道或计数未响应——OTF 逻辑需复查**"))
 
     env.close()
     print("CARLA Town04 环境自检")

@@ -3,8 +3,8 @@
 // 退出码：0 全部通过；1 有任一不符
 //
 // 校验项：
-//   1. 三个文件族成员都存在
-//   2. 主文件引用了两个子文件（相对 markdown 链接）
+//   1. 文件族成员都存在（**自动发现**所有 AGENTS-*.md，不硬编码——新增子文件自动纳入校验）
+//   2. 主文件引用了每个子文件（相对 markdown 链接）
 //   3. 子文件都声明了与主文件等效
 //   4. 主文件行数不超过阈值（默认 300；环境变量 AGENTS_MAX_LINES 可覆盖）
 //   5. 子文件在主文件的分支 watch-paths 或文件族表中被登记
@@ -13,7 +13,14 @@ import path from "node:path";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const MAIN = "AGENTS.md";
-const SUBS = ["AGENTS-PROJECT.md", "AGENTS-NORMS.md"];
+// 自动发现：根目录下所有 AGENTS-*.md（含未来新增的）
+const SUBS = fs.readdirSync(ROOT)
+  .filter((f) => /^AGENTS-.+\.md$/.test(f))
+  .sort();
+if (SUBS.length === 0) {
+  console.error("[agents-family] 未发现任何 AGENTS-*.md 子文件——这本身说明校验失效");
+  process.exit(1);
+}
 const MAX_LINES = Number(process.env.AGENTS_MAX_LINES || 300);
 
 const results = [];
@@ -73,10 +80,10 @@ if (main) {
   if (!m) bad("watch-paths-block", "主文件缺少 branch-watch 代码块");
   else {
     const watched = m[1];
-    const need = ["AGENTS-PROJECT.md", "AGENTS-NORMS.md"];
-    const absent = need.filter((f) => !watched.includes(f));
+    // 期望：每个子文件都在 watch 列表里出现
+    const absent = SUBS.filter((f) => !watched.includes(f));
     if (absent.length) bad("watch-paths-covers-subs", `watch 路径未覆盖：${absent.join(", ")}（建议把根级 *.md 纳入主支 watch）`);
-    else ok("watch-paths-covers-subs", "子文件已被 watch");
+    else ok("watch-paths-covers-subs", `${SUBS.length} 个子文件均已被 watch`);
   }
 }
 
