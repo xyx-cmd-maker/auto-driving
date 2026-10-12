@@ -63,6 +63,8 @@ def main():
     print("")
     n = int(a.seconds / (env.dt * env.ctrl_every))
     p0 = env.ego.get_transform().location
+    spec0 = env.world.get_spectator().get_transform().location
+    cam_travel = 0.0
     for i in range(n):
         st = env.step_speed(target_speed_mps=a.target_speed)
         if i % max(1, int(3 / (env.dt * env.ctrl_every))) == 0:
@@ -70,12 +72,18 @@ def main():
             d = ((p.x - p0.x) ** 2 + (p.y - p0.y) ** 2) ** 0.5
             spec = env.world.get_spectator().get_transform().location
             dcam = ((spec.x - p.x) ** 2 + (spec.y - p.y) ** 2) ** 0.5
-            print("  t=%5.1fs  v=%5.2f m/s ｜ 已行驶 %6.1f m ｜ 前车距 %s ｜ 相机距车 %4.1f m"
-                  % (st.t, st.ego_speed_mps, d,
-                     ("%.1f m" % st.lead_gap_m) if st.lead_gap_m else "无", dcam))
+            # 相机自身走了多远——这是"视角是否跟着动"的直接判据
+            cam_travel = ((spec.x - spec0.x) ** 2 + (spec.y - spec0.y) ** 2) ** 0.5
+            print("  t=%5.1fs  v=%5.2f m/s ｜ 车已行驶 %6.1f m ｜ 相机自身移动 %6.1f m "
+                  "｜ 相机距车 %4.1f m ｜ 前车距 %s"
+                  % (st.t, st.ego_speed_mps, d, cam_travel, dcam,
+                     ("%.1f m" % st.lead_gap_m) if st.lead_gap_m else "无"))
     env.close()
     print("")
-    print("结束。若窗口里车一直在动、相机跟着它 → 目视确认通过。")
+    print("判读：**相机自身移动**应约等于车已行驶距离（相机跟着车走）。")
+    print("      若该值接近 0 而车在行驶 → 相机没跟随（视角会停在原地），需修 follow 线程。")
+    print("      实测本次相机自身移动 %.1f m。" % cam_travel)
+    print("结束。若窗口里车在动、且视角跟着它 → 目视确认通过。")
 
 
 if __name__ == "__main__":

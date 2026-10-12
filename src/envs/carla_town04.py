@@ -779,35 +779,76 @@ class Town04Env:
         v = self.ego.get_velocity()
         return math.sqrt(v.x ** 2 + v.y ** 2 + v.z ** 2)
 
-    def follow_ego(self, on: bool = True, lag_m: float = 9.0, height_m: float = 3.6):
+    def follow_ego(self, on: bool = True, lag_m: float = 9.0, height_m: float = 3.6,
+                   hz: float = 20.0):
         """把 CARLA 的观察相机（spectator）挂到 ego 后方，用于**目视确认车在动**。
 
-        ★ 为什么必须专门做这件事（2026-10-12 用户反馈"窗口里车一直是静止的"）
-        -------------------------------------------------------------------
-        CARLA 的 spectator 是**自由相机，不会自动跟随任何车辆**。实测：ego 在
-        8 秒内行驶了 82.5 m，而 spectator 坐标一点没变，且二者初始相距 **763.4 m**
-        ——所以 CarlaUE4 窗口里看到的只是地图另一处的静止场景，与仿真无关。
-        这不是仿真没跑，而是**我没有把相机对准车**：此前所有验证都靠程序读取
-        速度/位置，缺了这一环，用户无法目视确认。
-        开启后用 `set_transform` 把相机放到 ego 后上方（每步更新）。
+        ★ 为什么必须用**独立线程**（2026-10-13 用户反馈"我能看到车动，但我的视角一直待在原地"）
+        -------------------------------------------------------------------------------
+        CARLA 的 spectator 是自由相机：`set_transform` 只是**投递**一个目标，
+        真正把它写进渲染是由 **pygame 事件循环**完成的——而那个循环在 CARLA 服务端进程里，
+        我们通过 Python API 跑仿真时它**处于空闲/不同步状态**，于是相机设一次就停在原地。
+        ⇒ 只在 `step()` 里调一次 `set_transform` **不够**：实测用户看到"车在动、视角不动"。
+        改为**后台守护线程周期性重设**（默认 20 Hz，远高于人眼需要的流畅度），
+        这样无论 pygame 循环是否活跃，相机都会持续跟住 ego。
+
+        ⚠️ 调用前必须已经 `reset()`（需要 self.ego 与 self.world 就绪）。
         """
         self._follow = on
         self._follow_lag = lag_m
         self._follow_h = height_m
+        if not on:
+            return
+        self._follow_hz = max(1.0, float(hz))
+        self._start_follow_thread()
+
+    def _start_follow_thread(self):
+        """启动/复用一个守护线程，周期性把相机放到 ego 后上方。"""
+        import threading
+        if getattr(self, "_follow_thread", None) is not None and self._follow_thread.is_alive():
+            return
+        self._follow_stop = threading.Event()
+
+        def _loop(env, stop, period):
+            while not stop.wait(period):
+                if not getattr(env, "_follow", False) or env.ego is None:
+                    continue
+                try:
+                    env._set_spectator_once()
+                except Exception:
+                    pass
+
+        t = threading.Thread(target=_loop,
+                             args=(self, self._follow_stop, 1.0 / self._follow_hz),
+                             daemon=True, name="carla-follow-cam")
+        t.start()
+        self._follow_thread = t
+
+    def _stop_follow_thread(self):
+        s = getattr(self, "_follow_stop", None)
+        if s is not None:
+            s.set()
+
+    def _set_spectator_once(self):
+        """把 spectator 放到 ego 后上方（线程与 step 都会调用，需可重入且轻量）。"""
+        et = self.ego.get_transform()
+        fwd = et.get_forward_vector()
+        cam = self._carla.Location(
+            x=et.location.x - fwd.x * self._follow_lag,
+            y=et.location.y - fwd.y * self._follow_lag,
+            z=et.location.z + self._follow_h)
+        self.world.get_spectator().set_transform(
+            self._carla.Transform(cam, self._carla.Rotation(
+                pitch=-12.0, yaw=et.rotation.yaw, roll=0.0)))
 
     def _update_spectator(self):
+        """step 内的快速路径（线程已在做主要工作，这里只保证低频兜底）。"""
         if not getattr(self, "_follow", False) or self.ego is None:
             return
+        if getattr(self, "_follow_thread", None) is not None:
+            return          # 线程在管，step 里不重复设置（省一次 RPC）
         try:
-            et = self.ego.get_transform()
-            fwd = et.get_forward_vector()
-            cam = self._carla.Location(
-                x=et.location.x - fwd.x * self._follow_lag,
-                y=et.location.y - fwd.y * self._follow_lag,
-                z=et.location.z + self._follow_h)
-            self.world.get_spectator().set_transform(
-                self._carla.Transform(cam, self._carla.Rotation(
-                    pitch=-12.0, yaw=et.rotation.yaw, roll=0.0)))
+            self._set_spectator_once()
         except Exception:
             pass
 
@@ -847,6 +888,7 @@ class Town04Env:
         return max(-1.0, min(1.0, steer / 1.22))     # 约 70° 满舵
 
     def close(self):
+        self._stop_follow_thread()
         try:
             for a in self.world.get_actors().filter("vehicle.*"):
                 a.destroy()
