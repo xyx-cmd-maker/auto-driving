@@ -188,6 +188,8 @@ def rollout(env, policy: CFCPolicy, use_otf: bool, scenario: str, seed: int,
     obs_dim = len(st.controller_obs(use_otf))
     h_state = torch.zeros(1, policy.hidden)
     guard = {"zero_speed_frames": 0, "n_frames": 0, "actors_max": 0, "ttc_events": 0}
+    p_start = env.ego.get_transform().location
+    travelled = 0.0
     n = int(episode_s / (env.dt * env.ctrl_every))
     for _ in range(n):
         obs = st.controller_obs(use_otf)
@@ -198,7 +200,7 @@ def rollout(env, policy: CFCPolicy, use_otf: bool, scenario: str, seed: int,
             x = torch.tensor([normalize_obs(obs, use_otf)], dtype=torch.float32)
             h_state = policy.cell(x, h_state, 0.05)
             accel = float(torch.tanh(policy.act(x) + policy.head(h_state)) * policy.out_scale)
-        st = env.step(accel_mps2=accel)
+        st = env.step_speed(target_speed_mps=max(0.0, accel))
         tr.push(st)
         guard["n_frames"] += 1
         if st.ego_speed_mps < 0.1:
@@ -209,6 +211,21 @@ def rollout(env, policy: CFCPolicy, use_otf: bool, scenario: str, seed: int,
             guard["ttc_events"] += 1
         if st.meta.get("done"):
             break
+    p_end = env.ego.get_transform().location
+    travelled = ((p_end.x - p_start.x) ** 2 + (p_end.y - p_start.y) ** 2) ** 0.5
+
+    # ★ 守门 G0：ego 必须真的动起来。
+    # 教训（2026-10-13）：a1_otf_on 的某局有 99% 的帧车速为 0（残留车把它卡住），
+    # 该局指标毫无意义，却会被当成"这一臂更差"的证据混进结果。宁可丢弃也不能污染。
+    guard["travelled_m"] = round(travelled, 3)
+    guard["valid"] = bool(travelled > 20.0 or guard["n_frames"] == 0)
+    if not guard["valid"]:
+        guard["invalid_reason"] = ("ego 仅移动 %.1f m（阈值 20 m）——疑似被残留车辆/几何卡住，"
+                                   "该局指标不可用" % travelled)
+    if getattr(env, "_residue_warn", None):
+        guard["valid"] = False
+        guard["invalid_reason"] = ("reset 后场上车辆数 %d 远多于生成数 %d——残留未清"
+                                   % env._residue_warn)
     return tr, guard
 
 
@@ -249,15 +266,21 @@ def run_case(scenario: str, seed: int, args) -> dict:
             policy = sample_policy(4 if use_otf else 3, random.Random(s), hidden=args.hidden)
             tr, guard = rollout(env, policy, use_otf, scenario, seed, args.episode_s)
             m = summarize(tr)
+            # 无效局（ego 被卡住/有残留）不参与择优——否则会把"环境故障"读成"该臂更差"
             trials.append({"k": k, "seed": s, "cost": cost_from_metrics(m), "metrics": m,
-                           "guard": guard, "params": policy.n_params()})
+                           "guard": guard, "params": policy.n_params(),
+                           "valid": guard.get("valid", True)})
+        valid_trials = [t for t in trials if t["valid"]] or trials
         trials.sort(key=lambda x: x["cost"])
-        best = trials[0]
+        valid_trials.sort(key=lambda x: x["cost"])
+        best = valid_trials[0]
         out["arms"][arm] = {
             "best_cost": best["cost"], "best_metrics": best["metrics"],
-            "best_seed": best["seed"], "params": best["params"],
-            "elite_costs": [t["cost"] for t in trials[:ELITE]],
+            "best_seed": best["best_seed"] if "best_seed" in best else best["seed"],
+            "params": best["params"],
+            "elite_costs": [t["cost"] for t in valid_trials[:ELITE]],
             "all_costs": [t["cost"] for t in trials],
+            "n_invalid": sum(1 for t in trials if not t["valid"]),
             "wall_s": round(time.perf_counter() - t0, 1),
         }
         out["guards"][arm] = best["guard"]

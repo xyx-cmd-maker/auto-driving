@@ -581,16 +581,19 @@ class Town04Env:
                     pass
                 setattr(self, attr, None)
 
-        # 清理**只清自己 spawn 的**车：全场 destroy 会连带清掉别的东西并触发重载，
-        # 实测是全流程最慢的一步（reset 53.7 s）。只清自己的车 → reset 应降到秒级。
+        # ★ 清空**场上所有车辆**（不只自己 spawn 的）。
+        # 教训（2026-10-13，A1 中量验证的看护 G3 抓到）：早期只销毁 `self._traffic_ids`，
+        # 但 Traffic Manager 会在运行中**自动增生**车辆，这些车的 id 不在集合里 ⇒ 逐局累积。
+        # 实测：单局最大车辆数从应有的 27 涨到 **52**，且 ego 被残留车卡住
+        # （a1_otf_on 有 99% 的帧车速为 0，整局作废）。
+        # 训练器每局要 reset 48 次（2 臂 × 12 候选），因此这里**正确性优先于省几秒**。
         killed = 0
         for a in self.world.get_actors().filter("vehicle.*"):
-            if a.id in self._traffic_ids or (self.ego is not None and a.id == self.ego.id):
-                try:
-                    a.destroy()
-                    killed += 1
-                except Exception:
-                    pass
+            try:
+                a.destroy()
+                killed += 1
+            except Exception:
+                pass
         self._traffic_ids = set()
         self.ego = None
         self.world.tick()
@@ -667,6 +670,17 @@ class Town04Env:
             self.world.tick()
             self._record_frame()
         self._update_spectator()    # 开局就把相机对准车（否则窗口里看不到车）
+
+        # ★ 守门：spawn 后场上车辆数不得超过"自己生成的数量 + ego + 少量由 TM 增生的车"。
+        # 超出说明上一局的残留没清干净（实测曾涨到 52），会让 ego 被卡住、整局作废。
+        n_alive = len(self.world.get_actors().filter("vehicle.*"))
+        if n_alive > n_ok + 8:
+            if self.verbose:
+                print("    [env] ⚠ 场上车辆数 %d 明显多于生成数 %d——疑似残留未清，"
+                      "本局结果不可信" % (n_alive, n_ok))
+            self._residue_warn = (n_alive, n_ok)
+        else:
+            self._residue_warn = None
         self._t = 0.0
         # 关键：把 _prev_speed 设成**当前真实速度**，否则第一步会算出巨大的假加速度
         # （实测出现过 24.3 m/s² 这种非物理值，会污染 accel_sq_integral 与 jerk 指标）。
