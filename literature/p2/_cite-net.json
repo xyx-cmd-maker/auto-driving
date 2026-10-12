@@ -1,0 +1,96 @@
+{
+ "seed": "W4386876077",
+ "count": 15,
+ "results": [
+  {
+   "title": "World model-based reinforcement learning for autonomous ship safe collision avoidance",
+   "year": 2025,
+   "src": "Engineering Applications of Artificial Intelligence",
+   "doi": "https://doi.org/10.1016/j.engappai.2025.112732"
+  },
+  {
+   "title": "Trajectory prediction for autonomous driving: Progress, limitations, and future directions",
+   "year": 2025,
+   "src": "Information Fusion",
+   "doi": "https://doi.org/10.1016/j.inffus.2025.103588"
+  },
+  {
+   "title": "Position: Prospective of Autonomous Driving - Multimodal LLMs, World Models, Embodied Intelligence, AI Alignment, and Mamba",
+   "year": 2025,
+   "src": "IEEE/CVF Winter Conference on Applications of Computer Vision Workshops (WACVW)",
+   "doi": "https://doi.org/10.1109/wacvw65960.2025.00114"
+  },
+  {
+   "title": "GISD: generation of corner cases in infrared autonomous driving dataset with stable diffusion",
+   "year": 2024,
+   "src": "SPIE Applications of Machine Learning",
+   "doi": "https://doi.org/10.1117/12.3027776"
+  },
+  {
+   "title": "DriveWorld: 4D Pre-Trained Scene Understanding via World Models for Autonomous Driving",
+   "year": 2024,
+   "src": "IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings - IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings",
+   "doi": "https://doi.org/10.1109/cvpr52733.2024.01470"
+  },
+  {
+   "title": "Generalized Predictive Model for Autonomous Driving",
+   "year": 2024,
+   "src": "IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings - IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings",
+   "doi": "https://doi.org/10.1109/cvpr52733.2024.01389"
+  },
+  {
+   "title": "Feedback-Guided Autonomous Driving",
+   "year": 2024,
+   "src": "IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings - IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings",
+   "doi": "https://doi.org/10.1109/cvpr52733.2024.01421"
+  },
+  {
+   "title": "Panacea: Panoramic and Controllable Video Generation for Autonomous Driving",
+   "year": 2024,
+   "src": "IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings - IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings",
+   "doi": "https://doi.org/10.1109/cvpr52733.2024.00659"
+  },
+  {
+   "title": "Editable Scene Simulation for Autonomous Driving via Collaborative LLM-Agents",
+   "year": 2024,
+   "src": "IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings - IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings",
+   "doi": "https://doi.org/10.1109/cvpr52733.2024.01428"
+  },
+  {
+   "title": "Hard Cases Detection in Motion Prediction by Vision-Language Foundation Models",
+   "year": 2024,
+   "src": "IEEE Intelligent Vehicles Symposium",
+   "doi": "https://doi.org/10.1109/iv55156.2024.10588694"
+  },
+  {
+   "title": "Exploring Generative AI for Sim2Real in Driving Data Synthesis",
+   "year": 2024,
+   "src": "IEEE Intelligent Vehicles Symposium",
+   "doi": "https://doi.org/10.1109/iv55156.2024.10588493"
+  },
+  {
+   "title": "Prototypical Context-Aware Dynamics for Generalization in Visual Control With Model-Based Reinforcement Learning",
+   "year": 2024,
+   "src": "IEEE Transactions on Industrial Informatics",
+   "doi": "https://doi.org/10.1109/tii.2024.3396525"
+  },
+  {
+   "title": "LLMScenario: Large Language Model Driven Scenario Generation",
+   "year": 2024,
+   "src": "IEEE Transactions on Systems Man and Cybernetics Systems",
+   "doi": "https://doi.org/10.1109/tsmc.2024.3392930"
+  },
+  {
+   "title": "Data-Driven Traffic Simulation: A Comprehensive Review",
+   "year": 2024,
+   "src": "IEEE Transactions on Intelligent Vehicles",
+   "doi": "https://doi.org/10.1109/tiv.2024.3367919"
+  },
+  {
+   "title": "Prospective Role of Foundation Models in Advancing Autonomous Vehicles",
+   "year": 2024,
+   "src": "Research",
+   "doi": "https://doi.org/10.34133/research.0399"
+  }
+ ]
+}

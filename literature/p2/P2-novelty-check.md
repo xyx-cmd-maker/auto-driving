@@ -346,3 +346,47 @@ AAAI 正式版把 arXiv 的 "crowd interaction **module**" 改成了 "crowd inte
 4. **会议/预印本通道系统性缺口**：P2 文献图的 `type:article` + 驾驶锚词过滤排除了 CVPR/ICCV/NeurIPS/ICLR 与 arXiv 线，而竞争恰恰在这条线上（U3）。
 5. **中文文献与学位论文库未查**（U6）。
 6. **DriveDreamer 引文未逐字复核**（项目内 PDF 未读），本节依据官方 arXiv 摘要措辞。
+
+---
+
+## 补充核验（2026-10-13 追加，关闭本报告的两个关键缺口）
+
+### 补充 1：SPDiff AAAI 正式版已复核 → **红队① 关闭；限制第 3 条作废**
+
+原判定依据 arXiv v1，且正式版把 "crowd interaction **module**" 改成 "**encoder**"，故标记为"可能反向削弱"。
+**现已核对 [AAAI 官方正式版](https://ojs.aaai.org/index.php/AAAI/article/view/27802)（DOI [10.1609/aaai.v38i1.27802](https://doi.org/10.1609/aaai.v38i1.27802)，2026-10-13 取用）**：
+
+> "SPDiff takes both **the interactive and historical information of crowds** in the current timeframe
+> to reverse the diffusion process... we design a crowd interaction **encoder** to guide the denoising process"
+
+**判定**：措辞确实从 module 改为 encoder，但**条件来源的定义未变**——仍是"交互信息 + 历史信息"，
+**社会力不是条件输入 `c_t` 的成员**；社会力是**架构内部的引导机制**（encoder 输出力向量 `f_ped`，
+再与 `f_hist`、`f_dest` 相加得加速度）。
+
+**⇒ 区分成立且无需降级**：SPDiff 的"场"是**内部归纳偏置**（用于生成加速度、且面向**行人**），
+P2 的"场"是**输入型结构条件模态**（用于生成世界状态）。**建议保留"显式"二字以自证区分。**
+
+**残留不确定性**：核验基于**正式版摘要 + arXiv v1 正文**（正式版 PDF 为 `application/pdf`，
+本工具链无法解析）。**残留风险：低**——摘要已明确写出条件来源是 interactive/historical information。
+
+### 补充 2：引用网络反向检索已执行 → **红队③ 部分关闭；限制第 1 条部分消解**
+
+方法：从 DriveDreamer（OpenAlex `W4386876077`）取**引用它的论文**（`filter=cites:`，
+**独立于关键词通道**），再按题名筛查。原始结果：`literature/p2/_cite-net.json`。
+
+| 筛查口径 | 命中 |
+|---|---|
+| 引用 DriveDreamer 的论文总数 | **15** |
+| 题名含 [驾驶类] + [world model] | **3** |
+| **题名含 [力场/社会力/势场/交互场]** | **0** |
+| 题名含 [interaction/social] + [驾驶类] | **0** |
+
+**⇒ 换一条独立通道仍未发现"以场为条件的驾驶世界模型"**：关键词通道与引用网络通道**方向一致**，
+P2 的"首个"获得**双通道支持**。
+
+**但限制必须保留（不得因此升级为"不存在"）**：
+① OpenAlex 对 DriveDreamer 只记 **15** 条引用，**明显低于实际**，该通道**覆盖不完整**，
+"15 条"**不是全集**；② 只筛**题名**，题名不含"场"而正文用的会被漏掉；
+③ 未做正向引用网络（DriveDreamer 引了谁）与 survey 参考文献反查。
+**⇒ §0 的结论强度不变**：只能写"据我们在 [OpenAlex 关键词 8 式 / OpenAlex 引用网络 / arXiv 8 式 / S2 / Web，2026-10-13] 的检索未发现"。
+
