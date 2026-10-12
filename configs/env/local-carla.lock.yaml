@@ -7,14 +7,30 @@ carla:
   engine: "Unreal Engine 4.26（**不是** UE5）"
   root: 'F:\CARLA'
   launcher: 'F:\CARLA\CarlaUE4.exe'                                  # 0.2 MB，转发到 Shipping 版
-  server_binary: 'F:\CARLA\CarlaUE4\Binaries\Win64\CarlaUE4-Win64-Shipping.exe'   # 87.2 MB
+  server_binary: 'D:\CARLA\CarlaUE4\Binaries\Win64\CarlaUE4-Win64-Shipping.exe'   # 87.2 MB
   install_method: "官方预编译包 ZIP 解压（非源码编译）"
   source_url: 'https://downloads.carlasim.com/Windows/CARLA_0.9.16.zip'
+  # ── F: 上那份的安排（2026-10-11 决定，基于实测；用户问"F 盘 CARLA 怎么安排"）──
+  # 事实：两份副本经 `robocopy /L` 比对**逐文件完全一致**（差异 0 文件 / 0 字节），
+  #       关键文件 SHA256 前 16 位相同（CarlaUE4.exe、Shipping.exe、客户端 wheel）。
+  #       ⇒ F: 上的解压副本是**纯冗余**。
+  # 决定：**删除解压副本，保留压缩包**作为灾难恢复备份。
+  # 理由：① 恢复能力与解压副本**等价**（解压仅约 7 分钟）；
+  #       ② zip 唯一优势是省一次约 1 小时的下载（国际源实测 0.04–1.5 MB/s）；
+  #       ③ 净省 18 GB；④ zip 可哈希校验完整性，解压副本被静默写坏时更难发现；
+  #       ⑤ "备份"的价值在能恢复，不在它是文件夹。
+  backup:
+    kept_zip: 'F:\CARLA_download\CARLA_0.9.16.zip'
+    zip_size_mb: 7450
+    zip_sha256: '0972f26fa3f1c741fbfcb4602b4ccf520415b8f8cf3d06cb83c9502fe8118bd2'
+    zip_verified: "已实测：ZIP 可打开、32841 条目与在用副本一致、三个关键条目字节数相符"
+    deleted_f_copy: 'F:\CARLA（已删，实测释放 47.33 GB）'
+    restore_steps: "解压 zip 到 D:\\CARLA 即可（约 7 分钟）；再按 desktop 快捷方式重建 3 个 .lnk；无需重装 Python 3.12 与 wheel（二者在 C:）"
   zip_kept: 'F:\CARLA_download\CARLA_0.9.16.zip'
   zip_size_mb: 7450
   extracted_gb: 18.07
   entries: 32841
-  disk_after: "F: 剩余 365.8 GB"
+  disk_after: "D: 剩余 28.7 GB；F: 剩余 413.1 GB（删冗余副本后）"
 
 download_record:
   authorized_by: "用户 2026-10-11（选择'下 CARLA 到 F: 并冒烟'）"

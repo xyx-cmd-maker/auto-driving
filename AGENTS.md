@@ -100,7 +100,7 @@
 > ```text
 > snapshot-date: 2026-10-11
 > results-json-count: 36
-> src-code-file-count: 12
+> src-code-file-count: 13
 > env:sumo-version: 1.27.1
 > portfolio:source: papers/portfolio.md
 > portfolio-check: status-column
