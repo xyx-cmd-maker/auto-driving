@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""闭环 A1 的**目视确认**演示：把相机挂到 ego 后方，边开边打印状态。
+r"""闭环 A1 的**目视确认**演示：把相机挂到 ego 后方，边开边打印状态。
 
 ★ 可以从任意目录运行（脚本内部把路径解析成绝对路径）。
   实测踩过：用户在 `C:\WINDOWS\system32` 下敲 `py -3.12 scripts/demo_carla_drive.py`，
@@ -8,7 +8,7 @@
   因此本脚本**不依赖 cwd**；更省事的入口是同目录下的 `run_carla_demo.cmd`（会顺带启动服务端）。
 
 用法（先启动 CARLA 服务端；或用 run_carla_demo.cmd 一步到位）：
-    py -3.12 "<项目绝对路径>\\scripts\\demo_carla_drive.py" --seconds 30
+    py -3.12 "<项目绝对路径>\scripts\demo_carla_drive.py" --seconds 30
     py -3.12 scripts/demo_carla_drive.py --seconds 60 --scenario cutin --traffic 30
 
 看什么：CarlaUE4 窗口里应能**看到自车在动**（相机跟在车后上方约 9 m）。
