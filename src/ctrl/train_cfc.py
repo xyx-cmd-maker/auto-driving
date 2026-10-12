@@ -397,6 +397,9 @@ def analyze(scenarios, seeds):
         print("没有可分析的结果（先跑训练）")
         return 2
     print("配对分析：%d 个 (场景,种子)" % len(cases))
+    if len(cases) < 5:
+        print("  ⚠️ n=%d < 5：**不足以做任何统计推断**。下面只列原始差值，"
+              "不得报 CI、不得写'显著'或'无差异'（协议要求种子 ≥5）。" % len(cases))
     for key in ("delta_cost", "delta_following_rmse", "delta_accel_sq_integral", "delta_collision"):
         vals = [c["paired"][key] for c in cases if c["paired"].get(key) is not None]
         if not vals:
@@ -405,10 +408,14 @@ def analyze(scenarios, seeds):
         arr = np.array(vals, dtype=float)
         n = len(arr)
         mean = float(arr.mean())
-        sd_ = float(arr.std(ddof=1)) if n > 1 else 0.0
-        se = sd_ / math.sqrt(n) if n > 1 else 0.0
-        # 样本量小，用 t 近似会过窄；这里**同时报**均值与区间，并标注 n
-        ci = (mean - 1.96 * se, mean + 1.96 * se) if n > 1 else (mean, mean)
+        if n < 5:
+            # n<5 时禁止输出区间：t/正态近似都无意义，且点估计的"区间"会假装成 CI。
+            print("  %-28s n=%d ｜ 各值 %s ｜ 均值 %+.4f（**样本不足，不报区间**）"
+                  % (key, n, [round(float(v), 4) for v in arr], mean))
+            continue
+        sd_ = float(arr.std(ddof=1))
+        se = sd_ / math.sqrt(n)
+        ci = (mean - 1.96 * se, mean + 1.96 * se)
         sign = "OTF 更好" if mean < 0 else ("OTF 更差" if mean > 0 else "无差异")
         print("  %-28s 均值 %+.4f ｜ 95%%CI [%+.4f, %+.4f] ｜ n=%d ｜ %s"
               % (key, mean, ci[0], ci[1], n, sign))
