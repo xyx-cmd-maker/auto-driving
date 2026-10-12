@@ -2,11 +2,16 @@
 # -*- coding: utf-8 -*-
 """闭环 A1 的**目视确认**演示：把相机挂到 ego 后方，边开边打印状态。
 
-用法（先启动 CARLA 服务端）：
-    py -3.12 scripts/demo_carla_drive.py                # 默认 30 秒
+★ 可以从任意目录运行（脚本内部把路径解析成绝对路径）。
+  实测踩过：用户在 `C:\WINDOWS\system32` 下敲 `py -3.12 scripts/demo_carla_drive.py`，
+  相对路径解析成 `C:\WINDOWS\system32\scripts\...` → `No such file or directory`。
+  因此本脚本**不依赖 cwd**；更省事的入口是同目录下的 `run_carla_demo.cmd`（会顺带启动服务端）。
+
+用法（先启动 CARLA 服务端；或用 run_carla_demo.cmd 一步到位）：
+    py -3.12 "<项目绝对路径>\\scripts\\demo_carla_drive.py" --seconds 30
     py -3.12 scripts/demo_carla_drive.py --seconds 60 --scenario cutin --traffic 30
 
-看什么：CarlaUE4 窗口里应能**看到自车在动**（相机跟在车后上方）。
+看什么：CarlaUE4 窗口里应能**看到自车在动**（相机跟在车后上方约 9 m）。
 为什么需要它：CARLA 的 spectator 默认是自由相机、不跟随任何车辆，
 实测 ego 走 82.5 m 而相机纹丝不动、二者相距 763 m——所以默认窗口里
 看到的是地图别处的静止场景，容易误判成"车没动"。
@@ -17,11 +22,11 @@ import argparse
 import os
 import sys
 
+# 用 __file__ 解析绝对路径（脚本不依赖 cwd）
 _HERE = os.path.dirname(os.path.abspath(__file__))
-for _p in (os.path.join(_HERE, "..", "src", "envs"),):
-    p = os.path.abspath(_p)
-    if p not in sys.path:
-        sys.path.insert(0, p)
+_SRC_ENVS = os.path.abspath(os.path.join(_HERE, "..", "src", "envs"))
+if _SRC_ENVS not in sys.path:
+    sys.path.insert(0, _SRC_ENVS)
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -29,7 +34,13 @@ for _s in (sys.stdout, sys.stderr):
     except Exception:
         pass
 
-from carla_town04 import Town04Env  # noqa: E402
+try:
+    from carla_town04 import Town04Env  # noqa: E402
+except ModuleNotFoundError as exc:
+    print("导入失败：%s" % exc)
+    print("  期望的模块目录：%s （存在=%s）" % (_SRC_ENVS, os.path.isdir(_SRC_ENVS)))
+    print("  提示：请用 Python 3.12（CARLA wheel 只有 cp312）：py -3.12 <本脚本绝对路径>")
+    sys.exit(2)
 
 
 def main():
