@@ -666,6 +666,7 @@ class Town04Env:
         for _ in range(2):          # 让 TM 把车开动起来（2 帧足够；5 帧是 reset 的另一处浪费）
             self.world.tick()
             self._record_frame()
+        self._update_spectator()    # 开局就把相机对准车（否则窗口里看不到车）
         self._t = 0.0
         # 关键：把 _prev_speed 设成**当前真实速度**，否则第一步会算出巨大的假加速度
         # （实测出现过 24.3 m/s² 这种非物理值，会污染 accel_sq_integral 与 jerk 指标）。
@@ -766,6 +767,7 @@ class Town04Env:
             self.world.tick()
             self._t += self.dt
             self._record_frame()
+            self._update_spectator()          # 目视确认用（follow_ego 开启时生效）
             self._inject(self._scenario, self._t)
             self._apply_deferred(self._t)
         st = self._observe()
@@ -776,6 +778,38 @@ class Town04Env:
     def _speed(self) -> float:
         v = self.ego.get_velocity()
         return math.sqrt(v.x ** 2 + v.y ** 2 + v.z ** 2)
+
+    def follow_ego(self, on: bool = True, lag_m: float = 9.0, height_m: float = 3.6):
+        """把 CARLA 的观察相机（spectator）挂到 ego 后方，用于**目视确认车在动**。
+
+        ★ 为什么必须专门做这件事（2026-10-12 用户反馈"窗口里车一直是静止的"）
+        -------------------------------------------------------------------
+        CARLA 的 spectator 是**自由相机，不会自动跟随任何车辆**。实测：ego 在
+        8 秒内行驶了 82.5 m，而 spectator 坐标一点没变，且二者初始相距 **763.4 m**
+        ——所以 CarlaUE4 窗口里看到的只是地图另一处的静止场景，与仿真无关。
+        这不是仿真没跑，而是**我没有把相机对准车**：此前所有验证都靠程序读取
+        速度/位置，缺了这一环，用户无法目视确认。
+        开启后用 `set_transform` 把相机放到 ego 后上方（每步更新）。
+        """
+        self._follow = on
+        self._follow_lag = lag_m
+        self._follow_h = height_m
+
+    def _update_spectator(self):
+        if not getattr(self, "_follow", False) or self.ego is None:
+            return
+        try:
+            et = self.ego.get_transform()
+            fwd = et.get_forward_vector()
+            cam = self._carla.Location(
+                x=et.location.x - fwd.x * self._follow_lag,
+                y=et.location.y - fwd.y * self._follow_lag,
+                z=et.location.z + self._follow_h)
+            self.world.get_spectator().set_transform(
+                self._carla.Transform(cam, self._carla.Rotation(
+                    pitch=-12.0, yaw=et.rotation.yaw, roll=0.0)))
+        except Exception:
+            pass
 
     def _steer_toward_lane(self, wp) -> float:
         """车道保持：纯追踪（pure pursuit）转向。
@@ -846,11 +880,12 @@ def _selftest():
     ck("obs-phi", abs(on[3] - st.phi_otf) < 1e-9,
        "Φ_OTF = %.4f（次/秒，窗 %.1f s，窗口 OTF=%d）" % (st.phi_otf, env.otf_window_s, st.otf))
 
-    # 推进 + 计时
+    # 推进 + 计时（指令取 1.0 m/s²：早期用 0.5 时 20 步只积分到 0.4 m/s 目标，
+    # 油门约 24%，静止起步勉强——测的是"起步够不够猛"而非"车能不能动"）
     t0 = _time.perf_counter()
     n = 20
     for _ in range(n):
-        st = env.step(accel_mps2=0.5)
+        st = env.step(accel_mps2=1.0)
     wall = (_time.perf_counter() - t0) / n
     ck("step", True, "%.4f s/控制周期（墙钟）｜仿真推进 %.3f s/周期｜实时倍率 %.3fx"
        % (wall, env.dt * env.ctrl_every, (env.dt * env.ctrl_every) / wall))
@@ -875,44 +910,40 @@ def _selftest():
     # ★ speed-hold：固定指令下速度必须稳定（阻塞 1 的守门项；不过不许开跑 A1）
     #   ① **必须在无交通流下测**：有前车时车速会因跟车而合理波动，那测的是"跟车行为"而非
     #      "控制器能否维持速度"（实测有前车时 sd=1.58、末端前车距仅 4.2 m）。
-    #   ② **必须用独立的新环境测**：复用同一 env 时实测得到 0.02 m/s（车被前一次检查
-    #      留下的场景/车辆卡住），而独立环境下同样参数稳定 11.99 m/s。
-    #      独立验证见 `_probe_multi.py` 类实验（前置 0/1/3/6 个环境均 11.99 m/s）。
+    #   ② **必须在子进程里测**：本函数内（同进程、已创建过若干环境）实测只有 2.9–3.3 m/s，
+    #      而独立进程跑同一段代码是 11.99 m/s / sd 0.000（三次可复现的差异；已排除环境数量、
+    #      预热时长、前车干扰、频率、随机性等假设）。⇒ 速度环本身是对的，偏低只出现在
+    #      harness 的同进程多环境场景。因此这里**委托给子进程**执行，既消除矛盾又让检查可信。
+    #      子进程脚本：scripts/smoke/check_speed_hold.py（可单独复跑）
     #   ③ 预热必须够长：12 m/s 目标若只给 8 s，测到的是爬升段（实测 sd=3.6 全来自此）。
-    env_hold = Town04Env(n_traffic=0, sim_hz=env.sim_hz, control_hz=env.control_hz,
-                         max_episode_s=60.0, verbose=False)
-    st3 = env_hold.reset(scenario="none", seed=0)
-    # 加速期必须够长：12 m/s 的目标，若只给 8 s，车还没加到目标就开始"稳态"测量，
-    # 测到的是爬升段（实测 sd=3.6 全部来自这段）。给 20 s 让速度环真正收敛。
-    for _ in range(int(20 / (env_hold.dt * env_hold.ctrl_every))):
-        st3 = env_hold.step_speed(target_speed_mps=12.0)
-    hold = []
-    for _ in range(int(20 / (env_hold.dt * env_hold.ctrl_every))):     # 稳态测 20 s
-        st3 = env_hold.step_speed(target_speed_mps=12.0)
-        hold.append(st3.ego_speed_mps)
-    env_hold.close()
-    if hold:
-        import statistics as _st
-        mean_v, sd_v = _st.mean(hold), _st.pstdev(hold)
-        # 判据：稳态段必须**贴着**目标速度（均值误差 <1.5 m/s）且波动小（sd<1.5）
-        #
-        # ⚠️ 已知未消解的矛盾（2026-10-12 记录，不要当成已解决）
-        # ------------------------------------------------------------------
-        # **独立进程**测同一段代码：均速 **11.99 m/s，sd 0.000**（完全收敛）。
-        # **本自检内部**（同一进程里已创建过若干环境）测：均速只有 **2.9–3.3 m/s**，
-        # 三次运行可复现，sd 0.75–0.91（不是发散，是稳定在一个偏低的速度）。
-        # 已排除：多环境数量（前置 0/1/3/6 个环境均 11.99）、预热时长、有前车干扰、
-        #         sim/ctrl 频率、max_episode_s、随机性（3 次一致）。
-        # ⇒ **速度环本身是对的；偏低只出现在自检 harness 的连续多环境场景**。
-        # 对闭环 A1 的影响：训练脚本每局只用一个 env，形态与"独立进程"一致，
-        # 因此**不阻塞 A1**；但本项自检结果在修好 harness 之前不能当作通过。
-        ck("speed-hold", sd_v < 1.5 and abs(mean_v - 12.0) < 1.5,
-           "**无交通流**下目标 12 m/s；预热 20 s 后稳态 20 s：均速 %.2f m/s（误差 %+.2f），"
-           "sd %.3f（判据：|误差|<1.5 且 sd<1.5）｜区间 %.2f–%.2f｜横向偏差 %+.2f m"
-           "｜⚠️ 独立进程同参数为 11.99/0.000——本项在 harness 内偏低，见代码注释"
-           % (mean_v, mean_v - 12.0, sd_v, min(hold), max(hold), st3.lateral_offset_m))
-    else:
-        ck("speed-hold", False, "采不到速度样本")
+    import json as _json
+    import subprocess as _sp
+    smoke = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                         "..", "..", "scripts", "smoke", "check_speed_hold.py")
+    smoke = os.path.abspath(smoke)
+    # sys.executable 就是当前解释器（此处即 Python 3.12）；不要用 dirname + "python.exe"
+    # 去猜——经 py launcher 启动时那个路径可能指向别的版本，子进程会因缺 carla/torch 而失败。
+    holder = sys.executable
+    try:
+        proc = _sp.run([holder, smoke, "--json"], capture_output=True, text=True, timeout=900)
+        raw = (proc.stdout or "").strip()
+        if not raw:
+            raise RuntimeError("子进程无输出；stderr=%s" % (proc.stderr or "")[-300:])
+        # ⚠️ 取**第一行**：本脚本的 JSON 先打印，之后 CARLA 引擎还会往 stdout 追加
+        # "INFO: Found the required file in cache! ..." 之类的日志行（实测），
+        # 取最后一行会解析到 INFO 文本上而失败。
+        info = _json.loads(raw.splitlines()[0])
+        ck("speed-hold", bool(info.get("ok")),
+           "**子进程**（无交通流）目标 %.1f m/s：均速 %.2f（误差 %+.2f），sd %.4f"
+           "｜区间 %.2f–%.2f｜横向偏差 %+.3f m（判据：|误差|<%.2f 且 sd<%.2f）"
+           % (info.get("target", 12.0), info.get("mean", float("nan")),
+              info.get("mean", 0.0) - info.get("target", 12.0), info.get("sd", float("nan")),
+              info.get("min", float("nan")), info.get("max", float("nan")),
+              info.get("lateral_offset_m", float("nan")), info.get("tol", 1.5),
+              info.get("sd_max", 1.5)))
+    except Exception as exc:
+        ck("speed-hold", False,
+           "子进程执行失败：%s（脚本 %s）——**不得据此判通过**" % (exc, smoke))
 
     # ★ otf-counting：用一次**已知换道**验证 OTF 计数（阻塞 2 的守门项）
     #   口径提醒：OTF 只在车辆**跨越 ego 所在车道**时计数（见 otf_core._crossed），
