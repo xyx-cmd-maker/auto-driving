@@ -770,8 +770,14 @@ class Town04Env:
         else:
             self._residue_warn = None
         self._t = 0.0
-        # 关键：把 _prev_speed 设成**当前真实速度**，否则第一步会算出巨大的假加速度
-        # （实测出现过 24.3 m/s² 这种非物理值，会污染 accel_sq_integral 与 jerk 指标）。
+        # ★ 换道注入的计时器**必须每局重置**（2026-10-18 修的 bug）。
+        # 故障现象：`_lc_next` 只在首次进入 `_pump_lanechanges` 时初始化，
+        # 而 `reset()` 只把 `_t` 归零、没重置 `_lc_next` ⇒ 第二局起 `self._t < self._lc_next`
+        # 恒成立，**后续所有 rollout 都不再注入换道**，Φ_OTF 又变回 0。
+        # 我的单局探针只跑第一局，因此显示 8.3% 正常——**这正是"单局验证不足以证明多局正确"**。
+        self._lc_next = getattr(self, "lanechange_period_s", 4.0)
+        self._lc_count = 0
+        self._lc_fired = 0
         v0 = self.ego.get_velocity()
         self._prev_speed = math.sqrt(v0.x ** 2 + v0.y ** 2 + v0.z ** 2)
         self._last_applied_accel = 0.0
