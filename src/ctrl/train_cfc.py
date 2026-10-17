@@ -307,9 +307,11 @@ def run_case(scenario: str, seed: int, args) -> dict:
                             "travelled_m": t["guard"].get("travelled_m"),
                             "invalid_reason": t["guard"].get("invalid_reason")}
                            for t in sorted(trials, key=lambda x: x["k"])],
-            "phi_nonzero_ratio": next((t["guard"].get("phi_nonzero_ratio")
-                                       for t in trials if t["guard"].get("phi_nonzero_ratio") is not None),
-                                      None) if use_otf else None,
+            # 处理变量激活率取**各候选的最大值**（不是第一个候选）：
+            # 早期版本取 next(...)，若恰好撞上"ego 被卡住"的无效候选就会报 0，
+            # 掩盖"其它候选其实激活了"的事实（2026-10-18 修）。
+            "phi_nonzero_ratio": (max((t["guard"].get("phi_nonzero_ratio") or 0.0)
+                                      for t in trials) if use_otf else None),
         }
         # 择优仅用有效候选；全部无效时保守回退到全部（并在 paired 里标注）
         pool = valid_trials or trials
@@ -322,6 +324,10 @@ def run_case(scenario: str, seed: int, args) -> dict:
             "all_costs": [t["cost"] for t in trials],
             "n_invalid": sum(1 for t in trials if not t["valid"]),
             "wall_s": round(time.perf_counter() - t0, 1),
+            # 最优候选自身的激活率（此时 best 已确定；早期误放在 best 之前，
+            # 导致第二臂读到的是上一臂的 guard，值为 None）
+            "phi_nonzero_ratio_of_best": (best["guard"].get("phi_nonzero_ratio")
+                                          if use_otf else None),
         })
         out["guards"][arm] = best["guard"]
     env.close()

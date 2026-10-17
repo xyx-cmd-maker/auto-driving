@@ -290,7 +290,11 @@ class Town04Env:
         fwd = ewp.transform.get_forward_vector()
         right = self._carla.Vector3D(x=-fwd.y, y=fwd.x, z=0.0)
 
-        # 收集 ego 前方 15–90 m、与 ego 车道相邻或同车道的车
+        # 收集 ego **前后** 的相邻/同车道车。
+        # ★ 必须包含**后方**（2026-10-18 修的第二个 bug）：早期只取 `15 < along < 90`，
+        # 而训练中的随机策略常把 ego 开成龟速，此时前车迅速跑出窗口、注入完全失效，
+        # Φ_OTF 又回到 0（实测：探针 ego=12 m/s 时 12.5%，训练里 0.000）。
+        # 允许后方车辆并入/驶出 ego 车道，正是"被超车"这一类 OTF 事件。
         cands = []
         for o in self.world.get_actors().filter("vehicle.*"):
             if o.id == self.ego.id:
@@ -300,25 +304,40 @@ class Town04Env:
             rel = ot.location - e_loc
             along = rel.x * fwd.x + rel.y * fwd.y
             lat = rel.x * right.x + rel.y * right.y
-            if 15.0 < along < 90.0 and abs(lat) < 8.0:
-                cands.append((along, o, owp))
+            if -60.0 < along < 90.0 and abs(lat) < 8.0:
+                cands.append((abs(along), o, owp))
         if not cands:
             return
         cands.sort(key=lambda x: x[0])
 
         # 确定性选一辆：按注入计数轮转；方向交替（偶数次→进 ego 车道，奇数次→驶离）
-        _along, actor, owp = cands[self._lc_count % len(cands)]
+        _d, actor, owp = cands[self._lc_count % len(cands)]
         want_into_ego = (self._lc_count % 2 == 1)
+        # ★ 用**脚本化 cut-in（直接置位）**而不是 `force_lane_change`。
+        # 实测：TM 的 `force_lane_change` 在本场景（车少、无拥堵压力）几乎不执行——
+        # 9 次注入、0 次跨车道事件，Φ_OTF 始终为 0。而 OTF 的定义要求车辆**跨越 ego 车道**。
+        # 因此这里把邻道车辆直接放到 ego 车道的指定纵向偏移处（前后各一次），
+        # 这是协议 `cutin` 工况的确定性实现：**两臂看到完全相同的注入序列**，公平性不受影响。
+        # 代价：视觉上是瞬移，不是自然换道轨迹——必须在稿件里如实写明（不得称"自然交通流换道"）。
         try:
-            if want_into_ego:
-                # 从相邻车道并入 ego 车道
-                if abs(owp.lane_id - ewp.lane_id) == 1:
-                    self.tm.force_lane_change(actor, owp.lane_id > ewp.lane_id)
-            else:
-                # 从 ego 车道驶离到相邻车道
-                if owp.lane_id == ewp.lane_id:
-                    self.tm.force_lane_change(actor, self._lc_count % 4 == 0)
-            self._lc_fired = getattr(self, "_lc_fired", 0) + 1
+            et = self.ego.get_transform()
+            fwd_e = self._map().get_waypoint(et.location).transform.get_forward_vector()
+            offset = 28.0 if want_into_ego else -22.0
+            tgt = self._carla.Location(x=et.location.x + fwd_e.x * offset,
+                                       y=et.location.y + fwd_e.y * offset,
+                                       z=et.location.z + 0.3)
+            twp = self._map().get_waypoint(tgt, project_to_road=True)
+            if twp is not None:
+                actor.set_transform(self._carla.Transform(
+                    self._carla.Location(x=twp.transform.location.x,
+                                         y=twp.transform.location.y,
+                                         z=twp.transform.location.z + 0.3),
+                    twp.transform.rotation))
+                # 置位后给一个与 ego 相近的速度，避免立刻又跑出窗口
+                v_ego = self._speed()
+                actor.set_target_velocity(self._carla.Vector3D(
+                    x=fwd_e.x * v_ego, y=fwd_e.y * v_ego, z=0.0))
+                self._lc_fired = getattr(self, "_lc_fired", 0) + 1
         except Exception:
             pass
 
