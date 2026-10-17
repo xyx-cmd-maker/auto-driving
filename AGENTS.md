@@ -150,9 +150,14 @@
     - ⚠️ **操作提示**：冒烟后 `CarlaUE4-Win64-Shipping` 子进程可能残留（约 1.3 GB 内存），需显式 `Stop-Process` 清理。
     - 注意：本机虽已装 **UE 5.3**（`F:\UE_5.3`），但 CARLA 0.9.16 基于 **UE 4.26**，**不能复用该引擎**。
   - **仍缺**：**实车数据不在本机**（唯一的实质前提缺口）。**闭环 A1 的环境前提已全部清空。**
-  - **磁盘布局（2026-10-12 实测）**：**C: 34.2 GB 可用**（系统盘；已清理 pip/npm/Temp 缓存释放 7.75 GB；**conda pkgs 2.63 GB 需管理员权限，未清**）／D: 28.7 GB 可用（**CARLA 在此，占 18.07 GB**）／E: 8.2 GB／**F: 413.1 GB 可用**。
-    - 约定：**PyTorch 装本机**（必须跟随解释器，两个解释器各一份）；**CARLA 放内置 D:**（移动 SSD 实测在大 I/O 后掉过盘）；**会增长的产物（checkpoint、轨迹日志）写 F:**（`P1_RUNS_DIR`，默认 `F:\p1_runs`），仓库内只保留 schema 要求的小 JSON。
-    - **F: 上的 CARLA 安排已裁决（2026-10-12）**：两份副本实测**逐文件完全一致**（`robocopy /L` 差异 0，三个关键文件 SHA256 相同）⇒ 解压副本是纯冗余，**已删（释放 47.33 GB）**；**保留 `F:\CARLA_download\CARLA_0.9.16.zip`（7 450 MB，SHA256 `0972f26f…8bd2`）** 作灾难恢复——恢复能力与解压副本等价（解压约 7 分钟），只可能损失一次约 1 小时的下载。详见 `configs/env/local-carla.lock.yaml` 的 `backup:` 段。
+  - **磁盘布局（2026-10-18 实测，F: 已掉线）**：**C:/D:/E: 为本机固定盘**（CARLA 在 `D:\CARLA`，18.07 GB）；
+    **`F:` 移动 SSD 再次掉线**（2026-10-17 复现，盘符与卷均不可见）。
+  - **★ 由此定死的两条纪律（2026-10-18）**：
+    1. **运行产物一律写仓库内 `runs/p1/`**（`P1_RUNS_DIR` 可覆盖，但默认不再是外部盘）。
+       理由：单局结果仅 ~3 KB，放仓库毫无压力；而放在 F: 的直接后果是
+       **2026-10-13 的 4 局 A1 结果在盘符消失后不可访问**——数据丢失。
+       只有真正的大文件（checkpoint、原始轨迹）才考虑外置，且必须**同时**在仓库留可追溯的摘要。
+    2. **不把任何"唯一副本"放在移动盘上**；移动盘只作一次性传输或可重建的备份。
 - **公开数据**：nuScenes / Waymo（P2 用）遵守各自许可，**不得再分发**原始数据；**OTF 自动标注流水线是 P2 的隐性关键路径，须在第 2 个月启动**。
 - **结果唯一来源**：`results/<paper>/<experiment>_<scenario>_<seedset>.json`（本项目约定）。数字必须可指到文件名与字段；自检、冒烟、调试产物不得进入任何对外文本。
 
@@ -182,16 +187,31 @@
 
 - 稿件：**英文**（目标 venue 均为英文）；与我讨论、解释、给判断：**中文**。
 
-### 6.1 ★ 首选 venue 已裁决（2026-10-12 联网核验后定稿）
+### 6.1 ★ 首选 venue 已裁决（2026-10-18 二次联网核验后定稿；**取代 2026-10-12 版**）
 
-**裁决：P1 首投 `IEEE Transactions on Intelligent Vehicles`（T-IV），第一备选 `IEEE T-ITS`。**
-（此处与 `AGENTS-PROJECT.md` 原策略"T-ITS 主 / T-IV 备"**顺序相反**——以本表为准，理由见下。）
+**裁决：P1 首投 `IEEE Transactions on Intelligent Vehicles`（T-IV）；第一备选 `IEEE T-ITS`；
+若"毕业/考核必须在某日期前拿到录用"优先于刊物资历 → 改投 `IEEE Open Journal of ITS`（OJ-ITS）。**
 
-| venue | 联网核验到的事实（2026-10-12 取用） | 判定 |
+**完整取证、不确定性标注与两种情形的选择标准见 [`audit/第一次组会/08-venue-decision.md`](audit/第一次组会/08-venue-decision.md)。**
+**判据是 desk-reject 风险，不是影响因子**：T-ITS 有一条被第三方明确描述为"最常见转投原因"的
+硬门槛——"交通系统贡献必须是**承载性**主张，去掉交通语境仍成立就会被转投 TVT/TCST"；
+T-IV 的范围原文即"roadway environment, and in particular automated vehicles"，
+我们的"高速混行 AV 控制器"**不需要为范围辩护**。因此 T-IV 的接受概率更高，且改投 T-ITS 成本最小
+（换摘要前两句 + 换 Fig.1 即可）。
+
+| venue | 联网核验到的事实（2026-10-18 取用） | 判定 |
 |---|---|---|
-| **T-IV** | CiteScore **19.9**；Q1 级排名：Control and Optimization **3/198**、Automotive Engineering **3/143**、AI **28/570**；SCIE 收录；年发文 382；ISSN 2379-8858；范围明写"**intelligent vehicles in a roadway environment, and in particular in automated vehicles**" | **★ 首投**。范围与"高速混行场景下的自动驾驶车辆控制器"**逐字对口**；小体量（382 篇/年）意味着编辑对单篇的注意力更多 |
-| **T-ITS** | CiteScore **20.5**；CiteScore 排名：Automotive Eng **2/143**、Mechanical Eng 16/740、CS Applications 27/1022；SCIE；WoS **Q1**（Eng. Civil 8/193、EE 25/369、Transportation Sci 7/80）；审稿约 **3 个月**；竞年量 1656 篇；Regular 10 页 + 最多 6 页超页（$175/页） | 第一备选。指标略高、体量更大，但**desk 门槛有一条硬规则**（见下），需要重写摘要与 Fig.1 |
-| TVT | 联网未取到可靠事实 | 不作首选（范围偏车载电子/通信） |
+| **T-IV** | CiteScore **19.9**；Control & Optimization **3/198**、Automotive Eng **3/143**、AI 28/570；SCIE；年发文 **382**；ISSN 2379-8858；范围明写"**roadway environment, and in particular automated vehicles**"；第三方估审稿 **3–5 个月** | **★ 首投**。范围逐字对口、无需为"交通贡献承载性"辩护 |
+| **T-ITS** | CiteScore **20.5**；Automotive Eng **2/143**、Mechanical Eng 16/740、CS Appl 27/1022；SCIE；WoS **Q1**（Eng. Civil 8/193；EE 25/369；Trans. Sci. 7/80）；年发文 **1656**；Regular 10 页（+6 页 $175/页）、Survey 18 页、Short 6 页；第三方估录用 **15–20%**、审稿 **3–6 个月** | 第一备选。指标略高但**desk 门槛更严**（见下），改投时须重写摘要与 Fig.1 |
+| **OJ-ITS** | 同属 ITSS、全开放获取；第三方估录用 **约 30%**、约 **10 周**到发表 | **只在"时间硬约束"情形下选**——资历明显低于前两者 |
+| TVT / IoT-J | 第三方定位：适合"方法为主角"的稿件 | 不作首选（我们是 ITS/AV 问题，不是通信/IoT 方法问题） |
+
+**⚠️ 三项必须记住的不确定性（不得写进稿件或投稿信）**：
+1. **T-IV 的 WoS 分区未闭合**【需核实】：LetPub 显示 `N/A`，而其 SCIE 收录已确认。
+   若所在单位硬性要求"JCR Q1"，**投稿前必须自行在 Clarivate JCR 核实**，否则改用 T-ITS。
+2. **两刊 JIF 口径冲突**【需核实】：T-IV 中文页称 14.300、英文页无值；T-ITS 同页先 8.4 后 9.1。
+   **稿件正文一律不引 JIF**。
+3. **审稿速度与录用率均为第三方估计**【推测】，不得作为承诺写入任何对外材料。
 
 **T-ITS 的 desk 硬规则（必须照做，否则会被转投 TVT/TCST）**——核验来源明确指出：
 T-ITS 编辑会检查"**交通系统贡献是否为承载性主张，而不只是应用场景**"；

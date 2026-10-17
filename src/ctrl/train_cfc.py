@@ -67,6 +67,15 @@ import random
 import sys
 import time
 
+# ★ BLAS / OpenMP 线程数上限（2026-10-17 修复）。
+# 触发条件：本机 15.7 GB 内存，CARLA 的 Shipping 进程独占约 6.8 GB，
+# 剩余不足 1 GB 时 OpenBLAS 报 "Memory allocation still failed after 10 retries"。
+# OpenBLAS 默认按核数（24 线程）各分配工作缓冲，峰值内存被放大数倍。
+# 本项目**只用 numpy 做小数组统计**（几十个标量），单线程完全够用，因此强制 1。
+for _v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS",
+           "NUMEXPR_NUM_THREADS", "VECLIB_MAXIMUM_THREADS"):
+    os.environ.setdefault(_v, "1")
+
 import numpy as np
 import torch
 
@@ -88,9 +97,12 @@ for _s in (sys.stdout, sys.stderr):
 
 ROOT = os.path.abspath(os.path.join(_HERE, "..", ".."))
 RESULTS = os.path.join(ROOT, "results", "p1")
-# 会增长的产物（checkpoint / 轨迹）写到 F:（空间充裕）；仓库里只留 schema 要求的小 JSON。
-# 可用 P1_RUNS_DIR 覆盖；写不进去时静默退回仓库 runs/。
-RUNS = os.environ.get("P1_RUNS_DIR", r"F:\p1_runs")
+# ★ 运行产物默认写在**仓库内** `runs/p1`（2026-10-17 改）。
+# 早期默认 `F:\p1_runs`（移动 SSD），理由是想让"会增长的产物"远离仓库；但实测 F: 会掉线，
+# 2026-10-13 的 4 局 A1 结果因此在盘符消失后**不可访问**（教训见 AGENTS-LESSONS.md P9 同类）。
+# 而本项目单局结果只有 ~3 KB，放进仓库毫无压力；且项目铁律要求"结果唯一来源 = results/ 下可追溯"。
+# 因此：**结果一律进仓库**；只有真正的大文件（checkpoint、原始轨迹）才用 P1_RUNS_DIR 外置。
+RUNS = os.environ.get("P1_RUNS_DIR", os.path.join(ROOT, "runs", "p1"))
 
 ARMS = ("a1_otf_off", "a1_otf_on")
 USE_OTF = {"a1_otf_off": False, "a1_otf_on": True}
@@ -203,6 +215,13 @@ def rollout(env, policy: CFCPolicy, use_otf: bool, scenario: str, seed: int,
         st = env.step_speed(target_speed_mps=max(0.0, accel))
         tr.push(st)
         guard["n_frames"] += 1
+        # ★ 处理变量激活率（AGENTS-LESSONS.md §3 列为"高"优先级强制项）：
+        # "无差异"结论只有在**处理变量确实被激活过**时才成立。若 Φ_OTF 全程为 0，
+        # 则 a1_otf_on 的第 4 维输入恒为零、策略退化为与 a1_otf_off 逐位等价，
+        # Δ=0 只是"没有信号"而非"没有效果"——2026-10-11 已踩过一次，此处强制记录。
+        if use_otf:
+            guard["phi_nonzero_frames"] = guard.get("phi_nonzero_frames", 0) + (
+                1 if abs(st.phi_otf) > 1e-12 else 0)
         if st.ego_speed_mps < 0.1:
             guard["zero_speed_frames"] += 1
         guard["actors_max"] = max(guard["actors_max"],
@@ -218,6 +237,9 @@ def rollout(env, policy: CFCPolicy, use_otf: bool, scenario: str, seed: int,
     # 教训（2026-10-13）：a1_otf_on 的某局有 99% 的帧车速为 0（残留车把它卡住），
     # 该局指标毫无意义，却会被当成"这一臂更差"的证据混进结果。宁可丢弃也不能污染。
     guard["travelled_m"] = round(travelled, 3)
+    if use_otf:
+        nzf = guard.get("phi_nonzero_frames", 0)
+        guard["phi_nonzero_ratio"] = round(nzf / max(guard["n_frames"], 1), 6)
     guard["valid"] = bool(travelled > 20.0 or guard["n_frames"] == 0)
     if not guard["valid"]:
         guard["invalid_reason"] = ("ego 仅移动 %.1f m（阈值 20 m）——疑似被残留车辆/几何卡住，"
@@ -270,27 +292,68 @@ def run_case(scenario: str, seed: int, args) -> dict:
             trials.append({"k": k, "seed": s, "cost": cost_from_metrics(m), "metrics": m,
                            "guard": guard, "params": policy.n_params(),
                            "valid": guard.get("valid", True)})
-        valid_trials = [t for t in trials if t["valid"]] or trials
-        trials.sort(key=lambda x: x["cost"])
-        valid_trials.sort(key=lambda x: x["cost"])
-        best = valid_trials[0]
+        # ★ 逐候选记录（含有效性掩码）——**必须落盘**。
+        # 教训（2026-10-17）：初版只存 all_costs 与 n_invalid，导致无法离线审计
+        # "哪些候选无效"。而无效局（车没动）的代价**可能低于**有效局，因为代价里
+        # "跟车误差 None → 占位 10.0"、车不动时其余项都很小 ⇒ **绝不能靠代价大小判断有效性**。
+        # 因此这里显式保存每个候选的 {k, seed, cost, valid, reason, travelled_m}。
+        valid_trials = [t for t in trials if t["valid"]]
+        n_valid = len(valid_trials)
         out["arms"][arm] = {
+            "n_valid": n_valid,
+            "invalid_ratio": round(1.0 - n_valid / max(len(trials), 1), 4),
+            "candidates": [{"k": t["k"], "seed": t["seed"], "cost": round(t["cost"], 6),
+                            "valid": t["valid"],
+                            "travelled_m": t["guard"].get("travelled_m"),
+                            "invalid_reason": t["guard"].get("invalid_reason")}
+                           for t in sorted(trials, key=lambda x: x["k"])],
+            "phi_nonzero_ratio": next((t["guard"].get("phi_nonzero_ratio")
+                                       for t in trials if t["guard"].get("phi_nonzero_ratio") is not None),
+                                      None) if use_otf else None,
+        }
+        # 择优仅用有效候选；全部无效时保守回退到全部（并在 paired 里标注）
+        pool = valid_trials or trials
+        pool.sort(key=lambda x: x["cost"])
+        best = pool[0]
+        out["arms"][arm].update({
             "best_cost": best["cost"], "best_metrics": best["metrics"],
-            "best_seed": best["best_seed"] if "best_seed" in best else best["seed"],
-            "params": best["params"],
-            "elite_costs": [t["cost"] for t in valid_trials[:ELITE]],
+            "best_seed": best["seed"], "params": best["params"],
+            "elite_costs": [t["cost"] for t in pool[:ELITE]],
             "all_costs": [t["cost"] for t in trials],
             "n_invalid": sum(1 for t in trials if not t["valid"]),
             "wall_s": round(time.perf_counter() - t0, 1),
-        }
+        })
         out["guards"][arm] = best["guard"]
     env.close()
+
+    # ★ 等 K 配对（2026-10-17 新增）：两臂的有效候选数往往不等（实测 on 臂更容易把车开死），
+    # 若各取"各自最好的一个"，那么**候选池更大的一方天然占优**——这是选择偏倚，不是算法差异。
+    # 因此在 K = min(n_valid_off, n_valid_on) 上另算一套配对结果（取各臂前 K 个有效候选的均值），
+    # 与"各取最好"的原始口径**同时报告**，让读者自己看到差异来源。
+    def _valid_costs(arm):
+        return sorted(c["cost"] for c in out["arms"][arm]["candidates"] if c["valid"])
+
+    off_v, on_v = _valid_costs("a1_otf_off"), _valid_costs("a1_otf_on")
+    k_eq = min(len(off_v), len(on_v))
+    eq = None
+    if k_eq >= 1:
+        eq = {
+            "k": k_eq,
+            "delta_cost": round(sum(on_v[:k_eq]) / k_eq - sum(off_v[:k_eq]) / k_eq, 6),
+            "n_valid_off": len(off_v), "n_valid_on": len(on_v),
+            "invalid_ratio_off": out["arms"]["a1_otf_off"]["invalid_ratio"],
+            "invalid_ratio_on": out["arms"]["a1_otf_on"]["invalid_ratio"],
+            "caveat": ("等 K 消除了'候选池大小'带来的选择偏倚，但**不消除**两臂产生有效候选能力的"
+                       "真实差异；后者作为'训练难度'证据单独报告，不得隐去"),
+        }
     out["paired"] = {
         "delta_following_rmse": _d(out, "following_rmse_m"),
         "delta_accel_sq_integral": _d(out, "accel_sq_integral_mps3"),
         "delta_collision": (out["arms"]["a1_otf_on"]["best_metrics"]["collision_count"]
                             - out["arms"]["a1_otf_off"]["best_metrics"]["collision_count"]),
         "delta_cost": out["arms"]["a1_otf_on"]["best_cost"] - out["arms"]["a1_otf_off"]["best_cost"],
+        "mask": "best_cost 口径（各取各自最好有效候选）",
+        "equal_k": eq,
     }
     return out
 
@@ -374,8 +437,10 @@ def main():
             save_json(case_path(sc, sd), case)
             done += 1
             p = case["paired"]
-            print("  %s/s%d  代价 Δ=%+.3f ｜ 跟车 RMSE Δ=%s ｜ 碰撞 Δ=%+d ｜ %.0f s"
-                  % (sc, sd, p["delta_cost"],
+            eq = p.get("equal_k") or {}
+            print("  %s/s%d  Δcost(best)=%+.3f ｜ Δcost(等K=%s)=%s ｜ 跟车 Δ=%s ｜ 碰撞 Δ=%+d ｜ %.0f s"
+                  % (sc, sd, p["delta_cost"], eq.get("k"),
+                     ("%+.3f" % eq["delta_cost"]) if eq.get("delta_cost") is not None else "n/a",
                      ("%+.3f" % p["delta_following_rmse"]) if p["delta_following_rmse"] is not None else "n/a",
                      p["delta_collision"], time.perf_counter() - t0))
 
@@ -387,7 +452,9 @@ def main():
     # 三条看护汇总
     print("")
     print("=== 看护检查 ===")
-    g1 = g2 = g3 = 0
+    g1 = g3 = 0
+    bad = 0
+    phi_ratios = []
     for sc in scenarios:
         for sd in seeds:
             c = load_case(sc, sd)
@@ -398,9 +465,21 @@ def main():
                     g1 += 1
                 if g["zero_speed_frames"] > 0.5 * max(g["n_frames"], 1):
                     g3 += 1
+                if not g.get("valid", True):
+                    bad += 1
+            pr = c["arms"]["a1_otf_on"].get("phi_nonzero_ratio")
+            if pr is not None:
+                phi_ratios.append(pr)
     print("  G1 空 episode（reset 异常）: %d" % g1)
-    print("  G2 actor 泄漏: 需跨 episode 比较（见 analyze）")
+    print("  G2 actor 泄漏: 见每局 guards.actors_max（应稳定在生成数+ego 附近）")
     print("  G3 疑似拥塞/死锁 episode: %d" % g3)
+    print("  G0 无效(被卡住)的择优结果: %d" % bad)
+    if phi_ratios:
+        print("  ★ 处理变量激活率 Φ_OTF≠0 的帧占比（on 臂，各局）: %s"
+              % [round(r, 4) for r in phi_ratios])
+        if max(phi_ratios) <= 1e-9:
+            print("    ⚠️ **Φ_OTF 全程为 0**：on 臂第 4 维输入恒零、策略与 off 臂逐位等价。")
+            print("       因此**任何'无差异'结论都不能成立**——这是'没有信号'，不是'没有效果'。")
     print("")
     print("下一步：py -3.12 src/ctrl/train_cfc.py --analyze")
     # 有失败必须反映到退出码：否则冒烟"看起来通过"而实际什么都没跑（本轮就踩过：
@@ -445,6 +524,47 @@ def analyze(scenarios, seeds):
     print("")
     print("判读纪律（AGENTS.md §1 铁律 2）：若区间跨 0，**不得**写成'无差异'，")
     print("  必须用等价/非劣检验；样本量不足时只能写'未检出差异'。")
+
+    # ---- 等 K 配对（消除"候选池大小"带来的选择偏倚）----
+    eq_vals = [c["paired"]["equal_k"]["delta_cost"] for c in cases
+               if isinstance(c["paired"].get("equal_k"), dict)
+               and c["paired"]["equal_k"].get("delta_cost") is not None]
+    print("")
+    print("=== 等 K 配对（两臂各取相同数量 K 个有效候选的均值差）===")
+    if eq_vals:
+        ks = [c["paired"]["equal_k"]["k"] for c in cases if c["paired"].get("equal_k")]
+        print("  各局 K = %s ｜ Δcost 各值 %s ｜ 均值 %+.4f"
+              % (ks, [round(v, 4) for v in eq_vals], sum(eq_vals) / len(eq_vals)))
+    else:
+        print("  无 equal_k 数据（结果来自旧版本，需重跑）")
+
+    # ---- 处理变量激活率（"无差异"结论的前提）----
+    prs = [c["arms"]["a1_otf_on"].get("phi_nonzero_ratio") for c in cases
+           if c["arms"]["a1_otf_on"].get("phi_nonzero_ratio") is not None]
+    print("")
+    print("=== 处理变量激活率（Φ_OTF ≠ 0 的帧占比，on 臂）===")
+    if prs:
+        print("  各局 %s ｜ 最大 %.4f" % ([round(p, 4) for p in prs], max(prs)))
+        if max(prs) <= 1e-9:
+            print("  ⚠️ **全程为 0**：on 臂第 4 维输入恒零 ⇒ 与 off 臂逐位等价。")
+            print("     **不得**据此写'OTF 无效果'——这是'没有信号'。")
+        elif max(prs) < 0.05:
+            print("  ⚠️ 激活率 <5%：信号稀疏，效应量估计不稳定，需在 Limitations 声明。")
+        else:
+            print("  信号已激活，'有/无差异'的判定具备前提。")
+    else:
+        print("  无数据（旧版本结果或未跑 on 臂）")
+
+    # ---- 两臂无效比例（训练难度证据，不隐去）----
+    print("")
+    print("=== 无效候选比例（作为'训练难度'证据，**不得隐去**）===")
+    for c in cases:
+        off = c["arms"]["a1_otf_off"]
+        on = c["arms"]["a1_otf_on"]
+        print("  %-16s off 无效 %.0f%%（%d/%d）｜ on 无效 %.0f%%（%d/%d）"
+              % (c["scenario"] + "/s%d" % c["seed"],
+                 100 * off.get("invalid_ratio", 0), off.get("n_invalid", 0), len(off["all_costs"]),
+                 100 * on.get("invalid_ratio", 0), on.get("n_invalid", 0), len(on["all_costs"])))
     return 0
 
 

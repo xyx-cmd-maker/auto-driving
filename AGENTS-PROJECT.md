@@ -45,7 +45,7 @@
 
 | 论文 | **首选** | **备选** | **会议轨** | 为什么这样排 |
 |---|---|---|---|---|
-| P1 | **IEEE T-IV**（★2026-10-12 联网核验后改） | **IEEE T-ITS** | **IEEE IV**／ITSC（含"混行交通 AI 自动驾驶"分会） | **顺序已与初版相反**，理由与 desk 硬规则见 `AGENTS.md` §6.1：T-IV 范围明写"roadway environment, in particular automated vehicles"，与"高速混行场景下的 AV 控制器"逐字对口；T-ITS 指标略高但要求"交通系统贡献是承载性主张"，需专门改摘要与 Fig.1。**负结果时优先 T-ITS** |
+| P1 | **IEEE T-IV**（★2026-10-18 二次核验后定稿） | **IEEE T-ITS**（改投成本最小）；**若"某日期前必须有录用"→ OJ-ITS** | **IEEE IV**／ITSC（含"混行交通 AI 自动驾驶"分会） | **判据是 desk-reject 风险，不是影响因子**：T-ITS 明确要求"交通系统贡献是**承载性**主张"，去掉交通语境仍成立就被转投 TVT/TCST；T-IV 范围原文即"roadway environment, and in particular automated vehicles"，我们的"高速混行 AV 控制器"**无需为范围辩护**。**完整取证与三项不确定性见 `audit/第一次组会/08-venue-decision.md`** |
 | P2 | **IEEE TPAMI** | **IEEE T-ITS** | **CVPR-W / ICCV-W**（先占位） | 世界模型＋生成属 CV 主流；TPAMI 容得下方法＋大规模实验；workshop 用来抢时间窗 |
 | P3 | **IEEE TVT** | **IEEE T-ITS** | **IROS** | TVT 收车辆层面的语言/决策集成；IROS 收机器人交互 |
 | P4 | **IEEE T-ITS**（安全/可靠性专栏） | **DASC** | DASC | 与"独立隔离＋SOTIF 思路"最贴；DASC 是 AD 安全社区主场 |

@@ -258,6 +258,70 @@ class Town04Env:
             meta={"road_id": ewp.road_id, "lane_id": ewp.lane_id, "lead_id": getattr(lead, "id", None)},
         )
 
+    def _pump_lanechanges(self):
+        """周期性注入**确定性换道**，让混行流真的产生跨车道超车事件（= OTF 的触发条件）。
+
+        ★ 为什么必须显式注入（2026-10-18 实测定位）
+        ---------------------------------------------------
+        `Φ_OTF≠0 的帧占比 = 0.0` 连续复现。逐帧统计后定位：60 秒内全场仅 **2 次换道、
+        且 0 次涉及 ego 车道**——Traffic Manager 的 `random_*_lanechange_percentage`
+        在本场景下几乎不生效（车距 45 m、车少、无拥堵压力）。
+        而 OTF 的定义（`otf_core._crossed`）只在车辆**跨越 ego 所在车道**时计数，
+        因此自然流下 OTF 必然恒为 0，A1 等于没测。
+
+        这里按**固定周期 + 固定选车规则**注入换道（与时间、与 spawn 序号相关，
+        不含随机数），保证同一 seed 下两臂看到**完全相同**的交通事件（公平性硬要求）。
+        注入方向交替（进 ego 车道 / 出 ego 车道），两侧都产生 crossing。
+        """
+        period = getattr(self, "lanechange_period_s", 4.0)
+        if period <= 0 or self.ego is None:
+            return
+        if not hasattr(self, "_lc_next"):
+            self._lc_next = period
+            self._lc_count = 0
+        if self._t < self._lc_next:
+            return
+        self._lc_next = self._t + period
+        self._lc_count += 1
+
+        cmap = self._map()
+        e_loc = self.ego.get_transform().location
+        ewp = cmap.get_waypoint(e_loc)
+        fwd = ewp.transform.get_forward_vector()
+        right = self._carla.Vector3D(x=-fwd.y, y=fwd.x, z=0.0)
+
+        # 收集 ego 前方 15–90 m、与 ego 车道相邻或同车道的车
+        cands = []
+        for o in self.world.get_actors().filter("vehicle.*"):
+            if o.id == self.ego.id:
+                continue
+            ot = o.get_transform()
+            owp = cmap.get_waypoint(ot.location)
+            rel = ot.location - e_loc
+            along = rel.x * fwd.x + rel.y * fwd.y
+            lat = rel.x * right.x + rel.y * right.y
+            if 15.0 < along < 90.0 and abs(lat) < 8.0:
+                cands.append((along, o, owp))
+        if not cands:
+            return
+        cands.sort(key=lambda x: x[0])
+
+        # 确定性选一辆：按注入计数轮转；方向交替（偶数次→进 ego 车道，奇数次→驶离）
+        _along, actor, owp = cands[self._lc_count % len(cands)]
+        want_into_ego = (self._lc_count % 2 == 1)
+        try:
+            if want_into_ego:
+                # 从相邻车道并入 ego 车道
+                if abs(owp.lane_id - ewp.lane_id) == 1:
+                    self.tm.force_lane_change(actor, owp.lane_id > ewp.lane_id)
+            else:
+                # 从 ego 车道驶离到相邻车道
+                if owp.lane_id == ewp.lane_id:
+                    self.tm.force_lane_change(actor, self._lc_count % 4 == 0)
+            self._lc_fired = getattr(self, "_lc_fired", 0) + 1
+        except Exception:
+            pass
+
     def _record_frame(self):
         """把当前所有车辆的 (车道号, 纵向位置) 记入 OTF 窗口缓冲。
 
@@ -321,6 +385,22 @@ class Town04Env:
         carla = c
         self.tm.set_global_distance_to_leading_vehicle(2.5)
         self.tm.global_percentage_speed_difference(15.0)   # 混行：部分车慢于限速
+        # ★ 让混行流**真的换道 + 真的有速度差**（2026-10-18 修复，A1 的核心前置）
+        # -------------------------------------------------------------------
+        # 实测证据：`Φ_OTF≠0 的帧占比 = 0.0`（全新加的守门项直接抓到）。根因是
+        # OTF 只在**车辆跨越 ego 所在车道**时计数（见 otf_core._crossed），而
+        # Traffic Manager 默认几乎不换道、且所有车用同一个 global 速度差 ⇒ 不产生跨车道超车，
+        # 于是 on 臂第 4 维输入恒为零、两臂只差"多一个恒零输入带来的随机权重"——
+        # **A1 根本没在测 OTF**，任何 Δ 都是噪声。
+        # 修法：① 打开随机换道概率；② 逐车随机速度差（快慢混行）。
+        # 注意：这两个参数只改**混行流的统计性质**，两臂完全相同（公平性不受影响）。
+        for setter, val in (("random_left_lanechange_percentage", 40.0),
+                            ("random_right_lanechange_percentage", 40.0)):
+            try:
+                getattr(self.tm, setter)(val)
+            except Exception as exc:
+                if self.verbose:
+                    print("    [env] %s 不可用：%s" % (setter, exc))
         bps = [b for b in self.world.get_blueprint_library().filter("vehicle.*")
                if b.has_attribute("number_of_wheels")]
 
@@ -398,6 +478,14 @@ class Town04Env:
                                  rel.x * (-fwd.y) + rel.y * fwd.x, last_err or "未知"))
                     continue
                 actor.set_autopilot(True, self.tm.get_port())
+                # ★ 逐车速度差：快慢混行才能产生真实超车（进而产生 OTF 事件）。
+                # 用**确定性**序列（按 spawn 序号）而非随机数，保证同一 seed 下两臂看到
+                # 完全相同的交通流（公平性硬要求）。差值范围 0%–40%，均值≈20%。
+                try:
+                    pct = float((len(spawned) * 7) % 41)      # 0,7,14,...,40
+                    self.tm.vehicle_percentage_speed_difference(actor, pct)
+                except Exception:
+                    pass
                 spawned.append(actor)
                 if _dbg and len(spawned) <= 3:
                     self.world.tick()
@@ -783,6 +871,7 @@ class Town04Env:
             self._record_frame()
             self._update_spectator()          # 目视确认用（follow_ego 开启时生效）
             self._inject(self._scenario, self._t)
+            self._pump_lanechanges()           # 确定性换道注入（OTF 的触发前提）
             self._apply_deferred(self._t)
         st = self._observe()
         done = (self._t >= self.max_episode_s)
