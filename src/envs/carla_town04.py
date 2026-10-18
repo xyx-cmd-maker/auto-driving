@@ -103,6 +103,14 @@ class Town04Env:
         self.traffic_seed = int(traffic_seed)
         self.max_episode_s = float(max_episode_s)
         self.verbose = verbose
+        # ★ 相机跟随默认开启（2026-10-18 用户反馈驱动）。
+        # 现象：用户启动 CarlaUE4 后看到的永远是"一条空路"，从来看不到车。
+        # 根因：CARLA 服务端启动时**只有地图、没有车辆**，ego 与交通流由客户端在 `reset()` 时生成；
+        # 而 spectator 是**自由相机**，默认停在某条路上不动，只有显式 `follow_ego(True)`
+        # 才会被 20 Hz 线程跟随。此前只有 demo 脚本开启，**所有实验跑起来相机都不动**，
+        # 于是"实验在跑"与"窗口里看不到车"同时成立——这是可观测性缺陷，不是仿真没跑。
+        # 现在默认开启，可用环境变量 CARLA_FOLLOW=0 关闭（例如压测或无头批处理时省一点开销）。
+        self._follow_default = os.environ.get("CARLA_FOLLOW", "1") != "0"
 
         self._carla = None
         self.world = None
@@ -777,6 +785,12 @@ class Town04Env:
             self.world.tick()
             self._record_frame()
         self._update_spectator()    # 开局就把相机对准车（否则窗口里看不到车）
+        # 默认开启跟随线程：让用户在任何实验运行时都能在窗口里看到 ego 在动
+        if self._follow_default and not getattr(self, "_follow_thread", None):
+            try:
+                self.follow_ego(True)
+            except Exception:
+                pass
 
         # ★ 守门：spawn 后场上车辆数不得超过"自己生成的数量 + ego + 少量由 TM 增生的车"。
         # 超出说明上一局的残留没清干净（实测曾涨到 52），会让 ego 被卡住、整局作废。

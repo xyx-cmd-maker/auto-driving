@@ -13,9 +13,22 @@
 | [`AGENTS-NORMS.md`](AGENTS-NORMS.md) | **技能路由**（代码类/学术类触发即调用）、学术写作工作流、多轮验证协议、拆分规则 | **每次开工** | 技能或协议变更时 |
 | [`AGENTS-LESSONS.md`](AGENTS-LESSONS.md) | **错误登记与预防**（★用户 2026-10-12 指定）：8 类反复错误模式 + 逐次明细 + 强制手段；**每轮收工必须追加一行** | **每次开工** | **每轮收工**（哪怕"本轮无新增"也要写一行） |
 | [`AGENTS-VENUE.md`](AGENTS-VENUE.md) | **目标 venue 与写作纪律**：两刊事实表、T-ITS 的 desk 硬规则、五项写作纪律、三项【需核实】条目 | 选刊/写作前 | venue 事实或裁决变更时 |
+| [`AGENTS-WORKFLOW.md`](AGENTS-WORKFLOW.md) | **工作流强制规则**：技能路由（代码/学术/绘图）、多轮验证协议、进程同步六要素与节奏、拆分规则、错题本 | **每次开工** | 路由或协议变更时 |
 
 > 规则：新增规范**优先落到子文件**；本文件只保留入口级内容。**拆分与登记规则**见 `AGENTS-NORMS.md` §3；校验脚本 `scripts/smoke/check_agents_family.mjs`。
 > **开工时**先跑 `node scripts/smoke/check_agents_family.mjs`（文件族完整性）＋ `check_progress_snapshot.mjs`（快照常量）＋ `check_branch_freshness.mjs`（分支新鲜度）。
+
+## 0.0 ★ 每次对话的强制路由（用户 2026-10-18 指定，优先级高于本项目其它说明）
+
+**开工第一件事**：读 [`AGENTS-WORKFLOW.md`](AGENTS-WORKFLOW.md) 并按它 §1 的 5 条动作执行。
+**最少要做到**：① 调用与本轮任务类型匹配的技能（代码类 `ponytail`/`diagnosing-bugs`/`tdd`/`code-review`；
+学术类 `science-top-journal-writing` **+** `academic-humanizer` **成对**；绘图类 `scientific-visualization`/`prism`）；
+② 结论前先做**多轮验证**（不确定就联网核验，取不到标 `【需核实】`，**禁止瞎猜**）；
+③ 每 3 轮或每完成一个阶段**同步进程六要素**（目的/要得到的结果/目标期刊/当前阶段/阻塞项/下一步）；
+④ 收工时更新 `AGENTS-PROJECT.md` §4 快照并往 `AGENTS-LESSONS.md` §4 追加一行；
+⑤ 文件族超 300 行或内容可独立成篇 → 拆 `AGENTS-<TOPIC>.md`（**效力相同**，且必须登记进文件族表与 branch-watch）。
+
+**投稿目标已定案**：**IEEE T-IV**（JCR Q1，用户 2026-10-18 确认）。完整取证与写作纪律见 [`AGENTS-VENUE.md`](AGENTS-VENUE.md)。
 
 ## 0. 分支对话登记（跨对话信息同步）
 
@@ -36,7 +49,7 @@
 >
 > ```text
 > branch-watch:
->   主支: AGENTS.md, AGENTS-PROJECT.md, AGENTS-NORMS.md, AGENTS-LESSONS.md, AGENTS-VENUE.md, audit/第一次组会, audit/第二次组会, papers, configs, docs, scripts, README.md
+>   主支: AGENTS.md, AGENTS-PROJECT.md, AGENTS-NORMS.md, AGENTS-LESSONS.md, AGENTS-VENUE.md, AGENTS-WORKFLOW.md, audit/第一次组会, audit/第二次组会, papers, configs, docs, scripts, README.md
 >   层 3 精读分支: literature
 >   第二次组会分支: audit/第二次组会
 >   分支：SUMO 环境线: configs/env, scripts/smoke
