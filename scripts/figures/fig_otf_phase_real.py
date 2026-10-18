@@ -66,7 +66,8 @@ def main() -> int:
                            edgecolor="0.25", lw=0.0, zorder=3))
     ax.plot([CARLA_FLOW], [5.0], marker="*", ms=8, mfc="0.15", mec="white", mew=0.7, zorder=7)
     cb = fig.colorbar(pcm, ax=ax, pad=0.02, fraction=0.05)
-    cb.set_label("Fraction of windows with OTF > 0", fontsize=TICK)
+    # 短标签：右图 Y 轴已写全名，色标再写全名会看起来像重复文字
+    cb.set_label("$P(\\mathrm{OTF}>0)$", fontsize=TICK)
     cb.ax.tick_params(labelsize=TICK - 1, width=0.4, length=1.5)
     ax.set_xlabel("Traffic flow (veh/h)", fontsize=FS)
     ax.set_ylabel("OTF window length (s)", fontsize=FS)
