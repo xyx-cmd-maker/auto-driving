@@ -13,32 +13,35 @@
 | **目的** | 回答一个问题：把**超车频次（OTF）**作为控制器的第 4 维输入，**在闭环里**是否比不带它更好 |
 | **要得到的结果** | ① 一篇投 **IEEE T-IV** 的英文论文（第一作者：用户；通讯作者：黄梦圆）② 可复现代码与结果 JSON ③ highD 真实轨迹上的 OTF 稀疏性与回放验证 |
 | **目标期刊** | **T-IV（已定案，JCR Q1）**；备选 T-ITS；时间硬约束时 OJ-ITS。取证见 [`08-venue-decision.md`](08-venue-decision.md) |
-| **当前阶段** | **阶段四（消融与撰写）起步**：全量 A1 闭环消融跑到 **12/20 局**；摘要骨架已写；真实数据层改走 highD（申请中） |
+| **当前阶段** | **阶段四（消融与撰写）起步**：全量 A1 闭环消融跑到 **13/20 局**（2026-10-18 12:40 按用户要求停止，可续跑）；摘要骨架已写；真实数据层改走 highD（申请中） |
 | **阻塞项** | ① highD **许可（EULA）未核实** → 未拿到前不得使用数据；② NGSIM 官方门户对本机 **403**；③ 全量未跑完，claim 不能定 |
 | **下一步** | 全量跑完 → 出 `15-a1-full-results.md`（逐场景三态 + claim 选择 + 摘要填数）→ highD 到手后算 OTF 稀疏性曲线 |
 
 ---
 
-## 2. 正在跑的任务（**接管前必读**）
+## 2. 全量实验：**已按用户要求停止（2026-10-18 12:40）**
 
 | 项 | 值 |
 |---|---|
-| 命令 | `py -3.12 src/ctrl/train_cfc.py --scenarios none,cutin,lead-brake,lead-exit --seeds 0,1,2,3,4 --episode-s 60 --traffic 16 --resume` |
-| python PID | **540** |
-| CARLA 进程 | `CarlaUE4(26748)`、`CarlaUE4-Win64-Shipping(24608)` |
-| 已完成 | **12 / 20 局**（none×5、cutin×5、lead-brake×2） |
-| 单局耗时 | 约 **11–12 min** |
-| 预计完成 | **约 14:10** |
-| 产物 | `runs/p1/cases/case_<scenario>_s<seed>.json`（每局独立，含 `exec` 执行指纹） |
+| 命令（续跑用同一条） | `py -3.12 src/ctrl/train_cfc.py --scenarios none,cutin,lead-brake,lead-exit --seeds 0,1,2,3,4 --episode-s 60 --traffic 16 --resume` |
+| **状态** | **已停止**（用户要求"先停一下"） |
+| 已完成 | **13 / 20 局**：none×5、cutin×5、lead-brake×3（s0–s2） |
+| **剩余 7 局** | `lead-brake` s3、s4 ＋ `lead-exit` s0–s4 |
+| 单局耗时 | 约 **11–12 min** ⇒ 续跑约需 **80–90 min** |
+| 停机后核查 | ✓ 无 python 进程 ｜ ✓ 无 CARLA 进程 ｜ ✓ 端口 2000 已释放 ｜ ✓ **无 `.tmp` 残留**（说明没有写一半的文件） |
+| 产物 | `runs/p1/cases/case_<scenario>_s<seed>.json`（13 份，各 9–10 KB，含 `exec` 执行指纹） |
 
-**若需要立刻腾出机器（停）**：
+**续跑只需一条命令**（`--resume` 会按 `exec` 指纹校验档位一致才跳过，**不会混档位**）：
 ```powershell
-Stop-Process -Id 540 -Force
-Get-Process | Where-Object { $_.ProcessName -like '*Carla*' } | Stop-Process -Force
+cd "D:\Deepseek Harness\auto-driving"
+Start-Process -FilePath 'D:\CARLA\CarlaUE4.exe' -ArgumentList '-quality-level=Low','-windowed','-carla-port=2000' -WorkingDirectory 'D:\CARLA'
+# 等端口 2000 就绪（约 25 s）后：
+$env:OPENBLAS_NUM_THREADS='1'; $env:OMP_NUM_THREADS='1'
+py -3.12 src\ctrl\train_cfc.py --scenarios none,cutin,lead-brake,lead-exit --seeds 0,1,2,3,4 --episode-s 60 --traffic 16 --resume
 ```
-**不会丢任何已完成结果**：每局完成即落盘；**续跑**用同一条命令（`--resume` 会按 `exec` 指纹校验档位一致才跳过）。
 
-**若继续**：不要动它，等 14:10 后跑 `--analyze` 即可（见 §5）。
+> ⚠️ **续跑前必须先重启 CARLA**（P9 教训：同代码不同结果时第一步是重启被控环境）。
+> ⚠️ **CARLA 的相机跟随已默认开启**（`CARLA_FOLLOW=0` 可关），续跑时窗口里能直接看到 ego 在动——这是本轮修的可观测性缺陷。
 
 ---
 
