@@ -42,6 +42,28 @@
 > that sees only gap, relative speed, and ego speed. Both arms share the same search budget, the same
 > random seeds, and the same traffic stream.
 
+### 2.1b 必须先交代的稀疏性（★ 2026-10-18 由 highD 原文数据推出，直接影响说服力）
+
+**事实（可引）**：highD 在 16.5 h、6 个地点、约 420 m 路段上共记录 **5 600 次完整换道**，
+单辆车可见时长中位数 **13.6 s**（Krajewski et al., ITSC 2018）。
+
+**推论（量级估算，稿件须标 estimate）**：5 600 ÷ 990 min ≈ **5.7 次/分钟**，且是全部车辆合计。
+对**单个 ego** 的 5 s 窗口而言，出现"他车跨越 ego 车道"的概率很低 ⇒ **多数窗口 OTF 为 0**。
+
+**因此摘要/引言必须做的一件事**：**先承认这是低信号 regime，再谈效应量**。建议引言加一句：
+
+> Lane crossings are sparse in free-flow highway traffic: a published German highway corpus contains
+> about 5,600 complete lane changes across 16.5 hours of recording (Krajewski et al., 2018). Any
+> per-vehicle OTF signal is therefore expected to be zero in most short windows, and an ablation must
+> be interpreted against that base rate.
+
+**这条同时是我们负结果/弱效应的最好辩护**：不是我们没做出来，而是**该量的信息密度本身很低**。
+它把"没效果"从"失败"转成"边界条件"，这是 T-IV 审稿人愿意接受的一类贡献。
+
+---
+
+### 2.2 结局 A：若全量为「有意义更小」（正向）
+
 > ⚠️ 注意：`classification` 与 `closed control loop` 的对比是本段的核心张力，**不得**删掉：
 > 它同时说明了"为什么值得做"与"我们做的是新问题"。
 
