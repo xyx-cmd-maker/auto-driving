@@ -251,6 +251,60 @@ def rollout(env, policy: CFCPolicy, use_otf: bool, scenario: str, seed: int,
     return tr, guard
 
 
+def ensure_carla(port: int = 2000, exe: str = r"D:\CARLA\CarlaUE4.exe",
+                 wait_s: float = 300.0, verbose: bool = True) -> bool:
+    """确保 CARLA 服务端在运行；**必须在 torch 已导入之后调用**。
+
+    ★ 为什么顺序重要（2026-10-18 实测教训）
+    ---------------------------------------------------
+    先启动 CARLA、再 import torch 时，torch 会报
+    `OSError: [WinError 1455] 页面文件太小，无法完成操作`（加载 torch_python.dll 失败）。
+    实测：CARLA 占到 7,137 MB 后，物理可用 2.34 GB、**提交可用仅 0.46 GB**，
+    torch 的 DLL 映射找不到虚拟内存。本机 15.7 GB 内存 + 系统管理的 16 GB 页面文件，
+    提交上限 31.5 GB，被 CARLA 与其它进程吃满。
+    因此本函数只在**主进程 import torch 之后**才启动服务端；这样 torch 的映射先完成，
+    不会被 CARLA 挤掉。（长期解法仍是加大页面文件，需管理员权限。）
+    """
+    import subprocess
+
+    def _ok():
+        try:
+            cl = _carla_module().Client("127.0.0.1", port)
+            cl.set_timeout(10.0)
+            cl.get_server_version()
+            return True
+        except Exception:
+            return False
+
+    if _ok():
+        if verbose:
+            print("  [carla] 服务端已在运行（端口 %d）" % port)
+        return True
+    if not os.path.exists(exe):
+        print("  [carla] ✗ 找不到服务端: %s" % exe)
+        return False
+    if verbose:
+        print("  [carla] 启动服务端（torch 已先加载）...")
+    out = open(os.path.join(ROOT, "runs", "carla_stdout.log"), "ab")
+    err = open(os.path.join(ROOT, "runs", "carla_stderr.log"), "ab")
+    subprocess.Popen([exe, "-quality-level=Low", "-windowed", "-carla-port=%d" % port],
+                     cwd=os.path.dirname(exe), stdout=out, stderr=err)
+    t0 = time.time()
+    while time.time() - t0 < wait_s:
+        time.sleep(4.0)
+        if _ok():
+            if verbose:
+                print("  [carla] 就绪（%.0f s）" % (time.time() - t0))
+            time.sleep(3.0)
+            return True
+    print("  [carla] ✗ %.0f s 内未就绪" % wait_s)
+    return False
+
+
+def _carla_module():
+    import carla
+    return carla
+
 def cost_from_metrics(m: dict) -> float:
     """候选策略的代价（越小越好）。权重写死在此处，两臂相同。
 
@@ -424,6 +478,8 @@ def main():
     ap.add_argument("--episode-s", type=float, default=EPISODE_S)
     ap.add_argument("--hidden", type=int, default=24)
     ap.add_argument("--resume", action="store_true", help="跳过已有结果的 (场景,种子)")
+    ap.add_argument("--ensure-carla", action="store_true",
+                    help="在 torch 已加载后自动启动/校验 CARLA 服务端（修 WinError 1455）")
     ap.add_argument("--smoke", action="store_true", help="冒烟：1 场景 × 1 种子")
     ap.add_argument("--analyze", action="store_true", help="只做配对统计")
     args = ap.parse_args()
@@ -441,6 +497,11 @@ def main():
     print("  ⚠ 协议写 100 Hz；本机实测无法达到，实际为 %.0f Hz——对外必须按实际值报告"
           % args.control_hz)
     print("")
+
+    if getattr(args, "ensure_carla", False):
+        if not ensure_carla(port=2000):
+            print("  [carla] 启动失败，终止（避免 20 局全部超时）")
+            return 1
 
     if args.analyze:
         return analyze(scenarios, seeds)

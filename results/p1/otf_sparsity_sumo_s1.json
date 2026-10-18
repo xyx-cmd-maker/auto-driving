@@ -1,0 +1,35 @@
+{
+  "experiment": "otf_sparsity_sumo",
+  "params": {
+    "seeds": "1",
+    "minutes": 5.0,
+    "lanes": 3,
+    "length_m": 1200.0,
+    "speed_ms": 33.3,
+    "veh_per_hour": 3600,
+    "windows": "5,20",
+    "keep": false
+  },
+  "seeds": {
+    "seed_1": {
+      "vehicles": 300,
+      "ego_used": 40,
+      "windows": {
+        "W=5": {
+          "samples": 702,
+          "nonzero_fraction": 0.5014,
+          "mean": 0.7578,
+          "p95": 3,
+          "max": 5
+        },
+        "W=20": {
+          "samples": 126,
+          "nonzero_fraction": 0.9603,
+          "mean": 3.1032,
+          "p95": 7,
+          "max": 9
+        }
+      }
+    }
+  }
+}

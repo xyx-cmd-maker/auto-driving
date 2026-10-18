@@ -1,0 +1,172 @@
+{
+  "experiment": "otf_density_sweep_sumo",
+  "note": "同一套 OTF 定义（src/otf/otf_core.py 的 _crossed）；SUMO 合成交通流，非真实数据；用途是给出 OTF 的**适用密度范围**",
+  "params": {
+    "lanes": 3,
+    "length_m": 1200.0,
+    "speed_ms": 33.3,
+    "minutes": 15.0
+  },
+  "table": {
+    "600": {
+      "W=5": {
+        "nonzero_fraction_mean": 0.118,
+        "nonzero_fraction_all": [
+          0.1368,
+          0.1621,
+          0.0552
+        ],
+        "otf_mean": 0.1337,
+        "n_seeds": 3
+      },
+      "W=10": {
+        "nonzero_fraction_mean": 0.2211,
+        "nonzero_fraction_all": [
+          0.2611,
+          0.2906,
+          0.1116
+        ],
+        "otf_mean": 0.2713,
+        "n_seeds": 3
+      },
+      "W=20": {
+        "nonzero_fraction_mean": 0.3927,
+        "nonzero_fraction_all": [
+          0.4333,
+          0.5213,
+          0.2234
+        ],
+        "otf_mean": 0.5609,
+        "n_seeds": 3
+      }
+    },
+    "1200": {
+      "W=5": {
+        "nonzero_fraction_mean": 0.2482,
+        "nonzero_fraction_all": [
+          0.2524,
+          0.2598,
+          0.2324
+        ],
+        "otf_mean": 0.2898,
+        "n_seeds": 3
+      },
+      "W=10": {
+        "nonzero_fraction_mean": 0.4253,
+        "nonzero_fraction_all": [
+          0.4421,
+          0.4378,
+          0.3959
+        ],
+        "otf_mean": 0.5921,
+        "n_seeds": 3
+      },
+      "W=20": {
+        "nonzero_fraction_mean": 0.6922,
+        "nonzero_fraction_all": [
+          0.7283,
+          0.7273,
+          0.6211
+        ],
+        "otf_mean": 1.2118,
+        "n_seeds": 3
+      }
+    },
+    "2400": {
+      "W=5": {
+        "nonzero_fraction_mean": 0.4154,
+        "nonzero_fraction_all": [
+          0.4142,
+          0.4162,
+          0.4159
+        ],
+        "otf_mean": 0.6039,
+        "n_seeds": 3
+      },
+      "W=10": {
+        "nonzero_fraction_mean": 0.6326,
+        "nonzero_fraction_all": [
+          0.623,
+          0.6378,
+          0.6371
+        ],
+        "otf_mean": 1.2352,
+        "n_seeds": 3
+      },
+      "W=20": {
+        "nonzero_fraction_mean": 0.8782,
+        "nonzero_fraction_all": [
+          0.8723,
+          0.8846,
+          0.8776
+        ],
+        "otf_mean": 2.5252,
+        "n_seeds": 3
+      }
+    },
+    "3600": {
+      "W=5": {
+        "nonzero_fraction_mean": 0.5148,
+        "nonzero_fraction_all": [
+          0.5089,
+          0.5534,
+          0.482
+        ],
+        "otf_mean": 0.8011,
+        "n_seeds": 3
+      },
+      "W=10": {
+        "nonzero_fraction_mean": 0.7382,
+        "nonzero_fraction_all": [
+          0.7471,
+          0.7481,
+          0.7194
+        ],
+        "otf_mean": 1.6044,
+        "n_seeds": 3
+      },
+      "W=20": {
+        "nonzero_fraction_mean": 0.9337,
+        "nonzero_fraction_all": [
+          0.9279,
+          0.9217,
+          0.9515
+        ],
+        "otf_mean": 3.136,
+        "n_seeds": 3
+      }
+    },
+    "4800": {
+      "W=5": {
+        "nonzero_fraction_mean": 0.5626,
+        "nonzero_fraction_all": [
+          0.4779,
+          0.6244,
+          0.5854
+        ],
+        "otf_mean": 0.8316,
+        "n_seeds": 3
+      },
+      "W=10": {
+        "nonzero_fraction_mean": 0.7677,
+        "nonzero_fraction_all": [
+          0.6667,
+          0.8261,
+          0.8102
+        ],
+        "otf_mean": 1.6702,
+        "n_seeds": 3
+      },
+      "W=20": {
+        "nonzero_fraction_mean": 0.9028,
+        "nonzero_fraction_all": [
+          0.8,
+          0.9417,
+          0.9667
+        ],
+        "otf_mean": 3.3667,
+        "n_seeds": 3
+      }
+    }
+  }
+}
