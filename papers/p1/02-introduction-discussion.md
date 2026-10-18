@@ -114,7 +114,8 @@ low-level car-following inside a fixed search budget.
 For a traffic engineer the map is the more useful artifact. It says where the signal exists. At
 600 veh/h a 5 s window is zero 88% of the time; at 3600 veh/h the same window is non-zero half the
 time. Any deployment that feeds OTF to a controller should therefore check its own operating point
-before deployment.
+before deployment. The map locates the signal. It is not offered as an explanation for the closed-loop
+result, which Section 5.2 attributes to redundancy.
 
 ## 5.5 Limitations
 

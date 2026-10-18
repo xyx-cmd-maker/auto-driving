@@ -14,7 +14,8 @@ group. **C**, availability of the signal, computed in SUMO with the same OTF def
 sliding windows with OTF > 0 against traffic flow and window length, over three seeds. White contours
 mark 0.25, 0.50 and 0.75. The hatched band marks the equivalent flow of the CARLA setting, estimated
 from sixteen vehicles on a 420 m three-lane segment; the star marks the value measured there, 0.084 at
-W = 5 s.
+W = 5 s. The map describes where the signal exists. It is not offered as an explanation for the
+closed-loop result, which Section 5.2 attributes to redundancy rather than to scarcity.
 
 ## Figure 2 — `figs/fig2_availability_real.pdf`
 
