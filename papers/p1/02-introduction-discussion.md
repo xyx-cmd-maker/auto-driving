@@ -154,5 +154,14 @@ real traffic. Two of these require only compute; the third requires data access.
 |---|---|
 | 数字来源 | `audit/第一次组会/15-a1-full-results.md`（20 局）；相图 `13` §11 |
 | 图表引用 | Fig.1（交通场景）/ Fig.2（相图）/ Table 1（逐场景三态）待编号 |
-| 合规检查 | `node scripts/check_writing_compliance.mjs <本文件的正文抽取>`（见下） |
+| 合规检查 | `node _check_manuscript.mjs <本文件>`（剥 HTML 注释后扫 em-dash/禁用词/overclaim/长句） |
 | 待补 | Related Work 段、Section 2/3/4 正文、Fig.1 绘制 |
+
+### 待核实引用（**目前未写进正文**，核实后再插）
+
+| 线索 | 状态 |
+|---|---|
+| *Beyond "non-significant" results: why and how to test for practical equivalence*, **PNAS**, DOI `10.1073/pnas.2611548123` | **【需核实】作者、年份、卷期**——PNAS 官网与 Oxford ORA 均被 Cloudflare 401/403 拦截，**无法核实**。它将是"等价性优先于不显著"这一推断策略的最佳方法学引用；**核实前不得写入参考文献** |
+| eLife 关于等价/优越性检验报告规范的指引（eLife 92311 之类） | **【需核实】** 同上，仅见二手片段 |
+| 说明 | 正文 §5.1 关于"equivalence 是正向陈述、比'未拒绝'更强"的表述属标准统计常识，**暂不引文**；核实到 PNAS 那篇后再补一句带引用的支撑。 |
+
