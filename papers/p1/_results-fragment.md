@@ -77,6 +77,31 @@ mean 48%, on arm 47%). Training difficulty therefore does not separate the arms 
 
 ---
 
+## 4.6 Supplementary groups: manipulating availability
+
+Two supplementary groups test whether the result depends on the treatment variable itself. The first
+raised traffic from sixteen to thirty-two vehicles and kept a 5 s window. The second kept sixteen
+vehicles and widened the window to 20 s. Each group runs five seeds on the lead-brake scenario.
+
+**Table 3.** Supplementary groups against the main experiment.
+
+| Group | Traffic | Window | Availability | Mean Δcost | 95% CI | CI width | Conclusion |
+|---|---|---|---|---|---|---|---|
+| Main | 16 | 5 s | 0.084 | +0.858 | [−2.092, +3.808] | 5.90 | inconclusive |
+| A, density | 32 | 5 s | 0.084 | +1.372 | [−2.326, +5.069] | 7.40 | inconclusive |
+| B, window | 16 | 20 s | 0.334 | +0.707 | [−2.709, +4.122] | 6.83 | inconclusive |
+
+The first group leaves availability unchanged at 0.084. In our environment the OTF events come from
+the scripted injection rather than from background traffic, so adding vehicles does not move the
+treatment. Its cost difference is inconclusive. It serves as a negative control: more background
+vehicles, the same signal, the same conclusion.
+
+The second group raises availability fourfold, from 0.084 to 0.334. Its cost difference is again
+inconclusive. The interval does not narrow, with a width of 6.83 against 5.90 in the main experiment.
+Raising the fraction of informative cycles by a factor of four therefore bought no precision.
+
+We read this as evidence that the null result is not a consequence of signal scarcity. The binding
+constraint appears to be redundancy at the controller input, which Section 5.2 discusses.
 ## 图注（作图时逐条核过：数字来自结果 JSON，参数来自代码）
 
 **Figure 1.** Overtaking pressure and its measurement. **A**, three-lane highway with the ego vehicle
