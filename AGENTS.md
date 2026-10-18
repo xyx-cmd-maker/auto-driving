@@ -35,7 +35,7 @@
 >
 > ```text
 > branch-watch:
->   主支: AGENTS.md, AGENTS-PROJECT.md, AGENTS-NORMS.md, AGENTS-LESSONS.md, audit/第一次组会, audit/第二次组会, papers, configs, docs, scripts, README.md
+>   主支: AGENTS.md, AGENTS-PROJECT.md, AGENTS-NORMS.md, AGENTS-LESSONS.md, AGENTS-VENUE.md, audit/第一次组会, audit/第二次组会, papers, configs, docs, scripts, README.md
 >   层 3 精读分支: literature
 >   第二次组会分支: audit/第二次组会
 >   分支：SUMO 环境线: configs/env, scripts/smoke
@@ -193,42 +193,18 @@
 若"毕业/考核必须在某日期前拿到录用"优先于刊物资历 → 改投 `IEEE Open Journal of ITS`（OJ-ITS）。**
 
 **完整取证、不确定性标注与两种情形的选择标准见 [`audit/第一次组会/08-venue-decision.md`](audit/第一次组会/08-venue-decision.md)。**
-**判据是 desk-reject 风险，不是影响因子**：T-ITS 有一条被第三方明确描述为"最常见转投原因"的
-硬门槛——"交通系统贡献必须是**承载性**主张，去掉交通语境仍成立就会被转投 TVT/TCST"；
-T-IV 的范围原文即"roadway environment, and in particular automated vehicles"，
-我们的"高速混行 AV 控制器"**不需要为范围辩护**。因此 T-IV 的接受概率更高，且改投 T-ITS 成本最小
-（换摘要前两句 + 换 Fig.1 即可）。
 
-| venue | 联网核验到的事实（2026-10-18 取用） | 判定 |
-|---|---|---|
-| **T-IV** | CiteScore **19.9**；Control & Optimization **3/198**、Automotive Eng **3/143**、AI 28/570；SCIE；年发文 **382**；ISSN 2379-8858；范围明写"**roadway environment, and in particular automated vehicles**"；第三方估审稿 **3–5 个月** | **★ 首投**。范围逐字对口、无需为"交通贡献承载性"辩护 |
-| **T-ITS** | CiteScore **20.5**；Automotive Eng **2/143**、Mechanical Eng 16/740、CS Appl 27/1022；SCIE；WoS **Q1**（Eng. Civil 8/193；EE 25/369；Trans. Sci. 7/80）；年发文 **1656**；Regular 10 页（+6 页 $175/页）、Survey 18 页、Short 6 页；第三方估录用 **15–20%**、审稿 **3–6 个月** | 第一备选。指标略高但**desk 门槛更严**（见下），改投时须重写摘要与 Fig.1 |
-| **OJ-ITS** | 同属 ITSS、全开放获取；第三方估录用 **约 30%**、约 **10 周**到发表 | **只在"时间硬约束"情形下选**——资历明显低于前两者 |
-| TVT / IoT-J | 第三方定位：适合"方法为主角"的稿件 | 不作首选（我们是 ITS/AV 问题，不是通信/IoT 方法问题） |
+**✅ 已定案（2026-10-18，用户确认）**：**T-IV = JCR Q1；就选 T-IV；距毕业还有两年** ⇒ **情形 A 生效**，不走 OJ-ITS。
+该分区结论**来源是作者本人的核实**（非我直取 Clarivate 页面）；需书面证据时请自行导出 JCR 截图存档。
+**由此产生的时间纪律**：既然不为速度牺牲刊物资历，**P1 必须在两年内走完"投稿—审稿—修回"至少一轮**，
+实验与写作不得拖到第二年。
 
-**⚠️ 三项必须记住的不确定性（不得写进稿件或投稿信）**：
-1. **T-IV 的 WoS 分区未闭合**【需核实】：LetPub 显示 `N/A`，而其 SCIE 收录已确认。
-   若所在单位硬性要求"JCR Q1"，**投稿前必须自行在 Clarivate JCR 核实**，否则改用 T-ITS。
-2. **两刊 JIF 口径冲突**【需核实】：T-IV 中文页称 14.300、英文页无值；T-ITS 同页先 8.4 后 9.1。
-   **稿件正文一律不引 JIF**。
-3. **审稿速度与录用率均为第三方估计**【推测】，不得作为承诺写入任何对外材料。
+**完整取证见本文件同目录的 [`AGENTS-VENUE.md`](AGENTS-VENUE.md)**（含两刊事实表、
+T-ITS 的 desk 硬规则、五项写作纪律、三项【需核实】条目）。摘录三条最关键的：
 
-**T-ITS 的 desk 硬规则（必须照做，否则会被转投 TVT/TCST）**——核验来源明确指出：
-T-ITS 编辑会检查"**交通系统贡献是否为承载性主张，而不只是应用场景**"；
-若把"道路/车辆/交通/基础设施/移动性"语境**去掉之后贡献仍然成立**，稿件会被转投 T-COM / T-WC / TCST / TVT。
-此外要求**用已建立的 ITS 基准**做对比（其示例清单含 **CARLA**、NGSIM、PeMS、nuScenes 等）。
-
-**因此本项目 P1 的写作纪律（不可违背）**：
-1. **标题/摘要前两句必须落在交通现象上**（高速混行中的跟车与换道压力），**不得**先讲"我们提出一个 CfC/LNN 控制器"。
-2. **Figure 1 必须是交通场景示意图**（多车道高速 + 混行流 + OTF 场/跟车几何），**不得**用网络结构图当 Fig.1（网络图放后面）。
-3. **OTF 是交通流量**——这是 P1 通过 T-ITS/T-IV 范围审查的**最强论据**（OTF 本身是交通流社会压力的一阶标量，不是神经网络技巧）；写作时必须把这条讲出来。
-4. **必须出现 CARLA 基准**（已在核验清单内）；CARLA+SUMO 的协议须**逐项写清版本与场景**，因为对比数据是自建的，需要用协议透明度补足。
-5. 若 P1 最终是负结果 → **卖点改为"可解释性 + 零额外传感器成本 + 混行交通的社会压力表征"**，此时 **T-ITS 比 T-IV 更合适**（T-ITS 更接受系统级/可解释性贡献）。**负结果时优先投 T-ITS。**
-
-**待核实（不得直接写进稿件）**：
-- 两刊的**最新 JIF**：联网来源口径不一（同一来源内先写 9.1、后写 8.4）⇒ **标 `【需核实：以投稿时 Clarivate JCR 为准】`**，稿件正文**不引 JIF 数字**。
-- T-IV 的 **WoS 分区**：取到的页面显示 "N/A"（可能尚未入 JCR 分区或数据缺失）⇒ 若毕业/评奖要求"JCR Q1 期刊"，**须先自行核实 T-IV 的分区状态**，否则改用 T-ITS。**这是本裁决唯一的实质风险点。**
-- 检索到的"ITSC 2026 混行交通 invited session"：会议线备选，未核实截稿日期与具体分会要求。
+1. **判据是 desk-reject 风险，不是影响因子**；
+2. **Figure 1 必须是交通场景示意图**，标题/摘要前两句必须落在交通现象上；
+3. **负结果时优先改投 T-ITS**（更接受系统级/可解释性贡献）。
 
 - 五篇论文的台账 `papers/portfolio.md` 是**唯一状态来源**：先改台账，再改稿。
 - 审计文件编号（`audit/`）：`00-` 资产盘点、`01-` P1 计划（待补）、`02-` 仓库骨架、`03-` 风险登记表、`04-` 数据申请与伦理、`05-` 引用核验清单。

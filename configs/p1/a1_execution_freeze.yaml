@@ -1,0 +1,111 @@
+# A1 闭环消融 —— 执行冻结（2026-10-18）
+# 性质：**预注册**。本文件在每个 (场景,种子) 跑完前写定；此后不得因结果方向而修改。
+# 上位协议：configs/p1/ablation_a1_closedloop.yaml（设计层，未变）
+# 人读版本与理由：audit/第一次组会/10-a1-protocol-freeze.md
+# 前一阶段（n=4 管线验证）：audit/第一次组会/09-a1-medium-validation.md
+
+experiment: ablation_a1_closedloop
+frozen_at: "2026-10-18"
+status: frozen
+
+# ── 决定 1：样本与场景覆盖 ────────────────────────────────────────────
+sampling:
+  seeds: [0, 1, 2, 3, 4]          # 协议要求 ≥5（AGENTS.md §4）
+  scenarios: [none, cutin, lead-brake, lead-exit]
+  n_cases: 20                      # 4 场景 × 5 种子
+  long_tail:
+    planned: [hard_brake, aggressive_cutin, platoon_exit, aggressive_traffic]
+    executed_this_round: none
+    reason: "环境 `_inject` 仅实现 4 类主场景；长尾需先实现注入函数（未做）"
+    consequence: "**必须在 Limitations 明确写：本轮未覆盖长尾四类；结论仅对 4 类主场景成立**"
+
+# ── 决定 2：主指标口径（二选一，结果出来后不得改）──────────────────
+primary_endpoint:
+  decision_metric: delta_cost_best     # ← 冻结选择
+  definition: "每臂固定 12 个候选（等搜索预算），取**有效候选**中代价最小者，配对相减（on − off）"
+  why_this_one: |
+    实验问题就是"在**固定搜索预算**下，加入 Φ_OTF 能否得到更好的控制器"。
+    无效候选（ego 被卡住）本身是该方法付出的真实代价——它消耗一次 rollout。
+    若改用等 K 均值，会把这项代价悄悄抹掉，等于换了一个更容易的问题。
+  performance_endpoints: [delta_following_rmse_m, delta_accel_sq_integral_mps3]
+  note: "协议 ablation_a1_closedloop.yaml 的 metrics.primary 是这两个性能量；cost 是它们的加权合成，作为决策指标"
+
+sensitivity_analysis:
+  metric: delta_cost_equal_k
+  definition: "K = min(n_valid_off, n_valid_on)，各臂取前 K 个有效候选的均值后相减"
+  role: "**次要**。用于回答'结论是否依赖候选池大小'；与主指标方向不一致时必须在稿件中同时报告并解释"
+
+# ── 决定 3：无效候选的处置 ───────────────────────────────────────────
+invalid_candidate_policy:
+  definition_of_invalid: "ego 位移 < 20 m（阈值写死，不随结果调整）"
+  treatment: "保留在 12 个候选的预算内，标记失败，**不参与择优**；不补跑、不删数据"
+  reported_as: invalid_ratio            # 独立次要指标
+  rationale: "删除或补跑会让两臂的搜索预算不等，破坏公平性"
+
+# ── 决定 4：统计检验与等价判定 ──────────────────────────────────────
+statistics:
+  paired: true
+  exact_test: sign_flip_permutation      # n=5 → 2^5=32 种符号组合，可做精确检验
+  two_sided: true
+  ci: "95% CI（配对 t 近似，n=5 时仅作参考；已在产物中注明局限）"
+  equivalence:
+    method: TOST
+    margin: 0.10                          # 相对 off 臂均值 10%
+    margin_definition: "|Δ| ≤ 0.10 × mean(off 臂对应指标)；相对量纲，跨场景可比"
+  three_state_conclusion:
+    - "有意义差异：CI 不含 0，且 |Δ| > margin"
+    - "实际等价：CI 完全落在 [−margin, +margin] 内"
+    - "未定：其余情形（**不得**写成'无差异'，也不得写成'有差异'）"
+
+# ── 决定 5：多重比较 ────────────────────────────────────────────────
+multiplicity:
+  families:
+    cost: [none, cutin, lead-brake, lead-exit]
+    following_rmse: [none, cutin, lead-brake, lead-exit]
+    accel_sq_integral: [none, cutin, lead-brake, lead-exit]
+  correction: holm_bonferroni
+  alpha: 0.05
+  reporting: "逐场景报告，**不合并成单一总均值**；总均值只作描述，不做推断"
+
+# ── 冻结的执行参数（代码实际取值）────────────────────────────────────
+execution:
+  simulator: {name: CARLA, version: "0.9.16 (UE 4.26)", map: Town04}
+  vehicle: vehicle.tesla.model3
+  sim_hz: 50.0
+  control_hz: 20.0            # ⚠️ 协议写 100 Hz，本机实测不可达；**对外必须按 20 Hz 报**
+  episode_s: 60.0
+  traffic_vehicles: 16        # 内存 15.7 GB，CARLA 约占 6.8 GB
+  search:
+    candidates_per_arm: 12
+    elite: 3
+    same_seed_list_for_both_arms: true
+  controller:
+    type: CfC
+    hidden: 24
+    out_scale: 3.0
+    obs_normalization: "gap/100, rel_speed/10, ego_speed/30, phi_otf/1"
+  cost_weights:
+    following_rmse: "1.0 × /10"
+    accel_sq_integral: "1.0 × /50"
+    jerk_peak: "0.5 × /50"
+    lane_center_dev: "0.5 × /0.5"
+    collision: "10.0 × count"
+  traffic_control:
+    lane_change_injection:
+      method: scripted_cutin_set_transform     # 直接置位，不是自然换道
+      period_s: 4.0
+      longitudinal_offsets_m: [28.0, -22.0]    # 交替进/出 ego 车道
+      deterministic: true
+      why: "TM 的 force_lane_change 在本场景 9 次注入 0 次生效；自然换道 60 s 仅 2 次、0 次涉及 ego 车道 ⇒ 无注入则 Φ_OTF ≡ 0"
+      must_disclose: "**稿件中不得称 natural lane changes；必须写明是脚本化 cut-in 注入**"
+
+# ── 预注册的结局解释（结果矩阵，先写后看）────────────────────────────
+outcome_matrix:
+  - if: "cost 有意义更小 且 RMSE 或加速度积分不显著变差"
+    then: "支持'OTF 改善闭环控制'，强度上限 = B/C 级（仿真、单地图）"
+  - if: "cost 实际等价"
+    then: "改为'可解释性 + 零额外传感器成本'卖点；**不得**写'OTF 提升性能'"
+  - if: "cost 有意义更大"
+    then: "诚实报告负结果：OTF 输入增加训练/优化难度；卖点改为'表征价值与失效条件分析'"
+  - if: "未定"
+    then: "扩大种子或场景后重跑；**不得**择取有利口径报喜"

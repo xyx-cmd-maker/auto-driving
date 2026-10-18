@@ -268,10 +268,29 @@ def cost_from_metrics(m: dict) -> float:
 
 
 # --------------------------------------------------------------- 单 (场景,种子) 一次完整对比
+def exec_fingerprint(args):
+    """本次执行的参数指纹：写进结果 JSON，并用于 `--resume` 的一致性校验。
+
+    ★ 存在的理由（2026-10-18 事故）：结果文件若只按 (场景,种子) 命名，
+    不同 episode 时长 / 交通流数量 / 控制频率跑出来的结果会互相冒充"已完成"，
+    一旦被 `--resume` 跳过，就会把两种档位混进同一份统计——整批数据作废且不易察觉。
+    """
+    return {
+        "episode_s": float(args.episode_s),
+        "traffic": int(args.traffic),
+        "sim_hz": float(args.sim_hz),
+        "control_hz": float(args.control_hz),
+        "hidden": int(args.hidden),
+        "candidates_per_arm": int(SEARCH_K),
+        "elite": int(ELITE),
+    }
+
+
 def run_case(scenario: str, seed: int, args) -> dict:
     from carla_town04 import Town04Env
 
-    out = {"scenario": scenario, "seed": seed, "arms": {}, "guards": {}}
+    out = {"scenario": scenario, "seed": seed, "arms": {}, "guards": {},
+           "exec": exec_fingerprint(args)}
     env = Town04Env(n_traffic=args.traffic, sim_hz=args.sim_hz,
                     control_hz=args.control_hz, max_episode_s=args.episode_s,
                     verbose=False)
@@ -429,10 +448,20 @@ def main():
     done, skipped, failed = 0, 0, []
     for sc in scenarios:
         for sd in seeds:
-            if args.resume and load_case(sc, sd) is not None:
-                skipped += 1
-                print("  [resume] 跳过已完成 %s/s%d" % (sc, sd))
-                continue
+            if args.resume:
+                old = load_case(sc, sd)
+                if old is not None:
+                    # ★ 指纹校验（2026-10-18 新增）：只在**执行参数一致**时才跳过。
+                    # 教训：上一轮 `--resume` 直接把 episode 40 s / traffic 18 的旧结果当成本轮
+                    # （episode 60 s / traffic 16）的已有结果跳过，会让两种档位混进同一份分析——
+                    # 那等于整批数据作废。指纹不一致时**重跑并覆盖**，并明确打印原因。
+                    old_exec = old.get("exec") or {}
+                    if old_exec == exec_fingerprint(args):
+                        skipped += 1
+                        print("  [resume] 跳过已完成 %s/s%d（执行指纹一致）" % (sc, sd))
+                        continue
+                    print("  [resume] %s/s%d 的旧结果**执行参数不一致**，将重跑覆盖"
+                          "（旧 %s → 新 %s）" % (sc, sd, old_exec or "无指纹", exec_fingerprint(args)))
             t0 = time.perf_counter()
             try:
                 case = run_case(sc, sd, args)
@@ -493,8 +522,87 @@ def main():
     return 1 if failed else 0
 
 
+def _t975(df):
+    """t 分布 0.975 分位数（n=5 → df=4）。torch 在；失败时回退查表值。"""
+    try:
+        import torch
+        return float(torch.distributions.StudentT(float(df)).icdf(torch.tensor(0.975)))
+    except Exception:
+        return {1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447,
+                7: 2.365, 8: 2.306, 9: 2.262}.get(int(df), 1.96)
+
+
+def _sign_flip_p(vals):
+    """精确符号翻转检验（双侧）。n ≤ 20 穷举 2^n，不需要正态假设。
+
+    n=5 时只有 32 种符号组合，因此这是**精确**检验，不是近似——
+    对 5 个种子的配对设计，比 t 检验更合适（AGENTS.md §4 要求小样本谨慎）。
+    """
+    n = len(vals)
+    if n == 0 or n > 20:
+        return None
+    obs = abs(sum(vals))
+    hit = 0
+    for mask in range(1 << n):
+        ssum = 0.0
+        for i in range(n):
+            ssum += vals[i] if (mask >> i) & 1 else -vals[i]
+        if abs(ssum) >= obs - 1e-12:
+            hit += 1
+    return hit / float(1 << n)
+
+
+def _tost_p(vals, margin):
+    """TOST（双单侧检验）：H0 为 |Δ| ≥ margin。返回 max(p1, p2)。"""
+    n = len(vals)
+    if n < 2:
+        return None
+    m = sum(vals) / n
+    var = sum((v - m) ** 2 for v in vals) / (n - 1)
+    se = (var / n) ** 0.5
+    if se <= 0:
+        return 0.0 if abs(m) < margin else 1.0
+    try:
+        import torch
+        dist = torch.distributions.StudentT(float(n - 1))
+        t1 = (m + margin) / se          # H0: Δ = -margin
+        t2 = (margin - m) / se          # H0: Δ = +margin
+        p1 = float(1.0 - dist.cdf(torch.tensor(t1)))
+        p2 = float(1.0 - dist.cdf(torch.tensor(t2)))
+        return max(p1, p2)
+    except Exception:
+        return None
+
+
+def _holm(sig_flags, pvals):
+    """Holm-Bonferroni：返回校正后的显著标记。"""
+    order = sorted(range(len(pvals)), key=lambda i: pvals[i])
+    out = [False] * len(pvals)
+    for rank, i in enumerate(order):
+        if pvals[i] <= 0.05 / (len(pvals) - rank):
+            out[i] = True
+        else:
+            break
+    return out
+
+
+ENDPOINTS = [
+    ("delta_cost", "best_cost", "决策指标（等预算择优）"),
+    ("delta_following_rmse", "following_rmse_m", "性能端点 1"),
+    ("delta_accel_sq_integral", "accel_sq_integral_mps3", "性能端点 2"),
+]
+
+
 def analyze(scenarios, seeds):
-    """跨 (场景,种子) 的配对统计：协议要求 primary 指标做配对比较并报 CI。"""
+    """按 configs/p1/a1_execution_freeze.yaml 冻结的统计方案做配对分析。
+
+    冻结要点（不得事后更改）：
+      · 主口径 = delta_cost（每臂 12 候选、有效者取最优）
+      · 精确符号翻转检验 + 95% CI（t 近似，n=5 仅参考）
+      · 等价性 = TOST，margin = off 臂均值的 10%
+      · 多重比较 = 每个端点家族内 Holm-Bonferroni（α=0.05）
+      · 三态结论：有意义差异 / 实际等价 / 未定
+    """
     cases = []
     for sc in scenarios:
         for sd in seeds:
@@ -504,70 +612,110 @@ def analyze(scenarios, seeds):
     if not cases:
         print("没有可分析的结果（先跑训练）")
         return 2
-    print("配对分析：%d 个 (场景,种子)" % len(cases))
-    if len(cases) < 5:
-        print("  ⚠️ n=%d < 5：**不足以做任何统计推断**。下面只列原始差值，"
-              "不得报 CI、不得写'显著'或'无差异'（协议要求种子 ≥5）。" % len(cases))
-    for key in ("delta_cost", "delta_following_rmse", "delta_accel_sq_integral", "delta_collision"):
-        vals = [c["paired"][key] for c in cases if c["paired"].get(key) is not None]
-        if not vals:
-            print("  %-28s 无有效配对" % key)
-            continue
-        arr = np.array(vals, dtype=float)
-        n = len(arr)
-        mean = float(arr.mean())
-        if n < 5:
-            # n<5 时禁止输出区间：t/正态近似都无意义，且点估计的"区间"会假装成 CI。
-            print("  %-28s n=%d ｜ 各值 %s ｜ 均值 %+.4f（**样本不足，不报区间**）"
-                  % (key, n, [round(float(v), 4) for v in arr], mean))
-            continue
-        sd_ = float(arr.std(ddof=1))
-        se = sd_ / math.sqrt(n)
-        ci = (mean - 1.96 * se, mean + 1.96 * se)
-        sign = "OTF 更好" if mean < 0 else ("OTF 更差" if mean > 0 else "无差异")
-        print("  %-28s 均值 %+.4f ｜ 95%%CI [%+.4f, %+.4f] ｜ n=%d ｜ %s"
-              % (key, mean, ci[0], ci[1], n, sign))
-    print("")
-    print("判读纪律（AGENTS.md §1 铁律 2）：若区间跨 0，**不得**写成'无差异'，")
-    print("  必须用等价/非劣检验；样本量不足时只能写'未检出差异'。")
 
-    # ---- 等 K 配对（消除"候选池大小"带来的选择偏倚）----
+    print("配对分析：%d 个 (场景,种子)" % len(cases))
+    print("冻结口径：configs/p1/a1_execution_freeze.yaml（2026-10-18）")
+    if len(cases) < 5:
+        print("  ⚠️ n=%d < 5：**不足以做任何统计推断**，下面只列原始差值。" % len(cases))
+
+    by_sc = {}
+    for c in cases:
+        by_sc.setdefault(c["scenario"], []).append(c)
+
+    for key, off_key, label in ENDPOINTS:
+        print("")
+        print("=== %s ｜ %s ===" % (key, label))
+        hdr = "  %-12s %3s %10s %10s %22s %10s %10s %s" % (
+            "场景", "n", "均值Δ", "off均值", "95%CI", "p(精确)", "p(TOST)", "三态")
+        print(hdr)
+        rows, pvals = [], []
+        for sc in scenarios:
+            cs = by_sc.get(sc, [])
+            vals = [c["paired"][key] for c in cs if c["paired"].get(key) is not None]
+            if not vals:
+                continue
+            offs = [c["arms"]["a1_otf_off"]["best_metrics"].get(off_key)
+                    if off_key != "best_cost" else c["arms"]["a1_otf_off"].get("best_cost")
+                    for c in cs]
+            offs = [v for v in offs if v is not None]
+            n = len(vals)
+            m = sum(vals) / n
+            off_mean = sum(offs) / len(offs) if offs else 0.0
+            margin = 0.10 * abs(off_mean) if off_mean else 0.0
+            if n >= 2:
+                var = sum((v - m) ** 2 for v in vals) / (n - 1)
+                se = (var / n) ** 0.5
+                tq = _t975(n - 1)
+                lo, hi = m - tq * se, m + tq * se
+                ci = "[%+.3f, %+.3f]" % (lo, hi)
+            else:
+                lo = hi = m
+                ci = "n<2"
+            p = _sign_flip_p(vals) if n >= 5 else None
+            pt = _tost_p(vals, margin) if n >= 5 else None
+            if n < 5:
+                state = "样本不足"
+            elif pt is not None and pt < 0.05 and lo >= -margin and hi <= margin:
+                state = "**实际等价**"
+            elif p is not None and p < 0.05 and abs(m) > margin:
+                state = "**有意义差异**"
+            else:
+                state = "未定"
+            print("  %-12s %3d %+10.4f %10.3f %22s %10s %10s %s"
+                  % (sc, n, m, off_mean, ci,
+                     ("%.4f" % p) if p is not None else "n/a",
+                     ("%.4f" % pt) if pt is not None else "n/a", state))
+            if p is not None:
+                rows.append((sc, p, state))
+                pvals.append(p)
+        if pvals:
+            holm = _holm([True] * len(pvals), pvals)
+            print("  Holm-Bonferroni（α=0.05，本端点家族内 %d 个场景）:" % len(pvals))
+            for (sc, p, state), sig in zip(rows, holm):
+                print("    %-12s p=%.4f → %s（未校正时 %s）"
+                      % (sc, p, "显著" if sig else "不显著", state))
+
+    print("")
+    print("判读纪律：")
+    print("  · 三态结论之外的任何措辞都不允许；'未定' 不得写成 '无差异' 或 '有差异'")
+    print("  · 总均值只作描述，不做推断（协议要求逐场景报告）")
+    print("  · 全部数字须能指到 runs/p1/cases/case_<scenario>_s<seed>.json 的具体字段")
+
+    # 敏感性分析：等 K 配对
     eq_vals = [c["paired"]["equal_k"]["delta_cost"] for c in cases
                if isinstance(c["paired"].get("equal_k"), dict)
                and c["paired"]["equal_k"].get("delta_cost") is not None]
     print("")
-    print("=== 等 K 配对（两臂各取相同数量 K 个有效候选的均值差）===")
+    print("=== 敏感性分析：等 K 配对（次要，不替代主口径）===")
     if eq_vals:
         ks = [c["paired"]["equal_k"]["k"] for c in cases if c["paired"].get("equal_k")]
-        print("  各局 K = %s ｜ Δcost 各值 %s ｜ 均值 %+.4f"
-              % (ks, [round(v, 4) for v in eq_vals], sum(eq_vals) / len(eq_vals)))
+        m = sum(eq_vals) / len(eq_vals)
+        print("  各局 K = %s ｜ Δcost 各值 %s ｜ 均值 %+.4f（n=%d，无推断）"
+              % (ks, [round(v, 4) for v in eq_vals], m, len(eq_vals)))
+        print("  用途：若与主口径方向相反，说明结论依赖候选池大小，必须在稿件中同时给出两个口径")
     else:
-        print("  无 equal_k 数据（结果来自旧版本，需重跑）")
+        print("  无 equal_k 数据")
 
-    # ---- 处理变量激活率（"无差异"结论的前提）----
+    # 处理变量激活率（可判定性的前提）
     prs = [c["arms"]["a1_otf_on"].get("phi_nonzero_ratio") for c in cases
            if c["arms"]["a1_otf_on"].get("phi_nonzero_ratio") is not None]
     print("")
-    print("=== 处理变量激活率（Φ_OTF ≠ 0 的帧占比，on 臂）===")
+    print("=== 处理变量激活率（Φ_OTF ≠ 0 的帧占比）===")
     if prs:
-        print("  各局 %s ｜ 最大 %.4f" % ([round(p, 4) for p in prs], max(prs)))
-        if max(prs) <= 1e-9:
-            print("  ⚠️ **全程为 0**：on 臂第 4 维输入恒零 ⇒ 与 off 臂逐位等价。")
-            print("     **不得**据此写'OTF 无效果'——这是'没有信号'。")
-        elif max(prs) < 0.05:
-            print("  ⚠️ 激活率 <5%：信号稀疏，效应量估计不稳定，需在 Limitations 声明。")
+        print("  各局 %s ｜ 最小 %.4f" % ([round(p, 4) for p in prs], min(prs)))
+        if min(prs) <= 1e-9:
+            print("  ⚠️ 存在 0 激活的局：那些局的 Δ **不可用于判断效应**（无信号）")
         else:
-            print("  信号已激活，'有/无差异'的判定具备前提。")
+            print("  信号全部激活，'有/无差异'的判定具备前提")
     else:
-        print("  无数据（旧版本结果或未跑 on 臂）")
+        print("  无数据")
 
-    # ---- 两臂无效比例（训练难度证据，不隐去）----
+    # 无效候选比例（训练难度，按纪律不隐去）
     print("")
-    print("=== 无效候选比例（作为'训练难度'证据，**不得隐去**）===")
+    print("=== 无效候选比例（训练难度证据，不得隐去）===")
     for c in cases:
-        off = c["arms"]["a1_otf_off"]
-        on = c["arms"]["a1_otf_on"]
-        print("  %-16s off 无效 %.0f%%（%d/%d）｜ on 无效 %.0f%%（%d/%d）"
+        off, on = c["arms"]["a1_otf_off"], c["arms"]["a1_otf_on"]
+        print("  %-16s off %.0f%%（%d/%d）｜ on %.0f%%（%d/%d）"
               % (c["scenario"] + "/s%d" % c["seed"],
                  100 * off.get("invalid_ratio", 0), off.get("n_invalid", 0), len(off["all_costs"]),
                  100 * on.get("invalid_ratio", 0), on.get("n_invalid", 0), len(on["all_costs"])))
