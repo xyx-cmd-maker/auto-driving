@@ -13,12 +13,11 @@ identical controller that sees only gap, relative speed, and ego speed. Both arm
 budget, the same seeds, and the same traffic stream. Across four highway scenarios in CARLA with five seeds
 each, the composite driving cost changed by +0.26 (95% CI [−2.32, +2.83]) without a lead vehicle and
 by −0.05 ([−1.97, +1.87]) in the lead-exit scenario. Both lie inside a pre-registered ±10% equivalence
-margin under the 95% criterion (TOST p = 0.020 and 0.006). Two scenarios were inconclusive at that
-criterion; with the conventional 90% interval one of them would also qualify. We keep the stricter
-pre-registered criterion throughout. Following RMSE and the
+margin under the 95% criterion (TOST p = 0.020 and 0.006). Under the conventional 90% interval one of
+the two remaining scenarios would also qualify; we keep the stricter criterion. Following RMSE and the
 acceleration-squared integral showed no detectable difference, and neither arm collided. Quadrupling
-the fraction of informative control cycles did not sharpen the estimate, which points to redundancy at
-the controller input rather than to signal scarcity. With five
+the informative fraction did not sharpen the estimate, pointing to redundancy rather than signal
+scarcity. With five
 seeds the exact paired test cannot reach significance after multiplicity correction, so we target
 equivalence rather than superiority. OTF thus buys interpretability at no additional sensing cost, not
 closed-loop performance.
