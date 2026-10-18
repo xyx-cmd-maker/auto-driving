@@ -650,16 +650,23 @@ def _t_cdf(x, df):
     return 1.0 - tail if x > 0 else tail
 
 
-def _t975(df):
-    """t 分布 0.975 分位数（n=5 → df=4 ≈ 2.776）。用二分反解，不依赖 torch。"""
-    lo, hi = 0.0, 50.0
+def _t_quantile(q, df):
+    """t 分布 q 分位数（q ∈ (0,1)）。二分反解 `_t_cdf`，不依赖 torch。"""
+    if not (0.0 < q < 1.0):
+        raise ValueError("q 必须在 (0,1)，收到 %r" % q)
+    lo, hi = 0.0, 80.0
     for _ in range(200):
         mid = 0.5 * (lo + hi)
-        if _t_cdf(mid, df) < 0.975:
+        if _t_cdf(mid, df) < q:
             lo = mid
         else:
             hi = mid
     return 0.5 * (lo + hi)
+
+
+def _t975(df):
+    """t 分布 0.975 分位数（n=5 → df=4 ≈ 2.776）。保留旧名以兼容调用。"""
+    return _t_quantile(0.975, df)
 
 
 def _sign_flip_p(vals):
@@ -754,8 +761,9 @@ def analyze(scenarios, seeds):
     for key, off_key, label in ENDPOINTS:
         print("")
         print("=== %s ｜ %s ===" % (key, label))
-        hdr = "  %-12s %3s %10s %10s %22s %10s %10s %s" % (
-            "场景", "n", "均值Δ", "off均值", "95%CI", "p(精确)", "p(TOST)", "三态")
+        hdr = "  %-12s %3s %10s %10s %22s %22s %9s %9s %8s %s" % (
+            "场景", "n", "均值Δ", "off均值", "95%CI(预注册)", "90%CI(常规TOST)",
+            "p(精确)", "p(TOST)", "95%判据", "三态")
         print(hdr)
         rows, pvals = [], []
         for sc in scenarios:
@@ -774,26 +782,38 @@ def analyze(scenarios, seeds):
             if n >= 2:
                 var = sum((v - m) ** 2 for v in vals) / (n - 1)
                 se = (var / n) ** 0.5
-                tq = _t975(n - 1)
+                tq = _t_quantile(0.975, n - 1)      # 95% CI（预注册判据）
+                tq90 = _t_quantile(0.95, n - 1)     # 90% CI（常规 TOST 判据）
                 lo, hi = m - tq * se, m + tq * se
+                lo90, hi90 = m - tq90 * se, m + tq90 * se
                 ci = "[%+.3f, %+.3f]" % (lo, hi)
+                ci90 = "[%+.3f, %+.3f]" % (lo90, hi90)
             else:
-                lo = hi = m
-                ci = "n<2"
+                lo = hi = lo90 = hi90 = m
+                ci = ci90 = "n<2"
             p = _sign_flip_p(vals) if n >= 5 else None
             pt = _tost_p(vals, margin) if n >= 5 else None
+            # ★ 两种等价判据都算，并显式报告（2026-10-18 自审发现的口径混用）：
+            #   预注册判据 = **95% CI** 完全落在 ±margin 内（每侧 α=0.025）；
+            #   常规 TOST 判据 = **90% CI** 完全落在 ±margin 内（每侧 α=0.05）。
+            #   两者可能给出不同结论，**必须都打印**，否则读者会以为 p<0.05 就等价。
+            eq95 = (n >= 5 and lo >= -margin and hi <= margin)
+            eq90 = (n >= 5 and lo90 >= -margin and hi90 <= margin)
             if n < 5:
                 state = "样本不足"
-            elif pt is not None and pt < 0.05 and lo >= -margin and hi <= margin:
+            elif eq95:
                 state = "**实际等价**"
             elif p is not None and p < 0.05 and abs(m) > margin:
                 state = "**有意义差异**"
             else:
                 state = "未定"
-            print("  %-12s %3d %+10.4f %10.3f %22s %10s %10s %s"
-                  % (sc, n, m, off_mean, ci,
+            flag = "-" if eq95 == eq90 else ("仅95%" if eq95 else "仅90%")
+            print("  %-12s %3d %+10.4f %10.3f %22s %22s %9s %9s %s %s"
+                  % (sc, n, m, off_mean, ci, ci90,
                      ("%.4f" % p) if p is not None else "n/a",
-                     ("%.4f" % pt) if pt is not None else "n/a", state))
+                     ("%.4f" % pt) if pt is not None else "n/a",
+                     ("95%CI:是" if eq95 else "95%CI:否"),
+                     state + ("" if flag == "-" else " [" + flag + "]")))
             if p is not None:
                 rows.append((sc, p, state))
                 pvals.append(p)

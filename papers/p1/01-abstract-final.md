@@ -28,7 +28,9 @@ identical controller that sees only gap, relative speed, and ego speed. Both arm
 budget, the same seeds, and the same traffic stream. Across four highway scenarios in CARLA with five seeds
 each, the composite driving cost changed by +0.26 (95% CI [−2.32, +2.83]) without a lead vehicle and
 by −0.05 ([−1.97, +1.87]) in the lead-exit scenario. Both lie inside a pre-registered ±10% equivalence
-margin (TOST p = 0.020 and 0.006). The other two scenarios were inconclusive. Following RMSE and the
+margin under the 95% criterion (TOST p = 0.020 and 0.006). Two scenarios were inconclusive at that
+criterion; with the conventional 90% interval one of them would also qualify. We keep the stricter
+pre-registered criterion throughout. Following RMSE and the
 acceleration-squared integral showed no detectable difference, and neither arm collided. With five
 seeds the exact paired test cannot reach significance after multiplicity correction, so we target
 equivalence rather than superiority. A traffic-pressure scalar thus buys interpretability at no
