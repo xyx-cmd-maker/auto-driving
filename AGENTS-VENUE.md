@@ -1,6 +1,6 @@
 # 目标 venue 与写作纪律（P1–P5）
 
-> **与 `AGENTS.md` 等效**（本文件属 AGENTS 文件族，见 `AGENTS.md` 文件族表）。
+> **与 `AGENTS.md` 效力相同**（本文件属 AGENTS 文件族，见 `AGENTS.md` 文件族表）。
 > 拆分理由：主文件超过 300 行阈值（`scripts/smoke/check_agents_family.mjs` 校验），
 > 按 `AGENTS-NORMS.md` §3 把可独立成篇的 venue 策略移出。
 > 裁决本身仍写在 `AGENTS.md` §6.1 的摘要块里；**本文件是该裁决的完整取证与写作纪律**。
