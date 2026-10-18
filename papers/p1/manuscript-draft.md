@@ -382,14 +382,17 @@ the ego, their aggregate contributes little to the instantaneous decision.
 
 Signal scarcity is the obvious competing explanation, and we tested it rather than assuming it. In the
 main experiment the fraction of windows with OTF > 0 was 0.084 to 0.167, so the fourth input was zero
-for most of every episode. A supplementary group therefore raised that fraction fourfold, to 0.334, by
-widening the window to 20 s while holding everything else fixed. The cost difference stayed
-indistinguishable, and the interval did not narrow: 6.83 against 5.90 in the main experiment. A second
-supplementary group tripled the background traffic without moving availability, and also left the
-conclusion unchanged.
+for most of every episode. We therefore raised that fraction fourfold in every scenario, by widening the
+window to 20 s while holding everything else fixed. Availability rose to 0.334 in two scenarios and to
+between 0.334 and 0.497 in the third.
+
+No scenario sharpened. The interval width grew rather than shrank in all three: 5.90 to 6.83, 5.59 to
+6.73, and 3.84 to 4.92. A second supplementary group tripled the background traffic without moving
+availability, and also left the conclusion unchanged.
 
 We therefore read scarcity as a description of the regime rather than as the cause of the null. Had
-availability been binding, a fourfold increase should have sharpened the estimate. It did not.
+availability been binding, a fourfold increase should have sharpened the estimate in at least one
+scenario. It sharpened none.
 
 The availability map still explains where the signal exists. Availability rises monotonically with flow
 and with window length. The two trade against each other: the 0.5 contour is crossed near 1500 veh/h at
