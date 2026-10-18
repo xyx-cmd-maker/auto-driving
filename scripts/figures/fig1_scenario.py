@@ -28,7 +28,9 @@ SRC = os.path.join(ROOT, "results", "p1", "otf_density_sweep_sumo_s1-2-3_fine.js
 OUT = os.path.join(ROOT, "papers", "p1", "figs")
 
 BLUE, ORANGE, GREEN, GREY = "#0072B2", "#D55E00", "#009E73", "#666666"
-FS = 6.5          # 基础字号（印刷 88 mm 宽时约 6.5 pt 可读）
+FS = 7.0          # 轴标签字号（scientific-visualization: 轴标签 7–9 pt）
+TICK = 6.5        # 刻度字号（6–8 pt）
+PANEL = FS + 1.5  # 面板字母（加粗）
 
 
 def panel_a(ax):
@@ -67,9 +69,11 @@ def panel_a(ax):
     # 跨车道事件：上道车 t1 位置 → 切到 ego 道（放在 ego 与前车之间，避开遮挡）
     ax.add_patch(FancyArrowPatch((3.1, 2.28), (3.1, 1.44), arrowstyle="-|>",
                                  mutation_scale=7, lw=1.1, color=ORANGE, zorder=6))
-    ax.text(3.0, 1.86, "OTF +1", fontsize=FS, color=ORANGE, ha="right", va="center", zorder=7)
+    ax.text(2.92, 1.60, "OTF +1", fontsize=FS, color=ORANGE, ha="right", va="center", zorder=7)
 
-    ax.set_title("(a) Three-lane highway", fontsize=FS, loc="left", pad=3, color="black")
+    ax.set_title("Three-lane highway", fontsize=FS, loc="left", pad=3, color="black")
+    ax.text(-0.02, 1.16, "A", transform=ax.transAxes, fontsize=PANEL,
+            fontweight="bold", ha="left", va="top")
 
 
 def panel_b(ax):
@@ -109,7 +113,9 @@ def panel_b(ax):
                 arrowprops=dict(arrowstyle="<|-|>", lw=0.7, color="0.25", mutation_scale=5))
     ax.text(6.1, 3.08, "window $W$", fontsize=FS - 0.5, ha="center", va="bottom", color="0.25")
 
-    ax.set_title("(b) Crossing the ego lane", fontsize=FS, loc="left", pad=3)
+    ax.set_title("Crossing the ego lane", fontsize=FS, loc="left", pad=3)
+    ax.text(-0.10, 1.16, "B", transform=ax.transAxes, fontsize=PANEL,
+            fontweight="bold", ha="left", va="top")
 
 
 def panel_c(ax):
@@ -132,7 +138,8 @@ def panel_c(ax):
     # CARLA 设定带 + 实测点
     ax.add_patch(Rectangle((1200, min(Y.ravel()) - 2), 800, max(Y.ravel()) - min(Y.ravel()) + 4,
                            fill=False, hatch="////", edgecolor="0.25", lw=0.0))
-    ax.plot([1600], [5.0], marker="*", ms=6, mfc="none", mec=ORANGE, mew=1.0, zorder=6)
+    # 灰度可读：实心星 + 白色描边（仅靠颜色区分在灰度下会消失）
+    ax.plot([1600], [5.0], marker="*", ms=7, mfc="0.15", mec="white", mew=0.7, zorder=6)
 
     ax.set_xlabel("flow (veh/h)", fontsize=FS, labelpad=1.5)
     ax.set_ylabel("window $W$ (s)", fontsize=FS, labelpad=1.5)
@@ -142,7 +149,9 @@ def panel_c(ax):
     cb = plt.colorbar(pcm, ax=ax, pad=0.02, fraction=0.05)
     cb.set_label("$P(\\mathrm{OTF}>0)$", fontsize=FS - 0.5)
     cb.ax.tick_params(labelsize=FS - 1.2, width=0.4, length=1.5)
-    ax.set_title("(c) Signal availability", fontsize=FS, loc="left", pad=3)
+    ax.set_title("Signal availability", fontsize=FS, loc="left", pad=3)
+    ax.text(-0.24, 1.16, "C", transform=ax.transAxes, fontsize=PANEL,
+            fontweight="bold", ha="left", va="top")
 
 
 def main() -> int:

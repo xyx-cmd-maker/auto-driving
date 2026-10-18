@@ -43,7 +43,9 @@ change. The linear path carries the instantaneous part of the command.
 
 ## 2.3 Environments
 
-**CARLA closed loop.** We use CARLA 0.9.16 with the Town04 highway map and a Tesla Model3 ego
+#### CARLA closed loop
+
+We use CARLA 0.9.16 with the Town04 highway map and a Tesla Model3 ego
 vehicle. The simulation steps at 50 Hz, and the controller runs at 20 Hz, so the observation is
 updated every 2.5 simulation steps. We note this explicitly because the original protocol specified
 100 Hz, which the host machine could not sustain.
@@ -61,7 +63,9 @@ near the ego and places it in a specified lane at a fixed longitudinal offset, a
 throughout. The injected sequence is deterministic and identical for both arms, so it cannot bias the
 comparison. Availability rises to 8% and 17% of control cycles depending on the scenario.
 
-**SUMO availability analysis.** To characterize the signal independently of the closed loop, we build
+#### SUMO availability analysis
+
+To characterize the signal independently of the closed loop, we build
 a three-lane highway in SUMO 1.27.1 with a 1200 m segment, a 120 km/h speed limit, and heterogeneous
 speed factors. Flows vary from 600 to 4800 vehicles per hour. We record full trajectories at every
 step and apply the same crossing rule, so the SUMO analysis and the controller share one OTF

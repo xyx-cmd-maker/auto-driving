@@ -33,8 +33,8 @@ criterion; with the conventional 90% interval one of them would also qualify. We
 pre-registered criterion throughout. Following RMSE and the
 acceleration-squared integral showed no detectable difference, and neither arm collided. With five
 seeds the exact paired test cannot reach significance after multiplicity correction, so we target
-equivalence rather than superiority. A traffic-pressure scalar thus buys interpretability at no
-additional sensing cost, not closed-loop performance.
+equivalence rather than superiority. OTF thus buys interpretability at no additional sensing cost, not
+closed-loop performance.
 
 ---
 

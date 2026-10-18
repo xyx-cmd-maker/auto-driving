@@ -17,8 +17,8 @@ Evidence for OTF so far comes from classification. The reported gains are 1.0 to
 points of classifier accuracy over baselines without OTF features, across three classifier families
 (Huang, 2023, as reported; not reproduced here). Classification and control ask different questions.
 A feature can improve an offline label prediction and still add nothing to a feedback loop that
-already observes gap and relative speed. To our knowledge, OTF has not been tested inside a closed
-control loop.
+already observes gap and relative speed. Those results are classification accuracies, and none of them
+closes the loop.
 
 We test it directly. We treat OTF as a fourth input to a closed-form continuous-time (CfC) controller
 and compare it against an otherwise identical controller that sees only lead gap, relative speed, and
@@ -61,8 +61,8 @@ equivalence margin, with TOST p = 0.020 and 0.006. The cutin and lead-brake scen
 inconclusive, because their intervals crossed the margin. Following RMSE and the acceleration-squared
 integral showed no detectable difference in any scenario, and neither arm collided.
 
-We read this as evidence that an aggregate traffic-pressure scalar buys interpretability at no
-additional sensing cost, not closed-loop performance. The wording matters. Equivalence within a 10%
+We read this as evidence that OTF buys interpretability at no additional sensing cost, not closed-loop
+performance. The wording matters. Equivalence within a 10%
 margin is a positive statement about practical similarity, and it is stronger than a failure to
 reject. It is also weaker than a claim of no effect: a difference smaller than the margin, or one
 confined to a regime we did not reach, remains compatible with our data.
@@ -100,7 +100,7 @@ compared with a measured one.
 ## 5.4 Practical implications
 
 For a vehicle engineer the result is a boundary, not a rejection. OTF is cheap, explainable, and
-sensor-agnostic, which makes it a reasonable diagnostic channel and a reasonable input for
+sensor-agnostic, which makes it a reasonable diagnostic input and a reasonable input for
 higher-level decisions such as lane-change readiness. It is not, on this evidence, a way to improve
 low-level car-following inside a fixed search budget.
 
@@ -113,25 +113,25 @@ before deployment.
 
 Six limitations bound the claims, and three of them are structural.
 
-**Power.** With five seeds the exact paired test can return no value below 0.0625, while Holm
+1. Power. With five seeds the exact paired test can return no value below 0.0625, while Holm
 correction across four scenarios requires 0.0125. Superiority was therefore untestable by
 construction, and our inference rests on equivalence.
 
-**Metric dependence.** The primary metric takes the best valid candidate in each arm. The equal-K
+2. Metric dependence. The primary metric takes the best valid candidate in each arm. The equal-K
 sensitivity analysis equalizes the number of valid candidates and gives a mean of −1.07 against
 +0.35 for the primary metric. The sign reverses. The direction of the effect estimate therefore
 depends on how the search budget is accounted for, and both figures are reported.
 
-**Regime.** Availability was 8% to 17%, far below the saturated region of the map. Conclusions do
+3. Regime. Availability was 8% to 17%, far below the saturated region of the map. Conclusions do
 not transfer to dense traffic or to longer windows.
 
-**Constructed traffic.** OTF activation depends on scripted cut-ins placed by transform, not on
+4. Constructed traffic. OTF activation depends on scripted cut-ins placed by transform, not on
 natural lane changes. The resulting events are more regular than real ones.
 
-**Platform.** One map, one vehicle model, and a control rate of 20 Hz rather than the 100 Hz of the
+5. Platform. One map, one vehicle model, and a control rate of 20 Hz rather than the 100 Hz of the
 original protocol.
 
-**No recorded trajectories.** The availability map comes from SUMO, and the closed loop from CARLA.
+6. No recorded trajectories. The availability map comes from SUMO, and the closed loop from CARLA.
 Replay on recorded highway trajectories remains future work, and we do not claim external validity
 beyond the two simulators.
 
