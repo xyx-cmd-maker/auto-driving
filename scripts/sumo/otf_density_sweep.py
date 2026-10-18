@@ -84,6 +84,7 @@ def main() -> int:
     ap.add_argument("--length-m", type=float, default=1200.0)
     ap.add_argument("--speed-ms", type=float, default=33.3)
     ap.add_argument("--windows", default="5,10,20")
+    ap.add_argument("--tag", default="", help="文件名后缀，避免覆盖已有扫描（如 _fine）")
     args = ap.parse_args()
 
     seeds = [int(x) for x in args.seeds.split(",")]
@@ -129,7 +130,8 @@ def main() -> int:
         print("    %5d veh/h → %s" % (density, cells))
 
     os.makedirs(base.RESULTS, exist_ok=True)
-    p = os.path.join(base.RESULTS, "otf_density_sweep_sumo_s%s.json" % args.seeds.replace(",", "-"))
+    p = os.path.join(base.RESULTS, "otf_density_sweep_sumo_s%s%s.json"
+                     % (args.seeds.replace(",", "-"), args.tag))
     tmp = p + ".tmp"
     with io.open(tmp, "w", encoding="utf-8") as f:
         json.dump(res, f, ensure_ascii=False, indent=2)

@@ -351,3 +351,53 @@ py -3.12 scripts/sumo/otf_density_sweep.py --seeds 1,2,3 \
 3. **NGSIM**：即使能下也不用（质量批判 + 与 highD 重复）。
 
 **原则：真实数据是"加分项"，不是"前置条件"。任何一步拿不到，论文依然完整可投。**
+
+---
+
+## 11. 相图（密度 × 窗口）与一个**必须写进正文的机制差异**（2026-10-18）
+
+### 11.1 图与数据
+
+- 图：`papers/p1/figs/fig_otf_phase.pdf`（矢量）/ `.png`（300 dpi）/ `.csv`（网格值）
+- 数据：`results/p1/otf_density_sweep_sumo_s1-2-3_fine.json`（3 seeds × **8 密度** × **7 窗口**）
+- 复现：`py -3.12 scripts/sumo/otf_density_sweep.py --seeds 1,2,3 --densities 600,1200,1800,2400,3000,3600,4200,4800 --windows 5,10,15,20,30,45,60 --minutes 15 --tag _fine`
+- 出图：`py -3.14 scripts/figures/fig_otf_phase.py`（本机仅 py3.14 有 matplotlib）
+
+### 11.2 图上能读出的三条结论
+
+1. **等值线 0.25 / 0.50 / 0.75 都向左上倾斜**：要拿到同样的"信息可用性"，
+   要么**提高密度**、要么**加长窗口**，两者可互换（一组 trade-off 曲线）。
+2. **低密度是硬约束**：≤1 200 veh/h 时，即使 W=30 s，非零比例也只在 0.80 上下；
+   而 W=5 s 只有 0.12–0.25。
+3. **高密度趋于饱和**：≥3 600 veh/h 后，W≥20 s 基本 ≥0.9，再加密度收益很小。
+
+### 11.3 ★ 相图暴露的机制差异（必须写进正文，否则会被审稿人抓到）
+
+图上把 **CARLA 闭环设定**的等效流量带（1 200–2 000 veh/h，**估计值**）与
+**CARLA 里实测的 Φ_OTF>0 = 0.084**（W = 5 s，来自 `runs/p1/cases` 的 `phi_nonzero_ratio`）标在一起。
+按 SUMO 的相图，1 600 veh/h、W=5 s 应给出约 **0.32**——**实测只有 0.084，低约 4 倍**。
+
+**为什么**（这是本轮最有价值的机制发现）：
+- SUMO 用 **LC2013** 换道模型，车辆会主动为超越慢车而换道；
+- CARLA 的 **Traffic Manager** 在稀疏、无拥堵压力的场景下**几乎不换道**
+  （我们此前实测：60 s 内全场仅 2 次换道、0 次涉及 ego 车道）；
+- 因此 CARLA 的 OTF 信号天然远低于同等流量的 SUMO —— **这正是我们必须注入脚本化 cut-in 的原因**。
+
+**写作纪律（由此产生）**：
+1. 正文必须**同时给出两个数字**：SUMO 相图的预测值（约 0.32）与 CARLA 的实测值（0.084），
+   并解释差异来自**换道模型的积极性差异**，而不是"我们的实现有 bug"；
+2. 这张相图**不得**被写成"真实的交通流规律"——它是 **SUMO 合成流下的规律**，
+   真实交通的曲线需要 highD/exiD（未到手）；
+3. 若审稿人问"为什么不用更长的窗口"——相图直接回答：
+   **在低密度下加长窗口确实能提升可用性**（W=30 s 时 1 200 veh/h 也有 0.80），
+   但会牺牲时间分辨率；这是一条可讨论的设计 trade-off，可写成 future work。
+
+### 11.4 建议图注（英文，可直接用）
+
+> **Fig. 2.** Availability of the OTF signal under synthetic highway traffic (SUMO, three seeds).
+> Colour gives the fraction of sliding windows in which OTF > 0, as a function of traffic flow and
+> window length; white contours mark 0.25, 0.50 and 0.75. The hatched band marks the equivalent flow
+> of our CARLA closed-loop setting (16 mixed vehicles on a 420 m three-lane segment, estimated), and
+> the star marks the value measured there (0.084 at W = 5 s). The gap between the star and the
+> surrounding colour is explained by the lane-change model: SUMO's LC2013 changes lanes to overtake,
+> whereas CARLA's Traffic Manager rarely does so without congestion.

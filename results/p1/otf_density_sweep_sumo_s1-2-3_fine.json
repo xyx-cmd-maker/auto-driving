@@ -1,0 +1,516 @@
+{
+  "experiment": "otf_density_sweep_sumo",
+  "note": "同一套 OTF 定义（src/otf/otf_core.py 的 _crossed）；SUMO 合成交通流，非真实数据；用途是给出 OTF 的**适用密度范围**",
+  "params": {
+    "lanes": 3,
+    "length_m": 1200.0,
+    "speed_ms": 33.3,
+    "minutes": 15.0
+  },
+  "table": {
+    "600": {
+      "W=5": {
+        "nonzero_fraction_mean": 0.118,
+        "nonzero_fraction_all": [
+          0.1368,
+          0.1621,
+          0.0552
+        ],
+        "otf_mean": 0.1337,
+        "n_seeds": 3
+      },
+      "W=10": {
+        "nonzero_fraction_mean": 0.2211,
+        "nonzero_fraction_all": [
+          0.2611,
+          0.2906,
+          0.1116
+        ],
+        "otf_mean": 0.2713,
+        "n_seeds": 3
+      },
+      "W=15": {
+        "nonzero_fraction_mean": 0.313,
+        "nonzero_fraction_all": [
+          0.3676,
+          0.4,
+          0.1714
+        ],
+        "otf_mean": 0.4063,
+        "n_seeds": 3
+      },
+      "W=20": {
+        "nonzero_fraction_mean": 0.3927,
+        "nonzero_fraction_all": [
+          0.4333,
+          0.5213,
+          0.2234
+        ],
+        "otf_mean": 0.5609,
+        "n_seeds": 3
+      },
+      "W=30": {
+        "nonzero_fraction_mean": 0.5259,
+        "nonzero_fraction_all": [
+          0.6304,
+          0.58,
+          0.3673
+        ],
+        "otf_mean": 0.7848,
+        "n_seeds": 3
+      },
+      "W=45": {
+        "nonzero_fraction_mean": 0.6971,
+        "nonzero_fraction_all": [
+          0.8125,
+          0.7,
+          0.5789
+        ],
+        "otf_mean": 1.1989,
+        "n_seeds": 3
+      }
+    },
+    "1200": {
+      "W=5": {
+        "nonzero_fraction_mean": 0.2482,
+        "nonzero_fraction_all": [
+          0.2524,
+          0.2598,
+          0.2324
+        ],
+        "otf_mean": 0.2898,
+        "n_seeds": 3
+      },
+      "W=10": {
+        "nonzero_fraction_mean": 0.4253,
+        "nonzero_fraction_all": [
+          0.4421,
+          0.4378,
+          0.3959
+        ],
+        "otf_mean": 0.5921,
+        "n_seeds": 3
+      },
+      "W=15": {
+        "nonzero_fraction_mean": 0.5477,
+        "nonzero_fraction_all": [
+          0.5733,
+          0.5467,
+          0.5232
+        ],
+        "otf_mean": 0.8782,
+        "n_seeds": 3
+      },
+      "W=20": {
+        "nonzero_fraction_mean": 0.6922,
+        "nonzero_fraction_all": [
+          0.7283,
+          0.7273,
+          0.6211
+        ],
+        "otf_mean": 1.2118,
+        "n_seeds": 3
+      },
+      "W=30": {
+        "nonzero_fraction_mean": 0.8,
+        "nonzero_fraction_all": [
+          0.85,
+          0.85,
+          0.7
+        ],
+        "otf_mean": 1.7333,
+        "n_seeds": 3
+      },
+      "W=45": {
+        "nonzero_fraction_mean": 0.9333,
+        "nonzero_fraction_all": [
+          0.9333,
+          0.9667,
+          0.9
+        ],
+        "otf_mean": 2.6222,
+        "n_seeds": 3
+      }
+    },
+    "1800": {
+      "W=5": {
+        "nonzero_fraction_mean": 0.3649,
+        "nonzero_fraction_all": [
+          0.3321,
+          0.3951,
+          0.3675
+        ],
+        "otf_mean": 0.4773,
+        "n_seeds": 3
+      },
+      "W=10": {
+        "nonzero_fraction_mean": 0.5771,
+        "nonzero_fraction_all": [
+          0.5309,
+          0.6423,
+          0.5582
+        ],
+        "otf_mean": 0.9644,
+        "n_seeds": 3
+      },
+      "W=15": {
+        "nonzero_fraction_mean": 0.7184,
+        "nonzero_fraction_all": [
+          0.66,
+          0.7867,
+          0.7086
+        ],
+        "otf_mean": 1.4302,
+        "n_seeds": 3
+      },
+      "W=20": {
+        "nonzero_fraction_mean": 0.8156,
+        "nonzero_fraction_all": [
+          0.7742,
+          0.8646,
+          0.8081
+        ],
+        "otf_mean": 1.9774,
+        "n_seeds": 3
+      },
+      "W=30": {
+        "nonzero_fraction_mean": 0.9166,
+        "nonzero_fraction_all": [
+          0.8333,
+          0.9833,
+          0.9333
+        ],
+        "otf_mean": 2.9444,
+        "n_seeds": 3
+      },
+      "W=45": {
+        "nonzero_fraction_mean": 0.9667,
+        "nonzero_fraction_all": [
+          0.9,
+          1.0,
+          1.0
+        ],
+        "otf_mean": 4.3889,
+        "n_seeds": 3
+      }
+    },
+    "2400": {
+      "W=5": {
+        "nonzero_fraction_mean": 0.4154,
+        "nonzero_fraction_all": [
+          0.4142,
+          0.4162,
+          0.4159
+        ],
+        "otf_mean": 0.6039,
+        "n_seeds": 3
+      },
+      "W=10": {
+        "nonzero_fraction_mean": 0.6326,
+        "nonzero_fraction_all": [
+          0.623,
+          0.6378,
+          0.6371
+        ],
+        "otf_mean": 1.2352,
+        "n_seeds": 3
+      },
+      "W=15": {
+        "nonzero_fraction_mean": 0.7687,
+        "nonzero_fraction_all": [
+          0.7815,
+          0.755,
+          0.7697
+        ],
+        "otf_mean": 1.8282,
+        "n_seeds": 3
+      },
+      "W=20": {
+        "nonzero_fraction_mean": 0.8782,
+        "nonzero_fraction_all": [
+          0.8723,
+          0.8846,
+          0.8776
+        ],
+        "otf_mean": 2.5252,
+        "n_seeds": 3
+      },
+      "W=30": {
+        "nonzero_fraction_mean": 0.9611,
+        "nonzero_fraction_all": [
+          0.9667,
+          0.9333,
+          0.9833
+        ],
+        "otf_mean": 3.75,
+        "n_seeds": 3
+      },
+      "W=45": {
+        "nonzero_fraction_mean": 1.0,
+        "nonzero_fraction_all": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "otf_mean": 5.5667,
+        "n_seeds": 3
+      }
+    },
+    "3000": {
+      "W=5": {
+        "nonzero_fraction_mean": 0.4767,
+        "nonzero_fraction_all": [
+          0.4589,
+          0.4955,
+          0.4756
+        ],
+        "otf_mean": 0.715,
+        "n_seeds": 3
+      },
+      "W=10": {
+        "nonzero_fraction_mean": 0.7016,
+        "nonzero_fraction_all": [
+          0.7045,
+          0.707,
+          0.6932
+        ],
+        "otf_mean": 1.4185,
+        "n_seeds": 3
+      },
+      "W=15": {
+        "nonzero_fraction_mean": 0.8192,
+        "nonzero_fraction_all": [
+          0.8467,
+          0.8411,
+          0.7697
+        ],
+        "otf_mean": 2.1105,
+        "n_seeds": 3
+      },
+      "W=20": {
+        "nonzero_fraction_mean": 0.8761,
+        "nonzero_fraction_all": [
+          0.9278,
+          0.8491,
+          0.8515
+        ],
+        "otf_mean": 2.771,
+        "n_seeds": 3
+      },
+      "W=30": {
+        "nonzero_fraction_mean": 0.9334,
+        "nonzero_fraction_all": [
+          0.9667,
+          0.9167,
+          0.9167
+        ],
+        "otf_mean": 4.2333,
+        "n_seeds": 3
+      },
+      "W=45": {
+        "nonzero_fraction_mean": 0.9889,
+        "nonzero_fraction_all": [
+          1.0,
+          1.0,
+          0.9667
+        ],
+        "otf_mean": 6.5111,
+        "n_seeds": 3
+      }
+    },
+    "3600": {
+      "W=5": {
+        "nonzero_fraction_mean": 0.5148,
+        "nonzero_fraction_all": [
+          0.5089,
+          0.5534,
+          0.482
+        ],
+        "otf_mean": 0.8011,
+        "n_seeds": 3
+      },
+      "W=10": {
+        "nonzero_fraction_mean": 0.7382,
+        "nonzero_fraction_all": [
+          0.7471,
+          0.7481,
+          0.7194
+        ],
+        "otf_mean": 1.6044,
+        "n_seeds": 3
+      },
+      "W=15": {
+        "nonzero_fraction_mean": 0.8498,
+        "nonzero_fraction_all": [
+          0.8675,
+          0.8452,
+          0.8366
+        ],
+        "otf_mean": 2.3804,
+        "n_seeds": 3
+      },
+      "W=20": {
+        "nonzero_fraction_mean": 0.9337,
+        "nonzero_fraction_all": [
+          0.9279,
+          0.9217,
+          0.9515
+        ],
+        "otf_mean": 3.136,
+        "n_seeds": 3
+      },
+      "W=30": {
+        "nonzero_fraction_mean": 0.9667,
+        "nonzero_fraction_all": [
+          0.9333,
+          0.9667,
+          1.0
+        ],
+        "otf_mean": 4.7333,
+        "n_seeds": 3
+      },
+      "W=45": {
+        "nonzero_fraction_mean": 1.0,
+        "nonzero_fraction_all": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "otf_mean": 7.3222,
+        "n_seeds": 3
+      }
+    },
+    "4200": {
+      "W=5": {
+        "nonzero_fraction_mean": 0.5294,
+        "nonzero_fraction_all": [
+          0.6181,
+          0.519,
+          0.451
+        ],
+        "otf_mean": 0.8671,
+        "n_seeds": 3
+      },
+      "W=10": {
+        "nonzero_fraction_mean": 0.7305,
+        "nonzero_fraction_all": [
+          0.8296,
+          0.7363,
+          0.6255
+        ],
+        "otf_mean": 1.7484,
+        "n_seeds": 3
+      },
+      "W=15": {
+        "nonzero_fraction_mean": 0.8466,
+        "nonzero_fraction_all": [
+          0.9359,
+          0.8662,
+          0.7378
+        ],
+        "otf_mean": 2.6291,
+        "n_seeds": 3
+      },
+      "W=20": {
+        "nonzero_fraction_mean": 0.9166,
+        "nonzero_fraction_all": [
+          0.9832,
+          0.95,
+          0.8167
+        ],
+        "otf_mean": 3.528,
+        "n_seeds": 3
+      },
+      "W=30": {
+        "nonzero_fraction_mean": 0.9667,
+        "nonzero_fraction_all": [
+          1.0,
+          0.9833,
+          0.9167
+        ],
+        "otf_mean": 5.2983,
+        "n_seeds": 3
+      },
+      "W=45": {
+        "nonzero_fraction_mean": 1.0,
+        "nonzero_fraction_all": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "otf_mean": 7.8667,
+        "n_seeds": 3
+      },
+      "W=60": {
+        "nonzero_fraction_mean": 1.0,
+        "nonzero_fraction_all": [
+          1.0
+        ],
+        "otf_mean": 11.0,
+        "n_seeds": 1
+      }
+    },
+    "4800": {
+      "W=5": {
+        "nonzero_fraction_mean": 0.5626,
+        "nonzero_fraction_all": [
+          0.4779,
+          0.6244,
+          0.5854
+        ],
+        "otf_mean": 0.8316,
+        "n_seeds": 3
+      },
+      "W=10": {
+        "nonzero_fraction_mean": 0.7677,
+        "nonzero_fraction_all": [
+          0.6667,
+          0.8261,
+          0.8102
+        ],
+        "otf_mean": 1.6702,
+        "n_seeds": 3
+      },
+      "W=15": {
+        "nonzero_fraction_mean": 0.8458,
+        "nonzero_fraction_all": [
+          0.7389,
+          0.8944,
+          0.9042
+        ],
+        "otf_mean": 2.5069,
+        "n_seeds": 3
+      },
+      "W=20": {
+        "nonzero_fraction_mean": 0.9028,
+        "nonzero_fraction_all": [
+          0.8,
+          0.9417,
+          0.9667
+        ],
+        "otf_mean": 3.3667,
+        "n_seeds": 3
+      },
+      "W=30": {
+        "nonzero_fraction_mean": 0.9667,
+        "nonzero_fraction_all": [
+          0.9,
+          1.0,
+          1.0
+        ],
+        "otf_mean": 5.1611,
+        "n_seeds": 3
+      },
+      "W=45": {
+        "nonzero_fraction_mean": 1.0,
+        "nonzero_fraction_all": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "otf_mean": 7.6333,
+        "n_seeds": 3
+      }
+    }
+  }
+}
