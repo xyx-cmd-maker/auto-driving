@@ -21,17 +21,26 @@
 
 ## 2. 贡献分解（按 CRediT，可直接用于稿件 Author Contributions 段）
 
+**用户 2026-10-18 明确：CRediT 分工全部由第一作者主导。** 通讯作者的贡献限于指导与规范审查。
+
 | CRediT 角色 | 用户（第一作者） | 黄梦圆（通讯作者） |
 |---|---|---|
-| Conceptualization（概念化） | **主导**（发起者） | 参与（共同确定方向） |
-| Methodology（方法） | **主导**（把 OTF 接进闭环控制的设计） | 提供 OTF 定义与评估思路 |
+| Conceptualization（概念化） | **主导**（发起者，方向由我提出并与通讯作者讨论确认） | 参与讨论 |
+| Methodology（方法） | **主导** | 提供 OTF 定义、提出学术建议 |
 | Software（软件） | **全部**（CARLA 环境、CfC 控制器、指标、统计脚本） | 提供 SUMO 安装包（未参与编码） |
+| Validation（验证） | **全部** | — |
+| Formal analysis（形式分析） | **全部** | — |
 | Investigation（实验执行） | **全部** | — |
-| Formal analysis（分析） | **全部** | 学术建议 |
+| Data curation（数据管理） | **全部** | — |
 | Writing – original draft | **全部** | — |
-| Writing – review & editing | 参与 | **学术规范审查** |
+| Writing – review & editing | **主导** | **学术规范审查**（本轮为审查者，不改写正文） |
+| Visualization（图表） | **全部** | — |
 | Supervision（指导） | — | **承担**（通讯作者职责） |
+| Project administration | **主导** | — |
 | Funding acquisition | 待填 | 待填 |
+
+**写作纪律**：Author Contributions 段必须与本表**逐字对应**；不得给通讯作者添加未实际承担的
+Software / Investigation 角色（那属于署名不实）。
 
 ---
 
