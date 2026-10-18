@@ -34,12 +34,13 @@
 
 **实车数据已确认不可得**（用户 2026-10-18）。因此：
 ① 本文件中一切"实车数据申请函待发""唯一实质前提缺口＝实车数据"的表述**作废**（含 §0.1 行动项与 §7 条目）；
-② 改用**公开数据集**：**highD 主 / NGSIM 备 / exiD 补充**，用途＝OTF 真实性检验 + **回放验证**
-（replay with recorded neighbours），**不是实车闭环**；
+② 改用**公开数据集**：**highD 主 / exiD 补充（出口·分流）**；**NGSIM 弃用**（2017 年 TR-B 有正式质量批判
+`10.1016/j.trb.2017.09.018`，且与 highD 场景重复、车道数 5–6 与我们的 2–3 不符）。用途＝OTF 真实性检验 + **回放验证**
+（replay with recorded neighbours），**不是实车闭环**；判定见 [13 §9](audit/第一次组会/13-public-dataset-strategy.md)；
 ③ **全文不得出现 real-world / real-vehicle validation**，证据等级仍为 **C**，ODD 改称"**高速多车道人工混行**"
 （highD 全为人工驾驶，**未覆盖人机混行**，须写入 Limitations）；
 ④ 数据由**通讯作者（黄梦圆）**提供，**第一作者主导全部 CRediT**；
-⑤ 新的最高优先级行动项：highD 申请 → 用同一套 OTF 定义算真实分布（检验是否非零）→ NGSIM 第二数据集。详见 [`13-public-dataset-strategy`](audit/第一次组会/13-public-dataset-strategy.md) 与 [`12-authorship-and-contribution`](audit/第一次组会/12-authorship-and-contribution.md)。
+⑤ 最高优先级行动项：highD 申请 → 同一套 OTF 定义算真实分布（检验是否非零）→ exiD 申请（出口分流）。详见 [13](audit/第一次组会/13-public-dataset-strategy.md) 与 [12](audit/第一次组会/12-authorship-and-contribution.md)。
 
 ## 0. 分支对话登记（跨对话信息同步）
 
