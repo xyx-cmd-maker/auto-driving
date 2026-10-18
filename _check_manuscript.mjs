@@ -31,8 +31,10 @@ checks.push(["formulaic openers", hitForm.length, hitForm.length === 0]);
 const ph = (body.match(/\{\{[^}]+\}\}/g) || []).length;
 checks.push(["leftover placeholders", ph, ph === 0]);
 
-// 句子长度：按 . ! ? 切，忽略标题行与列表编号
-const prose = body.split(/\r?\n/).filter(l => l.trim() && !l.startsWith("#") && !/^\d+\.\s/.test(l.trim()))
+// 句子长度：按 . ! ? 切，忽略标题行、列表编号、以及**4 空格缩进的公式/代码块**
+// （公式块不是散文，混进来会把 "a(t) = 3.0 * tanh(...)" 拼成 50+ 词的假长句）
+const prose = body.split(/\r?\n/)
+  .filter(l => l.trim() && !l.startsWith("#") && !/^\d+\.\s/.test(l.trim()) && !/^\s{4,}/.test(l))
   .join(" ").replace(/\s+/g, " ");
 const sents = prose.split(/(?<=[.!?])\s+/).filter(s => s.split(" ").length > 4);
 const lens = sents.map(s => s.split(" ").length);
