@@ -12,6 +12,7 @@
 | [`AGENTS-PROJECT.md`](AGENTS-PROJECT.md) | **项目进程同步**：目的、成果形态、venue 策略与纪律、进度快照、术语表、收工检查清单 | **每次开工** | **每轮收工**（快照必须更新） |
 | [`AGENTS-NORMS.md`](AGENTS-NORMS.md) | **技能路由**（代码类/学术类触发即调用）、学术写作工作流、多轮验证协议、拆分规则 | **每次开工** | 技能或协议变更时 |
 | [`AGENTS-LESSONS.md`](AGENTS-LESSONS.md) | **错误登记与预防**（★用户 2026-10-12 指定）：8 类反复错误模式 + 逐次明细 + 强制手段；**每轮收工必须追加一行** | **每次开工** | **每轮收工**（哪怕"本轮无新增"也要写一行） |
+| [`AGENTS-VENUE.md`](AGENTS-VENUE.md) | **目标 venue 与写作纪律**：两刊事实表、T-ITS 的 desk 硬规则、五项写作纪律、三项【需核实】条目 | 选刊/写作前 | venue 事实或裁决变更时 |
 
 > 规则：新增规范**优先落到子文件**；本文件只保留入口级内容。**拆分与登记规则**见 `AGENTS-NORMS.md` §3；校验脚本 `scripts/smoke/check_agents_family.mjs`。
 > **开工时**先跑 `node scripts/smoke/check_agents_family.mjs`（文件族完整性）＋ `check_progress_snapshot.mjs`（快照常量）＋ `check_branch_freshness.mjs`（分支新鲜度）。
