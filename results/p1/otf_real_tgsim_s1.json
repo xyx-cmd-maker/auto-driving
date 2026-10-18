@@ -1,0 +1,400 @@
+{
+  "experiment": "otf_real_tgsim",
+  "source": "data/tgsim/TGSIM_I294_L1.csv",
+  "note": "真实轨迹（FHWA TGSIM, 美国公有领域）。OTF 定义与 src/otf/otf_core.py 完全相同；仅计跨越 ego 车道的事件。",
+  "rows": 1024281,
+  "runs": {
+    "run_1": {
+      "vehicles": 87,
+      "acc_vehicles": 3,
+      "duration_s": 175.0,
+      "flow_veh_per_h_est": 1789.7,
+      "lane_change_events": 58,
+      "lanes": [
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0
+      ],
+      "availability": {
+        "W=5": {
+          "samples": 11671,
+          "nonzero_fraction": 0.573,
+          "mean": 0.8705,
+          "p95": 3.0,
+          "max": 4.0
+        },
+        "W=10": {
+          "samples": 11671,
+          "nonzero_fraction": 0.8244,
+          "mean": 1.7613,
+          "p95": 5.0,
+          "max": 6.0
+        },
+        "W=20": {
+          "samples": 11671,
+          "nonzero_fraction": 0.9615,
+          "mean": 3.5244,
+          "p95": 7.0,
+          "max": 8.0
+        }
+      }
+    },
+    "run_3": {
+      "vehicles": 94,
+      "acc_vehicles": 3,
+      "duration_s": 150.0,
+      "flow_veh_per_h_est": 2256.0,
+      "lane_change_events": 76,
+      "lanes": [
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0
+      ],
+      "availability": {
+        "W=5": {
+          "samples": 8860,
+          "nonzero_fraction": 0.6876,
+          "mean": 1.3684,
+          "p95": 4.0,
+          "max": 6.0
+        },
+        "W=10": {
+          "samples": 8860,
+          "nonzero_fraction": 0.8687,
+          "mean": 2.7291,
+          "p95": 7.0,
+          "max": 9.0
+        },
+        "W=20": {
+          "samples": 8860,
+          "nonzero_fraction": 0.9875,
+          "mean": 5.6721,
+          "p95": 12.0,
+          "max": 16.0
+        }
+      }
+    },
+    "run_7": {
+      "vehicles": 87,
+      "acc_vehicles": 3,
+      "duration_s": 173.3,
+      "flow_veh_per_h_est": 1807.3,
+      "lane_change_events": 70,
+      "lanes": [
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "availability": {
+        "W=5": {
+          "samples": 8959,
+          "nonzero_fraction": 0.6618,
+          "mean": 1.0934,
+          "p95": 3.0,
+          "max": 6.0
+        },
+        "W=10": {
+          "samples": 8959,
+          "nonzero_fraction": 0.8864,
+          "mean": 2.2292,
+          "p95": 5.0,
+          "max": 7.0
+        },
+        "W=20": {
+          "samples": 8959,
+          "nonzero_fraction": 0.9873,
+          "mean": 4.4661,
+          "p95": 8.0,
+          "max": 10.0
+        }
+      }
+    },
+    "run_8": {
+      "vehicles": 328,
+      "acc_vehicles": 3,
+      "duration_s": 460.0,
+      "flow_veh_per_h_est": 2567.0,
+      "lane_change_events": 117,
+      "lanes": [
+        -5.0,
+        -4.0,
+        -3.0,
+        -2.0
+      ],
+      "availability": {
+        "W=5": {
+          "samples": 75237,
+          "nonzero_fraction": 0.3989,
+          "mean": 0.6007,
+          "p95": 2.0,
+          "max": 7.0
+        },
+        "W=10": {
+          "samples": 75237,
+          "nonzero_fraction": 0.6013,
+          "mean": 1.193,
+          "p95": 4.0,
+          "max": 8.0
+        },
+        "W=20": {
+          "samples": 75237,
+          "nonzero_fraction": 0.7982,
+          "mean": 2.3778,
+          "p95": 8.0,
+          "max": 11.0
+        }
+      }
+    },
+    "run_9": {
+      "vehicles": 74,
+      "acc_vehicles": 3,
+      "duration_s": 163.3,
+      "flow_veh_per_h_est": 1631.4,
+      "lane_change_events": 53,
+      "lanes": [
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "availability": {
+        "W=5": {
+          "samples": 6507,
+          "nonzero_fraction": 0.5397,
+          "mean": 0.8211,
+          "p95": 3.0,
+          "max": 5.0
+        },
+        "W=10": {
+          "samples": 6507,
+          "nonzero_fraction": 0.7584,
+          "mean": 1.7059,
+          "p95": 5.0,
+          "max": 8.0
+        },
+        "W=20": {
+          "samples": 6507,
+          "nonzero_fraction": 0.9331,
+          "mean": 3.4195,
+          "p95": 8.0,
+          "max": 11.0
+        }
+      }
+    },
+    "run_11": {
+      "vehicles": 122,
+      "acc_vehicles": 3,
+      "duration_s": 203.1,
+      "flow_veh_per_h_est": 2162.5,
+      "lane_change_events": 57,
+      "lanes": [
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "availability": {
+        "W=5": {
+          "samples": 10205,
+          "nonzero_fraction": 0.5225,
+          "mean": 0.798,
+          "p95": 3.0,
+          "max": 5.0
+        },
+        "W=10": {
+          "samples": 10205,
+          "nonzero_fraction": 0.7678,
+          "mean": 1.5855,
+          "p95": 4.0,
+          "max": 7.0
+        },
+        "W=20": {
+          "samples": 10205,
+          "nonzero_fraction": 0.9401,
+          "mean": 3.1115,
+          "p95": 7.0,
+          "max": 8.0
+        }
+      }
+    },
+    "run_18": {
+      "vehicles": 118,
+      "acc_vehicles": 3,
+      "duration_s": 230.0,
+      "flow_veh_per_h_est": 1847.0,
+      "lane_change_events": 60,
+      "lanes": [
+        -5.0,
+        -4.0,
+        -3.0,
+        -2.0
+      ],
+      "availability": {
+        "W=5": {
+          "samples": 15664,
+          "nonzero_fraction": 0.5104,
+          "mean": 0.8213,
+          "p95": 3.0,
+          "max": 5.0
+        },
+        "W=10": {
+          "samples": 15664,
+          "nonzero_fraction": 0.7352,
+          "mean": 1.631,
+          "p95": 5.0,
+          "max": 8.0
+        },
+        "W=20": {
+          "samples": 15664,
+          "nonzero_fraction": 0.9329,
+          "mean": 3.2611,
+          "p95": 8.0,
+          "max": 11.0
+        }
+      }
+    },
+    "run_19": {
+      "vehicles": 87,
+      "acc_vehicles": 3,
+      "duration_s": 173.3,
+      "flow_veh_per_h_est": 1807.3,
+      "lane_change_events": 61,
+      "lanes": [
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "availability": {
+        "W=5": {
+          "samples": 10271,
+          "nonzero_fraction": 0.6259,
+          "mean": 0.9957,
+          "p95": 3.0,
+          "max": 6.0
+        },
+        "W=10": {
+          "samples": 10271,
+          "nonzero_fraction": 0.8428,
+          "mean": 1.9712,
+          "p95": 5.0,
+          "max": 9.0
+        },
+        "W=20": {
+          "samples": 10271,
+          "nonzero_fraction": 0.9505,
+          "mean": 3.9297,
+          "p95": 9.0,
+          "max": 11.0
+        }
+      }
+    },
+    "run_20": {
+      "vehicles": 66,
+      "acc_vehicles": 3,
+      "duration_s": 172.9,
+      "flow_veh_per_h_est": 1374.2,
+      "lane_change_events": 27,
+      "lanes": [
+        -5.0,
+        -4.0,
+        -3.0,
+        -2.0
+      ],
+      "availability": {
+        "W=5": {
+          "samples": 5854,
+          "nonzero_fraction": 0.3135,
+          "mean": 0.3914,
+          "p95": 2.0,
+          "max": 4.0
+        },
+        "W=10": {
+          "samples": 5854,
+          "nonzero_fraction": 0.5263,
+          "mean": 0.7696,
+          "p95": 3.0,
+          "max": 4.0
+        },
+        "W=20": {
+          "samples": 5854,
+          "nonzero_fraction": 0.8124,
+          "mean": 1.5388,
+          "p95": 4.0,
+          "max": 5.0
+        }
+      }
+    },
+    "run_21": {
+      "vehicles": 102,
+      "acc_vehicles": 3,
+      "duration_s": 170.0,
+      "flow_veh_per_h_est": 2160.0,
+      "lane_change_events": 47,
+      "lanes": [
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0
+      ],
+      "availability": {
+        "W=5": {
+          "samples": 9863,
+          "nonzero_fraction": 0.4844,
+          "mean": 0.6878,
+          "p95": 2.0,
+          "max": 4.0
+        },
+        "W=10": {
+          "samples": 9863,
+          "nonzero_fraction": 0.7606,
+          "mean": 1.3612,
+          "p95": 3.0,
+          "max": 5.0
+        },
+        "W=20": {
+          "samples": 9863,
+          "nonzero_fraction": 0.9319,
+          "mean": 2.6512,
+          "p95": 5.0,
+          "max": 7.0
+        }
+      }
+    }
+  },
+  "aggregate": {
+    "W=5": {
+      "nonzero_fraction_mean": 0.5318,
+      "range": [
+        0.3135,
+        0.6876
+      ],
+      "samples_total": 163091,
+      "n_runs": 10
+    },
+    "W=10": {
+      "nonzero_fraction_mean": 0.7572,
+      "range": [
+        0.5263,
+        0.8864
+      ],
+      "samples_total": 163091,
+      "n_runs": 10
+    },
+    "W=20": {
+      "nonzero_fraction_mean": 0.9235,
+      "range": [
+        0.7982,
+        0.9875
+      ],
+      "samples_total": 163091,
+      "n_runs": 10
+    }
+  }
+}

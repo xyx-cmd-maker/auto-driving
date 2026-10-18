@@ -368,7 +368,9 @@ from a simulator default.
 ## 5.3 A discrepancy worth reporting
 
 At the flow equivalent of our CARLA setting, the SUMO map predicts an availability near 0.32, while
-CARLA produced 0.084. The gap is explained by the lane-change model rather than by the OTF definition.
+CARLA produced 0.084. Recorded traffic sits higher still: on the public TGSIM corpus, at an estimated
+1800 to 2400 vehicles per hour, the measured fraction at a 5 s window was 0.53. The gap is explained by
+the lane-change model rather than by the OTF definition.
 SUMO's LC2013 changes lanes to overtake slower traffic. CARLA's Traffic Manager, in a sparse scene
 without congestion pressure, rarely does: over a 60 s probe the whole fleet completed two lane
 changes, none of them across the ego lane. We therefore injected scripted cut-ins to obtain a usable
@@ -409,9 +411,11 @@ natural lane changes. The resulting events are more regular than real ones.
 5. Platform. One map, one vehicle model, and a control rate of 20 Hz rather than the 100 Hz of the
 original protocol.
 
-6. No recorded trajectories. The availability map comes from SUMO, and the closed loop from CARLA.
-Replay on recorded highway trajectories remains future work, and we do not claim external validity
-beyond the two simulators.
+6. Real trajectories, open loop only. The availability map comes from SUMO, and the closed loop from
+CARLA. We also measured availability on the public TGSIM corpus, a US public-domain trajectory dataset
+of a four-lane highway carrying three SAE L1 ACC vehicles per run, and obtained 0.53 at a 5 s window.
+That comparison is open loop. No controller was run against the recorded trajectories, and we do not
+claim closed-loop external validity.
 
 ## 5.6 Future work
 

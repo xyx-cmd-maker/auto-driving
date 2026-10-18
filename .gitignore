@@ -20,3 +20,6 @@ sources/*.docx
 *.bak
 ~$*
 .git-commit-msg.txt
+# 原始公开数据集（TGSIM 93 MB / NGSIM 2 GB），体积大且可重新下载，不入库
+data/
+sources/author-contact.local.md
