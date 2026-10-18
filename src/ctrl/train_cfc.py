@@ -332,6 +332,7 @@ def exec_fingerprint(args):
     return {
         "episode_s": float(args.episode_s),
         "traffic": int(args.traffic),
+        "otf_window_s": float(getattr(args, "otf_window", 5.0)),
         "sim_hz": float(args.sim_hz),
         "control_hz": float(args.control_hz),
         "hidden": int(args.hidden),
@@ -347,6 +348,7 @@ def run_case(scenario: str, seed: int, args) -> dict:
            "exec": exec_fingerprint(args)}
     env = Town04Env(n_traffic=args.traffic, sim_hz=args.sim_hz,
                     control_hz=args.control_hz, max_episode_s=args.episode_s,
+                    otf_window_s=getattr(args, "otf_window", 5.0),
                     verbose=False)
 
     # 两臂共用同一组随机种子（协议 fairness.same_map_and_seeds + same_training_episodes）
@@ -473,6 +475,8 @@ def main():
     ap.add_argument("--scenarios", default="none,cutin,lead-brake,lead-exit")
     ap.add_argument("--seeds", default="0,1,2,3,4")
     ap.add_argument("--traffic", type=int, default=30)
+    ap.add_argument("--otf-window", type=float, default=5.0,
+                    help="OTF 统计窗口长度（秒）。补充实验用 20 s 进入高信息区（见 13 §11 相图）")
     ap.add_argument("--sim-hz", type=float, default=50.0)
     ap.add_argument("--control-hz", type=float, default=20.0)
     ap.add_argument("--episode-s", type=float, default=EPISODE_S)
