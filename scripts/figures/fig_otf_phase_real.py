@@ -93,7 +93,7 @@ def main() -> int:
         real_lo.append(rng[0])
         real_hi.append(rng[1])
 
-    carla = {0: 0.084, 1: 0.167}          # W=5 / W=10 实测
+    carla = {0: 0.084, 1: 0.167, 2: 0.334}   # W=5/10 主实验; W=20 来自 B 组(窗口20s, 5局 Φ 全为 0.334)
     ax2.plot(xs, sumo_vals, marker="o", ms=3.5, lw=1.0, color="#0072B2", label="SUMO (1800-2400 veh/h)")
     ax2.errorbar(xs, real_vals, yerr=[np.array(real_vals) - np.array(real_lo),
                                       np.array(real_hi) - np.array(real_vals)],
