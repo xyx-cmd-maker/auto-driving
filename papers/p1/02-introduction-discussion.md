@@ -67,25 +67,29 @@ margin is a positive statement about practical similarity, and it is stronger th
 reject. It is also weaker than a claim of no effect: a difference smaller than the margin, or one
 confined to a regime we did not reach, remains compatible with our data.
 
-## 5.2 Why no gain, and why that is not surprising
+## 5.2 Why no gain
 
-Two mechanisms are consistent with the result, and they are not mutually exclusive.
+The result is consistent with redundancy at the controller input. A longitudinal controller that already
+observes lead gap and relative speed has most of what a one-dimensional traffic aggregate can say. OTF
+summarizes the behaviour of vehicles that are not the lead vehicle. When those vehicles do not constrain
+the ego, their aggregate contributes little to the instantaneous decision.
 
-One mechanism is redundancy at the controller input. A longitudinal controller that already observes lead
-gap and relative speed has most of what a one-dimensional traffic aggregate can say. OTF summarizes
-the behaviour of vehicles that are not the lead vehicle. When those vehicles do not constrain the ego,
-their aggregate contributes little to the instantaneous decision.
+Signal scarcity is the obvious competing explanation, and we tested it rather than assuming it. In the
+main experiment the fraction of windows with OTF > 0 was 0.084 to 0.167, so the fourth input was zero
+for most of every episode. A supplementary group therefore raised that fraction fourfold, to 0.334, by
+widening the window to 20 s while holding everything else fixed. The cost difference stayed
+indistinguishable, and the interval did not narrow: 6.83 against 5.90 in the main experiment. A second
+supplementary group tripled the background traffic without moving availability, and also left the
+conclusion unchanged.
 
-The other mechanism is signal availability. The measured fraction of windows with OTF > 0 was 0.084 to 0.167
-in our setting. In more than four fifths of control cycles the fourth input was exactly zero, so the
-two controllers were driven by identical observations for most of every episode. An ablation in that
-regime cannot detect much, whatever the underlying mechanism.
+We therefore read scarcity as a description of the regime rather than as the cause of the null. Had
+availability been binding, a fourfold increase should have sharpened the estimate. It did not.
 
-The availability map makes the second mechanism quantitative. Availability rises monotonically with
-flow and with window length. The two trade against each other: the 0.5 contour is crossed near
-1500 veh/h at 20 s, near 3400 veh/h at 10 s, and only beyond 4800 veh/h at 5 s. A study that wants to
-test whether OTF can help should therefore choose its operating point deliberately, not inherit it
-from a simulator default.
+The availability map still explains where the signal exists. Availability rises monotonically with flow
+and with window length. The two trade against each other: the 0.5 contour is crossed near 1500 veh/h at
+20 s, near 3400 veh/h at 10 s, and only beyond 4800 veh/h at 5 s. That map is what told us which
+manipulation to try, and it is what a future study should use to choose an operating point deliberately
+rather than inherit one from a simulator default.
 
 ## 5.3 A discrepancy worth reporting
 
@@ -124,8 +128,9 @@ sensitivity analysis equalizes the number of valid candidates and gives a mean o
 +0.35 for the primary metric. The sign reverses. The direction of the effect estimate therefore
 depends on how the search budget is accounted for, and both figures are reported.
 
-3. Regime. Availability was 8% to 17%, far below the saturated region of the map. Conclusions do
-not transfer to dense traffic or to longer windows.
+3. Regime. Availability was 8% to 17% in the main experiment, far below the saturated region of the
+map. One supplementary group reached 33%, and its estimate was no sharper. Even that level sits below
+recorded traffic, where the same window gives 53%. Conclusions do not transfer to dense traffic.
 
 4. Constructed traffic. OTF activation depends on scripted cut-ins placed by transform, not on
 natural lane changes. The resulting events are more regular than real ones.

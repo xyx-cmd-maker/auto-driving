@@ -31,7 +31,9 @@ by −0.05 ([−1.97, +1.87]) in the lead-exit scenario. Both lie inside a pre-r
 margin under the 95% criterion (TOST p = 0.020 and 0.006). Two scenarios were inconclusive at that
 criterion; with the conventional 90% interval one of them would also qualify. We keep the stricter
 pre-registered criterion throughout. Following RMSE and the
-acceleration-squared integral showed no detectable difference, and neither arm collided. With five
+acceleration-squared integral showed no detectable difference, and neither arm collided. Quadrupling
+the fraction of informative control cycles did not sharpen the estimate, which points to redundancy at
+the controller input rather than to signal scarcity. With five
 seeds the exact paired test cannot reach significance after multiplicity correction, so we target
 equivalence rather than superiority. OTF thus buys interpretability at no additional sensing cost, not
 closed-loop performance.

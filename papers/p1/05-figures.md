@@ -21,8 +21,10 @@ W = 5 s.
 **Availability in synthetic and recorded traffic.** **A**, the SUMO map of Fig. 1C with the CARLA
 operating point. **B**, the same quantity at three window lengths for three sources: SUMO synthetic
 traffic at 1800 to 2400 veh/h (blue), recorded TGSIM traffic (orange squares, mean over ten runs with
-the observed range as an error bar), and our CARLA closed loop (stars, measured at W = 5 s and 10 s).
-At a 5 s window the fractions are 0.39, 0.53 and 0.084.
+the observed range as an error bar), and our CARLA closed loop (stars). The closed-loop value at
+W = 5 s is 0.084 from the main experiment and at W = 10 s is 0.167. The value at W = 20 s is 0.334,
+taken from the supplementary group that widened the window while holding traffic fixed. At a 5 s window
+the fractions are 0.39, 0.53 and 0.084.
 
 **Three limitations of this panel, stated here because they bound its interpretation.**
 1. The TGSIM horizontal placement is an **estimate** (unique vehicles divided by run duration). The
