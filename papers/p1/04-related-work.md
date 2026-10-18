@@ -73,7 +73,7 @@ paper addresses the three together.
 | 1 | Ploeg J., van de Wouw N., Nijmeijer H. Lp string stability of cascaded systems: application to vehicle platooning. *IEEE Trans. Control Syst. Technol.*, 2014, 22(2): 786–793. | `10.1109/TCST.2013.2258346` | crossref, jaccard=1, OK |
 | 2 | Stern R.E., Cui S., Delle Monache M.L., et al. Dissipation of stop-and-go waves via control of autonomous vehicles: field experiments. *Transp. Res. Part C*, 2018, 89: 205–221. | `10.1016/j.trc.2018.02.005` | crossref, jaccard=1, OK |
 | 3 | Wang J., Zheng Y., Li K., Xu Q. DeeP-LCC: data-enabled predictive leading cruise control in mixed traffic flow. *IEEE Trans. Control Syst. Technol.*, 2023, 31(6): 2760–2776. | `10.1109/TCST.2023.3288636` | crossref, jaccard=1, OK |
-| 4 | Hasani R., Lechner M., Amini A., et al. Closed-form continuous-time neural networks. *Nature Machine Intelligence*, 2022, 4: 992–1003. | `10.1038/s42256-022-00556-7` | crossref, jaccard=1, OK |
+| 4 | Hasani R., Lechner M., Amini A., et al. Closed-form continuous-time neural networks. *Nature Machine Intelligence*, 2022, 4(11): 992–1003. | `10.1038/s42256-022-00556-7` | crossref, jaccard=1, OK |
 | 5 | Antonelo E.A., Camponogara E., Seman L.O., et al. Physics-informed neural nets for control of dynamical systems. *Neurocomputing*, 2024, 579: 127419. | `10.1016/j.neucom.2024.127419` | crossref, jaccard=1, OK |
 | 6 | Helbing D., Molnár P. Social force model for pedestrian dynamics. *Phys. Rev. E*, 1995, 51(5): 4282–4286. | `10.1103/PhysRevE.51.4282` | crossref, jaccard=1, OK |
 | — | Huang M. 基于超车频次的自动驾驶车辆行为决策研究. 吉林大学博士学位论文, 2023. | — | `sources/thesis-huang2023.pdf` 全文可 grep |

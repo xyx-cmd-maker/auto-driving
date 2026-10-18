@@ -71,6 +71,9 @@ def panel_a(ax):
                                  mutation_scale=7, lw=1.1, color=ORANGE, zorder=6))
     ax.text(2.92, 1.60, "OTF +1", fontsize=FS, color=ORANGE, ha="right", va="center", zorder=7)
 
+    # 定量事实（前车搜索 ≤150 m、v≤30 m/s、窗口 5 s）放在**图注**里，
+    # 不画进示意图：实测加上尺寸箭头后与 "OTF +1"/"ego"/"lead" 标签互相遮挡，
+    # 清晰性优先于信息密度（2026-10-18 自审）。
     ax.set_title("Three-lane highway", fontsize=FS, loc="left", pad=3, color="black")
     ax.text(-0.02, 1.16, "A", transform=ax.transAxes, fontsize=PANEL,
             fontweight="bold", ha="left", va="top")

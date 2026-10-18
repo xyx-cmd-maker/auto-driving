@@ -8,10 +8,14 @@ const a = raw.indexOf("<!-- BEGIN-MANUSCRIPT -->");
 const b = raw.indexOf("<!-- END-MANUSCRIPT -->");
 if (a < 0 || b <= a) { console.log("未找到 MANUSCRIPT 标记"); process.exit(2); }
 // 先剥掉 HTML 注释：否则 `<!--` 与 `-->` 里的 `--` 会被误判成双连字符
-const body = raw.slice(a, b).replace(/<!--[\s\S]*?-->/g, "");
+// 再剥掉 Markdown 水平线 `---`：它不是排版里的破折号（2026-10-18 假阳性，19 处）
+const rawBody = raw.slice(a, b).replace(/<!--[\s\S]*?-->/g, "");
+const body = rawBody.replace(/^[ \t]*-{3,}[ \t]*$/gm, "");
 
 const checks = [];
-const em = (body.match(/\u2014|--/g) || []).length;
+// 表格对齐行（|---|---|）里的连字符不是破折号，先剥掉再数
+const noSep = body.replace(/^[ \t]*\|[\s\-:|]+\|[ \t]*$/gm, "");
+const em = (noSep.match(/\u2014|--/g) || []).length;
 checks.push(["em-dash / double-hyphen", em, em === 0]);
 
 const banned = ["novel", "first", "state-of-the-art", "delve", "underscore", "pivotal",
@@ -31,10 +35,11 @@ checks.push(["formulaic openers", hitForm.length, hitForm.length === 0]);
 const ph = (body.match(/\{\{[^}]+\}\}/g) || []).length;
 checks.push(["leftover placeholders", ph, ph === 0]);
 
-// 句子长度：按 . ! ? 切，忽略标题行、列表编号、以及**4 空格缩进的公式/代码块**
-// （公式块不是散文，混进来会把 "a(t) = 3.0 * tanh(...)" 拼成 50+ 词的假长句）
+// 句子长度：按 . ! ? 切，忽略标题行、列表编号、4 空格缩进的公式/代码块、以及**表格行**
+// （表格不是散文：把表行拼起来会得到 100+ 词的假长句）
 const prose = body.split(/\r?\n/)
-  .filter(l => l.trim() && !l.startsWith("#") && !/^\d+\.\s/.test(l.trim()) && !/^\s{4,}/.test(l))
+  .filter(l => l.trim() && !l.startsWith("#") && !/^\d+\.\s/.test(l.trim())
+            && !/^\s{4,}/.test(l) && !/^\s*\|/.test(l))
   .join(" ").replace(/\s+/g, " ");
 const sents = prose.split(/(?<=[.!?])\s+/).filter(s => s.split(" ").length > 4);
 const lens = sents.map(s => s.split(" ").length);

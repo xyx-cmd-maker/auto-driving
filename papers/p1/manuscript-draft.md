@@ -1,0 +1,457 @@
+<!-- BEGIN-MANUSCRIPT -->
+# Overtaking Pressure on Multi-Lane Highways as a Control Input for Continuous-Time Car-Following
+
+## Abstract (~205 words)
+
+Multi-lane highways produce a continuous stream of lane changes around any given vehicle, and drivers
+routinely trade longitudinal gap for lateral opportunity. Whether this aggregate pressure carries
+usable information for a low-level controller remains unclear: prior work reports gains from
+overtaking-frequency (OTF) features in classification settings, but has not tested them inside a
+closed control loop. We therefore treat the OTF scalar as a fourth input to a closed-form
+continuous-time controller, adopting the definition of Huang (2023). We ablate it against an otherwise
+identical controller that sees only gap, relative speed, and ego speed. Both arms share the same search
+budget, the same seeds, and the same traffic stream. Across four highway scenarios in CARLA with five seeds
+each, the composite driving cost changed by +0.26 (95% CI [−2.32, +2.83]) without a lead vehicle and
+by −0.05 ([−1.97, +1.87]) in the lead-exit scenario. Both lie inside a pre-registered ±10% equivalence
+margin under the 95% criterion (TOST p = 0.020 and 0.006). Two scenarios were inconclusive at that
+criterion; with the conventional 90% interval one of them would also qualify. We keep the stricter
+pre-registered criterion throughout. Following RMSE and the
+acceleration-squared integral showed no detectable difference, and neither arm collided. With five
+seeds the exact paired test cannot reach significance after multiplicity correction, so we target
+equivalence rather than superiority. OTF thus buys interpretability at no additional sensing cost, not
+closed-loop performance.
+
+---
+
+## Keywords
+
+overtaking frequency; traffic-flow scalar; continuous-time neural control; closed-loop ablation;
+equivalence testing; highway mixed traffic
+
+---
+
+---
+
+# 1. Introduction
+
+On a multi-lane highway, a driver's longitudinal decision is shaped by what happens in the adjacent
+lanes. A vehicle that closes on a slower lead may either slow down or move over, and the choice
+depends on how much lateral opportunity the surrounding traffic offers. Over a few seconds these
+individual choices aggregate into a measurable rate at which vehicles cross a given lane.
+
+Huang (2023) proposed to summarize this aggregate as the overtaking frequency (OTF): the number of
+lane crossings observed in a sliding window around the ego vehicle, divided by the window length.
+OTF is attractive for three reasons. It is a single scalar. It is defined on traffic rather than on a
+particular sensor suite. And it can be estimated from radar and camera streams that production
+vehicles already carry, so it adds no sensing cost.
+
+Evidence for OTF so far comes from classification. The reported gains are 1.0 to 5.5 percentage
+points of classifier accuracy over baselines without OTF features, across three classifier families
+(Huang, 2023, as reported; not reproduced here). Classification and control ask different questions.
+A feature can improve an offline label prediction and still add nothing to a feedback loop that
+already observes gap and relative speed. Those results are classification accuracies, and none of them
+closes the loop.
+
+We test it directly. We treat OTF as a fourth input to a closed-form continuous-time (CfC) controller
+and compare it against an otherwise identical controller that sees only lead gap, relative speed, and
+ego speed. Both arms share one twelve-candidate search budget, the same five seeds, and the same
+traffic stream, so any difference must come from the fourth input.
+
+A scalar can only help if it is non-zero often enough, so we measured availability before measuring
+effect. In a three-lane SUMO highway, the fraction of 5 s windows with OTF > 0 rises from 0.12 at
+600 veh/h to 0.56 at 4800 veh/h. A 20 s window reaches 0.93 at 3600 veh/h. In the CARLA setting used
+for the closed-loop experiment, with sixteen mixed vehicles, the measured fraction was 0.084 to 0.167.
+That setting therefore sits in the low-information regime, and the closed-loop result has to be read
+against this base rate rather than as a verdict on OTF in general.
+
+This paper makes three contributions.
+
+1. A closed-loop ablation of OTF under an equal search budget, reported per scenario with an
+   equivalence test that was registered before the data were collected. Two of four scenarios are
+   statistically equivalent on composite driving cost within a 10% margin (TOST p = 0.020 and 0.006);
+   the other two are inconclusive.
+2. A measured map of OTF availability as a function of traffic flow and window length, obtained with
+   the same OTF definition used by the controller. The map shows that availability is governed by
+   density and window jointly, and that our closed-loop setting is in its lower region.
+3. An explicit account of why the experiment cannot support a superiority claim even if a difference exists:
+   with five seeds the exact paired test cannot reach significance after multiplicity correction. We
+   therefore target equivalence, and we report the equal-K sensitivity analysis that reverses the sign
+   of the effect estimate.
+
+Section 2 describes the controller, the OTF definition, and the two environments. Section 3 gives the
+protocol and the pre-registered analysis. Section 4 reports results. Section 5 discusses what the
+results do and do not imply. Section 6 lists limitations.
+
+# 2. Methods
+
+## 2.1 The OTF scalar
+
+We adopt the overtaking-frequency definition of Huang (2023) without modification. At each control
+cycle, the ego vehicle records (i) its own lane identifier and (ii) for every other vehicle in a
+neighbourhood, the lane identifier and the longitudinal position along that lane. A crossing event is
+counted when a vehicle's lane at step t differs from its lane at step t−1 and one of those two lanes
+is the ego lane. The sign depends on the direction of travel: entering the ego lane from an adjacent
+lane counts positive, and leaving it counts negative. A vehicle that stays in the ego lane contributes
+nothing, which is what separates OTF from a mere presence count.
+
+The raw count is aggregated over a sliding window of length W, giving OTF(t; W). The controller input
+is the normalized rate
+
+    phi(t) = OTF(t; W) / W
+
+in crossings per second. We use W = 5 s for the main experiment and W = 20 s for one supplementary
+group, because the availability of the signal depends strongly on W (Section 2.4). The implementation
+lives in a single module (src/otf/otf_core.py) and is shared by the CARLA loop and the SUMO analysis.
+
+## 2.2 Controller
+
+Both arms use a closed-form continuous-time (CfC) cell with a direct linear path. The hidden state has
+24 units. At each step the cell receives a normalized observation vector and returns an updated state.
+The commanded acceleration is a bounded linear read-out:
+
+    a(t) = 3.0 * tanh( W_a x(t) + W_h h(t) )
+
+The read-out bound of 3.0 m/s² keeps commands inside the acceleration envelope of the low-level speed
+controller. Observations are scaled to comparable magnitudes before entering the cell: gap divided by
+100 m, relative speed by 10 m/s, ego speed by 30 m/s, and phi by 1 s⁻¹.
+
+The off arm receives three inputs: lead gap, relative speed, and ego speed. The on arm receives the
+same three plus phi. Nothing else differs. The two arms therefore have different input widths, and we
+report parameter counts for both rather than claiming an identical model size.
+
+We use a direct read-out path because the CfC hidden state behaves as a slow variable. It follows the
+input through a leaky integration and cannot by itself express a fast response to an instantaneous gap
+change. The linear path carries the instantaneous part of the command.
+
+## 2.3 Environments
+
+#### CARLA closed loop
+
+We use CARLA 0.9.16 with the Town04 highway map and a Tesla Model3 ego
+vehicle. The simulation steps at 50 Hz, and the controller runs at 20 Hz, so the observation is
+updated every 2.5 simulation steps. We note this explicitly because the original protocol specified
+100 Hz, which the host machine could not sustain.
+
+Traffic is generated by the CARLA Traffic Manager with sixteen vehicles placed along the ego route in
+the ego lane and its two neighbours. Per-vehicle speed factors are spread over a fixed deterministic
+sequence so that faster and slower vehicles coexist. We measured that the Traffic Manager rarely
+changes lanes in this sparse setting: over a 60 s probe the whole fleet completed two lane changes,
+none of them across the ego lane. Natural traffic therefore produced phi = 0 in every cycle, and an
+ablation would have compared two identical controllers.
+
+To obtain a non-zero signal we inject scripted cut-ins. Every 4 s the environment selects one vehicle
+near the ego and places it in a specified lane at a fixed longitudinal offset, alternating between
++28 m and −22 m. This is a scenario construction, not a natural lane change, and we treat it as such
+throughout. The injected sequence is deterministic and identical for both arms, so it cannot bias the
+comparison. Availability rises to 8% and 17% of control cycles depending on the scenario.
+
+#### SUMO availability analysis
+
+To characterize the signal independently of the closed loop, we build
+a three-lane highway in SUMO 1.27.1 with a 1200 m segment, a 120 km/h speed limit, and heterogeneous
+speed factors. Flows vary from 600 to 4800 vehicles per hour. We record full trajectories at every
+step and apply the same crossing rule, so the SUMO analysis and the controller share one OTF
+definition. For each flow and each W we compute the fraction of sliding windows with OTF > 0.
+
+## 2.4 Protocol
+
+The experiment is a paired ablation over four scenarios and five seeds, giving 20 paired runs. The
+scenarios are no lead vehicle, a cut-in, a braking lead, and a lead vehicle that exits. Each arm
+searches twelve candidate controllers drawn from a common seed list, and selection takes the valid
+candidate with the lowest cost. A candidate is invalid when the ego travels less than 20 m, which
+indicates that the policy stalled rather than that it drove poorly. Invalid candidates stay inside the
+twelve-candidate budget and are excluded from selection only.
+
+The cost aggregates terms with fixed weights. Following RMSE is divided by 10 m, the
+acceleration-squared integral by 50, peak jerk by 50, lateral deviation by 0.5 m, and the collision
+count is multiplied by ten. The weights were fixed before the data were collected.
+
+## 2.5 Analysis
+
+Each scenario is analyzed separately; we do not pool scenarios into a single mean for inference. For
+every endpoint we report the paired mean difference, a confidence interval, an exact two-sided
+sign-flip p-value, and an equivalence test.
+
+The exact test enumerates all 2⁵ sign assignments, so it needs no distributional assumption. With five
+seeds it can return no value below 0.0625. Because we correct for four scenarios with Holm's method,
+the smallest threshold is 0.0125, and superiority is therefore untestable by construction. We state
+this rather than presenting a non-significant result as evidence of no effect.
+
+Our primary inferential target is equivalence. Before collecting data we fixed a margin of 10% of the
+off-arm mean and a three-state decision rule. A meaningful difference requires an interval excluding
+zero and a mean beyond the margin. Practical equivalence requires the interval inside the margin.
+Everything else is reported as inconclusive. Equivalence is judged on the 95% interval (alpha = 0.025
+per side) as registered. We also report the 90% interval used by the conventional two one-sided tests,
+because the two criteria disagree for one scenario, and the disagreement is part of the result.
+
+We additionally report an equal-K sensitivity analysis that equalizes the number of valid candidates
+across arms. Collisions are reported as raw counts.
+
+# 3. Related work
+
+## 3.1 Traffic-flow descriptors as controller inputs
+
+Car-following models describe the longitudinal response to a lead vehicle, and the classical families
+differ in how much memory they carry. String-stability analysis then asks whether a perturbation
+amplifies along a platoon (Ploeg et al., 2014). That line of work treats the lead vehicle as the
+relevant input. Everything behind and beside the ego enters, if at all, through aggregate parameters
+such as density or wave speed.
+
+A second line feeds traffic-level information to the controller explicitly. One field experiment
+showed that a small number of controlled vehicles can dissipate stop-and-go waves in the surrounding
+flow (Stern et al., 2018). Cooperative schemes go further and share planned trajectories, solving a
+joint optimization over a rolling horizon (Wang et al., 2023). Those methods work with rich per-vehicle
+messages rather than one scalar, and they assume connectivity. Our question is narrower: whether one
+scalar computed from unconnected traffic carries enough information to change a low-level command.
+
+## 3.2 Overtaking frequency and social pressure
+
+The OTF scalar comes from the behavior-decision literature. Huang (2023) defined it as the rate at which
+surrounding vehicles cross the ego lane and reported accuracy gains of 1.0 to 5.5 percentage points when
+OTF features are added to classifiers. Those results are classification accuracies, and none of them
+closes the loop. We do not reproduce them here, and the dataset behind them is not available to us.
+
+The idea that surrounding traffic exerts a pressure that can be summarized is older than OTF.
+Social-force formulations describe the same intuition for pedestrians (Helbing and Molnár, 1995). That
+formulation targets pedestrians, and we do not assume it transfers to vehicles. Our contribution is
+not the notion of pressure but a closed-loop test of whether one particular scalarization of it
+changes a control command.
+
+## 3.3 Continuous-time and closed-form recurrent models
+
+Liquid time-constant and closed-form continuous-time networks replace discrete recurrence with a
+continuous ODE-like update and report large speedups over conventional recurrent cells (Hasani et al.,
+2022). The claimed advantage is compute per step rather than sample efficiency. We use a CfC cell
+precisely because it is cheap enough to evaluate twelve candidates per arm inside a 60 s episode. That
+cost is what makes an equal-budget ablation affordable on a laptop GPU.
+
+The same literature motivates our architecture choice. A pure ODE state integrates its input and
+responds slowly, so a controller that relies on it alone cannot react to an instantaneous gap change.
+We add a direct linear path from the observation to the command, and we report both parameter counts.
+
+## 3.4 Physics-informed and structure-informed priors
+
+A large body of work injects physical structure into learning. Physics-informed neural networks add a
+residual of a governing equation to the loss (Antonelo et al., 2024). That approach requires an
+equation whose residual can be evaluated, and it succeeds when the residual is meaningful.
+
+OTF does not provide such a residual. It is a heuristic aggregate with no governing equation, so a
+soft physics loss would not be well posed. We therefore treat it as an additional input and as an
+inductive bias, and we describe it as structure-informed rather than physics-informed. The distinction
+matters because it determines what evidence would count as success. A physics-informed claim can be
+checked against the residual, whereas our claim can only be checked in closed loop.
+
+## 3.5 What is missing
+
+Three gaps follow from the above. Closed-loop evidence for OTF is absent, because the reported results
+are classification accuracies. Equivalence is rarely reported, because ablation studies usually test
+for a difference and stop when none is found. And the operating point is rarely characterized, because
+availability of a traffic-level signal depends on density in a way that is easy to leave implicit. This
+paper addresses the three together.
+
+# 4. Results
+
+## 4.1 Validity checks
+
+All twenty paired runs completed. The execution fingerprint is identical across runs: 60 s episodes,
+sixteen traffic vehicles in the main experiment, 50 Hz simulation, 20 Hz control, 24 hidden units, and
+twelve candidate controllers per arm. The three runtime guards reported no empty episodes, no actor
+leaks, and no deadlocked episodes.
+
+The treatment variable was active in every run. The fraction of control cycles with OTF > 0 was 0.084
+in sixteen runs and 0.167 in four. Neither arm collided in any run, so collision counts are zero
+throughout and we do not use them as evidence of a difference.
+
+## 4.2 Primary endpoint
+
+Table 1 reports the paired difference in composite driving cost for each scenario, with the
+pre-registered equivalence margin of 10% of the off-arm mean.
+
+**Table 1.** Paired difference in composite cost (negative favours the OTF arm).
+
+| Scenario | n | Mean Δ | off mean | 95% CI | 90% CI | exact p | TOST p | Conclusion |
+|---|---|---|---|---|---|---|---|---|
+| none | 5 | +0.256 | 30.481 | [−2.321, +2.832] | [−1.723, +2.234] | 0.8125 | 0.0198 | equivalent |
+| cutin | 5 | +0.326 | 30.314 | [−2.467, +3.119] | [−1.818, +2.471] | 0.8750 | 0.0273 | inconclusive |
+| lead-brake | 5 | +0.858 | 30.947 | [−2.092, +3.808] | [−1.407, +3.123] | 0.4375 | 0.0515 | inconclusive |
+| lead-exit | 5 | −0.051 | 30.623 | [−1.968, +1.867] | [−1.523, +1.422] | 1.0000 | 0.0060 | equivalent |
+
+Two scenarios, no lead vehicle and lead exit, have both interval bounds inside the margin under the
+pre-registered 95% criterion. The cutin scenario would also qualify under the conventional 90%
+interval, where its upper bound is +2.471 against a margin of 3.031. The lead-brake scenario does not
+qualify under either criterion. We report the stricter criterion as primary.
+
+The exact sign-flip test returns no value below 0.4375 for this endpoint. Neither scenario reaches
+significance, and Section 4.5 explains why that was impossible by design rather than by data.
+
+## 4.3 Secondary endpoints
+
+**Table 2.** Paired differences in the two performance endpoints.
+
+| Scenario | Δ following RMSE (m) | 95% CI | TOST p | Δ accel. integral | 95% CI | TOST p |
+|---|---|---|---|---|---|---|
+| none | −4.361 | [−26.629, +17.908] | 0.3184 | +34.47 | [−6.004, +74.934] | 0.5786 |
+| cutin | −4.767 | [−27.421, +17.888] | 0.3432 | +40.13 | [−13.938, +94.190] | 0.6637 |
+| lead-brake | −0.761 | [−18.849, +17.327] | 0.1484 | +46.89 | [−49.977, +143.762] | 0.6435 |
+| lead-exit | −2.317 | [−14.851, +10.217] | 0.1161 | +8.98 | [−79.179, +97.131] | 0.2630 |
+
+All eight tests are inconclusive. The point estimates have consistent signs across scenarios: following
+error is lower in the OTF arm in all four, and the acceleration-squared integral is higher in all four,
+with off-arm means between 310 and 331. The intervals are wide enough that neither pattern supports an
+inference, and we report the signs only as directions.
+
+## 4.4 Sensitivity to the search budget
+
+The primary metric takes the best valid candidate in each arm. The number of valid candidates differs
+between arms in several runs, so we repeated the comparison with K fixed at the smaller of the two
+counts and the top K averaged. Under this equal-K rule the mean difference is −1.066, against +0.347
+under the primary metric. The sign reverses.
+
+The reversal is mechanical. Equalizing K discards good candidates from whichever arm ran more, and in
+these runs that arm was usually the off arm. We report both figures because the direction of the effect
+estimate depends on which accounting of the budget a reader accepts.
+
+## 4.5 Multiplicity and power
+
+Each scenario contributes one test per endpoint, and we correct within endpoint families using Holm's
+method. No test survives correction at alpha = 0.05.
+
+The reason is structural. The exact sign-flip test enumerates all 32 sign assignments with five seeds,
+so its smallest attainable two-sided p-value is 0.0625. Holm correction across four scenarios requires
+0.0125 for the smallest p-value. No dataset of this size could have produced a significant result.
+
+The invalid-candidate rate carries the same caveat. Between 25% and 67% of the twelve candidates per arm
+failed the 20 m displacement criterion, and the rate was not consistently higher in either arm (off arm
+mean 48%, on arm 47%). Training difficulty therefore does not separate the arms in this dataset.
+
+<!-- END-MANUSCRIPT -->
+
+---
+
+# 5. Discussion
+
+## 5.1 What the experiment shows
+
+Across four highway scenarios with five seeds each, conditioning the controller on OTF changed the
+composite driving cost by +0.26 (95% CI [−2.32, +2.83]) without a lead vehicle. In the lead-exit
+scenario the change was −0.05 ([−1.97, +1.87]). Both intervals lie inside the pre-registered 10%
+equivalence margin, with TOST p = 0.020 and 0.006. The cutin and lead-brake scenarios were
+inconclusive, because their intervals crossed the margin. Following RMSE and the acceleration-squared
+integral showed no detectable difference in any scenario, and neither arm collided.
+
+We read this as evidence that OTF buys interpretability at no additional sensing cost, not closed-loop
+performance. The wording matters. Equivalence within a 10%
+margin is a positive statement about practical similarity, and it is stronger than a failure to
+reject. It is also weaker than a claim of no effect: a difference smaller than the margin, or one
+confined to a regime we did not reach, remains compatible with our data.
+
+## 5.2 Why no gain, and why that is not surprising
+
+Two mechanisms are consistent with the result, and they are not mutually exclusive.
+
+One mechanism is redundancy at the controller input. A longitudinal controller that already observes lead
+gap and relative speed has most of what a one-dimensional traffic aggregate can say. OTF summarizes
+the behaviour of vehicles that are not the lead vehicle. When those vehicles do not constrain the ego,
+their aggregate contributes little to the instantaneous decision.
+
+The other mechanism is signal availability. The measured fraction of windows with OTF > 0 was 0.084 to 0.167
+in our setting. In more than four fifths of control cycles the fourth input was exactly zero, so the
+two controllers were driven by identical observations for most of every episode. An ablation in that
+regime cannot detect much, whatever the underlying mechanism.
+
+The availability map makes the second mechanism quantitative. Availability rises monotonically with
+flow and with window length. The two trade against each other: the 0.5 contour is crossed near
+1500 veh/h at 20 s, near 3400 veh/h at 10 s, and only beyond 4800 veh/h at 5 s. A study that wants to
+test whether OTF can help should therefore choose its operating point deliberately, not inherit it
+from a simulator default.
+
+## 5.3 A discrepancy worth reporting
+
+At the flow equivalent of our CARLA setting, the SUMO map predicts an availability near 0.32, while
+CARLA produced 0.084. The gap is explained by the lane-change model rather than by the OTF definition.
+SUMO's LC2013 changes lanes to overtake slower traffic. CARLA's Traffic Manager, in a sparse scene
+without congestion pressure, rarely does: over a 60 s probe the whole fleet completed two lane
+changes, none of them across the ego lane. We therefore injected scripted cut-ins to obtain a usable
+signal. This is a property of the simulator, and it must be stated whenever a simulated OTF rate is
+compared with a measured one.
+
+## 5.4 Practical implications
+
+For a vehicle engineer the result is a boundary, not a rejection. OTF is cheap, explainable, and
+sensor-agnostic, which makes it a reasonable diagnostic input and a reasonable input for
+higher-level decisions such as lane-change readiness. It is not, on this evidence, a way to improve
+low-level car-following inside a fixed search budget.
+
+For a traffic engineer the map is the more useful artifact. It says where the signal exists. At
+600 veh/h a 5 s window is zero 88% of the time; at 3600 veh/h the same window is non-zero half the
+time. Any deployment that feeds OTF to a controller should therefore check its own operating point
+before deployment.
+
+## 5.5 Limitations
+
+Six limitations bound the claims, and three of them are structural.
+
+1. Power. With five seeds the exact paired test can return no value below 0.0625, while Holm
+correction across four scenarios requires 0.0125. Superiority was therefore untestable by
+construction, and our inference rests on equivalence.
+
+2. Metric dependence. The primary metric takes the best valid candidate in each arm. The equal-K
+sensitivity analysis equalizes the number of valid candidates and gives a mean of −1.07 against
++0.35 for the primary metric. The sign reverses. The direction of the effect estimate therefore
+depends on how the search budget is accounted for, and both figures are reported.
+
+3. Regime. Availability was 8% to 17%, far below the saturated region of the map. Conclusions do
+not transfer to dense traffic or to longer windows.
+
+4. Constructed traffic. OTF activation depends on scripted cut-ins placed by transform, not on
+natural lane changes. The resulting events are more regular than real ones.
+
+5. Platform. One map, one vehicle model, and a control rate of 20 Hz rather than the 100 Hz of the
+original protocol.
+
+6. No recorded trajectories. The availability map comes from SUMO, and the closed loop from CARLA.
+Replay on recorded highway trajectories remains future work, and we do not claim external validity
+beyond the two simulators.
+
+## 5.6 Future work
+
+Three extensions follow directly. Increasing seeds to twenty would make the exact test informative and
+halve the interval widths. Moving the operating point into the upper region of the map would test
+whether the null result belongs to OTF or to our regime. Raising density or lengthening the window
+both work, and the map predicts availability above 0.5 there. Replaying
+recorded trajectories with fixed neighbours would then test whether the simulated availability matches
+real traffic. Two of these require only compute; the third requires data access.
+
+# Figure and table captions
+
+## 图注（作图时逐条核过：数字来自结果 JSON，参数来自代码）
+
+**Figure 1.** Overtaking pressure and its measurement. **A**, three-lane highway with the ego vehicle
+(blue), the lead vehicle, and vehicles in the adjacent lanes. The arrow marks one crossing of the ego
+lane, which the counting rule scores as +1. The front-vehicle search used by the controller extends
+150 m ahead in the ego lane, and commanded speed is bounded at 30 m/s. **B**, the counting rule on a
+time–lane plane. A vehicle entering the ego lane from an adjacent lane scores +1; a vehicle leaving it
+scores −1. Crossings are counted inside a sliding window W, which is 5 s in the main experiment and
+20 s in the supplementary group. **C**, availability of the signal, measured in SUMO with the same OTF
+definition: the fraction of sliding windows with OTF > 0 as a function of traffic flow and window
+length, over three seeds. White contours mark 0.25, 0.50 and 0.75. The hatched band marks the
+equivalent flow of the CARLA setting, estimated from sixteen vehicles on a 420 m three-lane segment;
+the star marks the value measured there, 0.084 at W = 5 s.
+
+**Figure 2.** Same data as panel C, drawn for a single-column layout with window length as separate
+series. Values are means over three SUMO seeds; the shaded band is not shown because the seed spread is
+below 0.02 in every cell.
+
+**Table 1 and Table 2.** Intervals are Student t intervals on five paired differences. The exact p-value
+comes from enumerating all 32 sign assignments. TOST uses a margin of 10% of the off-arm mean.
+Equivalence is declared when the 95% interval lies inside the margin. The 90% interval, which
+corresponds to the conventional two one-sided tests at alpha = 0.05, is reported alongside.
+
+<!-- END-MANUSCRIPT -->
+
+---
+
+> **本文件是自动拼装的初稿**（`scripts/assemble_manuscript.py`）。
+> 章节来源：`01-abstract-final.md` / `02-introduction-discussion.md` / `03-methods.md` /
+> `04-related-work.md` / `_results-fragment.md`。**改稿请改源文件再重新拼装**，不要直接改本文件。
+> 图表：Fig.1 `figs/fig1_scenario.pdf` ｜ Fig.2 `figs/fig_otf_density.pdf` ｜ 相图 `figs/fig_otf_phase.pdf`。
