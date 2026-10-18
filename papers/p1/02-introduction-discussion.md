@@ -29,8 +29,9 @@ A scalar can only help if it is non-zero often enough, so we measured availabili
 effect. In a three-lane SUMO highway, the fraction of 5 s windows with OTF > 0 rises from 0.12 at
 600 veh/h to 0.56 at 4800 veh/h. A 20 s window reaches 0.93 at 3600 veh/h. In the CARLA setting used
 for the closed-loop experiment, with sixteen mixed vehicles, the measured fraction was 0.084 to 0.167.
-That setting therefore sits in the low-information regime, and the closed-loop result has to be read
-against this base rate rather than as a verdict on OTF in general.
+That setting therefore sits in the low-information regime. We do not treat that as an excuse for the
+result. Section 5.2 reports a supplementary group that raises availability fourfold and tests whether
+scarcity is what limits the conclusion.
 
 This paper makes three contributions.
 
