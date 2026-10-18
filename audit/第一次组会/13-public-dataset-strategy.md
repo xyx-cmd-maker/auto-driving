@@ -401,3 +401,88 @@ py -3.12 scripts/sumo/otf_density_sweep.py --seeds 1,2,3 \
 > the star marks the value measured there (0.084 at W = 5 s). The gap between the star and the
 > surrounding colour is explained by the lane-change model: SUMO's LC2013 changes lanes to overtake,
 > whereas CARLA's Traffic Manager rarely does so without congestion.
+
+---
+
+## 12. ★ TGSIM：比 highD 更合适、且**无需审批**的真实数据集（2026-10-18 取证）
+
+### 12.1 先纠正一个前提：**我们现在没有任何真实轨迹数据集**
+
+可执行事实（2026-10-18 15:41 实测）：
+
+| 数据源 | 实际内容 | 是否真实数据 |
+|---|---|---|
+| CARLA Town04 | 20 局闭环 + 补充实验 | ✗ 仿真 |
+| SUMO 三车道 | 8 密度 × 7 窗口扫描（3 seeds） | ✗ 仿真 |
+| `results/p1/*sumo*.json` | 上述扫描结果 | ✗ 仿真 |
+| **真实轨迹文件** | **仓库内 0 个**（唯一 >100 KB 的文本是学位论文全文） | — |
+
+⇒ 之前说的"highD 主 / exiD 补充"是**计划**，**一条都没到手**。论文当前的全部证据来自两个我们自己控制的仿真环境。
+
+### 12.2 TGSIM 是什么（**逐项来自官方 DCAT 元数据，非记忆**）
+
+取证方式：`catalog.data.gov` 的 harvest 记录（HTTP 200，2026-10-18 取用）
+`https://catalog.data.gov/harvest_record/b78d72b9-dc85-4e32-8f18-9eb3f3027e10/raw`
+
+| 字段 | 值 | 对我们的意义 |
+|---|---|---|
+| 标题 | **Third Generation Simulation Data (TGSIM) I-294 L1 Trajectories** | NGSIM 的官方后继 |
+| 发布者 | **Federal Highway Administration**（US DOT） | 权威性高于任何学术数据集 |
+| `license` | **`usa.gov/publicdomain/label/1.0`** | **美国联邦政府公有领域**：可自由使用与再分发，**无需任何申请** |
+| `accessLevel` | `public` | 同上 |
+| 发布/更新 | **2024-11-04** 发布，2026-09-02 更新 | 远比 NGSIM（2005）新 |
+| 采样率 | **0.1 s（10 Hz）** | 足以算 5 s 窗口的 OTF |
+| 车道 | **每方向 4 车道，共 8 车道**；4.8 km 路段 | 我们的 ODD 需相应写"2–4 车道" |
+| 匝道 | **南向有 on-ramp 与 off-ramp，北向有 on-ramp**；车道几何文件含 `1=on-ramp, 2=off-ramp, 3=weaving` | **直接覆盖我们的 `lead-exit` 场景** |
+| 车辆属性 | 大小车、宽长、**是否装有 ACC 的测试车（yes/no）** | **含 SAE L1 自动驾驶车** |
+| 场景 | I-294（Hinsdale, IL）晚高峰 15:00–17:00，晴天，8K 直升机 300 m | 真实混行 |
+| 主文件 | `I294_L1_final.csv`（**70 MB**） | 与本机磁盘压力无关 |
+
+### 12.3 为什么它**比 highD 更适合我们**（这是本轮结论的改变）
+
+| 维度 | highD | **TGSIM** | 判定 |
+|---|---|---|---|
+| **获取方式** | 官网申请/审批（**结果未知**） | **公有领域，直接下载** | **TGSIM 决定性优势** |
+| **交通构成** | 100% 人工驾驶 | **3 辆 ACC 测试车 + 人工车混行** | **TGSIM 直接支持我们的"人机混行"ODD**；highD 只能支撑"人工混行" |
+| **出口/分流** | 主线为主 | **on-ramp / off-ramp / weaving 显式标注** | TGSIM 覆盖 `lead-exit` |
+| 年代 | 2018 | **2024** | TGSIM |
+| 质量争议 | 无 | 无（NGSIM 的批判不适用于其后继） | 平手 |
+| 车道数 | 2–3/方向（**与我们最接近**） | 4/方向 | **highD 更接近**（唯一劣势） |
+| 规模 | 16.5 h / 110 000 车 / 5 600 次换道 | 10 个 Run，单站点 | highD 更大 |
+
+**结论（新排序）**：
+1. **TGSIM（首选）**——公有领域、含 ACC 混行、有匝道标注；
+2. **highD（次选）**——车道数最贴近、规模最大，但需审批；
+3. **exiD（第三）**——出口专项，需审批；
+4. **NGSIM（弃）**——2017 年 TR-B 正式质量批判，且已被 TGSIM 取代。
+
+### 12.4 本机访问性（**实测，不是推测**）
+
+| 端点 | 状态（2026-10-18） |
+|---|---|
+| `catalog.data.gov/...`（元数据页与 harvest 记录） | **200 ✓** |
+| `data.transportation.gov/resource/...json` | **403 ✗** |
+| `data.transportation.gov/api/v3/views/.../export.csv` | **403 ✗** |
+| `data.amerigeoss.org`（镜像） | fetch failed（DNS/连接） |
+
+⇒ **数据本身对全世界公开，但本机被该域的 WAF 挡住**。
+**解法（需你操作一次）**：用浏览器打开
+`https://data.transportation.gov/d/7zjf-a4zf` → Export → CSV，存到
+`D:\Deepseek Harness\auto-driving\data\tgsim\`（我会建目录并写解析器）。
+
+### 12.5 拿到之后只做两件事（与 §10.5 同纪律）
+
+1. **OTF 真实性检验**：用**同一套定义**（`src/otf/otf_core.py`）算 TGSIM 的 OTF 分布，
+   与 SUMO 相图（`13` §11）对比**形状是否一致**——这是"合成流规律能否迁移"的关键证据；
+2. **一小段回放**（replay with recorded neighbours）验证控制器在真实邻车序列下的行为。
+
+**不做**：全量闭环、微调、把 TGSIM 结果写成"实车验证"。证据等级仍为 **C**。
+
+### 12.6 对论文的影响（立刻生效）
+
+- **Limitations 第 6 条要改**：从"no recorded trajectories were used"改为
+  "we characterize the signal in two simulators and **plan** validation on the public TGSIM corpus
+  (US public domain), which we have not yet processed"——**只有真拿到并算完才能去掉"plan"**。
+- **ODD 措辞**：车道数从"2–3"放宽为"**2–4**"（因为 TGSIM 是 4 车道/方向）。
+- **卖点增强**：TGSIM 含 **ACC 混行**，若 OTF 在其上非零且有结构，则"人机混行"这条叙事
+  从"仿真设定"升级为"真实混行也成立"——这是 T-ITS/T-IV 审稿人最看重的**外部效度**。
