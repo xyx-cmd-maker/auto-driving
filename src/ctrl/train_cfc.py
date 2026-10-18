@@ -583,14 +583,79 @@ def main():
     return 1 if failed else 0
 
 
+def _betacf(a, b, x, itmax=200, eps=3e-12):
+    """正则化不完全 Beta 的连分式（Lentz 算法）。Numerical Recipes 6.4 的移植。"""
+    tiny = 1e-300
+    qab, qap, qam = a + b, a + 1.0, a - 1.0
+    c = 1.0
+    d = 1.0 - qab * x / qap
+    if abs(d) < tiny:
+        d = tiny
+    d = 1.0 / d
+    h = d
+    for m in range(1, itmax + 1):
+        m2 = 2 * m
+        aa = m * (b - m) * x / ((qam + m2) * (a + m2))
+        d = 1.0 + aa * d
+        if abs(d) < tiny:
+            d = tiny
+        c = 1.0 + aa / c
+        if abs(c) < tiny:
+            c = tiny
+        d = 1.0 / d
+        h *= d * c
+        aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2))
+        d = 1.0 + aa * d
+        if abs(d) < tiny:
+            d = tiny
+        c = 1.0 + aa / c
+        if abs(c) < tiny:
+            c = tiny
+        d = 1.0 / d
+        de = d * c
+        h *= de
+        if abs(de - 1.0) < eps:
+            break
+    return h
+
+
+def _betai(a, b, x):
+    """正则化不完全 Beta 函数 I_x(a,b)。"""
+    if x <= 0.0:
+        return 0.0
+    if x >= 1.0:
+        return 1.0
+    lbeta = math.lgamma(a + b) - math.lgamma(a) - math.lgamma(b)
+    bt = math.exp(lbeta + a * math.log(x) + b * math.log(1.0 - x))
+    if x < (a + 1.0) / (a + b + 2.0):
+        return bt * _betacf(a, b, x) / a
+    return 1.0 - bt * _betacf(b, a, 1.0 - x) / b
+
+
+def _t_cdf(x, df):
+    """Student t 的 CDF。**不依赖 torch**（torch 的 StudentT.cdf 未实现，会抛
+    NotImplementedError —— 2026-10-18 实测，导致第一版 TOST 全部返回 None）。
+
+    恒等式：对 x ≥ 0，P(T ≤ x) = 1 − ½·I_{df/(df+x²)}(df/2, ½)。
+    """
+    df = float(df)
+    if abs(x) < 1e-12:
+        return 0.5
+    z = df / (df + x * x)
+    tail = 0.5 * _betai(df / 2.0, 0.5, z)
+    return 1.0 - tail if x > 0 else tail
+
+
 def _t975(df):
-    """t 分布 0.975 分位数（n=5 → df=4）。torch 在；失败时回退查表值。"""
-    try:
-        import torch
-        return float(torch.distributions.StudentT(float(df)).icdf(torch.tensor(0.975)))
-    except Exception:
-        return {1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447,
-                7: 2.365, 8: 2.306, 9: 2.262}.get(int(df), 1.96)
+    """t 分布 0.975 分位数（n=5 → df=4 ≈ 2.776）。用二分反解，不依赖 torch。"""
+    lo, hi = 0.0, 50.0
+    for _ in range(200):
+        mid = 0.5 * (lo + hi)
+        if _t_cdf(mid, df) < 0.975:
+            lo = mid
+        else:
+            hi = mid
+    return 0.5 * (lo + hi)
 
 
 def _sign_flip_p(vals):
@@ -623,16 +688,15 @@ def _tost_p(vals, margin):
     se = (var / n) ** 0.5
     if se <= 0:
         return 0.0 if abs(m) < margin else 1.0
-    try:
-        import torch
-        dist = torch.distributions.StudentT(float(n - 1))
-        t1 = (m + margin) / se          # H0: Δ = -margin
-        t2 = (margin - m) / se          # H0: Δ = +margin
-        p1 = float(1.0 - dist.cdf(torch.tensor(t1)))
-        p2 = float(1.0 - dist.cdf(torch.tensor(t2)))
-        return max(p1, p2)
-    except Exception:
-        return None
+    # 用自算的 t CDF（_t_cdf）；**不要**用 torch.distributions.StudentT.cdf，
+    # 它在 PyTorch 里未实现，会抛 NotImplementedError（2026-10-18 实测，
+    # 导致第一版 TOST 全部返回 None，等价性判定完全失效）。
+    df = float(n - 1)
+    t1 = (m + margin) / se          # H0: Δ = -margin
+    t2 = (margin - m) / se          # H0: Δ = +margin
+    p1 = 1.0 - _t_cdf(t1, df)
+    p2 = 1.0 - _t_cdf(t2, df)
+    return max(p1, p2)
 
 
 def _holm(sig_flags, pvals):

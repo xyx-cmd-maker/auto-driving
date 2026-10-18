@@ -4,6 +4,8 @@
 > **权威来源**：本页数字全部来自命令输出（`git rev-parse`、文件 mtime、JSON 字段），不来自记忆。
 > **配套**：[`AGENTS-PROJECT.md`](../../AGENTS-PROJECT.md) §4 快照、[`AGENTS-LESSONS.md`](../../AGENTS-LESSONS.md) §4。
 
+> **★ 2026-10-18 15:00 更新：全量 20/20 已完成，结果见 [`15-a1-full-results.md`](15-a1-full-results.md)。**
+> 本节以下的"全量实验：已按用户要求停止"是**当时**的状态记录，保留作历史。
 ---
 
 ## 1. 项目六要素（一眼看全）
