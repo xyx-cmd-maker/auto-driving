@@ -126,7 +126,7 @@
 >
 > ```text
 > snapshot-date: 2026-10-11
-> results-json-count: 38
+> results-json-count: 39
 > src-code-file-count: 13
 > env:sumo-version: 1.27.1
 > portfolio:source: papers/portfolio.md
