@@ -288,7 +288,7 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
     #   "unsupported format character"。改用逐项 replace。
     out = tex
     for key, val in (("%(abstract)s", abstract),
-                     ("%(body)s", text.strip() + "\n\n" + figblock),
+                     ("%(body)s", figblock + "\n\n" + text.strip()),
                      ("%(ack)s", "The authors thank the Federal Highway Administration for releasing the TGSIM corpus in the public domain."),
                      ("%(refs)s", "\n".join(bib)),
                      ("%(bios)s", bioblock)):

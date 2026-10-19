@@ -38,6 +38,20 @@ performance, and we recommend measuring availability before ablating a traffic-l
 overtaking frequency, traffic-flow scalar, continuous-time neural control, equivalence testing
 \end{IEEEkeywords}
 
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{figs/fig1_scenario.pdf}
+\caption{\textbf{Overtaking pressure and its measurement.} \textbf{A}, three-lane highway with the ego vehicle (blue), the lead vehicle, and vehicles in the adjacent lanes. The arrow marks one crossing of the ego lane, which the counting rule scores as +1. The controller searches for a lead vehicle 150 m ahead in the ego lane, and commanded speed is bounded at 30 m/s. \textbf{B}, the counting rule on a time--lane plane. A vehicle entering the ego lane from an adjacent lane scores +1; a vehicle leaving it scores $-$1. Crossings are counted inside a sliding window W, set to 5 s in the main experiment and 20 s in the supplementary group. \textbf{C}, availability of the signal, computed in SUMO with the same OTF definition: the fraction of sliding windows with OTF > 0 against traffic flow and window length, over three seeds. White contours mark 0.25, 0.50 and 0.75. The hatched band marks the equivalent flow of the CARLA setting, estimated from sixteen vehicles on a 420 m three-lane segment; the star marks the value measured there, 0.084 at W = 5 s. The map describes where the signal exists. It is not offered as an explanation for the closed-loop result, which Section 5.2 attributes to redundancy rather than to scarcity.}
+\label{fig:fig1}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{figs/fig2_availability_real.pdf}
+\caption{\textbf{Availability in synthetic and recorded traffic.} \textbf{A}, the SUMO map of Fig. 1C with the CARLA operating point. \textbf{B}, the same quantity at three window lengths for three sources. SUMO synthetic traffic at 1800 to 2400 veh/h is drawn in blue. Recorded TGSIM traffic is drawn as orange squares: the mean over ten runs, with the observed range as an error bar. Our CARLA closed loop is drawn as stars. The closed-loop value at W = 5 s is 0.084 from the main experiment and at W = 10 s is 0.167. At W = 20 s the supplementary groups reach 0.334 in two scenarios and between 0.334 and 0.497 in the third, because lead-exit produces crossings of the ego lane without any injection. The star is drawn at 0.334, the value shared by two of the three scenarios. At a 5 s window the fractions are 0.39, 0.53 and 0.084. \textbf{Three limitations of this panel, stated here because they bound its interpretation.} 1. The TGSIM horizontal placement is an \textbf{estimate} (unique vehicles divided by run duration). The public trajectory file uses per-run normalised coordinates spanning a fixed box, so absolute station flow cannot be recomputed from it without the centreline geometry files. 2. The error bars are the \textbf{minimum and maximum across ten runs}, not a confidence interval. 3. The three sources differ in density. The comparison therefore shows that recorded traffic exposes the controller to a non-zero OTF far more often than our closed loop does. It does not isolate density from lane-change behaviour as the cause.}
+\label{fig:fig2}
+\end{figure}
+
 \section{1. Introduction}
 On a multi-lane highway, a driver's longitudinal decision is shaped by what happens in the adjacent
 lanes. A vehicle that closes on a slower lead may either slow down or move over, and the choice
@@ -427,20 +441,6 @@ below 0.02 in every cell.
 comes from enumerating all 32 sign assignments. TOST uses a margin of 10\% of the off-arm mean.
 Equivalence is declared when the 95\% interval lies inside the margin. The 90\% interval, which
 corresponds to the conventional two one-sided tests at alpha = 0.05, is reported alongside.
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=\columnwidth]{figs/fig1_scenario.pdf}
-\caption{\textbf{Overtaking pressure and its measurement.} \textbf{A}, three-lane highway with the ego vehicle (blue), the lead vehicle, and vehicles in the adjacent lanes. The arrow marks one crossing of the ego lane, which the counting rule scores as +1. The controller searches for a lead vehicle 150 m ahead in the ego lane, and commanded speed is bounded at 30 m/s. \textbf{B}, the counting rule on a time--lane plane. A vehicle entering the ego lane from an adjacent lane scores +1; a vehicle leaving it scores $-$1. Crossings are counted inside a sliding window W, set to 5 s in the main experiment and 20 s in the supplementary group. \textbf{C}, availability of the signal, computed in SUMO with the same OTF definition: the fraction of sliding windows with OTF > 0 against traffic flow and window length, over three seeds. White contours mark 0.25, 0.50 and 0.75. The hatched band marks the equivalent flow of the CARLA setting, estimated from sixteen vehicles on a 420 m three-lane segment; the star marks the value measured there, 0.084 at W = 5 s. The map describes where the signal exists. It is not offered as an explanation for the closed-loop result, which Section 5.2 attributes to redundancy rather than to scarcity.}
-\label{fig:fig1}
-\end{figure}
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=\columnwidth]{figs/fig2_availability_real.pdf}
-\caption{\textbf{Availability in synthetic and recorded traffic.} \textbf{A}, the SUMO map of Fig. 1C with the CARLA operating point. \textbf{B}, the same quantity at three window lengths for three sources. SUMO synthetic traffic at 1800 to 2400 veh/h is drawn in blue. Recorded TGSIM traffic is drawn as orange squares: the mean over ten runs, with the observed range as an error bar. Our CARLA closed loop is drawn as stars. The closed-loop value at W = 5 s is 0.084 from the main experiment and at W = 10 s is 0.167. At W = 20 s the supplementary groups reach 0.334 in two scenarios and between 0.334 and 0.497 in the third, because lead-exit produces crossings of the ego lane without any injection. The star is drawn at 0.334, the value shared by two of the three scenarios. At a 5 s window the fractions are 0.39, 0.53 and 0.084. \textbf{Three limitations of this panel, stated here because they bound its interpretation.} 1. The TGSIM horizontal placement is an \textbf{estimate} (unique vehicles divided by run duration). The public trajectory file uses per-run normalised coordinates spanning a fixed box, so absolute station flow cannot be recomputed from it without the centreline geometry files. 2. The error bars are the \textbf{minimum and maximum across ten runs}, not a confidence interval. 3. The three sources differ in density. The comparison therefore shows that recorded traffic exposes the controller to a non-zero OTF far more often than our closed loop does. It does not isolate density from lane-change behaviour as the cause.}
-\label{fig:fig2}
-\end{figure}
 
 \section*{Acknowledgment}
 The authors thank the Federal Highway Administration for releasing the TGSIM corpus in the public domain.
