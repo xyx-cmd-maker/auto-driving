@@ -13,7 +13,7 @@ window W are summed; W is 5 s in the main experiment and 20 s in the supplementa
 
 ## Figure 2: `figs/fig2_availability_real.pdf`
 
-**Availability in synthetic and recorded traffic.** **A**, the SUMO map of Fig. 1C with the CARLA
+**Availability in synthetic and recorded traffic.** **A**, the availability map with the CARLA
 operating point. **B**, the same quantity at three window lengths for three sources. SUMO synthetic
 traffic at 1800 to 2400 veh/h is drawn in blue. Recorded TGSIM traffic is drawn as orange squares: the
 mean over ten runs, with the observed range as an error bar. Our CARLA closed loop is drawn as stars.
