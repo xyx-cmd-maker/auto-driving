@@ -74,9 +74,17 @@ class Step:
     meta: dict = field(default_factory=dict)
 
     def controller_obs(self, use_otf: bool) -> list[float]:
-        """按协议给出控制器输入。`use_otf=False` 即 a1_otf_off。"""
+        """按协议给出控制器输入。`use_otf=False` 即 a1_otf_off。
+
+        ★ `degrade_dv=True` 时**移除相对速度**这一维（模拟 Δv 不可测）。
+        这是 L3「冗余的直接检验」所需的操纵：如果 OTF 的价值来自"补相对速度的空缺"，
+        那么在 Δv 被拿掉后 OTF 应当补回一部分性能（2026-10-19）。
+        """
         gap = self.lead_gap_m if self.lead_gap_m is not None else 200.0
-        v = [gap, self.rel_speed_mps, self.ego_speed_mps]
+        if getattr(self, "degrade_dv", False):
+            v = [gap, self.ego_speed_mps]          # 无 Δv
+        else:
+            v = [gap, self.rel_speed_mps, self.ego_speed_mps]
         if use_otf:
             v.append(self.phi_otf)
         return v
@@ -89,11 +97,13 @@ class Town04Env:
                  sim_hz: float = 50.0, control_hz: float = 20.0,
                  n_traffic: int = 40, otf_window_s: float = 5.0,
                  town: str = "Town04", traffic_seed: int = 0,
-                 max_episode_s: float = 120.0, verbose: bool = True):
+                 max_episode_s: float = 120.0, verbose: bool = True,
+                 degrade_dv: bool = False):
         if control_hz > sim_hz:
             raise ValueError("control_hz 不得高于 sim_hz（%s > %s）" % (control_hz, sim_hz))
         self.host, self.port = host, port
         self.sim_hz = float(sim_hz)
+        self.degrade_dv = bool(degrade_dv)
         self.dt = 1.0 / self.sim_hz
         self.control_hz = float(control_hz)
         self.ctrl_every = max(1, int(round(self.sim_hz / self.control_hz)))
