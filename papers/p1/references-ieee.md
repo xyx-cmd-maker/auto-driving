@@ -1,0 +1,9 @@
+## References
+
+[1] Huang M. 基于超车频次的自动驾驶车辆行为决策研究. 吉林大学博士学位论文, 2023.
+[2] Jeroen Ploeg, Nathan van de Wouw, Henk Nijmeijer, "Lp String Stability of Cascaded Systems: Application to Vehicle Platooning," IEEE Transactions on Control Systems Technology, vol. 22, no. 2, pp. 786--793, 2014, doi: 10.1109/TCST.2013.2258346.
+[3] Raphael E. Stern, Shumo Cui, Maria Laura Delle Monache, Rahul Bhadani, Matt Bunting, Miles Churchill, Nathaniel Hamilton, R’mani Haulcy, Hannah Pohlmann, Fangyu Wu, Benedetto Piccoli, Benjamin Seibold, Jonathan Sprinkle, Daniel B. Work, "Dissipation of stop-and-go waves via control of autonomous vehicles: Field experiments," Transportation Research Part C: Emerging Technologies, vol. 89, pp. 205--221, 2018, doi: 10.1016/j.trc.2018.02.005.
+[4] Jiawei Wang, Yang Zheng, Keqiang Li, Qing Xu, "DeeP-LCC: Data-EnablEd Predictive Leading Cruise Control in Mixed Traffic Flow," IEEE Transactions on Control Systems Technology, vol. 31, no. 6, pp. 2760--2776, 2023, doi: 10.1109/TCST.2023.3288636.
+[5] Dirk Helbing, Péter Molnár, "Social force model for pedestrian dynamics," Physical Review E, vol. 51, no. 5, pp. 4282--4286, 1995, doi: 10.1103/PhysRevE.51.4282.
+[6] Ramin Hasani, Mathias Lechner, Alexander Amini, Lucas Liebenwein, Aaron Ray, Max Tschaikowski, Gerald Teschl, Daniela Rus, "Closed-form continuous-time neural networks," Nature Machine Intelligence, vol. 4, no. 11, pp. 992--1003, 2022, doi: 10.1038/s42256-022-00556-7.
+[7] Eric Aislan Antonelo, Eduardo Camponogara, Laio Oriel Seman, Jean Panaioti Jordanou, Eduardo Rehbein de Souza, Jomi Fred Hübner, "Physics-informed neural nets for control of dynamical systems," Neurocomputing, vol. 579, pp. 127419, 2024, doi: 10.1016/j.neucom.2024.127419.
