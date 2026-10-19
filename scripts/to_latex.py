@@ -39,16 +39,26 @@ SYM = {
 
 
 def esc(s: str) -> str:
+    """转义 LaTeX 特殊字符，**但保护 $...$ 数学段**。
+
+    ★ 2026-10-19 事故：先做符号替换（Δ → $\\Delta$）再整体转义，
+    会把数学段里的反斜杠与花括号也转义掉，输出成 `\\{\\}Delta`——
+    表格表头因此显示乱码。正确做法是先把数学段切出来，只转义非数学部分。
+    """
     for k, v in SYM.items():
         s = s.replace(k, v)
-    s = s.replace("\\", r"\textbackslash{}")
-    for ch, rep in (("&", r"\&"), ("%", r"\%"), ("$", r"\$"), ("#", r"\#"),
-                    ("_", r"\_"), ("{", r"\{"), ("}", r"\}")):
-        s = s.replace(ch, rep)
-    # 上面把 \$ 也替换了，数学符号里的 $ 需要还原
-    s = s.replace(r"\textbackslash{}\$", "$")
-    s = re.sub(r"\\\$\\times\\\$", r"$\\times$", s)
-    return s
+    parts = re.split(r"(\$[^$]*\$)", s)
+    out = []
+    for i, seg in enumerate(parts):
+        if i % 2 == 1:                      # 奇数位是 $...$，原样保留
+            out.append(seg)
+            continue
+        seg = seg.replace("\\", r"\textbackslash{}")
+        for ch, rep in (("&", r"\&"), ("%", r"\%"), ("#", r"\#"),
+                        ("_", r"\_"), ("{", r"\{"), ("}", r"\}")):
+            seg = seg.replace(ch, rep)
+        out.append(seg)
+    return "".join(out)
 
 
 def inline(s: str) -> str:
@@ -69,15 +79,19 @@ def table(rows):
     spec = "l" + "r" * (n - 1)
     # ★ 必须限制宽度：直接排 tabular 会超出栏宽并与相邻浮动体重叠（2026-10-19 实测）。
     #   用 resizebox 缩到栏宽，是 IEEE 模板里最稳的做法。
-    out = [r"\begin{table}[!t]", r"\centering",
-           r"\resizebox{\columnwidth}{!}{%",
+    # 宽表用 table*（跨双栏），保留 8pt 可读字号；
+    # resizebox 会把字号一起缩小，IEEE 要求表内文字不小于 6–8 pt。
+    wide = n >= 6
+    env = "table*" if wide else "table"
+    fs = r"\small" if wide else r"\footnotesize"
+    out = ["\\begin{%s}[!t]" % env, r"\centering", fs,
            r"\begin{tabular}{%s}" % spec, r"\hline"]
     for i, r in enumerate(cells):
         r = r + [""] * (n - len(r))
         out.append(" & ".join(inline(x) for x in r) + r" \\")
         if i == 0:
             out.append(r"\hline")
-    out += [r"\hline", r"\end{tabular}", r"}", r"\end{table}", ""]
+    out += [r"\hline", r"\end{tabular}", "\\end{%s}" % env, ""]
     return "\n".join(out)
 
 

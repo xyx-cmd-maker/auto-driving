@@ -104,9 +104,9 @@ The hidden state has 24 units. At each step the cell receives a normalized obser
 an updated state.
 The commanded acceleration is a bounded linear read-out:
     a(t) = 3.0 * tanh( W\_a x(t) + W\_h h(t) )
-The read-out bound of 3.0 m/s$^\{2\}$ keeps commands inside the acceleration envelope of the low-level speed
+The read-out bound of 3.0 m/s$^{2}$ keeps commands inside the acceleration envelope of the low-level speed
 controller. Observations are scaled to comparable magnitudes before entering the cell: gap divided by
-100 m, relative speed by 10 m/s, ego speed by 30 m/s, and phi by 1 s$^\{-1\}$.
+100 m, relative speed by 10 m/s, ego speed by 30 m/s, and phi by 1 s$^{-1}$.
 The off arm receives three inputs: lead gap, relative speed, and ego speed. The on arm receives the
 same three plus phi. Nothing else differs. The two arms therefore have different input widths, and we
 report parameter counts for both rather than claiming an identical model size.
@@ -150,7 +150,7 @@ count is multiplied by ten. The weights were fixed before the data were collecte
 Each scenario is analyzed separately; we do not pool scenarios into a single mean for inference. For
 every endpoint we report the paired mean difference, a confidence interval, an exact two-sided
 sign-flip p-value, and an equivalence test.
-The exact test enumerates all 2$^\{5\}$ sign assignments, so it needs no distributional assumption. With five
+The exact test enumerates all 2$^{5}$ sign assignments, so it needs no distributional assumption. With five
 seeds it can return no value below 0.0625. Because we correct for four scenarios with Holm's method,
 the smallest threshold is 0.0125, and superiority is therefore untestable by construction. We state
 this rather than presenting a non-significant result as evidence of no effect.
@@ -221,12 +221,12 @@ throughout and we do not use them as evidence of a difference.
 Table 1 reports the paired difference in composite driving cost for each scenario, with the
 pre-registered equivalence margin of 10\% of the off-arm mean.
 \textbf{Table 1.} Paired difference in composite cost (negative favours the OTF arm).
-\begin{table}[!t]
+\begin{table*}[!t]
 \centering
-\resizebox{\columnwidth}{!}{%
+\small
 \begin{tabular}{lrrrrrrrr}
 \hline
-Scenario & n & Mean $\textbackslash\{\}Delta$ & off mean & 95\% CI & 90\% CI & exact p & TOST p & Conclusion \\
+Scenario & n & Mean $\Delta$ & off mean & 95\% CI & 90\% CI & exact p & TOST p & Conclusion \\
 \hline
 none & 5 & +0.256 & 30.481 & [$-$2.321, +2.832] & [$-$1.723, +2.234] & 0.8125 & 0.0198 & equivalent \\
 cutin & 5 & +0.326 & 30.314 & [$-$2.467, +3.119] & [$-$1.818, +2.471] & 0.8750 & 0.0273 & inconclusive \\
@@ -234,8 +234,7 @@ lead-brake & 5 & +0.858 & 30.947 & [$-$2.092, +3.808] & [$-$1.407, +3.123] & 0.4
 lead-exit & 5 & $-$0.051 & 30.623 & [$-$1.968, +1.867] & [$-$1.523, +1.422] & 1.0000 & 0.0060 & equivalent \\
 \hline
 \end{tabular}
-}
-\end{table}
+\end{table*}
 
 Two scenarios, no lead vehicle and lead exit, have both interval bounds inside the margin under the
 pre-registered 95\% criterion. The cutin scenario would also qualify under the conventional 90\%
@@ -245,12 +244,12 @@ The exact sign-flip test returns no value below 0.4375 for this endpoint. Neithe
 significance, and Section 4.5 explains why that was impossible by design rather than by data.
 \subsection{4.3 Secondary endpoints}
 \textbf{Table 2.} Paired differences in the two performance endpoints.
-\begin{table}[!t]
+\begin{table*}[!t]
 \centering
-\resizebox{\columnwidth}{!}{%
+\small
 \begin{tabular}{lrrrrrr}
 \hline
-Scenario & $\textbackslash\{\}Delta$ following RMSE (m) & 95\% CI & TOST p & $\textbackslash\{\}Delta$ accel. integral & 95\% CI & TOST p \\
+Scenario & $\Delta$ following RMSE (m) & 95\% CI & TOST p & $\Delta$ accel. integral & 95\% CI & TOST p \\
 \hline
 none & $-$4.361 & [$-$26.629, +17.908] & 0.3184 & +34.47 & [$-$6.004, +74.934] & 0.5786 \\
 cutin & $-$4.767 & [$-$27.421, +17.888] & 0.3432 & +40.13 & [$-$13.938, +94.190] & 0.6637 \\
@@ -258,8 +257,7 @@ lead-brake & $-$0.761 & [$-$18.849, +17.327] & 0.1484 & +46.89 & [$-$49.977, +14
 lead-exit & $-$2.317 & [$-$14.851, +10.217] & 0.1161 & +8.98 & [$-$79.179, +97.131] & 0.2630 \\
 \hline
 \end{tabular}
-}
-\end{table}
+\end{table*}
 
 All eight tests are inconclusive. The point estimates have consistent signs across scenarios: following
 error is lower in the OTF arm in all four, and the acceleration-squared integral is higher in all four,
@@ -287,20 +285,19 @@ Two supplementary groups test whether the result depends on the treatment variab
 raised traffic from sixteen to thirty-two vehicles and kept a 5 s window. The second kept sixteen
 vehicles and widened the window to 20 s. Each group runs five seeds on the lead-brake scenario.
 \textbf{Table 3.} Supplementary groups against the main experiment.
-\begin{table}[!t]
+\begin{table*}[!t]
 \centering
-\resizebox{\columnwidth}{!}{%
+\small
 \begin{tabular}{lrrrrrrr}
 \hline
-Group & Traffic & Window & Availability & Mean $\textbackslash\{\}Delta$cost & 95\% CI & CI width & Conclusion \\
+Group & Traffic & Window & Availability & Mean $\Delta$cost & 95\% CI & CI width & Conclusion \\
 \hline
 Main & 16 & 5 s & 0.084 & +0.858 & [$-$2.092, +3.808] & 5.90 & inconclusive \\
 A, density & 32 & 5 s & 0.084 & +1.372 & [$-$2.326, +5.069] & 7.40 & inconclusive \\
 B, window & 16 & 20 s & 0.334 & +0.707 & [$-$2.709, +4.122] & 6.83 & inconclusive \\
 \hline
 \end{tabular}
-}
-\end{table}
+\end{table*}
 
 The first group leaves availability unchanged at 0.084. In our environment the OTF events come from
 the scripted injection rather than from background traffic, so adding vehicles does not move the
@@ -457,9 +454,9 @@ The authors thank the Federal Highway Administration for releasing the TGSIM cor
 \end{thebibliography}
 
 \section*{Appendix: Per-Seed Results}
-\begin{table}[!t]
+\begin{table*}[!t]
 \centering
-\resizebox{\columnwidth}{!}{%
+\small
 \begin{tabular}{lrrrrrrr}
 \hline
 Scenario & Seed & dCost & off cost & on cost & Phi (on) & valid off/on & Group \\
@@ -496,8 +493,7 @@ lead-brake & 3 & -1.649 & 32.50 & 30.85 & 0.084 & 6/9 & no-dv \\
 lead-brake & 4 & +3.759 & 29.92 & 33.68 & 0.084 & 5/5 & no-dv \\
 \hline
 \end{tabular}
-}
-\end{table}
+\end{table*}
 
 
 \section*{Author Biographies}
