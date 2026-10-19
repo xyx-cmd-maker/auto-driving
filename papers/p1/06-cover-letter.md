@@ -14,11 +14,11 @@ closed-form continuous-time controller while holding the search budget, the seed
 
 Across four highway scenarios with five seeds each, two are statistically equivalent on composite cost
 within a pre-registered 10% margin, and two are inconclusive. No endpoint shows a difference, and the
-interval widths are reported in full. We then report two further steps that a reader would otherwise
-ask for. First, we measure how often the scalar is non-zero, in a SUMO map and in the public TGSIM
-trajectory corpus, and locate our operating point in the sparse region of that map. Second, we
-manipulate availability directly in three scenarios and show that a fourfold increase in informative
-control cycles sharpens none of the estimates.
+interval widths are reported in full. We then add two steps that a reader would otherwise ask for. One
+measures how often the scalar is non-zero, in a SUMO map and in the public TGSIM trajectory corpus. That
+measurement locates our operating point in the sparse region of the map. The other manipulates
+availability directly in three scenarios. A fourfold increase in informative control cycles sharpens
+none of the estimates.
 
 We read the result as evidence that an aggregate traffic-pressure scalar buys interpretability at no
 additional sensing cost, not closed-loop performance. The manuscript states this limit explicitly, and
@@ -36,7 +36,7 @@ manuscript; the TGSIM corpus is public domain, and we redistribute none of it.
 
 Yours sincerely,
 
-Xia Yuxuan (first author) and Huang Mengyuan (corresponding author)
+Xia Yuxuan and Huang Mengyuan (corresponding author)
 Shenzhen Polytechnic University
 
 <!-- END-MANUSCRIPT -->
