@@ -281,7 +281,13 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
         ap_lines = io.open(ap, encoding="utf-8").read().split("\n")
         tbl = [l for l in ap_lines if l.lstrip().startswith("|")]
         if tbl:
-            appblock = "\\section*{Appendix: Per-Seed Results}\n" + table(tbl)
+            # 附录表**不浮动**：此前用 table* 会漂到下一页，与附录标题分居两页。
+            tb = table(tbl).replace("\\begin{table*}[!t]", "\\begin{center}") \
+                           .replace("\\end{table*}", "\\end{center}")
+            appblock = ("\\section*{Appendix: Per-Seed Results}\n"
+                        "\\begin{center}\\footnotesize\n"
+                        "Table IV. Per-seed results for the main and degraded groups.\\\\[2pt]\n"
+                        + tb + "\n\\end{center}\n")
     bioblock = (appblock + "\n\n" + bioblock).strip()
 
     # ★ 不能用 `%` 格式化：LaTeX 模板里到处是 `%`（注释符），会触发
