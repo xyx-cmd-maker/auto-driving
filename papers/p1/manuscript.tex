@@ -41,7 +41,6 @@ not performance.
 overtaking frequency, traffic-flow scalar, continuous-time neural control, equivalence testing
 \end{IEEEkeywords}
 
-> IEEE 编号制版本（由 scripts/to\_ieee\_citations.py 自动生成，勿手改）
 \section*{Overtaking Pressure on Multi-Lane Highways as a Control Input for Continuous-Time Car-Following}
 \section{1. Introduction}
 On a multi-lane highway, a driver's longitudinal decision is shaped by what happens in the adjacent
@@ -106,9 +105,9 @@ The hidden state has 24 units. At each step the cell receives a normalized obser
 an updated state.
 The commanded acceleration is a bounded linear read-out:
     a(t) = 3.0 * tanh( W\_a x(t) + W\_h h(t) )
-The read-out bound of 3.0 m/s² keeps commands inside the acceleration envelope of the low-level speed
+The read-out bound of 3.0 m/s$^\{2\}$ keeps commands inside the acceleration envelope of the low-level speed
 controller. Observations are scaled to comparable magnitudes before entering the cell: gap divided by
-100 m, relative speed by 10 m/s, ego speed by 30 m/s, and phi by 1 s⁻¹.
+100 m, relative speed by 10 m/s, ego speed by 30 m/s, and phi by 1 s$^\{-1\}$.
 The off arm receives three inputs: lead gap, relative speed, and ego speed. The on arm receives the
 same three plus phi. Nothing else differs. The two arms therefore have different input widths, and we
 report parameter counts for both rather than claiming an identical model size.
@@ -152,7 +151,7 @@ count is multiplied by ten. The weights were fixed before the data were collecte
 Each scenario is analyzed separately; we do not pool scenarios into a single mean for inference. For
 every endpoint we report the paired mean difference, a confidence interval, an exact two-sided
 sign-flip p-value, and an equivalence test.
-The exact test enumerates all 2⁵ sign assignments, so it needs no distributional assumption. With five
+The exact test enumerates all 2$^\{5\}$ sign assignments, so it needs no distributional assumption. With five
 seeds it can return no value below 0.0625. Because we correct for four scenarios with Holm's method,
 the smallest threshold is 0.0125, and superiority is therefore untestable by construction. We state
 this rather than presenting a non-significant result as evidence of no effect.
@@ -402,7 +401,6 @@ both work, and the map predicts availability above 0.5 there. Replaying
 recorded trajectories with fixed neighbours would then test whether the simulated availability matches
 real traffic. Two of these require only compute; the third requires data access.
 \section*{Figure and table captions}
-\subsection{图注（作图时逐条核过：数字来自结果 JSON，参数来自代码）}
 \textbf{Figure 1.} Overtaking pressure and its measurement. \textbf{A}, three-lane highway with the ego vehicle
 (blue), the lead vehicle, and vehicles in the adjacent lanes. The arrow marks one crossing of the ego
 lane, which the counting rule scores as +1. The front-vehicle search used by the controller extends
@@ -421,10 +419,6 @@ below 0.02 in every cell.
 comes from enumerating all 32 sign assignments. TOST uses a margin of 10\% of the off-arm mean.
 Equivalence is declared when the 95\% interval lies inside the margin. The 90\% interval, which
 corresponds to the conventional two one-sided tests at alpha = 0.05, is reported alongside.
-> \textbf{本文件是自动拼装的初稿}（`scripts/assemble\_manuscript.py`）。
-> 章节来源：`01-abstract-final.md` / `02-introduction-discussion.md` / `03-methods.md` /
-> `04-related-work.md` / `\_results-fragment.md`。\textbf{改稿请改源文件再重新拼装}，不要直接改本文件。
-> 图表：Fig.1 `figs/fig1\_scenario.pdf` ｜ Fig.2 `figs/fig\_otf\_density.pdf` ｜ 相图 `figs/fig\_otf\_phase.pdf`。
 
 \begin{figure}[!t]
 \centering
@@ -437,7 +431,6 @@ corresponds to the conventional two one-sided tests at alpha = 0.05, is reported
 The authors thank the Federal Highway Administration for releasing the TGSIM corpus in the public domain.
 
 \begin{thebibliography}{1}
-\bibitem{ref1} Huang M. 基于超车频次的自动驾驶车辆行为决策研究. 吉林大学博士学位论文, 2023.
 \bibitem{ref2} Ramin Hasani, Mathias Lechner, Alexander Amini, Lucas Liebenwein, Aaron Ray, Max Tschaikowski, Gerald Teschl, Daniela Rus, "Closed-form continuous-time neural networks," Nature Machine Intelligence, vol. 4, no. 11, pp. 992--1003, 2022, doi: 10.1038/s42256-022-00556-7.
 \bibitem{ref3} Jeroen Ploeg, Nathan van de Wouw, Henk Nijmeijer, "Lp String Stability of Cascaded Systems: Application to Vehicle Platooning," IEEE Transactions on Control Systems Technology, vol. 22, no. 2, pp. 786--793, 2014, doi: 10.1109/TCST.2013.2258346.
 \bibitem{ref4} Raphael E. Stern, Shumo Cui, Maria Laura Delle Monache, Rahul Bhadani, Matt Bunting, Miles Churchill, Nathaniel Hamilton, R'mani Haulcy, Hannah Pohlmann, Fangyu Wu, Benedetto Piccoli, Benjamin Seibold, Jonathan Sprinkle, Daniel B. Work, "Dissipation of stop-and-go waves via control of autonomous vehicles: Field experiments," Transportation Research Part C: Emerging Technologies, vol. 89, pp. 205--221, 2018, doi: 10.1016/j.trc.2018.02.005.

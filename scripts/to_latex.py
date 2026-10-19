@@ -32,6 +32,9 @@ SYM = {
     "\u0394": "$\\Delta$", "\u03a6": "$\\Phi$", "\u00b1": "$\\pm$", "\u2013": "--",
     "\u2014": "---", "\u2018": "'", "\u2019": "'", "\u201c": "``", "\u201d": "''",
     "\u2192": "$\\rightarrow$", "\u00b0": "$^\\circ$",
+    # 上标（"1 s⁻¹" 之类）：pdflatex 对 U+207B/U+2075 直接报 Unicode 错
+    "\u207b\u00b9": "$^{-1}$", "\u207b": "$^{-}$", "\u2075": "$^{5}$",
+    "\u00b9": "$^{1}$", "\u00b2": "$^{2}$", "\u00b3": "$^{3}$", "\u2074": "$^{4}$",
 }
 
 
@@ -84,6 +87,11 @@ def main() -> int:
     body, i = [], 0
     while i < len(lines):
         ln = lines[i]
+        # ★ 跳过含中日韩字符的行：这些是元信息（如自动生成的"IEEE 编号制版本"注），
+        #   pdflatex 遇到 U+7F16 会直接 Fatal error（实测）。
+        if re.search(r"[\u3000-\u303f\u3040-\u30ff\u4e00-\u9fff\uff00-\uffef]", ln):
+            i += 1
+            continue
         if ln.startswith("<!--"):                     # 注释跳过
             i += 1
             continue

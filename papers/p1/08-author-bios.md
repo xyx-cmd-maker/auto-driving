@@ -7,11 +7,15 @@
 
 ## 1. 黄梦圆（Huang Mengyuan，通讯作者，女）
 
-> Huang Mengyuan received the B.E. degree in automobile operation engineering from Jilin University,
+> Huang Mengyuan received the B.E. degree in automotive operation engineering from Jilin University,
 > Changchun, China, in 2017, and the Ph.D. degree in vehicle operation engineering from Jilin
 > University in 2023. She is currently a Lecturer with Shenzhen Polytechnic University, Shenzhen,
 > China. Her research interests include perception, prediction, and decision making for autonomous
 > driving, and vehicle-road cooperation.
+
+**英文名已核（2026-10-19，吉大交通学院官方英文站）**：
+- `载运工具运用工程` → **Vehicle Operation Engineering**（1997 年由 Automotive Operation Engineering 改名，见官网 Department of Vehicle Operation Engineering 页）；
+- `汽车运用工程` → **Automotive Operation Engineering**（官方用 Automotive，**不是** Automobile）。
 
 **依据**：PPT 页写明"2017-2023 吉林大学 载运工具运用工程，硕博连读"、"2013-2017 吉林大学 汽车运用工程，
 本科"、"讲师"、"研究方向：自动驾驶感知、预测、决策；车路协同"。硕博连读最终学位为博士，故只列 B.E. 与 Ph.D. 两级。
@@ -43,7 +47,7 @@
 
 **排列顺序已按相关性调整**：`autonomous driving` 放第一位（与论文对应），其余两个按你给的顺序。
 
-### 3.2 夏宇轩的代词：**你没有说，我不猜**
+### 3.2 夏宇轩的代词：**男性，用 His**（用户 2026-10-19 确认）
 
 - 上面默认用 **His**（按常见情况），若应为 **Her** 或希望中性，告诉我一句即可；
 - 备选版本（无代词）已在 §2 给出。
@@ -70,3 +74,17 @@
 
 阶段一（投稿 PDF）：小传放在**参考文献之后、正文末尾**，作为不编号的一节。
 阶段二（终稿）：随录用通知一并提交照片与最终版小传。
+
+---
+
+## 6. 待投稿时补：作者照片（用户 2026-10-19 明确）
+
+> 用户原话："他们两个的大头照要投稿的时候再给你，你再写进去，你现在先记录一下这个情况"
+
+| 项 | 状态 |
+|---|---|
+| 黄梦圆照片 | ⏸ 投稿时提供（PPT 页已有可用图，但需本人给正式版） |
+| 夏宇轩照片 | ⏸ 投稿时提供 |
+| 规格 | 通常 1 in × 1.25 in（25.4 × 31.75 mm），≥300 dpi，TIFF/PNG/JPEG |
+| 处理 | 收到后放入 `papers/p1/figs/bio/`，并在终稿小传末尾以 `\includegraphics` 插入 |
+| 提醒 | 照片随论文永久公开，投稿前请两位本人确认 |

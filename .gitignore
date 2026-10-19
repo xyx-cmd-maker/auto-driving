@@ -23,3 +23,10 @@ sources/*.docx
 # 原始公开数据集（TGSIM 93 MB / NGSIM 2 GB），体积大且可重新下载，不入库
 data/
 sources/author-contact.local.md
+
+# LaTeX 编译中间产物（PDF 保留，便于直接查看页数）
+papers/p1/*.aux
+papers/p1/*.log
+papers/p1/*.out
+papers/p1/*.fls
+papers/p1/*.fdb_latexmk
