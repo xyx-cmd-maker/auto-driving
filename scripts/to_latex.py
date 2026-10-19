@@ -242,7 +242,18 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
         if b:
             bios.append("\\vspace{1ex}\\noindent\\textbf{%s}\n\n%s" % (
                 "Huang Mengyuan" if "Huang" in who else "Xia Yuxuan", b))
+    # 附录：逐局数据表（读 09-appendix.md 的管道表格，缩放到栏宽）
+    appblock = ""
+    ap = os.path.join(P, "09-appendix.md")
+    if os.path.exists(ap):
+        ap_lines = io.open(ap, encoding="utf-8").read().split("\n")
+        tbl = [l for l in ap_lines if l.lstrip().startswith("|")]
+        if tbl:
+            # 注意：table() 已返回完整的 table 环境，外面**不能**再套一层
+            # （否则 LaTeX 报 "Not in outer par mode"，2026-10-19 实测）
+            appblock = "\\section*{Appendix: Per-Seed Results}\n" + table(tbl)
     bioblock = "\\section*{Author Biographies}\n\n" + "\n\n".join(bios) if bios else ""
+    bioblock = (appblock + "\n\n" + bioblock).strip()
 
     # ★ 不能用 `%` 格式化：LaTeX 模板里到处是 `%`（注释符），会触发
     #   "unsupported format character"。改用逐项 replace。
