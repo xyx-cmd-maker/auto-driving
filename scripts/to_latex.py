@@ -131,7 +131,7 @@ def main() -> int:
 
 \begin{document}
 
-\title{Overtaking Pressure on Multi-Lane Highways as a Control Input\\ for Continuous-Time Car-Following}
+\title{When Is Overtaking Frequency Informative? A Pre-Registered\\ Closed-Loop Ablation and an Availability Map}
 
 \author{Xia~Yuxuan and Huang~Mengyuan% corresponding author
 \thanks{Manuscript received XXXX; revised XXXX.}

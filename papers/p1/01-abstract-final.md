@@ -8,7 +8,7 @@
 
 ## Title
 
-**Overtaking Pressure on Multi-Lane Highways as a Control Input for Continuous-Time Car-Following**
+**When Is Overtaking Frequency Informative? A Pre-Registered Closed-Loop Ablation and an Availability Map**
 
 *Assumption to check:* if the final framing shifts to "when is a traffic-flow scalar usable", the
 alternative title is **"When Does Overtaking Frequency Help? A Closed-Loop Equivalence Study of a
@@ -18,28 +18,27 @@ Traffic-Flow Scalar in Highway Car-Following"**. Choose after the discussion sec
 
 ## Abstract
 
-Multi-lane highways produce a continuous stream of lane changes around any vehicle, and drivers trade
-longitudinal gap for lateral opportunity. Whether this aggregate pressure carries usable information for
-a low-level controller remains untested, because the reported gains come from classification rather than
-from a closed loop. We treat overtaking frequency, the rate at which surrounding vehicles cross the ego
-lane, as a fourth input to a closed-form continuous-time controller. We ablate it against an otherwise
-identical controller that sees only gap, relative speed, and ego speed. Both arms share one search
-budget, the same seeds, and the same traffic. Across four highway scenarios in the CARLA simulator with
-five seeds each, composite cost changed by +0.26 (95% confidence interval [−2.32, +2.83]) without a lead
-vehicle, and by −0.05 ([−1.97, +1.87]) in the lead-exit scenario. Both lie inside a pre-registered ten
-percent equivalence margin under the 95% criterion, with two one-sided tests giving p = 0.020 and 0.006.
-Under the conventional 90% interval one of the two remaining scenarios would also qualify, and we keep
-the stricter criterion. Following error and the acceleration-squared integral showed no detectable
-difference, and neither arm collided. Quadrupling the informative fraction did not sharpen the estimate,
-which points to redundancy at the controller input rather than to signal scarcity. With five seeds the
-exact paired test cannot reach significance after multiplicity correction, so we target equivalence
-rather than superiority. Overtaking frequency thus buys interpretability at no additional sensing cost,
-not performance.
+Multi-lane highways produce a continuous stream of lane changes around any vehicle, and a scalar summary
+of that pressure is an attractive controller input because it costs no extra sensor. Whether such a
+scalar is ever non-zero is rarely measured before it is ablated, and in a sparse simulator it may never
+be. We make that measurement first. In a three-lane SUMO highway the fraction of five-second windows
+containing a crossing rises from 0.12 at 600 vehicles per hour to 0.56 at 4800. In recorded traffic from
+the public TGSIM corpus it is 0.53 at an estimated 1800 to 2400 vehicles per hour, while our own closed
+loop, with sixteen mixed vehicles, reaches only 0.084. We then run a pre-registered paired ablation of
+the scalar as a fourth input to a closed-form continuous-time controller, with one search budget and one
+set of seeds. Two of four scenarios are equivalent on composite cost within a pre-registered ten percent
+margin, and two are inconclusive. Quadrupling availability in three scenarios, by widening the window,
+sharpened none of the estimates. With five seeds the exact paired test cannot reach significance after
+multiplicity correction, so we target equivalence rather than superiority. We read the result as
+evidence that this scalar buys interpretability at no additional sensing cost, not closed-loop
+performance, and we recommend measuring availability before ablating a traffic-level signal.
 
 ## Keywords
 
-overtaking frequency; traffic-flow scalar; continuous-time neural control; equivalence testing
+overtaking frequency; signal availability; closed-loop ablation; equivalence testing
+
 ---
+
 ## 主张 → 证据 映射（每句都能指到字段）
 
 | 摘要中的句子 | 证据位置 | 等级 |

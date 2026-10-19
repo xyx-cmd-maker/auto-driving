@@ -8,7 +8,7 @@
 
 \begin{document}
 
-\title{Overtaking Pressure on Multi-Lane Highways as a Control Input\\ for Continuous-Time Car-Following}
+\title{When Is Overtaking Frequency Informative? A Pre-Registered\\ Closed-Loop Ablation and an Availability Map}
 
 \author{Xia~Yuxuan and Huang~Mengyuan% corresponding author
 \thanks{Manuscript received XXXX; revised XXXX.}
@@ -18,23 +18,20 @@
 \maketitle
 
 \begin{abstract}
-Multi-lane highways produce a continuous stream of lane changes around any vehicle, and drivers trade
-longitudinal gap for lateral opportunity. Whether this aggregate pressure carries usable information for
-a low-level controller remains untested, because the reported gains come from classification rather than
-from a closed loop. We treat overtaking frequency, the rate at which surrounding vehicles cross the ego
-lane, as a fourth input to a closed-form continuous-time controller. We ablate it against an otherwise
-identical controller that sees only gap, relative speed, and ego speed. Both arms share one search
-budget, the same seeds, and the same traffic. Across four highway scenarios in the CARLA simulator with
-five seeds each, composite cost changed by +0.26 (95\% confidence interval [$-$2.32, +2.83]) without a lead
-vehicle, and by $-$0.05 ([$-$1.97, +1.87]) in the lead-exit scenario. Both lie inside a pre-registered ten
-percent equivalence margin under the 95\% criterion, with two one-sided tests giving p = 0.020 and 0.006.
-Under the conventional 90\% interval one of the two remaining scenarios would also qualify, and we keep
-the stricter criterion. Following error and the acceleration-squared integral showed no detectable
-difference, and neither arm collided. Quadrupling the informative fraction did not sharpen the estimate,
-which points to redundancy at the controller input rather than to signal scarcity. With five seeds the
-exact paired test cannot reach significance after multiplicity correction, so we target equivalence
-rather than superiority. Overtaking frequency thus buys interpretability at no additional sensing cost,
-not performance.
+Multi-lane highways produce a continuous stream of lane changes around any vehicle, and a scalar summary
+of that pressure is an attractive controller input because it costs no extra sensor. Whether such a
+scalar is ever non-zero is rarely measured before it is ablated, and in a sparse simulator it may never
+be. We make that measurement first. In a three-lane SUMO highway the fraction of five-second windows
+containing a crossing rises from 0.12 at 600 vehicles per hour to 0.56 at 4800. In recorded traffic from
+the public TGSIM corpus it is 0.53 at an estimated 1800 to 2400 vehicles per hour, while our own closed
+loop, with sixteen mixed vehicles, reaches only 0.084. We then run a pre-registered paired ablation of
+the scalar as a fourth input to a closed-form continuous-time controller, with one search budget and one
+set of seeds. Two of four scenarios are equivalent on composite cost within a pre-registered ten percent
+margin, and two are inconclusive. Quadrupling availability in three scenarios, by widening the window,
+sharpened none of the estimates. With five seeds the exact paired test cannot reach significance after
+multiplicity correction, so we target equivalence rather than superiority. We read the result as
+evidence that this scalar buys interpretability at no additional sensing cost, not closed-loop
+performance, and we recommend measuring availability before ablating a traffic-level signal.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -52,7 +49,8 @@ lane crossings observed in a sliding window around the ego vehicle, divided by t
 OTF is attractive for three reasons. It is a single scalar. It is defined on traffic rather than on a
 particular sensor suite. And it can be estimated from radar and camera streams that production
 vehicles already carry, so it adds no sensing cost.
-Evidence for OTF so far comes from classification. The reported gains are 1.0 to 5.5 percentage
+Evidence for OTF so far comes from classification. That literature never reports how often the
+scalar is non-zero, and in a sparse simulator it may never be. The reported gains are 1.0 to 5.5 percentage
 points of classifier accuracy over baselines without OTF features, across three classifier families
 (Huang, 2023, as reported; not reproduced here). Classification and control ask different questions.
 A feature can improve an offline label prediction and still add nothing to a feedback loop that

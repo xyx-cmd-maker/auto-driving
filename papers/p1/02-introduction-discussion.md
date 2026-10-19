@@ -13,7 +13,8 @@ OTF is attractive for three reasons. It is a single scalar. It is defined on tra
 particular sensor suite. And it can be estimated from radar and camera streams that production
 vehicles already carry, so it adds no sensing cost.
 
-Evidence for OTF so far comes from classification. The reported gains are 1.0 to 5.5 percentage
+Evidence for OTF so far comes from classification. That literature never reports how often the
+scalar is non-zero, and in a sparse simulator it may never be. The reported gains are 1.0 to 5.5 percentage
 points of classifier accuracy over baselines without OTF features, across three classifier families
 (Huang, 2023, as reported; not reproduced here). Classification and control ask different questions.
 A feature can improve an offline label prediction and still add nothing to a feedback loop that
