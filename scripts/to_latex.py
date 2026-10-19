@@ -69,7 +69,7 @@ def inline(s: str) -> str:
     return s
 
 
-def table(rows):
+def table(rows, caption=None):
     """rows: ['| a | b |', '|---|---|', ...] → tabular。"""
     cells = [[c.strip() for c in r.strip().strip("|").split("|")] for r in rows]
     cells = [c for c in cells if not all(re.fullmatch(r":?-{3,}:?", x or "-") for x in c)]
@@ -84,8 +84,10 @@ def table(rows):
     wide = n >= 6
     env = "table*" if wide else "table"
     fs = r"\small" if wide else r"\footnotesize"
-    out = ["\\begin{%s}[!t]" % env, r"\centering", fs,
-           r"\begin{tabular}{%s}" % spec, r"\hline"]
+    out = ["\\begin{%s}[!t]" % env, r"\centering", fs]
+    if caption:
+        out.append("\\caption{%s}" % caption)
+    out += [r"\begin{tabular}{%s}" % spec, r"\hline"]
     for i, r in enumerate(cells):
         r = r + [""] * (n - len(r))
         out.append(" & ".join(inline(x) for x in r) + r" \\")
@@ -126,7 +128,14 @@ def main() -> int:
             rows = []
             while i < len(lines) and lines[i].lstrip().startswith("|"):
                 rows.append(lines[i]); i += 1
-            body.append(table(rows))
+            # 表题：紧邻上方的 "**Table N.** ..." 行（之前被当正文排出来，导致表无题）
+            cap = None
+            if body:
+                m = re.match(r"^\\textbf\{(Table\s*\d+\.)\}\s*(.+)$", body[-1])
+                if m:
+                    cap = "%s %s" % (m.group(1), m.group(2))
+                    body.pop()
+            body.append(table(rows, cap))
             continue
         if ln.lstrip().startswith("- "):               # 列表
             body.append(r"\begin{itemize}")
