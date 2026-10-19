@@ -111,6 +111,11 @@ def main() -> int:
         if re.search(r"[\u3000-\u303f\u3040-\u30ff\u4e00-\u9fff\uff00-\uffef]", ln):
             i += 1
             continue
+        # "**Figure N.** ..." 段落是图注的来源，已由 \caption 排过；
+        # 若再作为正文输出，编译后同一图注会印两遍（2026-10-19 实测）。
+        if re.match(r"^\*\*Figure\s*\d", ln.strip()):
+            i += 1
+            continue
         if ln.startswith("<!--"):                     # 注释跳过
             i += 1
             continue
@@ -295,7 +300,7 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
     #   "unsupported format character"。改用逐项 replace。
     out = tex
     for key, val in (("%(abstract)s", abstract),
-                     ("%(body)s", appsec + "\n\n" + figblock + "\n\n" + text.strip()),
+                     ("%(body)s", figblock + "\n\n" + text.strip() + "\n\n" + appsec),
                      ("%(ack)s", "The authors thank the Federal Highway Administration for releasing the TGSIM corpus in the public domain."),
                      ("%(refs)s", "\n".join(bib)),
                      ("%(bios)s", bioblock)):
