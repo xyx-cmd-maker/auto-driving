@@ -65,6 +65,8 @@ def main() -> int:
                            max(Y.ravel()) - min(Y.ravel()) + 4, fill=False, hatch="////",
                            edgecolor="0.25", lw=0.0, zorder=3))
     ax.plot([CARLA_FLOW], [5.0], marker="*", ms=8, mfc="0.15", mec="white", mew=0.7, zorder=7)
+    ax.annotate('our loop', xy=(CARLA_FLOW, 5.0), xytext=(10, 16), textcoords='offset points',
+                fontsize=TICK - 1.5, color='0.1', ha='left', va='bottom', zorder=8)
     cb = fig.colorbar(pcm, ax=ax, pad=0.02, fraction=0.05)
     # 短标签：右图 Y 轴已写全名，色标再写全名会看起来像重复文字
     cb.set_label("$P(\\mathrm{OTF}>0)$", fontsize=TICK)

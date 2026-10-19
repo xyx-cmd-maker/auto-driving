@@ -159,11 +159,10 @@ def panel_c(ax):
 
 
 def main() -> int:
-    fig = plt.figure(figsize=(7.0, 2.25), dpi=300)
-    gs = fig.add_gridspec(1, 3, width_ratios=[1.15, 1.0, 1.0], wspace=0.42)
+    fig = plt.figure(figsize=(4.9, 2.3), dpi=300)
+    gs = fig.add_gridspec(1, 2, width_ratios=[1.15, 1.0], wspace=0.38)
     panel_a(fig.add_subplot(gs[0, 0]))
     panel_b(fig.add_subplot(gs[0, 1]))
-    panel_c(fig.add_subplot(gs[0, 2]))
 
     os.makedirs(OUT, exist_ok=True)
     for ext in ("pdf", "png"):
