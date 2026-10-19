@@ -26,9 +26,10 @@ it reports the equal-K sensitivity analysis that reverses the sign of the effect
 states why superiority was untestable by construction: with five seeds the exact paired test cannot
 reach significance after multiplicity correction.
 
-We believe the work fits *IEEE Transactions on Intelligent Vehicles* because it concerns a vehicle-level
-decision input, it uses a real public trajectory corpus for an open-loop check, and its contribution is
-a boundary condition that other groups can reuse when deciding whether to add a traffic-level signal.
+We believe the work fits *IEEE Transactions on Intelligent Vehicles* for three reasons. It concerns a
+vehicle-level decision input. It uses a real public trajectory corpus for an open-loop check. Its
+contribution is a boundary condition that other groups can reuse when deciding whether to add a
+traffic-level signal.
 
 The manuscript is original, is not under consideration elsewhere, and all authors have approved the
 submission. The authors declare no competing interests. Data and code are available as described in the
