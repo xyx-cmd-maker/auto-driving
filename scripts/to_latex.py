@@ -67,14 +67,17 @@ def table(rows):
         return ""
     n = max(len(r) for r in cells)
     spec = "l" + "r" * (n - 1)
-    out = [r"\begin{table}[!t]", r"\centering", r"\footnotesize",
+    # ★ 必须限制宽度：直接排 tabular 会超出栏宽并与相邻浮动体重叠（2026-10-19 实测）。
+    #   用 resizebox 缩到栏宽，是 IEEE 模板里最稳的做法。
+    out = [r"\begin{table}[!t]", r"\centering",
+           r"\resizebox{\columnwidth}{!}{%",
            r"\begin{tabular}{%s}" % spec, r"\hline"]
     for i, r in enumerate(cells):
         r = r + [""] * (n - len(r))
         out.append(" & ".join(inline(x) for x in r) + r" \\")
         if i == 0:
             out.append(r"\hline")
-    out += [r"\hline", r"\end{tabular}", r"\end{table}", ""]
+    out += [r"\hline", r"\end{tabular}", r"}", r"\end{table}", ""]
     return "\n".join(out)
 
 

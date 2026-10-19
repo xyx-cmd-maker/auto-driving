@@ -222,7 +222,7 @@ pre-registered equivalence margin of 10\% of the off-arm mean.
 \textbf{Table 1.} Paired difference in composite cost (negative favours the OTF arm).
 \begin{table}[!t]
 \centering
-\footnotesize
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lrrrrrrrr}
 \hline
 Scenario & n & Mean $\textbackslash\{\}Delta$ & off mean & 95\% CI & 90\% CI & exact p & TOST p & Conclusion \\
@@ -233,6 +233,7 @@ lead-brake & 5 & +0.858 & 30.947 & [$-$2.092, +3.808] & [$-$1.407, +3.123] & 0.4
 lead-exit & 5 & $-$0.051 & 30.623 & [$-$1.968, +1.867] & [$-$1.523, +1.422] & 1.0000 & 0.0060 & equivalent \\
 \hline
 \end{tabular}
+}
 \end{table}
 
 Two scenarios, no lead vehicle and lead exit, have both interval bounds inside the margin under the
@@ -245,7 +246,7 @@ significance, and Section 4.5 explains why that was impossible by design rather 
 \textbf{Table 2.} Paired differences in the two performance endpoints.
 \begin{table}[!t]
 \centering
-\footnotesize
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lrrrrrr}
 \hline
 Scenario & $\textbackslash\{\}Delta$ following RMSE (m) & 95\% CI & TOST p & $\textbackslash\{\}Delta$ accel. integral & 95\% CI & TOST p \\
@@ -256,6 +257,7 @@ lead-brake & $-$0.761 & [$-$18.849, +17.327] & 0.1484 & +46.89 & [$-$49.977, +14
 lead-exit & $-$2.317 & [$-$14.851, +10.217] & 0.1161 & +8.98 & [$-$79.179, +97.131] & 0.2630 \\
 \hline
 \end{tabular}
+}
 \end{table}
 
 All eight tests are inconclusive. The point estimates have consistent signs across scenarios: following
@@ -286,7 +288,7 @@ vehicles and widened the window to 20 s. Each group runs five seeds on the lead-
 \textbf{Table 3.} Supplementary groups against the main experiment.
 \begin{table}[!t]
 \centering
-\footnotesize
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lrrrrrrr}
 \hline
 Group & Traffic & Window & Availability & Mean $\textbackslash\{\}Delta$cost & 95\% CI & CI width & Conclusion \\
@@ -296,6 +298,7 @@ A, density & 32 & 5 s & 0.084 & +1.372 & [$-$2.326, +5.069] & 7.40 & inconclusiv
 B, window & 16 & 20 s & 0.334 & +0.707 & [$-$2.709, +4.122] & 6.83 & inconclusive \\
 \hline
 \end{tabular}
+}
 \end{table}
 
 The first group leaves availability unchanged at 0.084. In our environment the OTF events come from
@@ -455,7 +458,7 @@ The authors thank the Federal Highway Administration for releasing the TGSIM cor
 \section*{Appendix: Per-Seed Results}
 \begin{table}[!t]
 \centering
-\footnotesize
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lrrrrrrr}
 \hline
 Scenario & Seed & dCost & off cost & on cost & Phi (on) & valid off/on & Group \\
@@ -492,6 +495,7 @@ lead-brake & 3 & -1.649 & 32.50 & 30.85 & 0.084 & 6/9 & no-dv \\
 lead-brake & 4 & +3.759 & 29.92 & 33.68 & 0.084 & 5/5 & no-dv \\
 \hline
 \end{tabular}
+}
 \end{table}
 
 

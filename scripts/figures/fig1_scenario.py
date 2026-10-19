@@ -49,7 +49,7 @@ def panel_a(ax):
     ax.plot([0, 10], [0, 0], color="0.35", lw=1.0, zorder=1)
     ax.plot([0, 10], [3.0, 3.0], color="0.35", lw=1.0, zorder=1)
 
-    def car(x, y, color, label=None, w=0.9, h=0.42, fs=FS - 0.5):
+    def car(x, y, color, label=None, w=1.15, h=0.44, fs=FS - 1.2):
         ax.add_patch(Rectangle((x - w / 2, y + 0.5 - h / 2), w, h, facecolor=color,
                                edgecolor="white", lw=0.6, zorder=4))
         if label:
@@ -69,7 +69,7 @@ def panel_a(ax):
     # 跨车道事件：上道车 t1 位置 → 切到 ego 道（放在 ego 与前车之间，避开遮挡）
     ax.add_patch(FancyArrowPatch((3.1, 2.28), (3.1, 1.44), arrowstyle="-|>",
                                  mutation_scale=7, lw=1.1, color=ORANGE, zorder=6))
-    ax.text(2.92, 1.60, "OTF +1", fontsize=FS, color=ORANGE, ha="right", va="center", zorder=7)
+    ax.text(3.28, 2.02, "+1", fontsize=FS - 0.5, color=ORANGE, ha="left", va="bottom", zorder=7)
 
     # 定量事实（前车搜索 ≤150 m、v≤30 m/s、窗口 5 s）放在**图注**里，
     # 不画进示意图：实测加上尺寸箭头后与 "OTF +1"/"ego"/"lead" 标签互相遮挡，
@@ -143,6 +143,7 @@ def panel_c(ax):
                            fill=False, hatch="////", edgecolor="0.25", lw=0.0))
     # 灰度可读：实心星 + 白色描边（仅靠颜色区分在灰度下会消失）
     ax.plot([1600], [5.0], marker="*", ms=7, mfc="0.15", mec="white", mew=0.7, zorder=6)
+    ax.annotate('our loop', xy=(1600, 5.0), xytext=(8, 14), textcoords='offset points', fontsize=FS - 1.5, color='0.1', ha='left', va='center', zorder=7)
 
     ax.set_xlabel("flow (veh/h)", fontsize=FS, labelpad=1.5)
     ax.set_ylabel("window $W$ (s)", fontsize=FS, labelpad=1.5)
