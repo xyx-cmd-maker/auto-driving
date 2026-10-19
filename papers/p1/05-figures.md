@@ -38,6 +38,21 @@ by two of the three scenarios. At a 5 s window the fractions are 0.39, 0.53 and 
    the controller to a non-zero OTF far more often than our closed loop does. It does not isolate
    density from lane-change behaviour as the cause.
 
+## Graphical abstract: `figs/graphical_abstract.pdf`
+
+**Three panels, left to right.** A three-lane highway with the ego vehicle, a lead vehicle, and two
+adjacent vehicles; the arrow marks one crossing of the ego lane. The middle panel gives the fraction of
+5 s windows with OTF > 0 for three sources: recorded traffic (TGSIM) 0.53, synthetic traffic (SUMO) at
+1800 to 2400 veh/h 0.39, and our closed loop 0.084. The right panel states the conclusion: explainability
+rather than performance, at no additional sensing cost. Values are the same as in Figure 2 and Table 1;
+the middle panel is illustrative and carries no interval.
+
+**Specification status.** Size and whether a graphical abstract is mandatory for *IEEE Transactions on
+Intelligent Vehicles* are marked **[需核实]**: the journal's author page
+(https://ieee-itss.org/pub/t-iv/author/) could not be read past its navigation menu, and no authoritative
+statement was located. The current file is 7.2 by 2.1 in at 300 dpi, 2160 px wide, which satisfies the
+common IEEE online-only requirement of at least 1300 px but has not been checked against this journal.
+
 ## Table 1 / Table 2: see `audit/第一次组会/15-a1-full-results.md`
 
 Intervals are Student t intervals on five paired differences. The exact p-value comes from enumerating
