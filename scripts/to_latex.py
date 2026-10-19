@@ -113,7 +113,7 @@ def main() -> int:
             continue
         # "**Figure N.** ..." 段落是图注的来源，已由 \caption 排过；
         # 若再作为正文输出，编译后同一图注会印两遍（2026-10-19 实测）。
-        if re.match(r"^\*\*Figure\s*\d", ln.strip()):
+        if re.match(r"^\*\*(Figure|Fig\.)\s*\d", ln.strip()):
             i += 1
             continue
         if ln.startswith("<!--"):                     # 注释跳过
