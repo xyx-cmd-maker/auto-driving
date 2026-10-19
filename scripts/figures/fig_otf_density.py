@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+import sys as _dep_sys
+print("[DEPRECATED] 本脚本产出的图已不用于稿件；Fig.2 现由 fig_otf_phase_real.py 生成。",
+      file=_dep_sys.stderr)
 # ─────────────────────────────────────────────────────────────────────────────
 # 【已废弃 / DEPRECATED，2026-10-19】
 # 本脚本产出的图**不再用于稿件**。Fig.2 现由 `fig_otf_phase_real.py` 生成
