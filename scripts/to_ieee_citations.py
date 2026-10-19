@@ -119,7 +119,9 @@ def main() -> int:
     lines = ["## References", ""]
     for key, n in sorted(num.items(), key=lambda kv: kv[1]):
         if key == "huang2023thesis":
-            lines.append("[%d] Huang M. 基于超车频次的自动驾驶车辆行为决策研究. 吉林大学博士学位论文, 2023." % n)
+            lines.append(("[%d] Mengyuan Huang. Research on behavioural decision making for automated " + 
+                 "vehicles based on overtaking frequency. Ph.D. dissertation, Jilin University, " + 
+                 "Changchun, China, 2023 (in Chinese).") % n)
         elif key in bib:
             lines.append("[%d] %s" % (n, ieee_entry(bib[key])))
         else:
