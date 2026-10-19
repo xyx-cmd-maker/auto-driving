@@ -38,6 +38,53 @@ performance, and we recommend measuring availability before ablating a traffic-l
 overtaking frequency, traffic-flow scalar, continuous-time neural control, equivalence testing
 \end{IEEEkeywords}
 
+\appendix\section{Per-Seed Results}
+\begin{center}\footnotesize
+Table IV. Per-seed results for the main and degraded groups.\\[2pt]
+\begin{center}
+\centering
+\small
+\begin{tabular}{lrrrrrrr}
+\hline
+Scenario & Seed & dCost & off cost & on cost & Phi (on) & valid off/on & Group \\
+\hline
+cutin & 0 & +2.618 & 30.34 & 32.96 & 0.084 & 8/5 & main \\
+cutin & 1 & +0.434 & 30.05 & 30.48 & 0.084 & 7/6 & main \\
+cutin & 2 & -0.627 & 30.32 & 29.70 & 0.084 & 5/7 & main \\
+cutin & 3 & -2.949 & 32.31 & 29.36 & 0.084 & 6/9 & main \\
+cutin & 4 & +2.154 & 28.55 & 30.70 & 0.084 & 5/5 & main \\
+lead-brake & 0 & +2.344 & 30.61 & 32.95 & 0.084 & 8/5 & main \\
+lead-brake & 1 & +2.167 & 30.39 & 32.55 & 0.084 & 7/7 & main \\
+lead-brake & 2 & -1.838 & 31.41 & 29.57 & 0.084 & 5/7 & main \\
+lead-brake & 3 & -1.578 & 32.42 & 30.84 & 0.084 & 6/9 & main \\
+lead-brake & 4 & +3.193 & 29.92 & 33.11 & 0.084 & 5/5 & main \\
+lead-brake & 5 & -0.538 & 31.00 & 30.46 & 0.084 & 7/4 & main \\
+lead-brake & 6 & +0.653 & 30.35 & 31.01 & 0.084 & 8/5 & main \\
+lead-brake & 7 & -0.815 & 30.42 & 29.60 & 0.084 & 8/7 & main \\
+lead-brake & 8 & -0.235 & 32.06 & 31.83 & 0.084 & 4/4 & main \\
+lead-brake & 9 & +0.736 & 29.66 & 30.40 & 0.084 & 10/7 & main \\
+lead-exit & 0 & +1.164 & 31.05 & 32.21 & 0.084 & 8/5 & main \\
+lead-exit & 1 & +0.192 & 30.49 & 30.68 & 0.167 & 7/7 & main \\
+lead-exit & 2 & +0.214 & 30.59 & 30.80 & 0.168 & 5/7 & main \\
+lead-exit & 3 & -2.708 & 32.12 & 29.42 & 0.084 & 6/9 & main \\
+lead-exit & 4 & +0.885 & 28.86 & 29.75 & 0.167 & 5/4 & main \\
+none & 0 & +1.745 & 30.39 & 32.14 & 0.084 & 8/5 & main \\
+none & 1 & +0.789 & 30.53 & 31.32 & 0.084 & 7/6 & main \\
+none & 2 & -0.505 & 30.32 & 29.81 & 0.084 & 5/7 & main \\
+none & 3 & -2.959 & 32.62 & 29.66 & 0.084 & 6/9 & main \\
+none & 4 & +2.208 & 28.55 & 30.76 & 0.084 & 5/5 & main \\
+lead-brake & 0 & +3.417 & 30.59 & 34.01 & 0.084 & 8/5 & no-dv \\
+lead-brake & 1 & +2.556 & 30.38 & 32.94 & 0.084 & 7/7 & no-dv \\
+lead-brake & 2 & -1.796 & 31.40 & 29.61 & 0.084 & 5/7 & no-dv \\
+lead-brake & 3 & -1.649 & 32.50 & 30.85 & 0.084 & 6/9 & no-dv \\
+lead-brake & 4 & +3.759 & 29.92 & 33.68 & 0.084 & 5/5 & no-dv \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{center}
+
+
 \begin{figure*}[!t]
 \centering
 \includegraphics[width=\textwidth]{figs/fig1_scenario.pdf}
@@ -453,53 +500,6 @@ The authors thank the Federal Highway Administration for releasing the TGSIM cor
 \bibitem{ref6} Dirk Helbing, Péter Molnár, "Social force model for pedestrian dynamics," Physical Review E, vol. 51, no. 5, pp. 4282--4286, 1995, doi: 10.1103/PhysRevE.51.4282.
 \bibitem{ref7} Eric Aislan Antonelo, Eduardo Camponogara, Laio Oriel Seman, Jean Panaioti Jordanou, Eduardo Rehbein de Souza, Jomi Fred Hübner, "Physics-informed neural nets for control of dynamical systems," Neurocomputing, vol. 579, pp. 127419, 2024, doi: 10.1016/j.neucom.2024.127419.
 \end{thebibliography}
-
-\section*{Appendix: Per-Seed Results}
-\begin{center}\footnotesize
-Table IV. Per-seed results for the main and degraded groups.\\[2pt]
-\begin{center}
-\centering
-\small
-\begin{tabular}{lrrrrrrr}
-\hline
-Scenario & Seed & dCost & off cost & on cost & Phi (on) & valid off/on & Group \\
-\hline
-cutin & 0 & +2.618 & 30.34 & 32.96 & 0.084 & 8/5 & main \\
-cutin & 1 & +0.434 & 30.05 & 30.48 & 0.084 & 7/6 & main \\
-cutin & 2 & -0.627 & 30.32 & 29.70 & 0.084 & 5/7 & main \\
-cutin & 3 & -2.949 & 32.31 & 29.36 & 0.084 & 6/9 & main \\
-cutin & 4 & +2.154 & 28.55 & 30.70 & 0.084 & 5/5 & main \\
-lead-brake & 0 & +2.344 & 30.61 & 32.95 & 0.084 & 8/5 & main \\
-lead-brake & 1 & +2.167 & 30.39 & 32.55 & 0.084 & 7/7 & main \\
-lead-brake & 2 & -1.838 & 31.41 & 29.57 & 0.084 & 5/7 & main \\
-lead-brake & 3 & -1.578 & 32.42 & 30.84 & 0.084 & 6/9 & main \\
-lead-brake & 4 & +3.193 & 29.92 & 33.11 & 0.084 & 5/5 & main \\
-lead-brake & 5 & -0.538 & 31.00 & 30.46 & 0.084 & 7/4 & main \\
-lead-brake & 6 & +0.653 & 30.35 & 31.01 & 0.084 & 8/5 & main \\
-lead-brake & 7 & -0.815 & 30.42 & 29.60 & 0.084 & 8/7 & main \\
-lead-brake & 8 & -0.235 & 32.06 & 31.83 & 0.084 & 4/4 & main \\
-lead-brake & 9 & +0.736 & 29.66 & 30.40 & 0.084 & 10/7 & main \\
-lead-exit & 0 & +1.164 & 31.05 & 32.21 & 0.084 & 8/5 & main \\
-lead-exit & 1 & +0.192 & 30.49 & 30.68 & 0.167 & 7/7 & main \\
-lead-exit & 2 & +0.214 & 30.59 & 30.80 & 0.168 & 5/7 & main \\
-lead-exit & 3 & -2.708 & 32.12 & 29.42 & 0.084 & 6/9 & main \\
-lead-exit & 4 & +0.885 & 28.86 & 29.75 & 0.167 & 5/4 & main \\
-none & 0 & +1.745 & 30.39 & 32.14 & 0.084 & 8/5 & main \\
-none & 1 & +0.789 & 30.53 & 31.32 & 0.084 & 7/6 & main \\
-none & 2 & -0.505 & 30.32 & 29.81 & 0.084 & 5/7 & main \\
-none & 3 & -2.959 & 32.62 & 29.66 & 0.084 & 6/9 & main \\
-none & 4 & +2.208 & 28.55 & 30.76 & 0.084 & 5/5 & main \\
-lead-brake & 0 & +3.417 & 30.59 & 34.01 & 0.084 & 8/5 & no-dv \\
-lead-brake & 1 & +2.556 & 30.38 & 32.94 & 0.084 & 7/7 & no-dv \\
-lead-brake & 2 & -1.796 & 31.40 & 29.61 & 0.084 & 5/7 & no-dv \\
-lead-brake & 3 & -1.649 & 32.50 & 30.85 & 0.084 & 6/9 & no-dv \\
-lead-brake & 4 & +3.759 & 29.92 & 33.68 & 0.084 & 5/5 & no-dv \\
-\hline
-\end{tabular}
-\end{center}
-
-\end{center}
-
 
 \section*{Author Biographies}
 
