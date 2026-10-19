@@ -109,8 +109,9 @@ lives in a single module (src/otf/otf_core.py) and is shared by the CARLA loop a
 
 ## 2.2 Controller
 
-Both arms use a closed-form continuous-time (CfC) cell with a direct linear path. The hidden state has
-24 units. At each step the cell receives a normalized observation vector and returns an updated state.
+Both arms use a closed-form continuous-time (CfC) cell [2] with a direct linear path.
+The hidden state has 24 units. At each step the cell receives a normalized observation vector and returns
+an updated state.
 The commanded acceleration is a bounded linear read-out:
 
     a(t) = 3.0 * tanh( W_a x(t) + W_h h(t) )
@@ -197,14 +198,14 @@ across arms. Collisions are reported as raw counts.
 
 Car-following models describe the longitudinal response to a lead vehicle, and the classical families
 differ in how much memory they carry. String-stability analysis then asks whether a perturbation
-amplifies along a platoon [2]. That line of work treats the lead vehicle as the
+amplifies along a platoon [3]. That line of work treats the lead vehicle as the
 relevant input. Everything behind and beside the ego enters, if at all, through aggregate parameters
 such as density or wave speed.
 
 A second line feeds traffic-level information to the controller explicitly. One field experiment
 showed that a small number of controlled vehicles can dissipate stop-and-go waves in the surrounding
-flow [3]. Cooperative schemes go further and share planned trajectories, solving a
-joint optimization over a rolling horizon [4]. Those methods work with rich per-vehicle
+flow [4]. Cooperative schemes go further and share planned trajectories, solving a
+joint optimization over a rolling horizon [5]. Those methods work with rich per-vehicle
 messages rather than one scalar, and they assume connectivity. Our question is narrower: whether one
 scalar computed from unconnected traffic carries enough information to change a low-level command.
 
@@ -216,7 +217,7 @@ OTF features are added to classifiers. Those results are classification accuraci
 closes the loop. We do not reproduce them here, and the dataset behind them is not available to us.
 
 The idea that surrounding traffic exerts a pressure that can be summarized is older than OTF.
-Social-force formulations describe the same intuition for pedestrians [5]. That
+Social-force formulations describe the same intuition for pedestrians [6]. That
 formulation targets pedestrians, and we do not assume it transfers to vehicles. Our contribution is
 not the notion of pressure but a closed-loop test of whether one particular scalarization of it
 changes a control command.
@@ -224,7 +225,7 @@ changes a control command.
 ## 3.3 Continuous-time and closed-form recurrent models
 
 Liquid time-constant and closed-form continuous-time networks replace discrete recurrence with a
-continuous ODE-like update and report large speedups over conventional recurrent cells [6]. The claimed advantage is compute per step rather than sample efficiency. We use a CfC cell
+continuous ODE-like update and report large speedups over conventional recurrent cells [2]. The claimed advantage is compute per step rather than sample efficiency. We use a CfC cell
 precisely because it is cheap enough to evaluate twelve candidates per arm inside a 60 s episode. That
 cost is what makes an equal-budget ablation affordable on a laptop GPU.
 
@@ -511,9 +512,9 @@ corresponds to the conventional two one-sided tests at alpha = 0.05, is reported
 ## References
 
 [1] Huang M. 基于超车频次的自动驾驶车辆行为决策研究. 吉林大学博士学位论文, 2023.
-[2] Jeroen Ploeg, Nathan van de Wouw, Henk Nijmeijer, "Lp String Stability of Cascaded Systems: Application to Vehicle Platooning," IEEE Transactions on Control Systems Technology, vol. 22, no. 2, pp. 786--793, 2014, doi: 10.1109/TCST.2013.2258346.
-[3] Raphael E. Stern, Shumo Cui, Maria Laura Delle Monache, Rahul Bhadani, Matt Bunting, Miles Churchill, Nathaniel Hamilton, R’mani Haulcy, Hannah Pohlmann, Fangyu Wu, Benedetto Piccoli, Benjamin Seibold, Jonathan Sprinkle, Daniel B. Work, "Dissipation of stop-and-go waves via control of autonomous vehicles: Field experiments," Transportation Research Part C: Emerging Technologies, vol. 89, pp. 205--221, 2018, doi: 10.1016/j.trc.2018.02.005.
-[4] Jiawei Wang, Yang Zheng, Keqiang Li, Qing Xu, "DeeP-LCC: Data-EnablEd Predictive Leading Cruise Control in Mixed Traffic Flow," IEEE Transactions on Control Systems Technology, vol. 31, no. 6, pp. 2760--2776, 2023, doi: 10.1109/TCST.2023.3288636.
-[5] Dirk Helbing, Péter Molnár, "Social force model for pedestrian dynamics," Physical Review E, vol. 51, no. 5, pp. 4282--4286, 1995, doi: 10.1103/PhysRevE.51.4282.
-[6] Ramin Hasani, Mathias Lechner, Alexander Amini, Lucas Liebenwein, Aaron Ray, Max Tschaikowski, Gerald Teschl, Daniela Rus, "Closed-form continuous-time neural networks," Nature Machine Intelligence, vol. 4, no. 11, pp. 992--1003, 2022, doi: 10.1038/s42256-022-00556-7.
+[2] Ramin Hasani, Mathias Lechner, Alexander Amini, Lucas Liebenwein, Aaron Ray, Max Tschaikowski, Gerald Teschl, Daniela Rus, "Closed-form continuous-time neural networks," Nature Machine Intelligence, vol. 4, no. 11, pp. 992--1003, 2022, doi: 10.1038/s42256-022-00556-7.
+[3] Jeroen Ploeg, Nathan van de Wouw, Henk Nijmeijer, "Lp String Stability of Cascaded Systems: Application to Vehicle Platooning," IEEE Transactions on Control Systems Technology, vol. 22, no. 2, pp. 786--793, 2014, doi: 10.1109/TCST.2013.2258346.
+[4] Raphael E. Stern, Shumo Cui, Maria Laura Delle Monache, Rahul Bhadani, Matt Bunting, Miles Churchill, Nathaniel Hamilton, R’mani Haulcy, Hannah Pohlmann, Fangyu Wu, Benedetto Piccoli, Benjamin Seibold, Jonathan Sprinkle, Daniel B. Work, "Dissipation of stop-and-go waves via control of autonomous vehicles: Field experiments," Transportation Research Part C: Emerging Technologies, vol. 89, pp. 205--221, 2018, doi: 10.1016/j.trc.2018.02.005.
+[5] Jiawei Wang, Yang Zheng, Keqiang Li, Qing Xu, "DeeP-LCC: Data-EnablEd Predictive Leading Cruise Control in Mixed Traffic Flow," IEEE Transactions on Control Systems Technology, vol. 31, no. 6, pp. 2760--2776, 2023, doi: 10.1109/TCST.2023.3288636.
+[6] Dirk Helbing, Péter Molnár, "Social force model for pedestrian dynamics," Physical Review E, vol. 51, no. 5, pp. 4282--4286, 1995, doi: 10.1103/PhysRevE.51.4282.
 [7] Eric Aislan Antonelo, Eduardo Camponogara, Laio Oriel Seman, Jean Panaioti Jordanou, Eduardo Rehbein de Souza, Jomi Fred Hübner, "Physics-informed neural nets for control of dynamical systems," Neurocomputing, vol. 579, pp. 127419, 2024, doi: 10.1016/j.neucom.2024.127419.

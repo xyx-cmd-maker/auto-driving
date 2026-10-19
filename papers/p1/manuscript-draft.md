@@ -107,8 +107,9 @@ lives in a single module (src/otf/otf_core.py) and is shared by the CARLA loop a
 
 ## 2.2 Controller
 
-Both arms use a closed-form continuous-time (CfC) cell with a direct linear path. The hidden state has
-24 units. At each step the cell receives a normalized observation vector and returns an updated state.
+Both arms use a closed-form continuous-time (CfC) cell (Hasani et al., 2022) with a direct linear path.
+The hidden state has 24 units. At each step the cell receives a normalized observation vector and returns
+an updated state.
 The commanded acceleration is a bounded linear read-out:
 
     a(t) = 3.0 * tanh( W_a x(t) + W_h h(t) )
