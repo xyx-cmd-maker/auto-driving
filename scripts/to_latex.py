@@ -225,37 +225,24 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
         r"\end{figure}",
     ])
 
-    # 作者小传：取 08 文件里两个以 "> Huang"/"> Xia" 开头的引用块
-    bio_md = io.open(os.path.join(P, "08-author-bios.md"), encoding="utf-8").read()
-    bios = []
-    for who in ("> Huang Mengyuan received", "> Xia Yuxuan is currently"):
-        b = grab_para(bio_md.replace("> ", "> ", 1), who)
-        if not b:
-            # 处理多行引用块：逐行去掉 "> "
-            lines = bio_md.split("\n")
-            for k, ln in enumerate(lines):
-                if ln.strip().startswith(who):
-                    buf, j = [], k
-                    while j < len(lines) and lines[j].strip().startswith(">"):
-                        buf.append(lines[j].strip().lstrip(">").strip()); j += 1
-                    b = inline(" ".join(x.lstrip(">").strip() for x in buf))
-                    # 剔除中文核注（"英文名已核..."），否则 pdflatex 报 Unicode 错
-                    b = re.sub(r"[\u3000-\u303f\u4e00-\u9fff\uff00-\uffef][^.]*\.?\s*", "", b).strip()
-                    break
-        if b:
-            bios.append("\\vspace{1ex}\\noindent\\textbf{%s}\n\n%s" % (
-                "Huang Mengyuan" if "Huang" in who else "Xia Yuxuan", b))
-    # 附录：逐局数据表（读 09-appendix.md 的管道表格，缩放到栏宽）
-    appblock = ""
-    ap = os.path.join(P, "09-appendix.md")
-    if os.path.exists(ap):
-        ap_lines = io.open(ap, encoding="utf-8").read().split("\n")
-        tbl = [l for l in ap_lines if l.lstrip().startswith("|")]
-        if tbl:
-            # 注意：table() 已返回完整的 table 环境，外面**不能**再套一层
-            # （否则 LaTeX 报 "Not in outer par mode"，2026-10-19 实测）
-            appblock = "\\section*{Appendix: Per-Seed Results}\n" + table(tbl)
-    bioblock = "\\section*{Author Biographies}\n\n" + "\n\n".join(bios) if bios else ""
+    # 作者小传：**硬编码**（2026-10-19 由抓取改为固定文本）。
+    # 抓取版会把 markdown 的 ">" 前缀、中文核对注、以及重复变体一起带进来，
+    # 编译后出现 "> Huang Mengyuan ..." 与乱码——实测事故，不再抓取。
+    bio_huang = (
+        "Huang Mengyuan received the B.E. degree in automotive operation engineering from Jilin "
+        "University, Changchun, China, in 2017, and the Ph.D. degree in vehicle operation "
+        "engineering from Jilin University in 2023. She is currently a Lecturer with Shenzhen "
+        "Polytechnic University, Shenzhen, China. Her research interests include perception, "
+        "prediction, and decision making for autonomous driving, and vehicle-road cooperation."
+    )
+    bio_xia = (
+        "Xia Yuxuan is currently pursuing the B.Eng. degree in intelligent connected vehicle "
+        "engineering with Shenzhen Polytechnic University, Shenzhen, China. His research interests "
+        "include autonomous driving, embodied intelligence, and large language models."
+    )
+    bioblock = ("\\section*{Author Biographies}\n\n"
+                "\\noindent\\textbf{Huang Mengyuan}\\par\\noindent " + bio_huang + "\n\n"
+                "\\noindent\\textbf{Xia Yuxuan}\\par\\noindent " + bio_xia + "\n")
     bioblock = (appblock + "\n\n" + bioblock).strip()
 
     # ★ 不能用 `%` 格式化：LaTeX 模板里到处是 `%`（注释符），会触发
