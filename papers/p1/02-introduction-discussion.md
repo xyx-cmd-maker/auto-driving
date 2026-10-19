@@ -71,10 +71,15 @@ confined to a regime we did not reach, remains compatible with our data.
 
 ## 5.2 Why no gain
 
-The result is consistent with redundancy at the controller input. A longitudinal controller that already
-observes lead gap and relative speed has most of what a one-dimensional traffic aggregate can say. OTF
-summarizes the behaviour of vehicles that are not the lead vehicle. When those vehicles do not constrain
-the ego, their aggregate contributes little to the instantaneous decision.
+The result is consistent with redundancy at the controller input, and we tested that reading directly.
+We removed relative speed from the observation, so that both arms saw only gap and ego speed. The
+off-arm cost moved by 0.14, from 30.82 with ten runs to 30.96 with five, and the two ranges overlap
+almost exactly. The recurrent state therefore rebuilds the missing rate from the history of the gap.
+
+That matters for the interpretation. A controller that can reconstruct one of its own inputs has little
+left to gain from a fourth scalar that summarizes vehicles other than the lead. OTF describes traffic
+that does not constrain the ego at the moment of decision. When those vehicles are unconstrained, their
+aggregate adds nothing to the instantaneous command.
 
 Signal scarcity is the obvious competing explanation, and we tested it rather than assuming it. In the
 main experiment the fraction of windows with OTF > 0 was 0.084 to 0.167, so the fourth input was zero
