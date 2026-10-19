@@ -286,12 +286,12 @@ significance, and Section 4.5 explains why that was impossible by design rather 
 
 **Table 2.** Paired differences in the two performance endpoints.
 
-| Scenario | Δ following RMSE (m) | 95% CI | TOST p | Δ accel. integral | 95% CI | TOST p |
-|---|---|---|---|---|---|---|
-| none | −4.361 | [−26.629, +17.908] | 0.3184 | +34.47 | [−6.004, +74.934] | 0.5786 |
-| cutin | −4.767 | [−27.421, +17.888] | 0.3432 | +40.13 | [−13.938, +94.190] | 0.6637 |
-| lead-brake | −0.761 | [−18.849, +17.327] | 0.1484 | +46.89 | [−49.977, +143.762] | 0.6435 |
-| lead-exit | −2.317 | [−14.851, +10.217] | 0.1161 | +8.98 | [−79.179, +97.131] | 0.2630 |
+| Scenario | Δ RMSE (m) [95% CI] | TOST p | Δ accel. integral [95% CI] | TOST p |
+|---|---|---|---|---|
+| none | −4.361 [−26.629, +17.908] | 0.3184 | +34.47 [−6.004, +74.934] | 0.5786 |
+| cutin | −4.767 [−27.421, +17.888] | 0.3432 | +40.13 [−13.938, +94.190] | 0.6637 |
+| lead-brake | −0.761 [−18.849, +17.327] | 0.1484 | +46.89 [−49.977, +143.762] | 0.6435 |
+| lead-exit | −2.317 [−14.851, +10.217] | 0.1161 | +8.98 [−79.179, +97.131] | 0.2630 |
 
 All eight tests are inconclusive. The point estimates have consistent signs across scenarios: following
 error is lower in the OTF arm in all four, and the acceleration-squared integral is higher in all four,
