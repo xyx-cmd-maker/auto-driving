@@ -5,17 +5,11 @@
 ## Figure 1: `figs/fig1_scenario.pdf`
 
 **Overtaking pressure and its measurement.** **A**, three-lane highway with the ego vehicle (blue), the
-lead vehicle, and vehicles in the adjacent lanes. The arrow marks one crossing of the ego lane, which
-the counting rule scores as +1. The controller searches for a lead vehicle 150 m ahead in the ego lane,
-and commanded speed is bounded at 30 m/s. **B**, the counting rule on a time–lane plane. A vehicle
-entering the ego lane from an adjacent lane scores +1; a vehicle leaving it scores −1. Crossings are
-counted inside a sliding window W, set to 5 s in the main experiment and 20 s in the supplementary
-group. **C**, availability of the signal, computed in SUMO with the same OTF definition: the fraction of
-sliding windows with OTF > 0 against traffic flow and window length, over three seeds. White contours
-mark 0.25, 0.50 and 0.75. The hatched band marks the equivalent flow of the CARLA setting, estimated
-from sixteen vehicles on a 420 m three-lane segment; the star marks the value measured there, 0.084 at
-W = 5 s. The map describes where the signal exists. It is not offered as an explanation for the
-closed-loop result, which Section 5.2 attributes to redundancy rather than to scarcity.
+lead vehicle, and vehicles in the adjacent lanes. The arrow marks one crossing of the ego lane, which the
+counting rule scores as +1. The controller searches for a lead vehicle 150 m ahead in the ego lane, and
+commanded speed is bounded at 30 m/s. **B**, the counting rule on a time–lane plane. A vehicle entering
+the ego lane from an adjacent lane scores +1; a vehicle leaving it scores −1. Crossings inside a sliding
+window W are summed; W is 5 s in the main experiment and 20 s in the supplementary group.
 
 ## Figure 2: `figs/fig2_availability_real.pdf`
 
