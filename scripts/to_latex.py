@@ -243,6 +243,14 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
     bioblock = ("\\section*{Author Biographies}\n\n"
                 "\\noindent\\textbf{Huang Mengyuan}\\par\\noindent " + bio_huang + "\n\n"
                 "\\noindent\\textbf{Xia Yuxuan}\\par\\noindent " + bio_xia + "\n")
+    # 附录：逐局数据表
+    appblock = ""
+    ap = os.path.join(P, "09-appendix.md")
+    if os.path.exists(ap):
+        ap_lines = io.open(ap, encoding="utf-8").read().split("\n")
+        tbl = [l for l in ap_lines if l.lstrip().startswith("|")]
+        if tbl:
+            appblock = "\\section*{Appendix: Per-Seed Results}\n" + table(tbl)
     bioblock = (appblock + "\n\n" + bioblock).strip()
 
     # ★ 不能用 `%` 格式化：LaTeX 模板里到处是 `%`（注释符），会触发
