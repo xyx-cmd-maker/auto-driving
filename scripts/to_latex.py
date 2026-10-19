@@ -179,12 +179,14 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
 \label{fig:fig1}
 \end{figure}"""
 
-    out = tex % {
-        "abstract": abstract,
-        "body": text.strip() + "\n\n" + figblock,
-        "ack": "The authors thank the Federal Highway Administration for releasing the TGSIM corpus in the public domain.",
-        "refs": "\n".join(bib),
-    }
+    # ★ 不能用 `%` 格式化：LaTeX 模板里到处是 `%`（注释符），会触发
+    #   "unsupported format character"。改用逐项 replace。
+    out = tex
+    for key, val in (("%(abstract)s", abstract),
+                     ("%(body)s", text.strip() + "\n\n" + figblock),
+                     ("%(ack)s", "The authors thank the Federal Highway Administration for releasing the TGSIM corpus in the public domain."),
+                     ("%(refs)s", "\n".join(bib))):
+        out = out.replace(key, val)
     io.open(OUT, "w", encoding="utf-8").write(out)
     print("  已写 %s（%d 行）" % (OUT, out.count("\n")))
     print("  ⚠ 本机未装 LaTeX：**无法在此编译**，页数需在 Overleaf/TeX Live 上核对（Regular 上限 10 页）")
