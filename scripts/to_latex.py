@@ -196,6 +196,7 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
 %(refs)s
 \end{thebibliography}
 
+\clearpage
 %(bios)s
 
 \end{document}
@@ -246,19 +247,19 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
     cap2 = grab_para(figs_md, "**Availability in synthetic")
 
     figblock = "\n".join([
-        r"\begin{figure*}[!t]",
+        r"\begin{figure}[!t]",
         r"\centering",
-        r"\includegraphics[width=\textwidth]{figs/fig1_scenario.pdf}",
+        r"\includegraphics[width=\columnwidth]{figs/fig1_scenario.pdf}",
         r"\caption{%s}" % cap1,
         r"\label{fig:fig1}",
-        r"\end{figure*}",
+        r"\end{figure}",
         "",
-        r"\begin{figure*}[!t]",
+        r"\begin{figure}[!t]",
         r"\centering",
         r"\includegraphics[width=\columnwidth]{figs/fig2_availability_real.pdf}",
         r"\caption{%s}" % cap2,
         r"\label{fig:fig2}",
-        r"\end{figure*}",
+        r"\end{figure}",
     ])
 
     # 作者小传：**硬编码**（2026-10-19 由抓取改为固定文本）。
@@ -293,7 +294,7 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
                         "\\begin{center}\\footnotesize\n"
                         "Table IV. Per-seed results for the main and degraded groups.\\\\[2pt]\n"
                         + tb + "\n\\end{center}\n")
-    bioblock = bioblock.strip()
+    bioblock = "\\clearpage`n" + bioblock.strip()
 
     appsec = appblock
     # ★ 不能用 `%` 格式化：LaTeX 模板里到处是 `%`（注释符），会触发

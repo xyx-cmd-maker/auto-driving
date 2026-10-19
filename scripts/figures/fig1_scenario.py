@@ -159,7 +159,7 @@ def panel_c(ax):
 
 
 def main() -> int:
-    fig = plt.figure(figsize=(4.9, 2.3), dpi=300)
+    fig = plt.figure(figsize=(3.5, 1.95), dpi=300)
     gs = fig.add_gridspec(1, 2, width_ratios=[1.15, 1.0], wspace=0.38)
     panel_a(fig.add_subplot(gs[0, 0]))
     panel_b(fig.add_subplot(gs[0, 1]))
