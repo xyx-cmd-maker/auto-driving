@@ -99,7 +99,7 @@ parts = [
     "> **本文件是自动拼装的初稿**（`scripts/assemble_manuscript.py`）。",
     "> 章节来源：`01-abstract-final.md` / `02-introduction-discussion.md` / `03-methods.md` /",
     "> `04-related-work.md` / `_results-fragment.md`。**改稿请改源文件再重新拼装**，不要直接改本文件。",
-    "> 图表：Fig.1 `figs/fig1_scenario.pdf` ｜ Fig.2 `figs/fig_otf_density.pdf` ｜ 相图 `figs/fig_otf_phase.pdf`。",
+    "> 图表：Fig.1 `figs/fig1_scenario.pdf`（A 场景 / B 计数规则）｜ Fig.2 `figs/fig2_availability_real.pdf`（A 可用性相图 / B 三来源对比）。",
 ]
 
 out = "\n".join(parts) + "\n"
