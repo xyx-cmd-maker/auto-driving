@@ -20,9 +20,10 @@ closed-loop result, which Section 5.2 attributes to redundancy rather than to sc
 ## Figure 2: `figs/fig2_availability_real.pdf`
 
 **Availability in synthetic and recorded traffic.** **A**, the SUMO map of Fig. 1C with the CARLA
-operating point. **B**, the same quantity at three window lengths for three sources: SUMO synthetic
-traffic at 1800 to 2400 veh/h (blue), recorded TGSIM traffic (orange squares, mean over ten runs with
-the observed range as an error bar), and our CARLA closed loop (stars). The closed-loop value at
+operating point. **B**, the same quantity at three window lengths for three sources. SUMO synthetic
+traffic at 1800 to 2400 veh/h is drawn in blue. Recorded TGSIM traffic is drawn as orange squares: the
+mean over ten runs, with the observed range as an error bar. Our CARLA closed loop is drawn as stars.
+The closed-loop value at
 W = 5 s is 0.084 from the main experiment and at W = 10 s is 0.167. At W = 20 s the supplementary
 groups reach 0.334 in two scenarios and between 0.334 and 0.497 in the third, because lead-exit
 produces crossings of the ego lane without any injection. The star is drawn at 0.334, the value shared
