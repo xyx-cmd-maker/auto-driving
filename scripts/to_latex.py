@@ -133,7 +133,7 @@ def main() -> int:
 
 \title{Overtaking Pressure on Multi-Lane Highways as a Control Input\\ for Continuous-Time Car-Following}
 
-\author{Xia~Yuxuan and Huang~Mengyuan% <- 通讯作者
+\author{Xia~Yuxuan and Huang~Mengyuan% corresponding author
 \thanks{Manuscript received XXXX; revised XXXX.}
 \thanks{X.~Yuxuan and H.~Mengyuan are with Shenzhen Polytechnic University, Shenzhen, China
 (e-mail: xiayuxuan@mail.szpu.edu.cn; huangmy2215@szpu.edu.cn).}}
@@ -156,6 +156,8 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
 \begin{thebibliography}{1}
 %(refs)s
 \end{thebibliography}
+
+%(bios)s
 
 \end{document}
 """
@@ -183,12 +185,64 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
         bib = [r"\bibitem{ref1} REFERENCES PENDING"]
 
     # 图占位：正文里若有 figs/ 引用，插入 figure 环境
-    figblock = r"""\begin{figure}[!t]
-\centering
-\includegraphics[width=\columnwidth]{figs/fig1_scenario.pdf}
-\caption{Overtaking pressure and its measurement. See the caption file for the full text.}
-\label{fig:fig1}
-\end{figure}"""
+    # ★ 图注与作者小传从源文件读取，避免 .tex 与 markdown 分叉（2026-10-19）
+    def grab_para(md: str, prefix: str) -> str:
+        """取以 prefix 开头的段落（到空行为止），转 LaTeX。"""
+        lines = md.split("\n")
+        for k, ln in enumerate(lines):
+            if ln.strip().startswith(prefix):
+                buf = [ln.strip()]
+                j = k + 1
+                # 取到下一个二级标题为止（首版只取到空行，导致 Fig.2 的"三条限制"整段丢失）
+                while j < len(lines) and not lines[j].startswith("## "):
+                    s = lines[j].strip()
+                    if s:
+                        buf.append(s.lstrip("- ").strip())
+                    j += 1
+                return inline(" ".join(buf))
+        return ""
+
+    figs_md = io.open(os.path.join(P, "05-figures.md"), encoding="utf-8").read()
+    cap1 = grab_para(figs_md, "**Overtaking pressure")
+    cap2 = grab_para(figs_md, "**Availability in synthetic")
+
+    figblock = "\n".join([
+        r"\begin{figure}[!t]",
+        r"\centering",
+        r"\includegraphics[width=\columnwidth]{figs/fig1_scenario.pdf}",
+        r"\caption{%s}" % cap1,
+        r"\label{fig:fig1}",
+        r"\end{figure}",
+        "",
+        r"\begin{figure}[!t]",
+        r"\centering",
+        r"\includegraphics[width=\columnwidth]{figs/fig2_availability_real.pdf}",
+        r"\caption{%s}" % cap2,
+        r"\label{fig:fig2}",
+        r"\end{figure}",
+    ])
+
+    # 作者小传：取 08 文件里两个以 "> Huang"/"> Xia" 开头的引用块
+    bio_md = io.open(os.path.join(P, "08-author-bios.md"), encoding="utf-8").read()
+    bios = []
+    for who in ("> Huang Mengyuan received", "> Xia Yuxuan is currently"):
+        b = grab_para(bio_md.replace("> ", "> ", 1), who)
+        if not b:
+            # 处理多行引用块：逐行去掉 "> "
+            lines = bio_md.split("\n")
+            for k, ln in enumerate(lines):
+                if ln.strip().startswith(who):
+                    buf, j = [], k
+                    while j < len(lines) and lines[j].strip().startswith(">"):
+                        buf.append(lines[j].strip().lstrip(">").strip()); j += 1
+                    b = inline(" ".join(x.lstrip(">").strip() for x in buf))
+                    # 剔除中文核注（"英文名已核..."），否则 pdflatex 报 Unicode 错
+                    b = re.sub(r"[\u3000-\u303f\u4e00-\u9fff\uff00-\uffef][^.]*\.?\s*", "", b).strip()
+                    break
+        if b:
+            bios.append("\\vspace{1ex}\\noindent\\textbf{%s}\n\n%s" % (
+                "Huang Mengyuan" if "Huang" in who else "Xia Yuxuan", b))
+    bioblock = "\\section*{Author Biographies}\n\n" + "\n\n".join(bios) if bios else ""
 
     # ★ 不能用 `%` 格式化：LaTeX 模板里到处是 `%`（注释符），会触发
     #   "unsupported format character"。改用逐项 replace。
@@ -196,8 +250,12 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
     for key, val in (("%(abstract)s", abstract),
                      ("%(body)s", text.strip() + "\n\n" + figblock),
                      ("%(ack)s", "The authors thank the Federal Highway Administration for releasing the TGSIM corpus in the public domain."),
-                     ("%(refs)s", "\n".join(bib))):
+                     ("%(refs)s", "\n".join(bib)),
+                     ("%(bios)s", bioblock)):
         out = out.replace(key, val)
+    # 最终兜底：剥掉任何中文/全角字符（版本注释、核对注记等），
+    # pdflatex 遇到 U+4E00 以上会 Fatal error。
+    out = re.sub(r"[\u3000-\u303f\u4e00-\u9fff\uff00-\uffef]+", " ", out)
     io.open(OUT, "w", encoding="utf-8").write(out)
     print("  已写 %s（%d 行）" % (OUT, out.count("\n")))
     print("  ⚠ 本机未装 LaTeX：**无法在此编译**，页数需在 Overleaf/TeX Live 上核对（Regular 上限 10 页）")
