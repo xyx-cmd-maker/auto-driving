@@ -85,6 +85,16 @@ No scenario sharpened. The interval width grew rather than shrank in all three: 
 6.73, and 3.84 to 4.92. A second supplementary group tripled the background traffic without moving
 availability, and also left the conclusion unchanged.
 
+A window scan locates the cause more precisely. With five seeds the interval width is proportional to
+the sample standard deviation, so we report that quantity directly. For lead-brake it rises from 2.38 at
+a 5 s window to 2.59 at 10 s and 2.75 at 20 s. For cutin it rises from 2.25 to 2.40 to 2.71. The
+degradation is therefore monotone in the window length, with no interior optimum.
+
+Two mechanisms would both produce that monotone rise, and five seeds cannot separate them. A long window
+spans fewer independent windows per episode. A long window also accumulates more crossings per window,
+and a count with a larger mean carries a larger variance. We report the monotone rise as a fact and
+leave the decomposition open.
+
 We therefore read scarcity as a description of the regime rather than as the cause of the null. Had
 availability been binding, a fourfold increase should have sharpened the estimate in at least one
 scenario. It sharpened none.
