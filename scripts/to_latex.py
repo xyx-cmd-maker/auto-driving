@@ -125,6 +125,9 @@ def main() -> int:
         m = re.match(r"^(#{1,4})\s+(.*)$", ln)
         if m:
             lvl, txt = len(m.group(1)), inline(m.group(2))
+            # 去掉手写编号（"5.6 Future work"）：IEEEtran 会自动加 "V."，
+            # 否则显示成 "V. 5.6 Future work"（2026-10-19 实测）。
+            txt = re.sub(r"^\\d+(\\.\\d+)*\\.?\\s*", "", txt)
             # 一级标题若不是"数字开头"（IEEE 章节形如 "1 Introduction"），
             # 就是论文标题本身——已在 \title{} 里排过，正文里必须跳过，
             # 否则首页出现重复标题（2026-10-19 实测）。
