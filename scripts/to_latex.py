@@ -294,7 +294,7 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
                         "\\begin{center}\\footnotesize\n"
                         "Table IV. Per-seed results for the main and degraded groups.\\\\[2pt]\n"
                         + tb + "\n\\end{center}\n")
-    bioblock = "\\clearpage`n" + bioblock.strip()
+    bioblock = "\\clearpage\n" + bioblock.strip()
 
     appsec = appblock
     # ★ 不能用 `%` 格式化：LaTeX 模板里到处是 `%`（注释符），会触发
