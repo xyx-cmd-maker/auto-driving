@@ -120,6 +120,12 @@ def main() -> int:
         m = re.match(r"^(#{1,4})\s+(.*)$", ln)
         if m:
             lvl, txt = len(m.group(1)), inline(m.group(2))
+            # 一级标题若不是"数字开头"（IEEE 章节形如 "1 Introduction"），
+            # 就是论文标题本身——已在 \title{} 里排过，正文里必须跳过，
+            # 否则首页出现重复标题（2026-10-19 实测）。
+            if lvl == 1 and not re.match(r"^\d", m.group(2).strip()):
+                i += 1
+                continue
             cmd = {1: "section", 2: "subsection", 3: "subsubsection", 4: "paragraph"}[lvl]
             body.append("\\%s*{%s}" % (cmd, txt) if lvl == 1 else "\\%s{%s}" % (cmd, txt))
             i += 1
@@ -133,7 +139,9 @@ def main() -> int:
             if body:
                 m = re.match(r"^\\textbf\{(Table\s*\d+\.)\}\s*(.+)$", body[-1])
                 if m:
-                    cap = "%s %s" % (m.group(1), m.group(2))
+                    # IEEEtran 会自动印 "TABLE I"，所以题注里只保留描述文字，
+                    # 否则出现 "TABLE I" + "TABLE 1. ..." 的重复编号（2026-10-19 实测）。
+                    cap = m.group(2).rstrip(".")
                     body.pop()
             body.append(table(rows, cap))
             continue

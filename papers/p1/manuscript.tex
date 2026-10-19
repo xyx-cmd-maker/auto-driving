@@ -38,7 +38,6 @@ performance, and we recommend measuring availability before ablating a traffic-l
 overtaking frequency, traffic-flow scalar, continuous-time neural control, equivalence testing
 \end{IEEEkeywords}
 
-\section*{Overtaking Pressure on Multi-Lane Highways as a Control Input for Continuous-Time Car-Following}
 \section{1. Introduction}
 On a multi-lane highway, a driver's longitudinal decision is shaped by what happens in the adjacent
 lanes. A vehicle that closes on a slower lead may either slow down or move over, and the choice
@@ -222,7 +221,7 @@ pre-registered equivalence margin of 10\% of the off-arm mean.
 \begin{table*}[!t]
 \centering
 \small
-\caption{Table 1. Paired difference in composite cost (negative favours the OTF arm).}
+\caption{Paired difference in composite cost (negative favours the OTF arm)}
 \begin{tabular}{lrrrrrrrr}
 \hline
 Scenario & n & Mean $\Delta$ & off mean & 95\% CI & 90\% CI & exact p & TOST p & Conclusion \\
@@ -245,7 +244,7 @@ significance, and Section 4.5 explains why that was impossible by design rather 
 \begin{table}[!t]
 \centering
 \footnotesize
-\caption{Table 2. Paired differences in the two performance endpoints.}
+\caption{Paired differences in the two performance endpoints}
 \begin{tabular}{lrrr}
 \hline
 Scenario & Endpoint & $\Delta$ [95\% CI] & TOST p \\
@@ -290,7 +289,7 @@ vehicles and widened the window to 20 s. Each group runs five seeds on the lead-
 \begin{table*}[!t]
 \centering
 \small
-\caption{Table 3. Supplementary groups against the main experiment.}
+\caption{Supplementary groups against the main experiment}
 \begin{tabular}{lrrrrrrr}
 \hline
 Group & Traffic & Window & Availability & Mean $\Delta$cost & 95\% CI & CI width & Conclusion \\
@@ -410,7 +409,6 @@ whether the null result belongs to OTF or to our regime. Raising density or leng
 both work, and the map predicts availability above 0.5 there. Replaying
 recorded trajectories with fixed neighbours would then test whether the simulated availability matches
 real traffic. Two of these require only compute; the third requires data access.
-\section*{Figure and table captions}
 \textbf{Figure 1.} Overtaking pressure and its measurement. \textbf{A}, three-lane highway with the ego vehicle
 (blue), the lead vehicle, and vehicles in the adjacent lanes. The arrow marks one crossing of the ego
 lane, which the counting rule scores as +1. The front-vehicle search used by the controller extends
