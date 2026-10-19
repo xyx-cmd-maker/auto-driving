@@ -335,11 +335,15 @@ between 0.334 and 0.497 in the third.
 No scenario sharpened. The interval width grew rather than shrank in all three: 5.90 to 6.83, 5.59 to
 6.73, and 3.84 to 4.92. A second supplementary group tripled the background traffic without moving
 availability, and also left the conclusion unchanged.
-A window scan locates the cause more precisely. With five seeds the interval width is proportional to
-the sample standard deviation, so we report that quantity directly. For lead-brake it rises from 2.38 at
-a 5 s window to 2.59 at 10 s and 2.75 at 20 s. For cutin it rises from 2.25 to 2.40 to 2.71. For
-lead-exit it rises from 1.54 to 1.85 to 1.98. The degradation is therefore monotone in the window length
-in all three scenarios, with no interior optimum.
+A window scan locates the cause more precisely. With a fixed number of seeds the interval width is
+proportional to the sample standard deviation, so we report that quantity directly. For the lead-brake
+scenario, run with ten seeds per window, the standard deviation is 1.72 at a 5 s window, 1.81 at 10 s,
+and 1.93 at 20 s. The ordering is monotone, and no interior optimum appears.
+The increments are small, however: 0.09 and 0.12, against a sampling error of about 0.4 on each standard
+deviation at ten seeds. The three values are therefore not separated. We report the ordering and do not
+claim a trend from it. The other two scenarios were run with five seeds only, and their ordering was
+consistent with this one; with five seeds their standard deviations are inflated by roughly thirty
+percent, so we do not use them as evidence.
 Two mechanisms would both produce that monotone rise, and five seeds cannot separate them. A long window
 spans fewer independent windows per episode. A long window also accumulates more crossings per window,
 and a count with a larger mean carries a larger variance. We report the monotone rise as a fact and
