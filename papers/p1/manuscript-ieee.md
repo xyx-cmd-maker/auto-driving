@@ -8,7 +8,7 @@
 Multi-lane highways produce a continuous stream of lane changes around any vehicle, and a scalar summary
 of that pressure is an attractive controller input because it costs no extra sensor. Whether such a
 scalar is ever non-zero is rarely measured before it is ablated, and in a sparse simulator it may never
-be. We make that measurement first. In a three-lane SUMO highway the fraction of five-second windows
+be. We make that measurement before the ablation. In a three-lane SUMO highway the fraction of five-second windows
 containing a crossing rises from 0.12 at 600 vehicles per hour to 0.56 at 4800. In recorded traffic from
 the public TGSIM corpus it is 0.53 at an estimated 1800 to 2400 vehicles per hour, while our own closed
 loop, with sixteen mixed vehicles, reaches only 0.084. We then run a pre-registered paired ablation of
