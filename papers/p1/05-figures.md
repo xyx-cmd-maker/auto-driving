@@ -11,7 +11,7 @@ commanded speed is bounded at 30 m/s. **B**, the counting rule on a time–lane 
 the ego lane from an adjacent lane scores +1; a vehicle leaving it scores −1. Crossings inside a sliding
 window W are summed; W is 5 s in the main experiment and 20 s in the supplementary group.
 
-## Figure 2: `figs/fig2_availability_real.pdf`
+## Figure 2: `figs/fig2_availability_real.pdf` (A availability map, B three-source comparison)
 
 **Availability in synthetic and recorded traffic.** **A**, the availability map with the CARLA
 operating point. **B**, the same quantity at three window lengths for three sources. SUMO synthetic
