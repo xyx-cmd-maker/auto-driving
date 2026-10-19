@@ -18,16 +18,6 @@
 \maketitle
 
 \begin{abstract}
-ABSTRACT PLACEHOLDER
-\end{abstract}
-
-\begin{IEEEkeywords}
-overtaking frequency, traffic-flow scalar, continuous-time neural control, equivalence testing
-\end{IEEEkeywords}
-
-> IEEE 编号制版本（由 scripts/to\_ieee\_citations.py 自动生成，勿手改）
-\section*{Overtaking Pressure on Multi-Lane Highways as a Control Input for Continuous-Time Car-Following}
-\subsection{Abstract}
 Multi-lane highways produce a continuous stream of lane changes around any vehicle, and drivers trade
 longitudinal gap for lateral opportunity. Whether this aggregate pressure carries usable information for
 a low-level controller remains untested, because the reported gains come from classification rather than
@@ -45,9 +35,15 @@ which points to redundancy at the controller input rather than to signal scarcit
 exact paired test cannot reach significance after multiplicity correction, so we target equivalence
 rather than superiority. Overtaking frequency thus buys interpretability at no additional sensing cost,
 not performance.
-\subsection{Keywords}
-overtaking frequency; traffic-flow scalar; continuous-time neural control; equivalence testing
-\section*{1. Introduction}
+\end{abstract}
+
+\begin{IEEEkeywords}
+overtaking frequency, traffic-flow scalar, continuous-time neural control, equivalence testing
+\end{IEEEkeywords}
+
+> IEEE 编号制版本（由 scripts/to\_ieee\_citations.py 自动生成，勿手改）
+\section*{Overtaking Pressure on Multi-Lane Highways as a Control Input for Continuous-Time Car-Following}
+\section{1. Introduction}
 On a multi-lane highway, a driver's longitudinal decision is shaped by what happens in the adjacent
 lanes. A vehicle that closes on a slower lead may either slow down or move over, and the choice
 depends on how much lateral opportunity the surrounding traffic offers. Over a few seconds these
@@ -429,14 +425,6 @@ corresponds to the conventional two one-sided tests at alpha = 0.05, is reported
 > 章节来源：`01-abstract-final.md` / `02-introduction-discussion.md` / `03-methods.md` /
 > `04-related-work.md` / `\_results-fragment.md`。\textbf{改稿请改源文件再重新拼装}，不要直接改本文件。
 > 图表：Fig.1 `figs/fig1\_scenario.pdf` ｜ Fig.2 `figs/fig\_otf\_density.pdf` ｜ 相图 `figs/fig\_otf\_phase.pdf`。
-\subsection{References}
-[1] Huang M. 基于超车频次的自动驾驶车辆行为决策研究. 吉林大学博士学位论文, 2023.
-[2] Ramin Hasani, Mathias Lechner, Alexander Amini, Lucas Liebenwein, Aaron Ray, Max Tschaikowski, Gerald Teschl, Daniela Rus, "Closed-form continuous-time neural networks," Nature Machine Intelligence, vol. 4, no. 11, pp. 992--1003, 2022, doi: 10.1038/s42256-022-00556-7.
-[3] Jeroen Ploeg, Nathan van de Wouw, Henk Nijmeijer, "Lp String Stability of Cascaded Systems: Application to Vehicle Platooning," IEEE Transactions on Control Systems Technology, vol. 22, no. 2, pp. 786--793, 2014, doi: 10.1109/TCST.2013.2258346.
-[4] Raphael E. Stern, Shumo Cui, Maria Laura Delle Monache, Rahul Bhadani, Matt Bunting, Miles Churchill, Nathaniel Hamilton, R'mani Haulcy, Hannah Pohlmann, Fangyu Wu, Benedetto Piccoli, Benjamin Seibold, Jonathan Sprinkle, Daniel B. Work, "Dissipation of stop-and-go waves via control of autonomous vehicles: Field experiments," Transportation Research Part C: Emerging Technologies, vol. 89, pp. 205--221, 2018, doi: 10.1016/j.trc.2018.02.005.
-[5] Jiawei Wang, Yang Zheng, Keqiang Li, Qing Xu, "DeeP-LCC: Data-EnablEd Predictive Leading Cruise Control in Mixed Traffic Flow," IEEE Transactions on Control Systems Technology, vol. 31, no. 6, pp. 2760--2776, 2023, doi: 10.1109/TCST.2023.3288636.
-[6] Dirk Helbing, Péter Molnár, "Social force model for pedestrian dynamics," Physical Review E, vol. 51, no. 5, pp. 4282--4286, 1995, doi: 10.1103/PhysRevE.51.4282.
-[7] Eric Aislan Antonelo, Eduardo Camponogara, Laio Oriel Seman, Jean Panaioti Jordanou, Eduardo Rehbein de Souza, Jomi Fred Hübner, "Physics-informed neural nets for control of dynamical systems," Neurocomputing, vol. 579, pp. 127419, 2024, doi: 10.1016/j.neucom.2024.127419.
 
 \begin{figure}[!t]
 \centering
@@ -449,7 +437,13 @@ corresponds to the conventional two one-sided tests at alpha = 0.05, is reported
 The authors thank the Federal Highway Administration for releasing the TGSIM corpus in the public domain.
 
 \begin{thebibliography}{1}
-\bibitem{ref1} REFERENCES PENDING
+\bibitem{ref1} Huang M. 基于超车频次的自动驾驶车辆行为决策研究. 吉林大学博士学位论文, 2023.
+\bibitem{ref2} Ramin Hasani, Mathias Lechner, Alexander Amini, Lucas Liebenwein, Aaron Ray, Max Tschaikowski, Gerald Teschl, Daniela Rus, "Closed-form continuous-time neural networks," Nature Machine Intelligence, vol. 4, no. 11, pp. 992--1003, 2022, doi: 10.1038/s42256-022-00556-7.
+\bibitem{ref3} Jeroen Ploeg, Nathan van de Wouw, Henk Nijmeijer, "Lp String Stability of Cascaded Systems: Application to Vehicle Platooning," IEEE Transactions on Control Systems Technology, vol. 22, no. 2, pp. 786--793, 2014, doi: 10.1109/TCST.2013.2258346.
+\bibitem{ref4} Raphael E. Stern, Shumo Cui, Maria Laura Delle Monache, Rahul Bhadani, Matt Bunting, Miles Churchill, Nathaniel Hamilton, R'mani Haulcy, Hannah Pohlmann, Fangyu Wu, Benedetto Piccoli, Benjamin Seibold, Jonathan Sprinkle, Daniel B. Work, "Dissipation of stop-and-go waves via control of autonomous vehicles: Field experiments," Transportation Research Part C: Emerging Technologies, vol. 89, pp. 205--221, 2018, doi: 10.1016/j.trc.2018.02.005.
+\bibitem{ref5} Jiawei Wang, Yang Zheng, Keqiang Li, Qing Xu, "DeeP-LCC: Data-EnablEd Predictive Leading Cruise Control in Mixed Traffic Flow," IEEE Transactions on Control Systems Technology, vol. 31, no. 6, pp. 2760--2776, 2023, doi: 10.1109/TCST.2023.3288636.
+\bibitem{ref6} Dirk Helbing, Péter Molnár, "Social force model for pedestrian dynamics," Physical Review E, vol. 51, no. 5, pp. 4282--4286, 1995, doi: 10.1103/PhysRevE.51.4282.
+\bibitem{ref7} Eric Aislan Antonelo, Eduardo Camponogara, Laio Oriel Seman, Jean Panaioti Jordanou, Eduardo Rehbein de Souza, Jomi Fred Hübner, "Physics-informed neural nets for control of dynamical systems," Neurocomputing, vol. 579, pp. 127419, 2024, doi: 10.1016/j.neucom.2024.127419.
 \end{thebibliography}
 
 \end{document}

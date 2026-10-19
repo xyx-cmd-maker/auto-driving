@@ -153,15 +153,18 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
 """
 
     # 抽出摘要与正文、参考文献
+    # ★ 标题层级：Markdown 的 `## Abstract` 会转成 \subsection{Abstract}，
+    #   所以正则必须同时接受 \section / \subsection（首版只匹配 \section，导致摘要丢失）。
+    SEQ = r"\\(?:sub)?section\*?"
     text = "\n".join(body)
-    m_abs = re.search(r"\\section\*\{Abstract\}\s*(.+?)\\section", text, re.S)
+    m_abs = re.search(SEQ + r"\{Abstract\}\s*(.+?)" + SEQ + r"\{", text, re.S)
     abstract = m_abs.group(1).strip() if m_abs else "ABSTRACT PLACEHOLDER"
-    text = re.sub(r"\\section\*\{Abstract\}.*?\\section", r"\\section", text, flags=re.S)
-    text = re.sub(r"\\section\*\{Keywords\}.*?\\section", r"\\section", text, flags=re.S)
+    text = re.sub(SEQ + r"\{Abstract\}.*?" + SEQ, r"\\section", text, flags=re.S)
+    text = re.sub(SEQ + r"\{Keywords\}.*?" + SEQ, r"\\section", text, flags=re.S)
 
-    m_ref = re.search(r"\\section\*\{References\}(.*)$", text, re.S)
+    m_ref = re.search(SEQ + r"\{References\}(.*)$", text, re.S)
     refs_raw = m_ref.group(1) if m_ref else ""
-    text = re.sub(r"\\section\*\{References\}.*$", "", text, flags=re.S)
+    text = re.sub(SEQ + r"\{References\}.*$", "", text, flags=re.S)
 
     bib = []
     for ln in refs_raw.split("\n"):
