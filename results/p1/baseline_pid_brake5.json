@@ -1,0 +1,172 @@
+{
+  "experiment": "baseline_pid",
+  "controller": "GapPID",
+  "params": {
+    "kp": 0.35,
+    "kd": 0.9,
+    "headway_s": 1.4,
+    "s0_m": 5.0,
+    "v_max_mps": 33.3
+  },
+  "scenarios": [
+    "lead-brake"
+  ],
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "episode_s": 60.0,
+  "traffic": 16,
+  "episodes": 5,
+  "cases": [
+    {
+      "scenario": "lead-brake",
+      "seed": 0,
+      "cost": 85.69036556,
+      "metrics": {
+        "n_samples": 1501,
+        "mean_dt_s": 0.04,
+        "following_rmse_m": 19.561459,
+        "accel_sq_integral_mps3": 2017.151429,
+        "jerk_peak_mps3": 3335.917508,
+        "lane_center_dev_m": 0.032016,
+        "steer_angle_var": 3.6e-05,
+        "collision_count": 1,
+        "min_ttc_s": 0.873759,
+        "assumptions": {
+          "tau_s": 1.5,
+          "d0_m": 5.0,
+          "note": "期望间距 d_des = v·τ + d0；该假设写死在文件里，不得事后改"
+        },
+        "n_lead_present": 1501
+      },
+      "guard": {
+        "travelled_m": 329.177,
+        "n_frames": 1501,
+        "valid": true
+      },
+      "wall_s": 31.1
+    },
+    {
+      "scenario": "lead-brake",
+      "seed": 1,
+      "cost": 86.19526381,
+      "metrics": {
+        "n_samples": 1501,
+        "mean_dt_s": 0.04,
+        "following_rmse_m": 17.934719,
+        "accel_sq_integral_mps3": 2284.158944,
+        "jerk_peak_mps3": 2864.471003,
+        "lane_center_dev_m": 0.073903,
+        "steer_angle_var": 0.000193,
+        "collision_count": 1,
+        "min_ttc_s": 0.031614,
+        "assumptions": {
+          "tau_s": 1.5,
+          "d0_m": 5.0,
+          "note": "期望间距 d_des = v·τ + d0；该假设写死在文件里，不得事后改"
+        },
+        "n_lead_present": 1501
+      },
+      "guard": {
+        "travelled_m": 387.144,
+        "n_frames": 1501,
+        "valid": true
+      },
+      "wall_s": 27.0
+    },
+    {
+      "scenario": "lead-brake",
+      "seed": 2,
+      "cost": 42.8768486,
+      "metrics": {
+        "n_samples": 1501,
+        "mean_dt_s": 0.04,
+        "following_rmse_m": 16.247588,
+        "accel_sq_integral_mps3": 775.448411,
+        "jerk_peak_mps3": 1571.182758,
+        "lane_center_dev_m": 0.031294,
+        "steer_angle_var": 3e-05,
+        "collision_count": 1,
+        "min_ttc_s": 1.479963,
+        "assumptions": {
+          "tau_s": 1.5,
+          "d0_m": 5.0,
+          "note": "期望间距 d_des = v·τ + d0；该假设写死在文件里，不得事后改"
+        },
+        "n_lead_present": 1501
+      },
+      "guard": {
+        "travelled_m": 328.668,
+        "n_frames": 1501,
+        "valid": true
+      },
+      "wall_s": 26.8
+    },
+    {
+      "scenario": "lead-brake",
+      "seed": 3,
+      "cost": 61.363383930000005,
+      "metrics": {
+        "n_samples": 1501,
+        "mean_dt_s": 0.04,
+        "following_rmse_m": 21.652526,
+        "accel_sq_integral_mps3": 1410.523789,
+        "jerk_peak_mps3": 2092.273555,
+        "lane_center_dev_m": 0.06492,
+        "steer_angle_var": 0.000112,
+        "collision_count": 1,
+        "min_ttc_s": 0.042702,
+        "assumptions": {
+          "tau_s": 1.5,
+          "d0_m": 5.0,
+          "note": "期望间距 d_des = v·τ + d0；该假设写死在文件里，不得事后改"
+        },
+        "n_lead_present": 1501
+      },
+      "guard": {
+        "travelled_m": 366.105,
+        "n_frames": 1501,
+        "valid": true
+      },
+      "wall_s": 26.9
+    },
+    {
+      "scenario": "lead-brake",
+      "seed": 4,
+      "cost": 43.637309980000005,
+      "metrics": {
+        "n_samples": 1501,
+        "mean_dt_s": 0.04,
+        "following_rmse_m": 17.901082,
+        "accel_sq_integral_mps3": 805.13831,
+        "jerk_peak_mps3": 1571.182758,
+        "lane_center_dev_m": 0.032608,
+        "steer_angle_var": 4.3e-05,
+        "collision_count": 1,
+        "min_ttc_s": 1.817025,
+        "assumptions": {
+          "tau_s": 1.5,
+          "d0_m": 5.0,
+          "note": "期望间距 d_des = v·τ + d0；该假设写死在文件里，不得事后改"
+        },
+        "n_lead_present": 1501
+      },
+      "guard": {
+        "travelled_m": 355.288,
+        "n_frames": 1501,
+        "valid": true
+      },
+      "wall_s": 26.7
+    }
+  ],
+  "aggregate": {
+    "n_valid": 5,
+    "cost_mean": 63.952634376000006,
+    "cost_sd": 21.394326879039436
+  },
+  "note": "参数未调优；PID 单策略与 CfC 12 候选预算不等；不含 OTF/换道"
+}
