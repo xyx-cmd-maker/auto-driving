@@ -7,19 +7,19 @@ lanes. A vehicle that closes on a slower lead may either slow down or move over,
 depends on how much lateral opportunity the surrounding traffic offers. Over a few seconds these
 individual choices aggregate into a measurable rate at which vehicles cross a given lane.
 
-Huang (2023) proposed to summarize this aggregate as the overtaking frequency (OTF): the number of
+Huang et al. (2021a) proposed to summarize this aggregate as the overtaking frequency (OTF): the number of
 lane crossings observed in a sliding window around the ego vehicle, divided by the window length.
 OTF is attractive for three reasons. It is a single scalar. It is defined on traffic rather than on a
 particular sensor suite. And it can be estimated from radar and camera streams that production
 vehicles already carry, so it adds no sensing cost.
 
-Evidence for OTF so far comes from classification. That literature never reports how often the
-scalar is non-zero, and in a sparse simulator it may never be. The reported gains are 1.0 to 5.5 percentage
-points of classifier accuracy over baselines without OTF features, across three classifier families
-(Huang, 2023, as reported; not reproduced here). Classification and control ask different questions.
-A feature can improve an offline label prediction and still add nothing to a feedback loop that
-already observes gap and relative speed. Those results are classification accuracies, and none of them
-closes the loop.
+Evidence for OTF so far comes from evaluation and decision models rather than from control. One line
+feeds it to a long short-term memory network that judges whether the current speed suits the traffic
+state, and reports 93 percent agreement in an on-road test (Huang et al., 2021a). A second line embeds
+it in a deep deterministic policy gradient decision model evaluated in four simulated three-lane
+highway scenarios (Huang et al., 2021b). Neither reports how often the scalar is non-zero. Evaluation
+and control ask different questions. A feature can improve an offline judgement and still add nothing
+to a feedback loop that already observes gap and relative speed. Neither line closes the loop.
 
 We test it directly. We treat OTF as a fourth input to a closed-form continuous-time (CfC) controller
 and compare it against an otherwise identical controller that sees only lead gap, relative speed, and

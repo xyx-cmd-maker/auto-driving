@@ -41,13 +41,13 @@ OTF is attractive for three reasons. It is a single scalar. It is defined on tra
 particular sensor suite. And it can be estimated from radar and camera streams that production
 vehicles already carry, so it adds no sensing cost.
 
-Evidence for OTF so far comes from classification. That literature never reports how often the
-scalar is non-zero, and in a sparse simulator it may never be. The reported gains are 1.0 to 5.5 percentage
-points of classifier accuracy over baselines without OTF features, across three classifier families
-(Huang, 2023, as reported; not reproduced here). Classification and control ask different questions.
-A feature can improve an offline label prediction and still add nothing to a feedback loop that
-already observes gap and relative speed. Those results are classification accuracies, and none of them
-closes the loop.
+Evidence for OTF so far comes from evaluation and decision models rather than from control. One line
+feeds it to a long short-term memory network that judges whether the current speed suits the traffic
+state, and reports 93 percent agreement in an on-road test [1]. A second line embeds
+it in a deep deterministic policy gradient decision model evaluated in four simulated three-lane
+highway scenarios [2]. Neither reports how often the scalar is non-zero. Evaluation
+and control ask different questions. A feature can improve an offline judgement and still add nothing
+to a feedback loop that already observes gap and relative speed. Neither line closes the loop.
 
 We test it directly. We treat OTF as a fourth input to a closed-form continuous-time (CfC) controller
 and compare it against an otherwise identical controller that sees only lead gap, relative speed, and
@@ -84,7 +84,7 @@ results do and do not imply. Section 6 lists limitations.
 
 ## 2.1 The OTF scalar
 
-We adopt the overtaking-frequency definition of Huang [1] without modification. At each control
+We adopt the overtaking-frequency definition of Huang [1] without modification, the same definition used in the decision-model study of Huang [2]. At each control
 cycle, the ego vehicle records (i) its own lane identifier and (ii) for every other vehicle in a
 neighbourhood, the lane identifier and the longitudinal position along that lane. A crossing event is
 counted when a vehicle's lane at step t differs from its lane at step t−1 and one of those two lanes
@@ -103,7 +103,7 @@ lives in a single module (src/otf/otf_core.py) and is shared by the CARLA loop a
 
 ## 2.2 Controller
 
-Both arms use a closed-form continuous-time (CfC) cell [2] with a direct linear path.
+Both arms use a closed-form continuous-time (CfC) cell [3] with a direct linear path.
 The hidden state has 24 units. At each step the cell receives a normalized observation vector and returns
 an updated state.
 The commanded acceleration is a bounded linear read-out:
@@ -192,26 +192,28 @@ across arms. Collisions are reported as raw counts.
 
 Car-following models describe the longitudinal response to a lead vehicle, and the classical families
 differ in how much memory they carry. String-stability analysis then asks whether a perturbation
-amplifies along a platoon [3]. That line of work treats the lead vehicle as the
+amplifies along a platoon [4]. That line of work treats the lead vehicle as the
 relevant input. Everything behind and beside the ego enters, if at all, through aggregate parameters
 such as density or wave speed.
 
 A second line feeds traffic-level information to the controller explicitly. One field experiment
 showed that a small number of controlled vehicles can dissipate stop-and-go waves in the surrounding
-flow [4]. Cooperative schemes go further and share planned trajectories, solving a
-joint optimization over a rolling horizon [5]. Those methods work with rich per-vehicle
+flow [5]. Cooperative schemes go further and share planned trajectories, solving a
+joint optimization over a rolling horizon [6]. Those methods work with rich per-vehicle
 messages rather than one scalar, and they assume connectivity. Our question is narrower: whether one
 scalar computed from unconnected traffic carries enough information to change a low-level command.
 
 ## 3.2 Overtaking frequency and social pressure
 
-The OTF scalar comes from the behavior-decision literature. Huang [1] defined it as the rate at which
-surrounding vehicles cross the ego lane and reported accuracy gains of 1.0 to 5.5 percentage points when
-OTF features are added to classifiers. Those results are classification accuracies, and none of them
-closes the loop. We do not reproduce them here, and the dataset behind them is not available to us.
+The OTF scalar comes from the behavior-decision literature. Huang [1] defined it as the rate
+at which surrounding vehicles cross the ego lane. They use it as the primary input to a long short-term
+memory model that judges speed suitability, and they report 93 percent agreement in an on-road test. A
+companion study embeds OTF in a deep deterministic policy gradient decision model, evaluated in four
+simulated three-lane highway scenarios [2]. Both are evaluation or decision models, and
+neither closes the loop. We do not reproduce them, and the dataset behind them is not available to us.
 
 The idea that surrounding traffic exerts a pressure that can be summarized is older than OTF.
-Social-force formulations describe the same intuition for pedestrians [6]. That
+Social-force formulations describe the same intuition for pedestrians [7]. That
 formulation targets pedestrians, and we do not assume it transfers to vehicles. Our contribution is
 not the notion of pressure but a closed-loop test of whether one particular scalarization of it
 changes a control command.
@@ -219,7 +221,7 @@ changes a control command.
 ## 3.3 Continuous-time and closed-form recurrent models
 
 Liquid time-constant and closed-form continuous-time networks replace discrete recurrence with a
-continuous ODE-like update and report large speedups over conventional recurrent cells [2]. The claimed advantage is compute per step rather than sample efficiency. We use a CfC cell
+continuous ODE-like update and report large speedups over conventional recurrent cells [3]. The claimed advantage is compute per step rather than sample efficiency. We use a CfC cell
 precisely because it is cheap enough to evaluate twelve candidates per arm inside a 60 s episode. That
 cost is what makes an equal-budget ablation affordable on a laptop GPU.
 
@@ -230,7 +232,7 @@ We add a direct linear path from the observation to the command, and we report b
 ## 3.4 Physics-informed and structure-informed priors
 
 A large body of work injects physical structure into learning. Physics-informed neural networks add a
-residual of a governing equation to the loss [7]. That approach requires an
+residual of a governing equation to the loss [8]. That approach requires an
 equation whose residual can be evaluated, and it succeeds when the residual is meaningful.
 
 OTF does not provide such a residual. It is a heuristic aggregate with no governing equation, so a
@@ -520,10 +522,11 @@ corresponds to the conventional two one-sided tests at alpha = 0.05, is reported
 
 ## References
 
-[1] Mengyuan Huang. Research on behavioural decision making for automated vehicles based on overtaking frequency. Ph.D. dissertation, Jilin University, Changchun, China, 2023 (in Chinese).
-[2] Ramin Hasani, Mathias Lechner, Alexander Amini, Lucas Liebenwein, Aaron Ray, Max Tschaikowski, Gerald Teschl, Daniela Rus, "Closed-form continuous-time neural networks," Nature Machine Intelligence, vol. 4, no. 11, pp. 992--1003, 2022, doi: 10.1038/s42256-022-00556-7.
-[3] Jeroen Ploeg, Nathan van de Wouw, Henk Nijmeijer, "Lp String Stability of Cascaded Systems: Application to Vehicle Platooning," IEEE Transactions on Control Systems Technology, vol. 22, no. 2, pp. 786--793, 2014, doi: 10.1109/TCST.2013.2258346.
-[4] Raphael E. Stern, Shumo Cui, Maria Laura Delle Monache, Rahul Bhadani, Matt Bunting, Miles Churchill, Nathaniel Hamilton, R’mani Haulcy, Hannah Pohlmann, Fangyu Wu, Benedetto Piccoli, Benjamin Seibold, Jonathan Sprinkle, Daniel B. Work, "Dissipation of stop-and-go waves via control of autonomous vehicles: Field experiments," Transportation Research Part C: Emerging Technologies, vol. 89, pp. 205--221, 2018, doi: 10.1016/j.trc.2018.02.005.
-[5] Jiawei Wang, Yang Zheng, Keqiang Li, Qing Xu, "DeeP-LCC: Data-EnablEd Predictive Leading Cruise Control in Mixed Traffic Flow," IEEE Transactions on Control Systems Technology, vol. 31, no. 6, pp. 2760--2776, 2023, doi: 10.1109/TCST.2023.3288636.
-[6] Dirk Helbing, Péter Molnár, "Social force model for pedestrian dynamics," Physical Review E, vol. 51, no. 5, pp. 4282--4286, 1995, doi: 10.1103/PhysRevE.51.4282.
-[7] Eric Aislan Antonelo, Eduardo Camponogara, Laio Oriel Seman, Jean Panaioti Jordanou, Eduardo Rehbein de Souza, Jomi Fred Hübner, "Physics-informed neural nets for control of dynamical systems," Neurocomputing, vol. 579, pp. 127419, 2024, doi: 10.1016/j.neucom.2024.127419.
+[1] Shiwu Li, Mengyuan Huang, Mengzhu Guo, Miao Yu, "Evaluation Model of Autonomous Vehicles' Speed Suitability Based on Overtaking Frequency," Sensors, vol. 21, no. 2, pp. 371, 2021, doi: 10.3390/s21020371.
+[2] Mengyuan Huang, Shiwu Li, Mengzhu Guo, Lihong Han, "A Decision-Making Model for Self-Driving Vehicles Based on Overtaking Frequency," Journal of Advanced Transportation, vol. 2021, pp. 5948971, 2021, doi: 10.1155/2021/5948971.
+[3] Ramin Hasani, Mathias Lechner, Alexander Amini, Lucas Liebenwein, Aaron Ray, Max Tschaikowski, Gerald Teschl, Daniela Rus, "Closed-form continuous-time neural networks," Nature Machine Intelligence, vol. 4, no. 11, pp. 992--1003, 2022, doi: 10.1038/s42256-022-00556-7.
+[4] Jeroen Ploeg, Nathan van de Wouw, Henk Nijmeijer, "Lp String Stability of Cascaded Systems: Application to Vehicle Platooning," IEEE Transactions on Control Systems Technology, vol. 22, no. 2, pp. 786--793, 2014, doi: 10.1109/TCST.2013.2258346.
+[5] Raphael E. Stern, Shumo Cui, Maria Laura Delle Monache, Rahul Bhadani, Matt Bunting, Miles Churchill, Nathaniel Hamilton, R’mani Haulcy, Hannah Pohlmann, Fangyu Wu, Benedetto Piccoli, Benjamin Seibold, Jonathan Sprinkle, Daniel B. Work, "Dissipation of stop-and-go waves via control of autonomous vehicles: Field experiments," Transportation Research Part C: Emerging Technologies, vol. 89, pp. 205--221, 2018, doi: 10.1016/j.trc.2018.02.005.
+[6] Jiawei Wang, Yang Zheng, Keqiang Li, Qing Xu, "DeeP-LCC: Data-EnablEd Predictive Leading Cruise Control in Mixed Traffic Flow," IEEE Transactions on Control Systems Technology, vol. 31, no. 6, pp. 2760--2776, 2023, doi: 10.1109/TCST.2023.3288636.
+[7] Dirk Helbing, Péter Molnár, "Social force model for pedestrian dynamics," Physical Review E, vol. 51, no. 5, pp. 4282--4286, 1995, doi: 10.1103/PhysRevE.51.4282.
+[8] Eric Aislan Antonelo, Eduardo Camponogara, Laio Oriel Seman, Jean Panaioti Jordanou, Eduardo Rehbein de Souza, Jomi Fred Hübner, "Physics-informed neural nets for control of dynamical systems," Neurocomputing, vol. 579, pp. 127419, 2024, doi: 10.1016/j.neucom.2024.127419.

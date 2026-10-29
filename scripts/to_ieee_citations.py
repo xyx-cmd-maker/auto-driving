@@ -39,6 +39,10 @@ CITES = [
     (r"\((Hasani et al\., 2022)\)", "hasani2022cfc", "Hasani et al."),
     (r"\((Antonelo et al\., 2024)\)", "antonelo2024pinn", "Antonelo et al."),
     (r"\((Helbing and Molnár, 1995)\)", "helbing1995social", "Helbing and Molnár"),
+    (r"Huang et al\. \(2021a\)", "huang2021sensors", "Huang et al."),
+    (r"Huang et al\. \(2021b\)", "huang2021jat", "Huang et al."),
+    (r"\(Huang et al\., 2021a\)", "huang2021sensors", ""),
+    (r"\(Huang et al\., 2021b\)", "huang2021jat", ""),
     (r"Huang \(2023\)", "huang2023thesis", "Huang"),
 ]
 
@@ -110,7 +114,7 @@ def main() -> int:
         if key not in num:
             continue
         n = num[key]
-        if name == "Huang":
+        if name.startswith("Huang"):
             out = re.sub(flex(pat), "Huang [%d]" % n, out)
         else:
             out = re.sub(flex(pat), "[%d]" % n, out)

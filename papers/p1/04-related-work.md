@@ -19,10 +19,12 @@ scalar computed from unconnected traffic carries enough information to change a 
 
 ## 3.2 Overtaking frequency and social pressure
 
-The OTF scalar comes from the behavior-decision literature. Huang (2023) defined it as the rate at which
-surrounding vehicles cross the ego lane and reported accuracy gains of 1.0 to 5.5 percentage points when
-OTF features are added to classifiers. Those results are classification accuracies, and none of them
-closes the loop. We do not reproduce them here, and the dataset behind them is not available to us.
+The OTF scalar comes from the behavior-decision literature. Huang et al. (2021a) defined it as the rate
+at which surrounding vehicles cross the ego lane. They use it as the primary input to a long short-term
+memory model that judges speed suitability, and they report 93 percent agreement in an on-road test. A
+companion study embeds OTF in a deep deterministic policy gradient decision model, evaluated in four
+simulated three-lane highway scenarios (Huang et al., 2021b). Both are evaluation or decision models, and
+neither closes the loop. We do not reproduce them, and the dataset behind them is not available to us.
 
 The idea that surrounding traffic exerts a pressure that can be summarized is older than OTF.
 Social-force formulations describe the same intuition for pedestrians (Helbing and Molnár, 1995). That

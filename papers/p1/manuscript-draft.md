@@ -33,19 +33,19 @@ lanes. A vehicle that closes on a slower lead may either slow down or move over,
 depends on how much lateral opportunity the surrounding traffic offers. Over a few seconds these
 individual choices aggregate into a measurable rate at which vehicles cross a given lane.
 
-Huang (2023) proposed to summarize this aggregate as the overtaking frequency (OTF): the number of
+Huang et al. (2021a) proposed to summarize this aggregate as the overtaking frequency (OTF): the number of
 lane crossings observed in a sliding window around the ego vehicle, divided by the window length.
 OTF is attractive for three reasons. It is a single scalar. It is defined on traffic rather than on a
 particular sensor suite. And it can be estimated from radar and camera streams that production
 vehicles already carry, so it adds no sensing cost.
 
-Evidence for OTF so far comes from classification. That literature never reports how often the
-scalar is non-zero, and in a sparse simulator it may never be. The reported gains are 1.0 to 5.5 percentage
-points of classifier accuracy over baselines without OTF features, across three classifier families
-(Huang, 2023, as reported; not reproduced here). Classification and control ask different questions.
-A feature can improve an offline label prediction and still add nothing to a feedback loop that
-already observes gap and relative speed. Those results are classification accuracies, and none of them
-closes the loop.
+Evidence for OTF so far comes from evaluation and decision models rather than from control. One line
+feeds it to a long short-term memory network that judges whether the current speed suits the traffic
+state, and reports 93 percent agreement in an on-road test (Huang et al., 2021a). A second line embeds
+it in a deep deterministic policy gradient decision model evaluated in four simulated three-lane
+highway scenarios (Huang et al., 2021b). Neither reports how often the scalar is non-zero. Evaluation
+and control ask different questions. A feature can improve an offline judgement and still add nothing
+to a feedback loop that already observes gap and relative speed. Neither line closes the loop.
 
 We test it directly. We treat OTF as a fourth input to a closed-form continuous-time (CfC) controller
 and compare it against an otherwise identical controller that sees only lead gap, relative speed, and
@@ -82,7 +82,7 @@ results do and do not imply. Section 6 lists limitations.
 
 ## 2.1 The OTF scalar
 
-We adopt the overtaking-frequency definition of Huang (2023) without modification. At each control
+We adopt the overtaking-frequency definition of Huang et al. (2021a) without modification, the same definition used in the decision-model study of Huang et al. (2021b). At each control
 cycle, the ego vehicle records (i) its own lane identifier and (ii) for every other vehicle in a
 neighbourhood, the lane identifier and the longitudinal position along that lane. A crossing event is
 counted when a vehicle's lane at step t differs from its lane at step t−1 and one of those two lanes
@@ -203,10 +203,12 @@ scalar computed from unconnected traffic carries enough information to change a 
 
 ## 3.2 Overtaking frequency and social pressure
 
-The OTF scalar comes from the behavior-decision literature. Huang (2023) defined it as the rate at which
-surrounding vehicles cross the ego lane and reported accuracy gains of 1.0 to 5.5 percentage points when
-OTF features are added to classifiers. Those results are classification accuracies, and none of them
-closes the loop. We do not reproduce them here, and the dataset behind them is not available to us.
+The OTF scalar comes from the behavior-decision literature. Huang et al. (2021a) defined it as the rate
+at which surrounding vehicles cross the ego lane. They use it as the primary input to a long short-term
+memory model that judges speed suitability, and they report 93 percent agreement in an on-road test. A
+companion study embeds OTF in a deep deterministic policy gradient decision model, evaluated in four
+simulated three-lane highway scenarios (Huang et al., 2021b). Both are evaluation or decision models, and
+neither closes the loop. We do not reproduce them, and the dataset behind them is not available to us.
 
 The idea that surrounding traffic exerts a pressure that can be summarized is older than OTF.
 Social-force formulations describe the same intuition for pedestrians (Helbing and Molnár, 1995). That

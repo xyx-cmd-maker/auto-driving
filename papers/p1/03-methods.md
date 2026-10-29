@@ -4,7 +4,7 @@
 
 ## 2.1 The OTF scalar
 
-We adopt the overtaking-frequency definition of Huang (2023) without modification. At each control
+We adopt the overtaking-frequency definition of Huang et al. (2021a) without modification, the same definition used in the decision-model study of Huang et al. (2021b). At each control
 cycle, the ego vehicle records (i) its own lane identifier and (ii) for every other vehicle in a
 neighbourhood, the lane identifier and the longitudinal position along that lane. A crossing event is
 counted when a vehicle's lane at step t differs from its lane at step t−1 and one of those two lanes
