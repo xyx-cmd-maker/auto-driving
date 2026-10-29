@@ -158,3 +158,5 @@ git config --local http.curloptResolve github.com:443:<可达IP>
 
 
 > **进度补充（2026-10-29，T-IV 红队 R22–23）**：CARLA 重启并跑通 PID 基线单局（cost 73.10 / RMSE 8.01 / accel 2828）；发现 (a) jerk_peak 恒 1571.18（150/150，占复合代价 51.1%，配对差中抵消）、(b) CfC 臂跟车 RMSE 均值 83.5 m 而 PID 为 8.0 m（跟踪本身偏弱）。两条均需作者裁决，详见 `audit/tiv-redteam/round-23-baseline-smoke-and-metric-findings.md`。
+
+> **进度补充（2026-10-29，R24）**：确认 jerk 常数来自开局第 4 帧急刹（+19.6→−43.25 / 0.04 s）；**更正** P1-R（非跟踪失效，是稳态车距 130 m vs 参考 47 m）；**新发现 P1-S**：实际控制 25 Hz（`round(2.5)=2`），论文写 20 Hz，需改文字或改实现重跑。
