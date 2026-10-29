@@ -24,6 +24,15 @@ This is a **pre-submission** manuscript, shared with one external reviewer befor
 
 **不需要**你做的：语言润色（我们自己过）、格式检查（T-IV 模板已套）、引用补齐（7 条已逐条 DOI 核验）。
 
+> **你是团队内部成员，全部材料对你开放。**
+> 除了稿件，最值得你看的是我们自己写的那几份"丑话先说"的文档：
+> - `audit/第一次组会/20-strategy-after-downgrade.md` —— 我们对本文弱点的自评，以及**改投 T-ITS 的备选路线**；
+> - `audit/第一次组会/10-a1-protocol-freeze.md` —— 收数据前冻结的 margin / α / 判定规则；
+> - `audit/第一次组会/15-a1-full-results.md` —— 全量结果（含双 CI、TOST、功效分析）；
+> - `audit/第一次组会/18-window-scan.md` —— 窗口扫描（n=5 与 n=10 两版，含我们自己推翻自己的那一版）；
+> - `audit/第三次组会/组会汇报-分批计划-2026-10-28.md` —— 汇报节奏与"要老师拍板的三件事"。
+> 这些文档里的话比稿子更直白，**审稿意见不必照顾我们的面子**。
+
 ---
 
 ## 2. 一句话结论与三条贡献
@@ -103,7 +112,7 @@ py -3.12 scripts/verify_from_published_cases.py
 | `audit/第一次组会/20-strategy-after-downgrade.md` | 我们自己写的"弱点与改投路线" | **建议读**，可省你重复发现 |
 | `literature/library/P1-library.jsonl` | 98 条候选文献（66 条已核验） | 查引用覆盖时看 |
 | `src/ctrl/`、`src/envs/`、`scripts/` | 控制器 / 环境 / 复算脚本 | 想复现时看 |
-| `AGENTS*.md`、`audit/第三次组会/` | **内部工作纪律与组会材料** | **可以跳过**（与稿件无关） |
+| `AGENTS*.md`、`audit/` | 工作纪律、逐次组会材料、策略自评、协议冻结 | **建议读**（内部成员）：先看 `audit/第一次组会/20-strategy-after-downgrade.md` 与 `10-a1-protocol-freeze.md` |
 
 ---
 
@@ -134,7 +143,7 @@ py -3.12 scripts/verify_from_published_cases.py
 
 ## 8. 边界声明
 
-- **未投稿**：本稿未向任何期刊提交，仓库为送审而临时公开，请勿外传或引用。
+- **未投稿**：本稿未向任何期刊提交。仓库含内部过程材料（`audit/`、`AGENTS*.md`），**请仅在团队内使用**，不要外传或引用。
 - **他人材料**：仓库内**不包含**任何他人论文的全文或 PDF（已在下架清单中移除）；`citations/` 与 `literature/` 只保留**元数据与 DOI**。
 - **数据**：TGSIM 为美国政府公有领域数据，未入库（体积）；`data/` 在 `.gitignore` 中。
 - **代码**：`src/`、`scripts/` 可直接阅读；运行需 CARLA 0.9.16 + SUMO 1.27.1（见 `configs/env/`）。
