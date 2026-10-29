@@ -21,7 +21,7 @@ The closed-loop value at
 W = 5 s is 0.084 from the main experiment and at W = 10 s is 0.167. At W = 20 s the supplementary
 groups reach 0.334 in two scenarios and between 0.334 and 0.497 in the third, because lead-exit
 produces crossings of the ego lane without any injection. The star is drawn at 0.334, the value shared
-by two of the three scenarios. At a 5 s window the fractions are 0.39, 0.53 and 0.084.
+by two of the three scenarios. At a 5 s window the fractions are 0.39, 0.53 and 0.084. Each source uses its own statistic: a mean over runs for SUMO and TGSIM, and the value shared by three scenarios for our loop. The three points are descriptive rather than like-for-like.
 
 **Three limitations of this panel, stated here because they bound its interpretation.**
 1. The TGSIM horizontal placement is an **estimate** (unique vehicles divided by run duration). The

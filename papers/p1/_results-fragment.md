@@ -7,8 +7,9 @@ sixteen traffic vehicles in the main experiment, 50 Hz simulation, 20 Hz control
 twelve candidate controllers per arm. The three runtime guards reported no empty episodes, no actor
 leaks, and no deadlocked episodes.
 
-The treatment variable was active in every run. The fraction of control cycles with OTF > 0 was 0.084
-in sixteen runs and 0.167 in four. Neither arm collided in any run, so collision counts are zero
+The treatment variable was active in every run. The fraction of control cycles with a non-zero net
+crossing in the trailing window was 0.084 in seventeen runs and 0.168 in three. A control cycle is
+one 20 Hz observation step, so this is a fraction of time rather than of disjoint windows. Neither arm collided in any run, so collision counts are zero
 throughout and we do not use them as evidence of a difference.
 
 ## 4.2 Primary endpoint
@@ -29,6 +30,12 @@ Two scenarios, no lead vehicle and lead exit, have both interval bounds inside t
 pre-registered 95% criterion. The cutin scenario would also qualify under the conventional 90%
 interval, where its upper bound is +2.471 against a margin of 3.031. The lead-brake scenario does not
 qualify under either criterion. We report the stricter criterion as primary.
+
+These verdicts sit close to the margin. For no lead vehicle, equivalence would still hold at a
+margin of 2.577, which is 85 percent of the pre-registered 3.048. For cutin the corresponding value
+is 2.800, or 92 percent of 3.031. For lead exit it is 1.918, or 63 percent of 3.062. A margin of
+8.5 percent rather than 10 percent would leave none of the four equivalent. We therefore read the
+equivalence as conditional on the margin rather than as a robust absence of effect.
 
 The exact sign-flip test returns no value below 0.4375 for this endpoint. Neither scenario reaches
 significance, and Section 4.5 explains why that was impossible by design rather than by data.

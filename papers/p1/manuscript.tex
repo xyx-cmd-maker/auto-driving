@@ -24,7 +24,7 @@ scalar is ever non-zero is rarely measured before it is ablated, and in a sparse
 be. We make that measurement before the ablation. In a three-lane SUMO highway the fraction of five-second windows
 containing a crossing rises from 0.12 at 600 vehicles per hour to 0.56 at 4800. In recorded traffic from
 the public TGSIM corpus it is 0.53 at an estimated 1800 to 2400 vehicles per hour, while our own closed
-loop, with sixteen mixed vehicles, reaches only 0.084. We then run a pre-registered paired ablation of
+loop, with sixteen mixed vehicles, reaches only 0.084 to 0.168. We then run a pre-registered paired ablation of
 the scalar as a fourth input to a closed-form continuous-time controller, with one search budget and one
 set of seeds. Two of four scenarios are equivalent on composite cost within a pre-registered ten percent
 margin, and two are inconclusive. Quadrupling availability in three scenarios, by widening the window,
@@ -48,7 +48,7 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\columnwidth]{figs/fig2_availability_real.pdf}
-\caption{\textbf{Availability in synthetic and recorded traffic.} \textbf{A}, the availability map with the CARLA operating point. \textbf{B}, the same quantity at three window lengths for three sources. SUMO synthetic traffic at 1800 to 2400 veh/h is drawn in blue. Recorded TGSIM traffic is drawn as orange squares: the mean over ten runs, with the observed range as an error bar. Our CARLA closed loop is drawn as stars. The closed-loop value at W = 5 s is 0.084 from the main experiment and at W = 10 s is 0.167. At W = 20 s the supplementary groups reach 0.334 in two scenarios and between 0.334 and 0.497 in the third, because lead-exit produces crossings of the ego lane without any injection. The star is drawn at 0.334, the value shared by two of the three scenarios. At a 5 s window the fractions are 0.39, 0.53 and 0.084. \textbf{Three limitations of this panel, stated here because they bound its interpretation.} 1. The TGSIM horizontal placement is an \textbf{estimate} (unique vehicles divided by run duration). The public trajectory file uses per-run normalised coordinates spanning a fixed box, so absolute station flow cannot be recomputed from it without the centreline geometry files. 2. The error bars are the \textbf{minimum and maximum across ten runs}, not a confidence interval. 3. The three sources differ in density. The comparison therefore shows that recorded traffic exposes the controller to a non-zero OTF far more often than our closed loop does. It does not isolate density from lane-change behaviour as the cause.}
+\caption{\textbf{Availability in synthetic and recorded traffic.} \textbf{A}, the availability map with the CARLA operating point. \textbf{B}, the same quantity at three window lengths for three sources. SUMO synthetic traffic at 1800 to 2400 veh/h is drawn in blue. Recorded TGSIM traffic is drawn as orange squares: the mean over ten runs, with the observed range as an error bar. Our CARLA closed loop is drawn as stars. The closed-loop value at W = 5 s is 0.084 from the main experiment and at W = 10 s is 0.167. At W = 20 s the supplementary groups reach 0.334 in two scenarios and between 0.334 and 0.497 in the third, because lead-exit produces crossings of the ego lane without any injection. The star is drawn at 0.334, the value shared by two of the three scenarios. At a 5 s window the fractions are 0.39, 0.53 and 0.084. Each source uses its own statistic: a mean over runs for SUMO and TGSIM, and the value shared by three scenarios for our loop. The three points are descriptive rather than like-for-like. \textbf{Three limitations of this panel, stated here because they bound its interpretation.} 1. The TGSIM horizontal placement is an \textbf{estimate} (unique vehicles divided by run duration). The public trajectory file uses per-run normalised coordinates spanning a fixed box, so absolute station flow cannot be recomputed from it without the centreline geometry files. 2. The error bars are the \textbf{minimum and maximum across ten runs}, not a confidence interval. 3. The three sources differ in density. The comparison therefore shows that recorded traffic exposes the controller to a non-zero OTF far more often than our closed loop does. It does not isolate density from lane-change behaviour as the cause.}
 \label{fig:fig2}
 \end{figure}
 
@@ -228,8 +228,9 @@ All twenty paired runs completed. The execution fingerprint is identical across 
 sixteen traffic vehicles in the main experiment, 50 Hz simulation, 20 Hz control, 24 hidden units, and
 twelve candidate controllers per arm. The three runtime guards reported no empty episodes, no actor
 leaks, and no deadlocked episodes.
-The treatment variable was active in every run. The fraction of control cycles with OTF > 0 was 0.084
-in sixteen runs and 0.167 in four. Neither arm collided in any run, so collision counts are zero
+The treatment variable was active in every run. The fraction of control cycles with a non-zero net
+crossing in the trailing window was 0.084 in seventeen runs and 0.168 in three. A control cycle is
+one 20 Hz observation step, so this is a fraction of time rather than of disjoint windows. Neither arm collided in any run, so collision counts are zero
 throughout and we do not use them as evidence of a difference.
 \subsection{Primary endpoint}
 Table 1 reports the paired difference in composite driving cost for each scenario, with the
@@ -254,6 +255,11 @@ Two scenarios, no lead vehicle and lead exit, have both interval bounds inside t
 pre-registered 95\% criterion. The cutin scenario would also qualify under the conventional 90\%
 interval, where its upper bound is +2.471 against a margin of 3.031. The lead-brake scenario does not
 qualify under either criterion. We report the stricter criterion as primary.
+These verdicts sit close to the margin. For no lead vehicle, equivalence would still hold at a
+margin of 2.577, which is 85 percent of the pre-registered 3.048. For cutin the corresponding value
+is 2.800, or 92 percent of 3.031. For lead exit it is 1.918, or 63 percent of 3.062. A margin of
+8.5 percent rather than 10 percent would leave none of the four equivalent. We therefore read the
+equivalence as conditional on the margin rather than as a robust absence of effect.
 The exact sign-flip test returns no value below 0.4375 for this endpoint. Neither scenario reaches
 significance, and Section 4.5 explains why that was impossible by design rather than by data.
 \subsection{Secondary endpoints}
@@ -343,14 +349,16 @@ confined to a regime we did not reach, remains compatible with our data.
 The result is consistent with redundancy at the controller input, and we tested that reading directly.
 We removed relative speed from the observation, so that both arms saw only gap and ego speed. The
 off-arm cost moved by 0.14, from 30.82 with ten runs to 30.96 with five, and the two ranges overlap
-almost exactly. The recurrent state therefore rebuilds the missing rate from the history of the gap.
+almost exactly. Removing the input did not make OTF useful either: in the same five runs the paired
+difference between the two arms was +1.26, with a 95 percent interval of -2.17 to +4.68 and an exact
+p of 0.375. The recurrent state therefore rebuilds the missing rate from the history of the gap.
 That matters for the interpretation. A controller that can reconstruct one of its own inputs has little
 left to gain from a fourth scalar that summarizes vehicles other than the lead. OTF describes traffic
 that does not constrain the ego at the moment of decision. When those vehicles are unconstrained, their
 aggregate adds nothing to the instantaneous command.
 Signal scarcity is the obvious competing explanation, and we tested it rather than assuming it. In the
-main experiment the fraction of windows with OTF > 0 was 0.084 to 0.167, so the fourth input was zero
-for most of every episode. We therefore raised that fraction fourfold in every scenario, by widening the
+main experiment the fraction of control cycles with a non-zero net crossing was 0.084 to 0.168, so
+the fourth input was zero for most of every episode. We therefore raised that fraction fourfold in every scenario, by widening the
 window to 20 s while holding everything else fixed. Availability rose to 0.334 in two scenarios and to
 between 0.334 and 0.497 in the third.
 No scenario sharpened. The interval width grew rather than shrank in all three: 5.90 to 6.83, 5.59 to
@@ -378,9 +386,9 @@ and with window length. The two trade against each other: the 0.5 contour is cro
 manipulation to try, and it is what a future study should use to choose an operating point deliberately
 rather than inherit one from a simulator default.
 \subsection{A discrepancy worth reporting}
-At the flow equivalent of our CARLA setting, the SUMO map predicts an availability near 0.32, while
-CARLA produced 0.084. Recorded traffic sits higher still: on the public TGSIM corpus, at an estimated
-1800 to 2400 vehicles per hour, the measured fraction at a 5 s window was 0.53. The gap is explained by
+At the flow equivalent of our CARLA setting, about 1400 vehicles per hour, the SUMO map predicts an
+availability near 0.32 when interpolated between its 1200 and 1800 rows, while CARLA produced 0.084. Recorded traffic sits higher still: on the public TGSIM corpus, at an estimated
+1800 to 2400 vehicles per hour, the measured fraction at a 5 s window was 0.53, averaged over ten runs. The gap is explained by
 the lane-change model rather than by the OTF definition.
 SUMO's LC2013 changes lanes to overtake slower traffic. CARLA's Traffic Manager, in a sparse scene
 without congestion pressure, rarely does: over a 60 s probe the whole fleet completed two lane

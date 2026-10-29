@@ -74,7 +74,9 @@ confined to a regime we did not reach, remains compatible with our data.
 The result is consistent with redundancy at the controller input, and we tested that reading directly.
 We removed relative speed from the observation, so that both arms saw only gap and ego speed. The
 off-arm cost moved by 0.14, from 30.82 with ten runs to 30.96 with five, and the two ranges overlap
-almost exactly. The recurrent state therefore rebuilds the missing rate from the history of the gap.
+almost exactly. Removing the input did not make OTF useful either: in the same five runs the paired
+difference between the two arms was +1.26, with a 95 percent interval of -2.17 to +4.68 and an exact
+p of 0.375. The recurrent state therefore rebuilds the missing rate from the history of the gap.
 
 That matters for the interpretation. A controller that can reconstruct one of its own inputs has little
 left to gain from a fourth scalar that summarizes vehicles other than the lead. OTF describes traffic
@@ -82,8 +84,8 @@ that does not constrain the ego at the moment of decision. When those vehicles a
 aggregate adds nothing to the instantaneous command.
 
 Signal scarcity is the obvious competing explanation, and we tested it rather than assuming it. In the
-main experiment the fraction of windows with OTF > 0 was 0.084 to 0.167, so the fourth input was zero
-for most of every episode. We therefore raised that fraction fourfold in every scenario, by widening the
+main experiment the fraction of control cycles with a non-zero net crossing was 0.084 to 0.168, so
+the fourth input was zero for most of every episode. We therefore raised that fraction fourfold in every scenario, by widening the
 window to 20 s while holding everything else fixed. Availability rose to 0.334 in two scenarios and to
 between 0.334 and 0.497 in the third.
 
@@ -119,9 +121,9 @@ rather than inherit one from a simulator default.
 
 ## 5.3 A discrepancy worth reporting
 
-At the flow equivalent of our CARLA setting, the SUMO map predicts an availability near 0.32, while
-CARLA produced 0.084. Recorded traffic sits higher still: on the public TGSIM corpus, at an estimated
-1800 to 2400 vehicles per hour, the measured fraction at a 5 s window was 0.53. The gap is explained by
+At the flow equivalent of our CARLA setting, about 1400 vehicles per hour, the SUMO map predicts an
+availability near 0.32 when interpolated between its 1200 and 1800 rows, while CARLA produced 0.084. Recorded traffic sits higher still: on the public TGSIM corpus, at an estimated
+1800 to 2400 vehicles per hour, the measured fraction at a 5 s window was 0.53, averaged over ten runs. The gap is explained by
 the lane-change model rather than by the OTF definition.
 SUMO's LC2013 changes lanes to overtake slower traffic. CARLA's Traffic Manager, in a sparse scene
 without congestion pressure, rarely does: over a 60 s probe the whole fleet completed two lane
