@@ -30,3 +30,9 @@ papers/p1/*.log
 papers/p1/*.out
 papers/p1/*.fls
 papers/p1/*.fdb_latexmk
+
+# ── 公开仓库前追加（2026-10-29）──
+literature/fulltext/
+sources/*.fulltext.txt
+papers/p1/_pages/
+_diag*.mjs
