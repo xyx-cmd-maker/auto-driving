@@ -1,0 +1,21 @@
+{
+  "experiment": "sumo_lanecount_probe",
+  "seed": 0,
+  "veh_per_hour": 960,
+  "minutes": 1.0,
+  "lanes": 3,
+  "length_m": 1200.0,
+  "ego_lane_index": 1,
+  "vehicles": 15,
+  "lane_changes_total": 9,
+  "lane_changes_across_ego": 9,
+  "per_vehicle": {
+    "f_truck.0": 1,
+    "f_car.1": 2,
+    "f_car.3": 1,
+    "f_car.6": 1,
+    "f_car.7": 2,
+    "f_car.8": 2
+  },
+  "note": "60 s 稀疏探针：复现论文 §5.3 的『整队仅发生两次换道』观察"
+}
