@@ -6,7 +6,18 @@
 
 以黄梦圆《基于超车频次的自动驾驶车辆行为决策研究》（吉林大学，2023）的 OTF 参数为锚点，做五篇论文（P1 OTF-CfC → P2 SocialDreamer → P3 TalkOTF → P4 IsoLNN → P5 AdjointStack）。台账见 [`papers/portfolio.md`](papers/portfolio.md)（唯一状态来源）。
 
-**当前状态（诚实版，2026-10-11 纠正）**：**本机有 GPU** —— RTX 5060 Laptop（8 GB，sm_120/Blackwell，驱动 592.15），但**当前 torch 是 CPU 版、缺 CUDA 12.8**，且 **CARLA 未装**；学位论文数据与 TD3 代码不在本机。因此现在能做的是：**契约冻结、文献底座、纯 CPU 合成实验**（已产出 A1 信息量版结论），以及**装 CUDA torch + CARLA 后进入闭环实验**。**已有工具**：SUMO 1.27.1（`D:\SUMO\sumo-1.27.1`，四项实测通过含 Python TraCI），定位＝**只做交通流生成 / 合成 OTF 真值**（见 [`AGENTS.md`](AGENTS.md) §2）。
+> ## ★ 外审（external review）从哪里开始
+>
+> 如果你是受邀的外审，请先读 **[`REVIEW-BRIEF.md`](REVIEW-BRIEF.md)**（说明要看什么、已知弱点、想请你攻击的八个问题），
+> 再看稿件 `papers/p1/manuscript.pdf`（8 页）。
+> **一键复核论文关键数字**：`py -3.12 scripts/verify_from_published_cases.py`（读 `results/p1/cases/`，不含大数据）。
+
+**当前状态（诚实版，2026-10-29 更新）**：**环境已全线打通** —— RTX 5060 Laptop（8 GB，sm_120）、
+**torch 2.11.0+cu128（实测 11/11、6.7× 加速）**、**CARLA 0.9.16（Town04 可用、闭环自检 8/8）**、
+SUMO 1.27.1（定位＝**只做交通流生成 / 合成 OTF 真值**）。
+**P1 已完成闭环实验与成稿**：主实验 20 局（四场景 × 5 种子）＋ lead-brake 扩到 10 种子（三窗口）＋
+删 Δv 的机制检验 5 局；稿件 8 页、7 条参考文献，目标 IEEE T-IV。
+**未做**：实车/真实数据闭环（TGSIM 仅开环统计）、多地图多车型、20 种子以上的功效扩增。
 
 > **跨对话**：本项目由多个分支对话并行推进，分支登记与协作契约见 [`AGENTS.md`](AGENTS.md) §0。本文件只讲"东西放在哪、数字从哪来"。
 >

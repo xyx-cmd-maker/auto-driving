@@ -1,0 +1,342 @@
+{
+  "scenario": "lead-brake",
+  "seed": 7,
+  "arms": {
+    "a1_otf_off": {
+      "n_valid": 8,
+      "invalid_ratio": 0.3333,
+      "candidates": [
+        {
+          "k": 0,
+          "seed": 69195895,
+          "cost": 32.138887,
+          "valid": true,
+          "travelled_m": 153.693,
+          "invalid_reason": null
+        },
+        {
+          "k": 1,
+          "seed": 373740253,
+          "cost": 34.134065,
+          "valid": true,
+          "travelled_m": 154.385,
+          "invalid_reason": null
+        },
+        {
+          "k": 2,
+          "seed": 668494797,
+          "cost": 36.252233,
+          "valid": true,
+          "travelled_m": 120.173,
+          "invalid_reason": null
+        },
+        {
+          "k": 3,
+          "seed": 380818512,
+          "cost": 37.986009,
+          "valid": true,
+          "travelled_m": 133.113,
+          "invalid_reason": null
+        },
+        {
+          "k": 4,
+          "seed": 482609182,
+          "cost": 31.330136,
+          "valid": true,
+          "travelled_m": 153.966,
+          "invalid_reason": null
+        },
+        {
+          "k": 5,
+          "seed": 122140816,
+          "cost": 29.857344,
+          "valid": false,
+          "travelled_m": 0.0,
+          "invalid_reason": "ego 仅移动 0.0 m（阈值 20 m）——疑似被残留车辆/几何卡住，该局指标不可用"
+        },
+        {
+          "k": 6,
+          "seed": 421587395,
+          "cost": 30.350729,
+          "valid": true,
+          "travelled_m": 159.668,
+          "invalid_reason": null
+        },
+        {
+          "k": 7,
+          "seed": 114773114,
+          "cost": 31.597647,
+          "valid": false,
+          "travelled_m": 0.073,
+          "invalid_reason": "ego 仅移动 0.1 m（阈值 20 m）——疑似被残留车辆/几何卡住，该局指标不可用"
+        },
+        {
+          "k": 8,
+          "seed": 958535012,
+          "cost": 39.79831,
+          "valid": true,
+          "travelled_m": 113.8,
+          "invalid_reason": null
+        },
+        {
+          "k": 9,
+          "seed": 608520902,
+          "cost": 29.857271,
+          "valid": false,
+          "travelled_m": 0.0,
+          "invalid_reason": "ego 仅移动 0.0 m（阈值 20 m）——疑似被残留车辆/几何卡住，该局指标不可用"
+        },
+        {
+          "k": 10,
+          "seed": 70190659,
+          "cost": 35.676698,
+          "valid": true,
+          "travelled_m": 132.025,
+          "invalid_reason": null
+        },
+        {
+          "k": 11,
+          "seed": 73292792,
+          "cost": 29.857344,
+          "valid": false,
+          "travelled_m": 0.0,
+          "invalid_reason": "ego 仅移动 0.0 m（阈值 20 m）——疑似被残留车辆/几何卡住，该局指标不可用"
+        }
+      ],
+      "phi_nonzero_ratio": null,
+      "best_cost": 30.350729259999998,
+      "best_metrics": {
+        "n_samples": 1501,
+        "mean_dt_s": 0.04,
+        "following_rmse_m": 81.580467,
+        "accel_sq_integral_mps3": 322.305399,
+        "jerk_peak_mps3": 1571.182758,
+        "lane_center_dev_m": 0.034747,
+        "steer_angle_var": 1.9e-05,
+        "collision_count": 0,
+        "min_ttc_s": 25.074552,
+        "assumptions": {
+          "tau_s": 1.5,
+          "d0_m": 5.0,
+          "note": "期望间距 d_des = v·τ + d0；该假设写死在文件里，不得事后改"
+        },
+        "n_lead_present": 1284
+      },
+      "best_seed": 421587395,
+      "params": 701,
+      "elite_costs": [
+        30.350729259999998,
+        31.3301358,
+        32.13888686
+      ],
+      "all_costs": [
+        32.13888686,
+        34.1340651,
+        36.252232819999996,
+        37.9860088,
+        31.3301358,
+        29.85734378,
+        30.350729259999998,
+        31.59764712,
+        39.79830978,
+        29.85727128,
+        35.67669764,
+        29.85734378
+      ],
+      "n_invalid": 4,
+      "wall_s": 389.9,
+      "phi_nonzero_ratio_of_best": null
+    },
+    "a1_otf_on": {
+      "n_valid": 7,
+      "invalid_ratio": 0.4167,
+      "candidates": [
+        {
+          "k": 0,
+          "seed": 69195895,
+          "cost": 29.857344,
+          "valid": false,
+          "travelled_m": 0.0,
+          "invalid_reason": "ego 仅移动 0.0 m（阈值 20 m）——疑似被残留车辆/几何卡住，该局指标不可用"
+        },
+        {
+          "k": 1,
+          "seed": 373740253,
+          "cost": 29.857344,
+          "valid": false,
+          "travelled_m": 0.0,
+          "invalid_reason": "ego 仅移动 0.0 m（阈值 20 m）——疑似被残留车辆/几何卡住，该局指标不可用"
+        },
+        {
+          "k": 2,
+          "seed": 668494797,
+          "cost": 55.392242,
+          "valid": true,
+          "travelled_m": 87.976,
+          "invalid_reason": null
+        },
+        {
+          "k": 3,
+          "seed": 380818512,
+          "cost": 59.402244,
+          "valid": true,
+          "travelled_m": 35.851,
+          "invalid_reason": null
+        },
+        {
+          "k": 4,
+          "seed": 482609182,
+          "cost": 29.857271,
+          "valid": false,
+          "travelled_m": 0.0,
+          "invalid_reason": "ego 仅移动 0.0 m（阈值 20 m）——疑似被残留车辆/几何卡住，该局指标不可用"
+        },
+        {
+          "k": 5,
+          "seed": 122140816,
+          "cost": 30.777519,
+          "valid": true,
+          "travelled_m": 157.725,
+          "invalid_reason": null
+        },
+        {
+          "k": 6,
+          "seed": 421587395,
+          "cost": 39.967979,
+          "valid": true,
+          "travelled_m": 120.587,
+          "invalid_reason": null
+        },
+        {
+          "k": 7,
+          "seed": 114773114,
+          "cost": 29.857344,
+          "valid": false,
+          "travelled_m": 0.0,
+          "invalid_reason": "ego 仅移动 0.0 m（阈值 20 m）——疑似被残留车辆/几何卡住，该局指标不可用"
+        },
+        {
+          "k": 8,
+          "seed": 958535012,
+          "cost": 29.774088,
+          "valid": true,
+          "travelled_m": 78.199,
+          "invalid_reason": null
+        },
+        {
+          "k": 9,
+          "seed": 608520902,
+          "cost": 53.122211,
+          "valid": false,
+          "travelled_m": 6.506,
+          "invalid_reason": "ego 仅移动 6.5 m（阈值 20 m）——疑似被残留车辆/几何卡住，该局指标不可用"
+        },
+        {
+          "k": 10,
+          "seed": 70190659,
+          "cost": 39.523054,
+          "valid": true,
+          "travelled_m": 150.825,
+          "invalid_reason": null
+        },
+        {
+          "k": 11,
+          "seed": 73292792,
+          "cost": 38.888307,
+          "valid": true,
+          "travelled_m": 135.117,
+          "invalid_reason": null
+        }
+      ],
+      "phi_nonzero_ratio": 0.334,
+      "best_cost": 29.77408756,
+      "best_metrics": {
+        "n_samples": 1501,
+        "mean_dt_s": 0.04,
+        "following_rmse_m": 94.008214,
+        "accel_sq_integral_mps3": 229.181529,
+        "jerk_peak_mps3": 1571.182758,
+        "lane_center_dev_m": 0.077808,
+        "steer_angle_var": 1.9e-05,
+        "collision_count": 0,
+        "min_ttc_s": 259.910654,
+        "assumptions": {
+          "tau_s": 1.5,
+          "d0_m": 5.0,
+          "note": "期望间距 d_des = v·τ + d0；该假设写死在文件里，不得事后改"
+        },
+        "n_lead_present": 445
+      },
+      "best_seed": 958535012,
+      "params": 726,
+      "elite_costs": [
+        29.77408756,
+        30.77751858,
+        38.88830737999999
+      ],
+      "all_costs": [
+        29.857343880000002,
+        29.857343880000002,
+        55.39224202,
+        59.40224353999999,
+        29.85727128,
+        30.77751858,
+        39.967979,
+        29.85734378,
+        29.77408756,
+        53.12221074000001,
+        39.52305418,
+        38.88830737999999
+      ],
+      "n_invalid": 5,
+      "wall_s": 480.3,
+      "phi_nonzero_ratio_of_best": 0.334
+    }
+  },
+  "guards": {
+    "a1_otf_off": {
+      "zero_speed_frames": 7,
+      "n_frames": 1500,
+      "actors_max": 17,
+      "ttc_events": 67,
+      "travelled_m": 159.668,
+      "valid": true
+    },
+    "a1_otf_on": {
+      "zero_speed_frames": 442,
+      "n_frames": 1500,
+      "actors_max": 17,
+      "ttc_events": 3,
+      "phi_nonzero_frames": 501,
+      "travelled_m": 78.199,
+      "phi_nonzero_ratio": 0.334,
+      "valid": true
+    }
+  },
+  "exec": {
+    "episode_s": 60.0,
+    "traffic": 16,
+    "otf_window_s": 20.0,
+    "sim_hz": 50.0,
+    "control_hz": 20.0,
+    "hidden": 24,
+    "candidates_per_arm": 12,
+    "elite": 3
+  },
+  "paired": {
+    "delta_following_rmse": 12.427747,
+    "delta_accel_sq_integral": -93.12387,
+    "delta_collision": 0,
+    "delta_cost": -0.5766416999999961,
+    "mask": "best_cost 口径（各取各自最好有效候选）",
+    "equal_k": {
+      "k": 7,
+      "delta_cost": 7.979525,
+      "n_valid_off": 8,
+      "n_valid_on": 7,
+      "invalid_ratio_off": 0.3333,
+      "invalid_ratio_on": 0.4167,
+      "caveat": "等 K 消除了'候选池大小'带来的选择偏倚，但**不消除**两臂产生有效候选能力的真实差异；后者作为'训练难度'证据单独报告，不得隐去"
+    }
+  }
+}
