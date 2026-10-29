@@ -1,4 +1,4 @@
-# 问题登记册（T-IV 红队，Round 01–20）
+| F4 | **等价结论依赖 jerk 常数放大的 margin：扣常数后 2/4 等价 → 0/4** | **P0（核心结论）** | **NEW（R25）** | `audit_jerk_sensitivity.py`：off 均值 30.48→14.77，margin 3.05→1.48，none 与 lead-exit 均翻为 inconclusive |# 问题登记册（T-IV 红队，Round 01–20）
 
 > 目标文件：`C:\Users\本手\Downloads\TIV_RedTeam_Review_and_DSH_Goal.md`
 > 更新：2026-10-29（Round 20）
