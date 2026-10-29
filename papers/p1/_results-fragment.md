@@ -3,13 +3,13 @@
 ## 4.1 Validity checks
 
 All twenty paired runs completed. The execution fingerprint is identical across runs: 60 s episodes,
-sixteen traffic vehicles in the main experiment, 50 Hz simulation, 20 Hz control, 24 hidden units, and
+sixteen traffic vehicles in the main experiment, 50 Hz simulation, 25 Hz control, 24 hidden units, and
 twelve candidate controllers per arm. The three runtime guards reported no empty episodes, no actor
 leaks, and no deadlocked episodes.
 
 The treatment variable was active in every run. The fraction of control cycles with a non-zero net
 crossing in the trailing window was 0.084 in seventeen runs and 0.168 in three. A control cycle is
-one 20 Hz observation step, so this is a fraction of time rather than of disjoint windows. Neither arm collided in any run, so collision counts are zero
+one 25 Hz observation step, so this is a fraction of time rather than of disjoint windows. Neither arm collided in any run, so collision counts are zero
 throughout and we do not use them as evidence of a difference.
 
 ## 4.2 Primary endpoint

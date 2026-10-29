@@ -164,7 +164,7 @@ recorded traffic, where the same window gives 53%. Conclusions do not transfer t
 4. Constructed traffic. OTF activation depends on scripted cut-ins placed by transform, not on
 natural lane changes. The resulting events are more regular than real ones.
 
-5. Platform. One map, one vehicle model, and a control rate of 20 Hz rather than the 100 Hz of the
+5. Platform. One map, one vehicle model, and a control rate of 25 Hz rather than the 100 Hz of the
 original protocol.
 
 6. Real trajectories, open loop only. The availability map comes from SUMO, and the closed loop from
