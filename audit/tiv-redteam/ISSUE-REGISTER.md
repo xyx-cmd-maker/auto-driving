@@ -1,6 +1,6 @@
 | F4 | **等价结论依赖 jerk 常数放大的 margin：扣常数后 2/4 等价 → 0/4** | **P0（核心结论）** | **NEW（R25）** | `audit_jerk_sensitivity.py`：off 均值 30.48→14.77，margin 3.05→1.48，none 与 lead-exit 均翻为 inconclusive |# 问题登记册（T-IV 红队，Round 01–20）
 | F5 | **路线 C：在 RMSE 与 accel² 上 8/8 端点全为「未定」，0 个「等价」** | **P0（核心结论）** | **NEW（R26）** | `audit_endpoint_states.py`；「2/4 等价」只在含 jerk 常数的复合代价上成立；达到等价需 8–43 种子/场景 |
-> 目标文件：`C:\Users\本手\Downloads\TIV_RedTeam_Review_and_DSH_Goal.md`
+| F6 | **等价判定卡在 margin 阈值上：none 的临界 margin 仅为现值的 85%，cutin 为 92%** | **P1（判据敏感）** | **NEW（R27）** | 单变量敏感性；把 margin 从 10% 降到 8.5%，none 即不再等价；lead-brake 的 TOST p=0.0515 距等价只差 0.0015 |> 目标文件：`C:\Users\本手\Downloads\TIV_RedTeam_Review_and_DSH_Goal.md`
 > 更新：2026-10-29（Round 20）
 > 规则：每条给**严重度 / 状态 / 证据 / 动作**；状态只有四种——
 > `OPEN`（未处理）、`FIX-READY`（补丁写好待批准）、`FIXED`（已落盘并验证）、`DECIDE`（需作者裁决）。
