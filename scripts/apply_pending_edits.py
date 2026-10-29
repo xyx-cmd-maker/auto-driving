@@ -56,7 +56,7 @@ EDITS = [
               "in sixteen runs and 0.167 in four."),
          new=("The treatment variable was active in every run. The fraction of control cycles with a non-zero net\n"
               "crossing in the trailing window was 0.084 in seventeen runs and 0.168 in three. A control cycle is\n"
-              "one 20 Hz observation step, so this is a fraction of time rather than of disjoint windows.")),
+              "one 25 Hz observation step, so this is a fraction of time rather than of disjoint windows.")),
 
     # ── E4：§5.2 术语从 windows 改为 control cycles ───────────────────
     dict(id="E4", why="P0-1 术语：同一统计量在 5.2 里被写成 windows，与 4.1 冲突",
@@ -81,6 +81,16 @@ EDITS = [
               "is 2.800, or 92 percent of 3.031. For lead exit it is 1.918, or 63 percent of 3.062. A margin of\n"
               "8.5 percent rather than 10 percent would leave none of the four equivalent. We therefore read the\n"
               "equivalence as conditional on the margin rather than as a robust absence of effect.")),
+
+    # ── E9：载体偏弱（R37-38 实测，5 种子一致）────────────────────────
+    dict(id="E9", why="外部效度：调好的 PID 跟车 RMSE 17 m，而 CfC 为 85 m，五个种子无一例外",
+         file="02-introduction-discussion.md",
+         old=("5. Platform. One map, one vehicle model, and a control rate of 25 Hz rather than the 100 Hz of the\n"
+              "original protocol."),
+         new=("5. Platform. One map, one vehicle model, and a control rate of 25 Hz rather than the 100 Hz of the\n"
+              "original protocol. The controller under test is also modest. A tuned PID follows the lead with 17 m\n"
+              "of root-mean-square error against 85 m here, on all five seeds. The ablation therefore tests the\n"
+              "fourth input inside a weak carrier, not the best achievable controller.")),
 
     # ── E7：§5.3 的 0.32 未写明流量，且与 Fig.2 的 0.39 不同 ─────────
     dict(id="E7", why="P1-O：0.32 是未声明流量的插值；表中无此行",
@@ -117,6 +127,11 @@ def apply_one(edit, do_apply, report):
         return
     txt = io.open(path, encoding="utf-8").read()
     n = txt.count(edit["old"])
+    if edit["new"] in txt:
+        # 已经应用过（含"追加式"编辑：新文包含了旧文，故 old 仍能命中）。
+        # 必须先判"新文是否已在"，否则追加式编辑会被重复插入。
+        report.append((edit["id"], edit["file"], "ALREADY", 1, True))
+        return
     ok = (n == 1)
     report.append((edit["id"], edit["file"], "OK" if ok else "ANCHOR-%s" % ("DUP" if n > 1 else "MISSING"), n, ok))
     if do_apply and ok:

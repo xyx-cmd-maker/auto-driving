@@ -420,7 +420,9 @@ recorded traffic, where the same window gives 53\%. Conclusions do not transfer 
 4. Constructed traffic. OTF activation depends on scripted cut-ins placed by transform, not on
 natural lane changes. The resulting events are more regular than real ones.
 5. Platform. One map, one vehicle model, and a control rate of 25 Hz rather than the 100 Hz of the
-original protocol.
+original protocol. The controller under test is also modest. A tuned PID follows the lead with 17 m
+of root-mean-square error against 85 m here, on all five seeds. The ablation therefore tests the
+fourth input inside a weak carrier, not the best achievable controller.
 6. Real trajectories, open loop only. The availability map comes from SUMO, and the closed loop from
 CARLA. We also measured availability on the public TGSIM corpus, a US public-domain trajectory dataset
 of a four-lane highway carrying three SAE L1 ACC vehicles per run, and obtained 0.53 at a 5 s window.
