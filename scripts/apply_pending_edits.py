@@ -83,7 +83,10 @@ EDITS = [
 EDIT_DV = dict(
     id="E6", why="P2：无 Δv 组的 OTF 开/关结论（本轮新分析，n=5，p=0.375）",
     file="02-introduction-discussion.md",
-    old="off-arm cost moved by 0.14, from 30.82 with ten runs to 30.96 with five, and the two ranges overlap",
+    # ★ 锚点必须包含下一行的 "almost exactly."，否则替换后会重复一次该短语
+    #   （2026-10-29 由 patch-diffs/combined.patch 目视发现）。
+    old=("off-arm cost moved by 0.14, from 30.82 with ten runs to 30.96 with five, and the two ranges overlap\n"
+         "almost exactly."),
     new=("off-arm cost moved by 0.14, from 30.82 with ten runs to 30.96 with five, and the two ranges overlap\n"
          "almost exactly. Removing the input did not make OTF useful either: in the same five runs the paired\n"
          "difference between the two arms was +1.26, with a 95 percent interval of -2.17 to +4.68 and an exact\n"

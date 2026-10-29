@@ -1,0 +1,142 @@
+﻿diff --git a/papers/p1/01-abstract-final.md b/papers/p1/01-abstract-final.md
+index 9310201..b33ee43 100644
+--- a/papers/p1/01-abstract-final.md
++++ b/papers/p1/01-abstract-final.md
+@@ -8,7 +8,7 @@
+ 
+ ## Title
+ 
+-**When Is Overtaking Frequency Informative? A Pre-Registered Closed-Loop Ablation and an Availability Map**
++**Measure the Signal Before You Ablate It: Availability of a Traffic-Level Scalar and a Pre-Registered Closed-Loop Equivalence Study**
+ 
+ *Assumption to check:* if the final framing shifts to "when is a traffic-flow scalar usable", the
+ alternative title is **"When Does Overtaking Frequency Help? A Closed-Loop Equivalence Study of a
+@@ -18,13 +18,13 @@ Traffic-Flow Scalar in Highway Car-Following"**. Choose after the discussion sec
+ 
+ ## Abstract
+ 
+-Multi-lane highways produce a continuous stream of lane changes around any vehicle, and a scalar summary
+-of that pressure is an attractive controller input because it costs no extra sensor. Whether such a
+-scalar is ever non-zero is rarely measured before it is ablated, and in a sparse simulator it may never
+-be. We make that measurement before the ablation. In a three-lane SUMO highway the fraction of five-second windows
++A scalar summary of the traffic around a vehicle is an attractive controller input because it costs
++no extra sensor, and multi-lane highways supply a continuous stream of lane changes to compute it
++from. Whether such a scalar is ever non-zero is rarely measured before it is ablated, and in a sparse
++simulator it may never be. We make that measurement before the ablation. In a three-lane SUMO highway the fraction of five-second windows
+ containing a crossing rises from 0.12 at 600 vehicles per hour to 0.56 at 4800. In recorded traffic from
+ the public TGSIM corpus it is 0.53 at an estimated 1800 to 2400 vehicles per hour, while our own closed
+-loop, with sixteen mixed vehicles, reaches only 0.084. We then run a pre-registered paired ablation of
++loop, with sixteen mixed vehicles, reaches only 0.084 to 0.168. We then run a pre-registered paired ablation of
+ the scalar as a fourth input to a closed-form continuous-time controller, with one search budget and one
+ set of seeds. Two of four scenarios are equivalent on composite cost within a pre-registered ten percent
+ margin, and two are inconclusive. Quadrupling availability in three scenarios, by widening the window,
+diff --git a/papers/p1/02-introduction-discussion.md b/papers/p1/02-introduction-discussion.md
+index e5b5292..483e395 100644
+--- a/papers/p1/02-introduction-discussion.md
++++ b/papers/p1/02-introduction-discussion.md
+@@ -34,20 +34,23 @@ That setting therefore sits in the low-information regime. We do not treat that
+ result. Section 5.2 reports a supplementary group that raises availability fourfold and tests whether
+ scarcity is what limits the conclusion.
+ 
+-This paper makes three contributions.
++This paper makes three contributions, ordered from measurement to inference.
+ 
+-1. A closed-loop ablation of OTF under an equal search budget, reported per scenario with an
++1. A measured map of OTF availability as a function of traffic flow and window length, obtained with
++   the same OTF definition used by the controller. The map shows that availability is governed by
++   density and window jointly, and that our closed-loop setting is in its lower region.
++2. A closed-loop ablation of OTF under an equal search budget, reported per scenario with an
+    equivalence test that was registered before the data were collected. Two of four scenarios are
+    statistically equivalent on composite driving cost within a 10% margin (TOST p = 0.020 and 0.006);
+    the other two are inconclusive.
+-2. A measured map of OTF availability as a function of traffic flow and window length, obtained with
+-   the same OTF definition used by the controller. The map shows that availability is governed by
+-   density and window jointly, and that our closed-loop setting is in its lower region.
+ 3. An explicit account of why the experiment cannot support a superiority claim even if a difference exists:
+    with five seeds the exact paired test cannot reach significance after multiplicity correction. We
+    therefore target equivalence, and we report the equal-K sensitivity analysis that reverses the sign
+    of the effect estimate.
+ 
++The recommendation for practice is procedural rather than numerical: measure availability before
++ablating a traffic-level signal, and report the operating point alongside the ablation.
++
+ Section 2 describes the controller, the OTF definition, and the two environments. Section 3 gives the
+ protocol and the pre-registered analysis. Section 4 reports results. Section 5 discusses what the
+ results do and do not imply. Section 6 lists limitations.
+@@ -74,7 +77,9 @@ confined to a regime we did not reach, remains compatible with our data.
+ The result is consistent with redundancy at the controller input, and we tested that reading directly.
+ We removed relative speed from the observation, so that both arms saw only gap and ego speed. The
+ off-arm cost moved by 0.14, from 30.82 with ten runs to 30.96 with five, and the two ranges overlap
+-almost exactly. The recurrent state therefore rebuilds the missing rate from the history of the gap.
++almost exactly. Removing the input did not make OTF useful either: in the same five runs the paired
++difference between the two arms was +1.26, with a 95 percent interval of -2.17 to +4.68 and an exact
++p of 0.375. The recurrent state therefore rebuilds the missing rate from the history of the gap.
+ 
+ That matters for the interpretation. A controller that can reconstruct one of its own inputs has little
+ left to gain from a fourth scalar that summarizes vehicles other than the lead. OTF describes traffic
+@@ -82,8 +87,8 @@ that does not constrain the ego at the moment of decision. When those vehicles a
+ aggregate adds nothing to the instantaneous command.
+ 
+ Signal scarcity is the obvious competing explanation, and we tested it rather than assuming it. In the
+-main experiment the fraction of windows with OTF > 0 was 0.084 to 0.167, so the fourth input was zero
+-for most of every episode. We therefore raised that fraction fourfold in every scenario, by widening the
++main experiment the fraction of control cycles with a non-zero net crossing was 0.084 to 0.168, so
++the fourth input was zero for most of every episode. We therefore raised that fraction fourfold in every scenario, by widening the
+ window to 20 s while holding everything else fixed. Availability rose to 0.334 in two scenarios and to
+ between 0.334 and 0.497 in the third.
+ 
+@@ -119,9 +124,9 @@ rather than inherit one from a simulator default.
+ 
+ ## 5.3 A discrepancy worth reporting
+ 
+-At the flow equivalent of our CARLA setting, the SUMO map predicts an availability near 0.32, while
+-CARLA produced 0.084. Recorded traffic sits higher still: on the public TGSIM corpus, at an estimated
+-1800 to 2400 vehicles per hour, the measured fraction at a 5 s window was 0.53. The gap is explained by
++At the flow equivalent of our CARLA setting, about 1400 vehicles per hour, the SUMO map predicts an
++availability near 0.32 when interpolated between its 1200 and 1800 rows, while CARLA produced 0.084. Recorded traffic sits higher still: on the public TGSIM corpus, at an estimated
++1800 to 2400 vehicles per hour, the measured fraction at a 5 s window was 0.53, averaged over ten runs. The gap is explained by
+ the lane-change model rather than by the OTF definition.
+ SUMO's LC2013 changes lanes to overtake slower traffic. CARLA's Traffic Manager, in a sparse scene
+ without congestion pressure, rarely does: over a 60 s probe the whole fleet completed two lane
+diff --git a/papers/p1/05-figures.md b/papers/p1/05-figures.md
+index 01a5cfa..0516ae6 100644
+--- a/papers/p1/05-figures.md
++++ b/papers/p1/05-figures.md
+@@ -21,7 +21,7 @@ The closed-loop value at
+ W = 5 s is 0.084 from the main experiment and at W = 10 s is 0.167. At W = 20 s the supplementary
+ groups reach 0.334 in two scenarios and between 0.334 and 0.497 in the third, because lead-exit
+ produces crossings of the ego lane without any injection. The star is drawn at 0.334, the value shared
+-by two of the three scenarios. At a 5 s window the fractions are 0.39, 0.53 and 0.084.
++by two of the three scenarios. At a 5 s window the fractions are 0.39, 0.53 and 0.084. Each source uses its own statistic: a mean over runs for SUMO and TGSIM, and the value shared by three scenarios for our loop. The three points are descriptive rather than like-for-like.
+ 
+ **Three limitations of this panel, stated here because they bound its interpretation.**
+ 1. The TGSIM horizontal placement is an **estimate** (unique vehicles divided by run duration). The
+diff --git a/papers/p1/_results-fragment.md b/papers/p1/_results-fragment.md
+index e0bee30..1de3317 100644
+--- a/papers/p1/_results-fragment.md
++++ b/papers/p1/_results-fragment.md
+@@ -7,8 +7,9 @@ sixteen traffic vehicles in the main experiment, 50 Hz simulation, 20 Hz control
+ twelve candidate controllers per arm. The three runtime guards reported no empty episodes, no actor
+ leaks, and no deadlocked episodes.
+ 
+-The treatment variable was active in every run. The fraction of control cycles with OTF > 0 was 0.084
+-in sixteen runs and 0.167 in four. Neither arm collided in any run, so collision counts are zero
++The treatment variable was active in every run. The fraction of control cycles with a non-zero net
++crossing in the trailing window was 0.084 in seventeen runs and 0.168 in three. A control cycle is
++one 20 Hz observation step, so this is a fraction of time rather than of disjoint windows. Neither arm collided in any run, so collision counts are zero
+ throughout and we do not use them as evidence of a difference.
+ 
+ ## 4.2 Primary endpoint
+diff --git a/scripts/to_latex.py b/scripts/to_latex.py
+index c5248e6..c64ba16 100644
+--- a/scripts/to_latex.py
++++ b/scripts/to_latex.py
+@@ -173,7 +173,7 @@ def main() -> int:
+ 
+ \begin{document}
+ 
+-\title{When Is Overtaking Frequency Informative? A Pre-Registered\\ Closed-Loop Ablation and an Availability Map}
++\title{Measure the Signal Before You Ablate It: Availability of a Traffic-Level\\ Scalar and a Pre-Registered Closed-Loop Equivalence Study}
+ 
+ \author{Yuxuan~Xia and Mengyuan~Huang*,% * = corresponding author
+ \thanks{Y.~Xia and M.~Huang are with Shenzhen Polytechnic University, Shenzhen, China

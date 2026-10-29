@@ -1,0 +1,74 @@
+﻿diff --git a/papers/p1/01-abstract-final.md b/papers/p1/01-abstract-final.md
+index b686ba5..b33ee43 100644
+--- a/papers/p1/01-abstract-final.md
++++ b/papers/p1/01-abstract-final.md
+@@ -8,7 +8,7 @@
+ 
+ ## Title
+ 
+-**When Is Overtaking Frequency Informative? A Pre-Registered Closed-Loop Ablation and an Availability Map**
++**Measure the Signal Before You Ablate It: Availability of a Traffic-Level Scalar and a Pre-Registered Closed-Loop Equivalence Study**
+ 
+ *Assumption to check:* if the final framing shifts to "when is a traffic-flow scalar usable", the
+ alternative title is **"When Does Overtaking Frequency Help? A Closed-Loop Equivalence Study of a
+@@ -18,10 +18,10 @@ Traffic-Flow Scalar in Highway Car-Following"**. Choose after the discussion sec
+ 
+ ## Abstract
+ 
+-Multi-lane highways produce a continuous stream of lane changes around any vehicle, and a scalar summary
+-of that pressure is an attractive controller input because it costs no extra sensor. Whether such a
+-scalar is ever non-zero is rarely measured before it is ablated, and in a sparse simulator it may never
+-be. We make that measurement before the ablation. In a three-lane SUMO highway the fraction of five-second windows
++A scalar summary of the traffic around a vehicle is an attractive controller input because it costs
++no extra sensor, and multi-lane highways supply a continuous stream of lane changes to compute it
++from. Whether such a scalar is ever non-zero is rarely measured before it is ablated, and in a sparse
++simulator it may never be. We make that measurement before the ablation. In a three-lane SUMO highway the fraction of five-second windows
+ containing a crossing rises from 0.12 at 600 vehicles per hour to 0.56 at 4800. In recorded traffic from
+ the public TGSIM corpus it is 0.53 at an estimated 1800 to 2400 vehicles per hour, while our own closed
+ loop, with sixteen mixed vehicles, reaches only 0.084 to 0.168. We then run a pre-registered paired ablation of
+diff --git a/papers/p1/02-introduction-discussion.md b/papers/p1/02-introduction-discussion.md
+index abd71e3..5277b8f 100644
+--- a/papers/p1/02-introduction-discussion.md
++++ b/papers/p1/02-introduction-discussion.md
+@@ -34,20 +34,23 @@ That setting therefore sits in the low-information regime. We do not treat that
+ result. Section 5.2 reports a supplementary group that raises availability fourfold and tests whether
+ scarcity is what limits the conclusion.
+ 
+-This paper makes three contributions.
++This paper makes three contributions, ordered from measurement to inference.
+ 
+-1. A closed-loop ablation of OTF under an equal search budget, reported per scenario with an
++1. A measured map of OTF availability as a function of traffic flow and window length, obtained with
++   the same OTF definition used by the controller. The map shows that availability is governed by
++   density and window jointly, and that our closed-loop setting is in its lower region.
++2. A closed-loop ablation of OTF under an equal search budget, reported per scenario with an
+    equivalence test that was registered before the data were collected. Two of four scenarios are
+    statistically equivalent on composite driving cost within a 10% margin (TOST p = 0.020 and 0.006);
+    the other two are inconclusive.
+-2. A measured map of OTF availability as a function of traffic flow and window length, obtained with
+-   the same OTF definition used by the controller. The map shows that availability is governed by
+-   density and window jointly, and that our closed-loop setting is in its lower region.
+ 3. An explicit account of why the experiment cannot support a superiority claim even if a difference exists:
+    with five seeds the exact paired test cannot reach significance after multiplicity correction. We
+    therefore target equivalence, and we report the equal-K sensitivity analysis that reverses the sign
+    of the effect estimate.
+ 
++The recommendation for practice is procedural rather than numerical: measure availability before
++ablating a traffic-level signal, and report the operating point alongside the ablation.
++
+ Section 2 describes the controller, the OTF definition, and the two environments. Section 3 gives the
+ protocol and the pre-registered analysis. Section 4 reports results. Section 5 discusses what the
+ results do and do not imply. Section 6 lists limitations.
+diff --git a/scripts/to_latex.py b/scripts/to_latex.py
+index c5248e6..c64ba16 100644
+--- a/scripts/to_latex.py
++++ b/scripts/to_latex.py
+@@ -173,7 +173,7 @@ def main() -> int:
+ 
+ \begin{document}
+ 
+-\title{When Is Overtaking Frequency Informative? A Pre-Registered\\ Closed-Loop Ablation and an Availability Map}
++\title{Measure the Signal Before You Ablate It: Availability of a Traffic-Level\\ Scalar and a Pre-Registered Closed-Loop Equivalence Study}
+ 
+ \author{Yuxuan~Xia and Mengyuan~Huang*,% * = corresponding author
+ \thanks{Y.~Xia and M.~Huang are with Shenzhen Polytechnic University, Shenzhen, China
