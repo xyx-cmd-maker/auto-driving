@@ -37,10 +37,17 @@ class GapPID:
 
     def __init__(self, kp: float = DEFAULT["kp"], kd: float = DEFAULT["kd"],
                  headway_s: float = DEFAULT["headway_s"], s0_m: float = DEFAULT["s0_m"],
-                 v_max_mps: float = DEFAULT["v_max_mps"]):
+                 v_max_mps: float = DEFAULT["v_max_mps"],
+                 a_max_mps2: float = 3.0, dt_s: float = 0.04):
         self.kp, self.kd = float(kp), float(kd)
         self.headway_s, self.s0_m = float(headway_s), float(s0_m)
         self.v_max_mps = float(v_max_mps)
+        # 限幅：目标速度每步最多变化 a_max*dt，避免阶跃造成 accel² 积分爆到 2828 量级
+        self.a_max_mps2, self.dt_s = float(a_max_mps2), float(dt_s)
+        self._v_prev: float | None = None
+
+    def reset(self) -> None:
+        self._v_prev = None
 
     def n_params(self) -> int:
         """与 CfC 策略对齐的"参数量"口径：4 个标量。"""
@@ -52,7 +59,13 @@ class GapPID:
     def target_speed(self, gap_m: float, rel_speed_mps: float, v_ego_mps: float) -> float:
         d_des = self.desired_gap(v_ego_mps)
         v_ref = v_ego_mps + self.kp * (gap_m - d_des) + self.kd * rel_speed_mps
-        return float(min(self.v_max_mps, max(0.0, v_ref)))
+        v_ref = min(self.v_max_mps, max(0.0, v_ref))
+        if self._v_prev is not None:
+            dv = self.a_max_mps2 * self.dt_s
+            v_ref = min(v_ref, self._v_prev + dv)
+            v_ref = max(v_ref, self._v_prev - dv)
+        self._v_prev = v_ref
+        return float(v_ref)
 
     def act(self, obs) -> float:
         """与 `controller_obs` 对齐：obs = [gap, rel_speed, v_ego] 或 [gap, rel_speed, v_ego, phi]。"""
@@ -69,19 +82,28 @@ def _selftest() -> int:
         (40.0, 5.0, 25.0, "偏高", "前车更快 → 比同样车距但 rel=0 时更高"),
     ]
     base = pid.target_speed(40.0, 0.0, 25.0)
-    got = [pid.target_speed(g, r, v) for g, r, v, _, _ in cases]
-    print("  用例：", [(c[4], round(v, 2)) for c, v in zip(cases, got)])
+    got = []
+    for g, r, v, _, _ in cases:
+        pid.reset()                      # 每例从零状态起，否则限幅会把上例的末值带进来
+        got.append(pid.target_speed(g, r, v))
+    print("  cases:", [(c[4][:12], round(v, 2)) for c, v in zip(cases, got)])
     if not (got[0] > 30.0):
-        print("  ✗ 车距大时目标速度不够高"); ok = False
+        print("  FAIL: large gap should give high target"); ok = False
     if not (got[1] < 25.0):
-        print("  ✗ 车距小时目标速度未降低"); ok = False
+        print("  FAIL: small gap should lower the target"); ok = False
     if not (got[2] > base):
-        print("  ✗ 前车更快时目标速度未提高"); ok = False
+        print("  FAIL: faster lead should raise the target"); ok = False
     if not all(0.0 <= x <= pid.v_max_mps for x in got):
-        print("  ✗ 输出越界"); ok = False
+        print("  FAIL: output out of bounds"); ok = False
     if pid.n_params() != 4:
-        print("  ✗ 参数量口径不一致"); ok = False
-    print("  自检：", "全部通过" if ok else "有失败")
+        print("  FAIL: n_params mismatch"); ok = False
+    # 限幅自检：连续两步的目标速度变化不得超过 a_max*dt
+    pid.reset()
+    v1 = pid.target_speed(200.0, 0.0, 5.0)
+    v2 = pid.target_speed(200.0, 0.0, 5.0)
+    if not (v2 - v1 <= pid.a_max_mps2 * pid.dt_s + 1e-9):
+        print("  FAIL: slew limit not enforced"); ok = False
+    print("  selftest:", "all pass" if ok else "has failures")
     return 0 if ok else 1
 
 
