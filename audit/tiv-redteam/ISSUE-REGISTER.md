@@ -48,7 +48,7 @@
 
 | # | 问题 | 严重度 | 状态 | 证据 / 动作 |
 |---|---|---|---|---|
-| D1 | **全文没有任何外部基线**（无 PID / MPC / 参照控制器），只有 OTF 开/关两臂 | **P0（门槛）** | **NEW / OPEN** | 稿件 grep `PID/MPC/baseline` = 0 命中；`src/` 无基线实现；`configs/p1/baseline_{pid,mpc,td3}.yaml` **三个配置都在但均为 `runnable: false`**，理由是"CARLA 未建"——该阻碍已过期（CARLA 已打通） |
+| D1 | **全文没有任何外部基线**（无 PID / MPC / 参照控制器），只有 OTF 开/关两臂 | **P0（门槛）** | **FIX-READY（Round 21：代码就绪，运行待授权）** | 稿件 grep `PID/MPC/baseline` = 0 命中；`src/` 无基线实现；`configs/p1/baseline_{pid,mpc,td3}.yaml` **三个配置都在但均为 `runnable: false`**，理由是"CARLA 未建"——该阻碍已过期（CARLA 已打通） |
 | D2 | 贡献强度不足以支撑 T-IV Regular | **P0（门槛）** | **DECIDE** | Round 15 九行对照 + 判断矩阵；路线 A/B/C/D |
 | D3 | C3（"重建 Δv"）是间接证据，非直接观测 | P1 | **OPEN** | Round 09 无 Δv 组仍无效；Route C 可补 |
 | D4 | 无外部/真实闭环（TGSIM 仅开环） | P1 | **已披露**（Limitations 6） | — |
