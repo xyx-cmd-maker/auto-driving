@@ -94,11 +94,14 @@ def main() -> int:
     ap.add_argument("--scenarios", default=",".join(SCENARIOS))
     ap.add_argument("--seeds", default=",".join(str(s) for s in SEEDS))
     ap.add_argument("--out", default=OUT)
+    ap.add_argument("--kp", type=float, default=DEFAULT["kp"])
+    ap.add_argument("--kd", type=float, default=DEFAULT["kd"])
+    ap.add_argument("--a-max", type=float, default=3.0, dest="a_max")
     args = ap.parse_args()
 
     scen = [s.strip() for s in args.scenarios.split(",") if s.strip()]
     seeds = [int(s) for s in args.seeds.split(",") if s.strip()]
-    pid = GapPID()
+    pid = GapPID(kp=args.kp, kd=args.kd, a_max_mps2=args.a_max)
     plan = dict(experiment="baseline_pid", controller="GapPID", params=DEFAULT,
                 scenarios=scen, seeds=seeds, episode_s=EPISODE_S, traffic=TRAFFIC,
                 episodes=len(scen) * len(seeds))

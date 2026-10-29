@@ -1,0 +1,56 @@
+{
+  "experiment": "baseline_pid",
+  "controller": "GapPID",
+  "params": {
+    "kp": 0.35,
+    "kd": 0.9,
+    "headway_s": 1.4,
+    "s0_m": 5.0,
+    "v_max_mps": 33.3
+  },
+  "scenarios": [
+    "none"
+  ],
+  "seeds": [
+    0
+  ],
+  "episode_s": 60.0,
+  "traffic": 16,
+  "episodes": 1,
+  "cases": [
+    {
+      "scenario": "none",
+      "seed": 0,
+      "cost": 41.18210814,
+      "metrics": {
+        "n_samples": 1501,
+        "mean_dt_s": 0.04,
+        "following_rmse_m": 13.388873,
+        "accel_sq_integral_mps3": 702.342913,
+        "jerk_peak_mps3": 1571.182758,
+        "lane_center_dev_m": 0.084535,
+        "steer_angle_var": 0.000254,
+        "collision_count": 1,
+        "min_ttc_s": 2.485885,
+        "assumptions": {
+          "tau_s": 1.5,
+          "d0_m": 5.0,
+          "note": "期望间距 d_des = v·τ + d0；该假设写死在文件里，不得事后改"
+        },
+        "n_lead_present": 1501
+      },
+      "guard": {
+        "travelled_m": 393.254,
+        "n_frames": 1501,
+        "valid": true
+      },
+      "wall_s": 35.3
+    }
+  ],
+  "aggregate": {
+    "n_valid": 1,
+    "cost_mean": 41.18210814,
+    "cost_sd": null
+  },
+  "note": "参数未调优；PID 单策略与 CfC 12 候选预算不等；不含 OTF/换道"
+}
