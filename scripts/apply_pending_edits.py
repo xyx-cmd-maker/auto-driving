@@ -66,6 +66,13 @@ EDITS = [
          new=("main experiment the fraction of control cycles with a non-zero net crossing was 0.084 to 0.168, so\n"
               "the fourth input was zero for most of every episode.")),
 
+    # ── E7：§5.3 的 0.32 未写明流量，且与 Fig.2 的 0.39 不同 ─────────
+    dict(id="E7", why="P1-O：0.32 是未声明流量的插值；表中无此行",
+         file="02-introduction-discussion.md",
+         old=("At the flow equivalent of our CARLA setting, the SUMO map predicts an availability near 0.32, while\n"
+              "CARLA produced 0.084."),
+         new=("At the flow equivalent of our CARLA setting, about 1400 vehicles per hour, the SUMO map predicts an\n"
+              "availability near 0.32 when interpolated between its 1200 and 1800 rows, while CARLA produced 0.084.")),
     # ── E5：§5.3 给 TGSIM 的 0.53 加上统计量说明 ─────────────────────
     dict(id="E5", why="P1-M：0.53 是 10 次 run 的均值，正文未说明",
          file="02-introduction-discussion.md",
