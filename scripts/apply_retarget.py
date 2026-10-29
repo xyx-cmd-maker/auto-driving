@@ -36,6 +36,10 @@ EDITS = [
          old="**When Is Overtaking Frequency Informative? A Pre-Registered Closed-Loop Ablation and an Availability Map**",
          new="**Measure the Signal Before You Ablate It: Availability of a Traffic-Level Scalar and a Pre-Registered Closed-Loop Equivalence Study**"),
 
+    dict(id="R1b", file="to_latex.py", base="scripts",
+         why="PDF 标题来自 to_latex.py 的硬编码 \\title{}；只改 markdown 不会改 PDF",
+         old="\\title{When Is Overtaking Frequency Informative? A Pre-Registered\\\\ Closed-Loop Ablation and an Availability Map}",
+         new="\\title{Measure the Signal Before You Ablate It: Availability of a Traffic-Level\\\\ Scalar and a Pre-Registered Closed-Loop Equivalence Study}"),
     dict(id="R2", file="01-abstract-final.md",
          why="T-ITS 摘要入口：把程序性缺口提到最前",
          old=("Multi-lane highways produce a continuous stream of lane changes around any vehicle, and a scalar summary\n"
@@ -85,7 +89,7 @@ def main() -> int:
 
     report, ok_all = [], True
     for e in EDITS:
-        path = os.path.join(P, e["file"])
+        path = (os.path.join(ROOT, "scripts", e["file"]) if e.get("base") == "scripts" else os.path.join(P, e["file"]))
         txt = io.open(path, encoding="utf-8").read()
         n = txt.count(e["old"])
         ok = (n == 1)
