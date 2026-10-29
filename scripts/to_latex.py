@@ -295,7 +295,8 @@ overtaking frequency, traffic-flow scalar, continuous-time neural control, equiv
                            .replace("\\end{table*}", "\\end{center}")
             appblock = ("\\appendix\\section{Per-Seed Results}\n"
                         "\\begin{center}\\footnotesize\n"
-                        "Table IV. Per-seed results for the main and degraded groups.\\\\[2pt]\n"
+                        "Table IV. Per-seed results. The first twenty rows form the main group; the last five\n"
+                        "repeat the lead-brake scenario with relative speed removed from the observation.\\\\[2pt]\n"
                         + tb + "\n\\end{center}\n")
     bioblock = "\\clearpage\n" + bioblock.strip()
 
