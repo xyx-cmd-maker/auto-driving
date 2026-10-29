@@ -36,3 +36,7 @@ literature/fulltext/
 sources/*.fulltext.txt
 papers/p1/_pages/
 _diag*.mjs
+
+# 他人论文正文页截图与全文抽取（版权风险，仅本地）
+literature/**/_pages/
+sources/*fulltext.txt
