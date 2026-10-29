@@ -91,17 +91,22 @@ def main() -> int:
     ap.add_argument("--run", action="store_true", help="真正连接 CARLA 跑仿真")
     ap.add_argument("--host", default="127.0.0.1")
     ap.add_argument("--port", type=int, default=2000)
+    ap.add_argument("--scenarios", default=",".join(SCENARIOS))
+    ap.add_argument("--seeds", default=",".join(str(s) for s in SEEDS))
+    ap.add_argument("--out", default=OUT)
     args = ap.parse_args()
 
+    scen = [s.strip() for s in args.scenarios.split(",") if s.strip()]
+    seeds = [int(s) for s in args.seeds.split(",") if s.strip()]
     pid = GapPID()
     plan = dict(experiment="baseline_pid", controller="GapPID", params=DEFAULT,
-                scenarios=SCENARIOS, seeds=SEEDS, episode_s=EPISODE_S, traffic=TRAFFIC,
-                episodes=len(SCENARIOS) * len(SEEDS))
+                scenarios=scen, seeds=seeds, episode_s=EPISODE_S, traffic=TRAFFIC,
+                episodes=len(scen) * len(seeds))
     print("  PID 基线计划")
     print("    控制器 = GapPID(kp=%.2f, kd=%.2f, h=%.1f s, s0=%.1f m, vmax=%.1f m/s)"
           % (pid.kp, pid.kd, pid.headway_s, pid.s0_m, pid.v_max_mps))
     print("    局数 = %d（%d 场景 × %d 种子）｜每局 %.0f s ｜交通 %d 辆"
-          % (plan["episodes"], len(SCENARIOS), len(SEEDS), EPISODE_S, TRAFFIC))
+          % (plan["episodes"], len(scen), len(seeds), EPISODE_S, TRAFFIC))
     print("    说明：PID 是确定性单策略，无 12 候选搜索 → 与 CfC 臂的**预算不等**，报告须写明。")
 
     if not args.run:
@@ -118,8 +123,8 @@ def main() -> int:
                     max_episode_s=EPISODE_S + 10.0, verbose=False)
     cases = []
     try:
-        for sc in SCENARIOS:
-            for sd in SEEDS:
+        for sc in scen:
+            for sd in seeds:
                 t0 = time.perf_counter()
                 m, guard = roll_pid(env, pid, sc, sd)
                 rec = dict(scenario=sc, seed=sd, cost=cost_from_metrics(m),
@@ -139,12 +144,12 @@ def main() -> int:
                cost_sd=(__import__("statistics").stdev(costs) if len(costs) > 1 else None))
     plan.update(cases=cases, aggregate=agg,
                 note="参数未调优；PID 单策略与 CfC 12 候选预算不等；不含 OTF/换道")
-    with io.open(OUT, "w", encoding="utf-8") as f:
+    with io.open(args.out, "w", encoding="utf-8") as f:
         json.dump(plan, f, ensure_ascii=False, indent=2)
     print("\n  有效局 %d/%d ｜ cost 均值 %.3f ｜ SD %s"
           % (agg["n_valid"], len(cases), agg["cost_mean"] or -1,
              ("%.3f" % agg["cost_sd"]) if agg["cost_sd"] else "n/a"))
-    print("  已写 %s" % OUT)
+    print("  已写 %s" % args.out)
     return 0
 
 
