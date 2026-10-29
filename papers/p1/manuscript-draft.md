@@ -478,8 +478,9 @@ natural lane changes. The resulting events are more regular than real ones.
 
 5. Platform. One map, one vehicle model, and a control rate of 25 Hz rather than the 100 Hz of the
 original protocol. The controller under test is also modest. A tuned PID follows the lead with 17 m
-of root-mean-square error against 85 m here, on all five seeds. The ablation therefore tests the
-fourth input inside a weak carrier, not the best achievable controller.
+of root-mean-square error against 85 m here, on all five seeds. Its composite cost is nevertheless 1.3
+to 2.1 times ours across three scenarios, because a direct speed target trades comfort for tracking.
+The ablation therefore tests the fourth input inside a weak carrier, not the best achievable controller.
 
 6. Real trajectories, open loop only. The availability map comes from SUMO, and the closed loop from
 CARLA. We also measured availability on the public TGSIM corpus, a US public-domain trajectory dataset
