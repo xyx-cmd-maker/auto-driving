@@ -156,3 +156,5 @@ git config --local http.curloptResolve github.com:443:<可达IP>
 - 若系统代理恢复监听（注册表配的是 `127.0.0.1:7897`，实测该端口**未监听**），改用代理更稳：`git -c http.proxy=http://127.0.0.1:7897 push origin main`。
 - **不要**把这项工作当成常态：它只是网络绕行，与研究内容无关；**不要**据此改动任何研究口径。
 
+
+> **进度补充（2026-10-29，T-IV 红队 R22–23）**：CARLA 重启并跑通 PID 基线单局（cost 73.10 / RMSE 8.01 / accel 2828）；发现 (a) jerk_peak 恒 1571.18（150/150，占复合代价 51.1%，配对差中抵消）、(b) CfC 臂跟车 RMSE 均值 83.5 m 而 PID 为 8.0 m（跟踪本身偏弱）。两条均需作者裁决，详见 `audit/tiv-redteam/round-23-baseline-smoke-and-metric-findings.md`。
