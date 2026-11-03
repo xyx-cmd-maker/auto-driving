@@ -6,7 +6,7 @@
 
 以黄梦圆《基于超车频次的自动驾驶车辆行为决策研究》（吉林大学，2023）的 OTF 参数为锚点，做五篇论文（P1 OTF-CfC → P2 SocialDreamer → P3 TalkOTF → P4 IsoLNN → P5 AdjointStack）。台账见 [`papers/portfolio.md`](papers/portfolio.md)（唯一状态来源）。
 
-> ## ★ 外审（external review）从哪里开始
+> ## 外审（external review）从哪里开始
 >
 > 如果你是受邀的外审，请先读 **[`REVIEW-BRIEF.md`](REVIEW-BRIEF.md)**（说明要看什么、已知弱点、想请你攻击的八个问题），
 > 再看稿件 `papers/p1/manuscript.pdf`（8 页）。
@@ -62,9 +62,9 @@ results/<paper>/<experiment>_<scenario>_<seedset>.json
 | [`src/`](src/) | 模块实现——**谁生成数字写在这里** |
 | `scripts/` | 薄壳入口（不含逻辑）＋ 组会文档生成器 |
 | `runs/` | 运行日志与清单（原始产物；`.gitignore` 已排除） |
-| `results/` | ⚠️ **数字唯一来源**；只允许 `scripts/run` 写入（当前为空） |
+| `results/` | **数字唯一来源**；只允许 `scripts/run` 写入（当前为空） |
 | [`docs/`](docs/) | 规范与清单：ODD、指标口径、场景判定规则（给人读，不是数字来源） |
-| `自动驾驶_世界模型科研汇总/` | ⚠️ **用户手工资料库，只读**：蓝图×2、参考文献清单、DriveDreamer、Drive as You Speak、黄梦圆学位论文、按来源分类的顶刊 PDF。**不作结论来源** |
+| `自动驾驶_世界模型科研汇总/` | **用户手工资料库，只读**：蓝图×2、参考文献清单、DriveDreamer、Drive as You Speak、黄梦圆学位论文、按来源分类的顶刊 PDF。**不作结论来源** |
 
 > 完整目录树（含每个目录的职责与命名契约）见 [`audit/第一次组会/02-repo-skeleton.md`](audit/第一次组会/02-repo-skeleton.md) §2。
 
@@ -87,7 +87,7 @@ results/<paper>/<experiment>_<scenario>_<seedset>.json
 | W3 | `configs/` 全量冻结 | 无 |
 | W4+ | CARLA 闭环、A1–A5 真实算例 | **GPU + 数据** |
 
-> ⚠️ W0–W3 的产物**不得**写成任何结论；它们的唯一用途是冻结契约。W0–W3 **不计入实验里程碑**（见 [`audit/第一次组会/02-repo-skeleton.md`](audit/第一次组会/02-repo-skeleton.md) §5）。
+> W0–W3 的产物**不得**写成任何结论；它们的唯一用途是冻结契约。W0–W3 **不计入实验里程碑**（见 [`audit/第一次组会/02-repo-skeleton.md`](audit/第一次组会/02-repo-skeleton.md) §5）。
 
 ## 5.1 文献线（已完成，不依赖算力）
 
